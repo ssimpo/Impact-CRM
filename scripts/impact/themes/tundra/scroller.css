@@ -1,0 +1,17 @@
+.tundra .dojoxrcbcscroller {
+	margin:0;
+	position:relative;
+	overflow:hidden;
+}
+
+.tundra .dojoxrcbcscrollerslide {
+	font-family:Tahoma,Courier, Verdana, Arial, Sans-Serif;
+	font-size:1.0em;font-weight:500;color:#ffffff;
+	position:absolute;top:0px;left:0px;
+	margin-right:5px;float:left;
+}
+
+.tundra .dojoxrcbcscrollerslide a,
+.tundra .dojoxrcbcscrollerslide a:hover,
+.tundra .dojoxrcbcscrollerslide a:visited {color:#fff;font-weight:700;text-decoration:none}
+.tundra .dojoxrcbcscrollerslide a:hover{text-decoration:underline}
