@@ -8,9 +8,8 @@
 *		@License: LGPL
 *		
 */
-class Impact {
+class Impact Extends Impact_Superclass {
 	private static $instance;
-	public $database;
 	public $application = array();
 	public $ACL;
 	public $facebook;
@@ -18,9 +17,12 @@ class Impact {
 	public $me;
 	
 	private function __construct() {
+		
+    }
+	
+	public function setup() {
 		$this->application[FBID] = 0;
 		$this->_load_constants();
-		$this->_make_database_connection();
 		$this->_make_facebook_connection();
 		$this->_languageDetect();
 		$this->_mediaDetect();
@@ -29,32 +31,10 @@ class Impact {
 		$this->pageName = strtolower(addslashes($_GET[page]));
 		if ($this->pageName == '') {$this->pageName = DEFAULT_HOMEPAGE;}
 		$this->pageErrorCheck = $this->_getPageRequestInfo();
-    }
+	}
 	
 	private function _load_constants() {
 		$this->load_config(get_include_directory().'/../config/settings.xml');
-	}
-	
-	private function _make_database_connection() {
-		require_once($this->get_include_directory().'/adodb/adodb.inc.php');
-		$ADODB_CACHE_DIR = ROOT_BACK.'/'.CACHE_DIRECTORY;
-		
-		switch (strtoupper(DB_DRIVER)) {
-			case 'SQLITE':
-				$this->database = ADONewConnection('pdo');
-				$this->database->PConnect(strtolower(DB_DRIVER).':'.DB_NAME);
-				break;
-			case 'MYSQL':
-			default:
-				$this->database = ADONewConnection(DB_DRIVER);
-				$this->database->PConnect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-				break;
-		}
-		
-		
-		$this->database->debug = false; 
-		
-		#$this->database->PConnect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 	}
 	
 	function _make_facebook_connection() {
@@ -80,7 +60,6 @@ class Impact {
 			$c = __CLASS__;
 			self::$instance = new $c;
         }
-
         return self::$instance;
     }
 	
@@ -94,23 +73,10 @@ class Impact {
 		}
 	}
 	
-	public static function factory($className) {
-		$dir = self::get_include_directory();
-		
-        if (include_once $dir.'/class.'.str_replace('_','.',$className).'.php') {
-            return new $className;
-        } else {
-            throw new Exception($className.' Class not found');
-        }
-    }
-	
 	private function _userAccessDetect () {
-		$roles = $this->getRow(
-			DEFAULT_CACHE_TIMEOUT,
-			'SELECT roles,access FROM users WHERE FBID='.$this->application[FBID]
-		);
-		$this->application[roles] = explode(',',$roles[roles]);
-		$this->application[accessLevel] = $roles[access];
+		$database = Database::singleton();
+		$this->roles = $database->getRoles($this->FBID);
+		$this->accessLevel = $database->getAccess($this->FBID);
 		
 		#This needs a better implimentation but will do to get us going
 		$this->ACL = $this->factory('ACL');
@@ -121,54 +87,15 @@ class Impact {
 		$this->application[ACL] = $this->ACL;
 	}
 	
-	private function _create_roles_SQL($field,$roles='') {
-		if ($roles == '') { $roles = $this->roles; }
-		
-		$SQL = '';
-		foreach ($roles as $role) {
-			if ($SQL != '') { $SQL .= ' OR '; }
-			$SQL .= '('.$field.' LIKE "%'.$role.'%")';
-		}
-		return '('.$SQL.')';
-	}
-	
-	public function getRow($timeout,$SQL) {
-		$rs = $this->database->CacheSelectLimit($timeout,$SQL,1);
-		if ($rs) {
-			$rs = $rs->GetAll();
-			return $rs[0];
-		} else {
-			return false;
-		}
-	}
-	
-	public function getPage($entityID='') {
-		$reader_roles = $this->_create_roles_SQL('readers');
-		if ($entityID === '') { $entityID = $this->entityID; }
-		
-		$SQL = '
-			SELECT entities.application as application, content.* FROM content
-			INNER JOIN entities ON entities.ID = content.entityID
-			WHERE (entities.ID='.$entityID.') AND (current="YES") 
-				AND (media LIKE "%'.$this->media.'%") AND content.lang=
-		';
-		
-		$rc = $this->getRow(DEFAULT_CACHE_TIMEOUT,$SQL.'"'.strtolower($this->language).'"');
-		if ($rs === false) {
-			$SQL_p2 = '"'.strtolower(DEFAULT_LANG).'"';
-			$rc = $this->getRow(DEFAULT_CACHE_TIMEOUT,$SQL.'"'.strtolower(DEFAULT_LANG).'"');
-		}
-
-		return $rc;
-	}
-	
 	function _getPageRequestInfo() {
 		$this->entityID = 0;
 		$errorcheck = false;
-		$reader_roles = $this->_create_roles_SQL('readers');
+		$database = Database::singleton();
+		
+		$reader_roles = $database->_create_roles_SQL('readers');
 	
 		if (is_numeric($this->pageName)) {
-			$errorcheck = $this->getRow(
+			$errorcheck = $database->getRow(
 				DEFAULT_CACHE_TIMEOUT,
 				'SELECT Title FROM entities WHERE (ID='.$this->pageName.') AND '.$reader_roles
 			);
@@ -177,7 +104,7 @@ class Impact {
 				$this->pageName = $errorcheck['Title'];
 			} 
 		} else {
-			$errorcheck = $this->getRow(
+			$errorcheck = $database->getRow(
 				DEFAULT_CACHE_TIMEOUT,
 				'SELECT ID FROM entities WHERE (Title="'.$this->pageName.'") AND '.$reader_roles
 			);
@@ -201,8 +128,8 @@ class Impact {
 				$media = 'MOBILE';
 			}
 		}
-	
-		$this->application[media] = $media;
+		
+		$this->media = $this->_add_square_brakets($media);
 	}
 	
 	protected function _languageDetect() {
@@ -216,13 +143,8 @@ class Impact {
 				$lang = str_replace('-','_',$lang);
 			}
 		}
-	
-		$this->application[language] = $lang;
-	}
-	
-	public function get_include_directory() {
-		$debug = debug_backtrace();
-		return dirname($debug[0][file]);
+		
+		$this->language = $this->_add_square_brakets($lang);
 	}
 	
 	public function load_config($path) {
