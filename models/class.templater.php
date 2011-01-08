@@ -1,14 +1,13 @@
 <?php
 /*
-		Class for building HTML from a supplied template.  Template is given either as a filepath 
-		to an XML file or an XML content string. Given access to the $application object, the parser
-		can determine which page featuers to display to each user
-		
-		@author Stephen Simpson <ssimpo@gmail.com>
-		@copyright Styephen Simpson, <ssimpo@gmail.com>
-		@license http://www.gnu.org/licenses/gpl.html GNU GPL
-		@Version: 0.2.0
-		
+*	Class for building HTML from a supplied template.  Template is given either as a filepath 
+*	to an XML file or an XML content string. Given access to the $application object, the parser
+*	can determine which page featuers to display to each user
+*	
+*	@author Stephen Simpson <me@simpo.org>
+*	@version 0.1
+*	@license http://www.gnu.org/licenses/lgpl.html LGPL
+*	@package Templater	
 */
 
 class templater {
@@ -18,12 +17,29 @@ class templater {
 	protected $component;
 	protected $mainApplication;
 	protected $ACL;
-
-	function __construct() {
+	
+	/**
+	 *	Constructor
+	 *
+	 *	No constructor code is required
+	 *
+	 *	@access public
+	 */
+	public function __construct() {
 	}
 	
+	/**
+	 *	Initization method.
+	 *
+	 *	Initize the main parser setting and parse any content
+	 *	supplied (optional).
+	 *
+	 *	@access public
+	 *	@param &mixed() $application The page array, containing data on the requested page (database record).
+	 *	@param &mixed()/string $path If it is a string then parse as XML template or path to template.  If it is an array then it is the application array context for the template (ie. user data and other global information).
+	 *	@param string $path2 Optional path/xml content to parse.
+	 */
 	public function init(&$application,&$path='',$path2='') {
-	#If XML or path to XML is passed, call the parser as well, otherwise just create the object
 		
 		$this->application = array();
 		$this->mainApplication = array();
@@ -42,8 +58,16 @@ class templater {
 		}
 	}
 	
+	/**
+	 *	Parse XML template.
+	 *
+	 *	Parse the contents supplied or load the address supplied and parse that.
+	 *
+	 *	@access public
+	 *	@param string $path Parse the contents or if a path, load the path and parse that.
+	 *	@return string The parsed content.
+	 */
 	public function parse($path) {
-	#Core of the parser
 	
 		$this->_getXML($path);
 		
@@ -86,6 +110,16 @@ class templater {
 		return $this->xml;
 	}
 	
+	/**
+	 *	Get the XML content to parse.
+	 *
+	 *	Grab the XML from a file or if supplied as string then grab from that. Load
+	 *	XML into class XML property.
+	 *
+	 *	@access protected
+	 *
+	 *	@param string $path Filepath or XML string
+	 */
 	protected function _getXML($path) {
 	#Grab the XMl from a file or if supplied as XMLString then grab from that
 		
@@ -390,9 +424,19 @@ class templater {
 	
 		return $test;
 	}
-
+	
+	/**
+	 *	Get attributes from text string.
+	 *
+	 *	Parse a string and return the attribute values contained in it. Parser
+	 *	assumes the attributes are written like: att1="val1" att2="val" ...etc.
+	 *	Results are returned as an array in format (att1=>val1,att2=>val2).
+	 *
+	 *	@access protected
+	 *	@param string $att The XML snippt containing the attributes to be parsed.
+	 *	@return string() Array of attributes stored as key/value pairs.
+	 */
 	protected function _getAttributes ($att) {
-	#Return an array of attributes from supplied text-string
 
 		$attributes = array();
 		$count = preg_match_all('/([a-zA-Z0-9_]+)[= ]+[\"\'](.*?)[\"\']/',$att,$matches);
@@ -401,16 +445,31 @@ class templater {
 		return $attributes;
 	}
 	
+	/**
+	 *	Reformat a date string.
+	 *
+	 *	Internal method to reformat a date string from yyyy-mm-dd hh:mm:ss
+	 *	to yyyymmddThhmmss format.
+	 *
+	 *	@access protected
+	 *	@param string $date Date string to reformat.
+	 *	@return string Reformated string.
+	 */
 	protected function _dateReformat($date) {
 		return str_replace(':','',str_replace('-','',str_replace(' ','T',$date))).'Z';
 	}
 	
+	/**
+	 *	Test for text snippet in anonther string.
+	 *
+	 *	@access protected
+	 *	@param $txt1 The string to search.
+	 *	@param $txt2 The string to search for.
+	 *	@return boolean Was the text found?
+	 */
 	protected function _contains($txt1,$txt2) {
 		$pos = stripos($txt1, $txt2);
 		return ($pos !== false) ? 1:0;
-	}
-	
-	function __destruct() {
 	}
 }
 
