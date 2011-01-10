@@ -4,8 +4,7 @@
  *
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1
- *	@license http://www.gnu.org/licenses/lgpl.html LGPL
- *	
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL	
  */
 
 //Include the core/base classes, needed throughout

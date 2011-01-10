@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="deprecated" kind="page">
+    <compoundname>deprecated</compoundname>
+    <title>Deprecated List</title>
+    <detaileddescription>
+<para><anchor id="deprecated_1_deprecated000001"/> <variablelist>
+<varlistentry><term>Global <ref refid="classImpact__Superclass_1a095c5d389db211932136b53f25f39685" kindref="member">Impact_Superclass::__construct</ref> () </term></varlistentry>
+<listitem><para></para></listitem>
+</variablelist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

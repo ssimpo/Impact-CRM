@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="functions_8php" kind="file">
+    <compoundname>functions.php</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="functions_8php_1ad0abe98dc00be95f647b055b6ad2ab49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>get_include_directory</definition>
+        <argsstring>()</argsstring>
+        <name>get_include_directory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Global functions</para><para>These functions are used throughout the system and are essentially globals. Functions here should be kept to a minimum. Also, these may be moved into an application class like <ref refid="namespaceImpact" kindref="compound">Impact</ref> at some point to avoid use of globals.</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.1  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL Get the the file location of the current class. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/includes/functions.php" line="19" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/includes/functions.php" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="functions_8php_1a5601b98f14b2b75257d3ceead500f723" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>require_all_once</definition>
+        <argsstring>($pattern)</argsstring>
+        <name>require_all_once</name>
+        <param>
+          <type>$</type>
+          <declname>pattern</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Load all the files (via require_once function) using supplied pattern.</para><para>Allows the loading of all files within a particular folder or following a specified pattern. Eg: <computeroutput> &lt;?php require_all_once(&apos;includes/*.php&apos;); ?&gt; </computeroutput> This will include all the php files in the includes folder.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$pattern</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The file search pattern for requiring. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/includes/functions.php" line="36" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/includes/functions.php" bodystart="36" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">&lt;?php</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">function<sp/><ref refid="functions_8php_1ad0abe98dc00be95f647b055b6ad2ab49" kindref="member">get_include_directory</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$debug<sp/>=<sp/>debug_backtrace();</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dirname($debug[0][file]);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">function<sp/><ref refid="functions_8php_1a5601b98f14b2b75257d3ceead500f723" kindref="member">require_all_once</ref><sp/>($pattern)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">foreach</highlight><highlight class="normal"><sp/>(glob($pattern)<sp/>as<sp/>$file)<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>require_once<sp/>$file;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">?&gt;</highlight></codeline>
+    </programlisting>
+    <location file="H:/Projects/ImpactCRM/ImpactCRM/includes/functions.php"/>
+  </compounddef>
+</doxygen>

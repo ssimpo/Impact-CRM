@@ -1,13 +1,12 @@
 <?php
 /**
-*		iCal Interpreter, requires the SAVI parser for iCal/vCalendar/vCard
-*		
-*		@Author: Stephen Simpson
-*		@Version: 0.0.1
-*		@License: LGPL
-*		
-*/
-
+ *	iCal Interpreter, requires the SAVI parser for iCal/vCalendar/vCard
+ *		
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.0.3
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Calendar	
+ */
 class iCal_Interpreter {
 	private $SAVI = '';
 	private $data = '';

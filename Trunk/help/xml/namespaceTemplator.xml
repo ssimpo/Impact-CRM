@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="namespaceTemplator" kind="namespace">
+    <compoundname>Templator</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="classPlugin" kindref="compound">Plugin</ref> loading class</para><para>This is a simple (but powerful) class for loading plugins from a set folder. Plugins are then run by calling their run method passing the required attributes to them. Text or XML is then returned and parsed by the template parser.</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.1  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL </para></simplesect>
+</para>    </detaileddescription>
+    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Plugin.php" line="13"/>
+  </compounddef>
+</doxygen>

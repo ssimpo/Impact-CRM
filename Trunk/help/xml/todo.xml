@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="todo" kind="page">
+    <compoundname>todo</compoundname>
+    <title>Todo List</title>
+    <detaileddescription>
+<para><anchor id="todo_1_todo000002"/> <variablelist>
+<varlistentry><term>Namespace <ref refid="namespaceImpact" kindref="compound">Impact</ref>  </term></varlistentry>
+<listitem><para>Breakdown into seperate classes for different areas</para><para></para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000007"/> <variablelist>
+<varlistentry><term>Global <ref refid="classImpact__Superclass_1a06e0d9a42275d91e76f877af01c9b0de" kindref="member">Impact_Superclass::_languageDetect</ref> () </term></varlistentry>
+<listitem><para>Allow Facebook language detection and user database lookup (for stored setting). </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000003"/> <variablelist>
+<varlistentry><term>Global <ref refid="classImpact__Superclass_1a2c7019c3058ec100b498ed14dd2c4d23" kindref="member">Impact_Superclass::_load_constants</ref> () </term></varlistentry>
+<listitem><para>Make generic so that settings can be loaded from anywhere? </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000001"/> <variablelist>
+<varlistentry><term>Global <ref refid="classImpact__Superclass_1a16870e7c667f514a099afacc1009252b" kindref="member">Impact_Superclass::_make_database_connection</ref> () </term></varlistentry>
+<listitem><para>Test with other backends (other than MySQL/SQLite). </para><para>Make generic version so platform can connect to muliple database sources. </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000004"/> <variablelist>
+<varlistentry><term>Global <ref refid="classImpact__Superclass_1ab2e18c82d6909c852402b07aa48340bc" kindref="member">Impact_Superclass::_make_facebook_connection</ref> () </term></varlistentry>
+<listitem><para>Update to the newest Facebook API. </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000006"/> <variablelist>
+<varlistentry><term>Global <ref refid="classImpact__Superclass_1a36245233fa9d0fbb0a71e2a985e79c72" kindref="member">Impact_Superclass::_mediaDetect</ref> () </term></varlistentry>
+<listitem><para>Add detection for wider range of media. </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000005"/> <variablelist>
+<varlistentry><term>Global <ref refid="classImpact__Superclass_1a6e7a5edea355b304f86d731e4d57dc84" kindref="member">Impact_Superclass::_userAccessDetect</ref> () </term></varlistentry>
+<listitem><para>Needs a bit of work to improve it but works well and dosen&apos;t have any major security flaws. </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000009"/> <variablelist>
+<varlistentry><term>Global <ref refid="classImpact__Superclass_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c" kindref="member">Impact_Superclass::factory</ref> ($className) </term></varlistentry>
+<listitem><para>Method needs to be made more generic so it isn&apos;t overidden in subclasses </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000008"/> <variablelist>
+<varlistentry><term>Global <ref refid="classImpact__Superclass_1aa0142dba3a229260d22d37308f9544f7" kindref="member">Impact_Superclass::load_config</ref> ($path) </term></varlistentry>
+<listitem><para>Make it work with more complex data types. </para></listitem>
+</variablelist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

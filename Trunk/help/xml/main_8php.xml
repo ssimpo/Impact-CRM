@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="main_8php" kind="file">
+    <compoundname>main.php</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>$impact</definition>
+        <argsstring></argsstring>
+        <name>$impact</name>
+        <initializer> Impact::singleton()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Main controller for the <ref refid="namespaceImpact" kindref="compound">Impact</ref> platform.</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.1  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/controllers/main.php" line="16" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/controllers/main.php" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>$database</definition>
+        <argsstring></argsstring>
+        <name>$database</name>
+        <initializer> Database::singleton()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/controllers/main.php" line="18" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/controllers/main.php" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">&lt;?php</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">//Include<sp/>the<sp/>core/base<sp/>classes,<sp/>needed<sp/>throughout</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">require_once(ROOT_BACK.</highlight><highlight class="stringliteral">&apos;/models/superclass.php&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">require_once(ROOT_BACK.</highlight><highlight class="stringliteral">&apos;/models/class.Impact.php&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">require_once(ROOT_BACK.</highlight><highlight class="stringliteral">&apos;/models/class.Database.php&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//Load<sp/>the<sp/>main<sp/>application<sp/>class<sp/>and<sp/>database<sp/>class</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><ref refid="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" kindref="member">$impact</ref><sp/>=<sp/>Impact::singleton();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><ref refid="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" kindref="member">$impact</ref>-&gt;setup();</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref><sp/>=<sp/>Database::singleton();</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" kindref="member">$impact</ref>-&gt;pageErrorCheck)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$tparser<sp/>=<sp/><ref refid="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" kindref="member">$impact</ref>-&gt;factory(</highlight><highlight class="stringliteral">&apos;templater&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$tparser-&gt;init(<ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref>-&gt;getPage(),<ref refid="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" kindref="member">$impact</ref>-&gt;application);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>echo<sp/>$tparser-&gt;parse(ROOT_BACK.</highlight><highlight class="stringliteral">&apos;/views/&apos;</highlight><highlight class="normal">.USE_THEME.</highlight><highlight class="stringliteral">&apos;/main.xml&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">?&gt;</highlight></codeline>
+    </programlisting>
+    <location file="H:/Projects/ImpactCRM/ImpactCRM/controllers/main.php"/>
+  </compounddef>
+</doxygen>

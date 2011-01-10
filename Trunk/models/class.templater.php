@@ -9,7 +9,6 @@
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
 *	@package Templater	
 */
-
 class templater {
 
 	protected $xml = '';
@@ -23,7 +22,7 @@ class templater {
 	 *
 	 *	No constructor code is required
 	 *
-	 *	@access public
+	 *	@public
 	 */
 	public function __construct() {
 	}
@@ -34,7 +33,7 @@ class templater {
 	 *	Initize the main parser setting and parse any content
 	 *	supplied (optional).
 	 *
-	 *	@access public
+	 *	@public
 	 *	@param &mixed() $application The page array, containing data on the requested page (database record).
 	 *	@param &mixed()/string $path If it is a string then parse as XML template or path to template.  If it is an array then it is the application array context for the template (ie. user data and other global information).
 	 *	@param string $path2 Optional path/xml content to parse.
@@ -63,7 +62,7 @@ class templater {
 	 *
 	 *	Parse the contents supplied or load the address supplied and parse that.
 	 *
-	 *	@access public
+	 *	@public
 	 *	@param string $path Parse the contents or if a path, load the path and parse that.
 	 *	@return string The parsed content.
 	 */
@@ -116,7 +115,7 @@ class templater {
 	 *	Grab the XML from a file or if supplied as string then grab from that. Load
 	 *	XML into class XML property.
 	 *
-	 *	@access protected
+	 *	@protected
 	 *
 	 *	@param string $path Filepath or XML string
 	 */
@@ -432,7 +431,7 @@ class templater {
 	 *	assumes the attributes are written like: att1="val1" att2="val" ...etc.
 	 *	Results are returned as an array in format (att1=>val1,att2=>val2).
 	 *
-	 *	@access protected
+	 *	@protected
 	 *	@param string $att The XML snippt containing the attributes to be parsed.
 	 *	@return string() Array of attributes stored as key/value pairs.
 	 */
@@ -451,7 +450,7 @@ class templater {
 	 *	Internal method to reformat a date string from yyyy-mm-dd hh:mm:ss
 	 *	to yyyymmddThhmmss format.
 	 *
-	 *	@access protected
+	 *	@protected
 	 *	@param string $date Date string to reformat.
 	 *	@return string Reformated string.
 	 */
@@ -462,7 +461,7 @@ class templater {
 	/**
 	 *	Test for text snippet in anonther string.
 	 *
-	 *	@access protected
+	 *	@protected
 	 *	@param $txt1 The string to search.
 	 *	@param $txt2 The string to search for.
 	 *	@return boolean Was the text found?

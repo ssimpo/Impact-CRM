@@ -1,13 +1,12 @@
 <?php
 /**
-*		Simple API for vCard/iCal/vCalendar, this is the iCal equivilant of SAX
-*		
-*		@Author: Stephen Simpson
-*		@Version: 0.1.1
-*		@License: LGPL
-*		
-*/
-
+ *	Simple API for vCard/iCal/vCalendar, this is the iCal equivilant of SAX
+ *		
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.0.3
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Calendar	
+ */
 class SAVI_Parser {
 	protected $lineNo = -1;
 	protected $errNo = 0;
