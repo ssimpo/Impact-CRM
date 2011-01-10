@@ -11,9 +11,7 @@
  *	@version 0.0.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Templator
- *	
  */
-
 class Plugin {
 
     /**
@@ -22,7 +20,7 @@ class Plugin {
     *		Simple method, which returns the required plugin from the plugins
     *		folder.  Plugin can then be run to generate content.
     *
-    *		@access public
+    *		@public
     *		@param string $type The plugin name to load.
     *		@return object/boolean The plugin class or false if it couldn't be found.
     */

@@ -1,13 +1,12 @@
 <?php
 /**
-*		Repeat Parser Class
-*		
-*		@Author: Stephen Simpson
-*		@Version: 0.0.1
-*		@License: LGPL
-*		
-*/
-
+ *	iCal Repeat Parser Class
+ *		
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.0.2
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Calendar
+ */
 class repeatParser {
 	private $data = array();
 	

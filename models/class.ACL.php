@@ -1,16 +1,14 @@
 <?php
 /*
-		Class for managing an ACL.  It will validate a given user against supplied roles.
-		It will also allow for special user-groups that are assigned to various Facebook conditions or other
-		concepts, such as people in a specfic locality.
-		
-		@author Stephen Simpson <ssimpo@gmail.com>
-		@copyright Stephen Simpson, <ssimpo@gmail.com>
-		@License: LGPL
-		@Version: 0.5.0
-		
-*/
-
+ *	Class for managing an ACL.  It will validate a given user against supplied roles.
+ *	It will also allow for special user-groups that are assigned to various Facebook conditions or other
+ *	concepts, such as people in a specfic locality.
+ *		
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.0.5
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Impact
+ */
 class ACL {
 	protected $roles = array();
 	public $accesslevel = 0;

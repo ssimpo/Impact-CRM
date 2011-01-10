@@ -1,11 +1,11 @@
 <?php
 /**
-*		Calendar class
+*	Calendar class
 *		
-*		@Author: Stephen Simpson
-*		@Version: 0.0.1
-*		@License: LGPL
-*		
+*	@author Stephen Simpson <me@simpo.org>
+*	@version 0.0.3
+*	@license http://www.gnu.org/licenses/lgpl.html LGPL
+*	@package Calendar	
 */
 include_once 'Calendar/superclass.Calendar.php';
 

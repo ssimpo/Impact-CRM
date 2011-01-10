@@ -1,18 +1,17 @@
 <?php
 /**
-*	Main impact class
-*	
-*	Class containing a vast amount of functions and different concepts.
-*	Will need breaking down into seperate classes for different aspects of the
-*	platform. Eg. Seperate Database and Facebook classes?
-*		
-*	@author Stephen Simpson <me@simpo.org>
-*	@version 0.0.3
-*	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@todo Breakdown into seperate classes for different areas
-*	@package Impact
-*		
-*/
+ *	Main impact class
+ *	
+ *	Class containing a vast amount of functions and different concepts.
+ *	Will need breaking down into seperate classes for different aspects of the
+ *	platform. Eg. Seperate Database and Facebook classes?
+ *		
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.0.3
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@todo Breakdown into seperate classes for different areas
+ *	@package Impact		
+ */
 class Impact Extends Impact_Superclass {
 	private static $instance;
 	public $application = array();
@@ -24,7 +23,7 @@ class Impact Extends Impact_Superclass {
 	/**
 	 *	Main constructor.
 	 *
-	 *	@access private
+	 *	@private
 	 *	@deprecated
 	 */
 	private function __construct() {
@@ -36,7 +35,7 @@ class Impact Extends Impact_Superclass {
 	 *	Provide a reference to the one static instance of this class.  Stops
 	 *	class being declared muliple times.
 	 *
-	 *	@access public
+	 *	@public
 	 *	@static
 	 *
 	 *	@return Impact
@@ -53,7 +52,7 @@ class Impact Extends Impact_Superclass {
 	/**
 	 *	Intitization method.
 	 *
-	 *	@access public
+	 *	@public
 	 */
 	public function setup() {
 		$this->application[FBID] = 0;
@@ -74,7 +73,7 @@ class Impact Extends Impact_Superclass {
 	 *	Loads a series of constants from a settings file (XML).  Values
 	 *	are loaded into the global scope.
 	 *
-	 *	@access private.
+	 *	@private.
 	 *	@todo Make generic so that settings can be loaded from anywhere?
 	 */
 	private function _load_constants() {
@@ -87,7 +86,7 @@ class Impact Extends Impact_Superclass {
 	 *	Connect to Facebook and return the session and Facebook objects
 	 *	to Impact properties (facebook and fbsession).
 	 *
-	 *	@access public
+	 *	@public
 	 *	@todo Update to the newest Facebook API.
 	 */
 	function _make_facebook_connection() {
@@ -113,7 +112,7 @@ class Impact Extends Impact_Superclass {
 	 *
 	 *	This returns an error, since cloning of a singleton is not allowed.
 	 *
-	 *	@access public
+	 *	@public
 	 */
 	public function __clone() {
 		trigger_error('Clone is not allowed.', E_USER_ERROR);
@@ -125,7 +124,7 @@ class Impact Extends Impact_Superclass {
 	 *	Set the value of an application property.  Values are stored in
 	 *	the application array and accessed via the __set and __get methods.
 	 *
-	 *	@access public
+	 *	@public
 	 */
 	public function __set($property,$value) {
 		$this->application[$property] = $value;
@@ -137,7 +136,7 @@ class Impact Extends Impact_Superclass {
 	 *	Get the value of an application property.  Values are stored in
 	 *	the application array and accessed via the __set and __get methods.
 	 *
-	 *	@access public
+	 *	@public
 	 */
 	public function __get($property) {
 		if (array_key_exists($property,$this->application)) {
@@ -152,7 +151,7 @@ class Impact Extends Impact_Superclass {
 	 *
 	 *	These are calculated from data stored in the database.
 	 *
-	 *	@access private
+	 *	@private
 	 *	@todo Needs a bit of work to improve it but works well and dosen't have any major security flaws.
 	 */
 	private function _userAccessDetect () {
@@ -174,7 +173,7 @@ class Impact Extends Impact_Superclass {
 	 *
 	 *	Does the requested page exist? Does the current user have access.
 	 *
-	 *	@access public
+	 *	@public
 	 *	@return boolean Is the request valid.
 	 */
 	function _getPageRequestInfo() {
@@ -212,7 +211,7 @@ class Impact Extends Impact_Superclass {
 	 *	Will detect the media being used (eg. Desktop PC, Mobile, iPad,
 	 *	Facebook, ...etc). Data is returned to the media property.
 	 *	
-	 *	@access protected
+	 *	@protected
 	 *	@todo Add detection for wider range of media.
 	 */
 	protected function _mediaDetect() {
@@ -238,7 +237,7 @@ class Impact Extends Impact_Superclass {
 	 *	the browser request headers and query-string.  Data is returned to
 	 *	the language property.
 	 *
-	 *	@access protected
+	 *	@protected
 	 *	@todo Allow Facebook language detection and user database lookup (for stored setting).
 	 */
 	protected function _languageDetect() {
@@ -262,7 +261,7 @@ class Impact Extends Impact_Superclass {
 	 *	Loads a config file (XML) and returns it's values as an array. String-values
 	 *	are returned as strings and integer-values as intergers.
 	 *
-	 *	@access publiic
+	 *	@publiic
 	 *	@param String $path Location of the settings file.
 	 *	@return string()|interger()
 	 *	@todo Make it work with more complex data types.

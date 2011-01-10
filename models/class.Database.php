@@ -1,18 +1,17 @@
 <?php
 /**
-*	Main database class
-*
-*	A series of methods, which give access to the database.  Query results are
-*	cached for increased speed.  The <a href="http://adodb.sourceforge.net/">ADODB</a>
-*	library is used so that a number of backend databases can be accessed (including
-*	MySQL and SQLite.
-*	
-*	@author Stephen Simpson <me@simpo.org>
-*	@version 0.5
-*	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@package Database
-*		
-*/
+ *	Main database class
+ *
+ *	A series of methods, which give access to the database.  Query results are
+ *	cached for increased speed.  The <a href="http://adodb.sourceforge.net/">ADODB</a>
+ *	library is used so that a number of backend databases can be accessed (including
+ *	MySQL and SQLite.
+ *	
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.5
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Database		
+ */
 class Database Extends Impact_Superclass {
 	private static $instance;
 	private $database;
@@ -22,7 +21,7 @@ class Database Extends Impact_Superclass {
 	 *
 	 *	Method is private, since it is meant to be used as a static-singlton.
 	 *	
-	 *	@access private
+	 *	@private
 	 */
 	private function __construct() {
 		$this->_make_database_connection();
@@ -34,7 +33,7 @@ class Database Extends Impact_Superclass {
 	 *	Provide a reference to the one static instance of this class.  Stops
 	 *	class being declared muliple times.
 	 *
-	 *	@access public
+	 *	@public
 	 *	@static
 	 *
 	 *	@return Database
@@ -54,7 +53,7 @@ class Database Extends Impact_Superclass {
 	 *
 	 *	This returns an error, since cloning of a singleton is not allowed.
 	 *
-	 *	@access public
+	 *	@public
 	 */
 	public function __clone() {
 		trigger_error('Clone is not allowed.', E_USER_ERROR);
@@ -65,7 +64,7 @@ class Database Extends Impact_Superclass {
 	 *
 	 *	Connect to the database defined in the global constants.
 	 *
-	 *	@access private
+	 *	@private
 	 *	@todo Test with other backends (other than MySQL/SQLite).
 	 *	@todo Make generic version so platform can connect to muliple database sources.
 	 */
@@ -91,10 +90,10 @@ class Database Extends Impact_Superclass {
 	/**
 	 *	Get a database row.
 	 *
-	 *	@access public
+	 *	@public
 	 *	@param integer $timeout How long to allow before returning false.
 	 *	@param string $SQL The SQL statement to execute.
-	 *	@return mixed()/boolean Either the result-row or false on failure.
+	 *	@return mixed()|boolean Either the result-row or false on failure.
 	 */
 	public function getRow($timeout,$SQL) {
 		$rs = $this->database->CacheSelectLimit($timeout,$SQL,1);
@@ -111,9 +110,9 @@ class Database Extends Impact_Superclass {
 	 *
 	 *	Specific Impact method for returning page data.
 	 *
-	 *	@access public
+	 *	@public
 	 *	@param integer $entityID The ID of the page to return.
-	 *	@return mixed()/boolean Either the result-row or false on failure.
+	 *	@return mixed()|boolean Either the result-row or false on failure.
 	 */
 	public function getPage($entityID='') {
 		$impact = Impact::singleton();
@@ -142,7 +141,7 @@ class Database Extends Impact_Superclass {
 	 *	Specific Impact method for returning the ACL-roles, which the supplied
 	 *	user is a member.
 	 *
-	 *	@access public
+	 *	@public
 	 *	@param integer $FBID The Facebook ID of the user to query.
 	 *	@return string() Array of all the rules that the user is in
 	 */
@@ -160,10 +159,9 @@ class Database Extends Impact_Superclass {
 	 *	Specific Impact method for returning the ACL access level of the
 	 *	supplied user.
 	 *
-	 *	@access public
+	 *	@public
 	 *	@param interger $FBID The Facebook ID of the user to query.
 	 *	@return interger Access level of the supplied user.
-	 *	
 	 */
 	public function getAccess($FBID=0) {
 		$access = $this->getRow(
@@ -179,7 +177,7 @@ class Database Extends Impact_Superclass {
 	 *	Create a fagment of SQL, which can be used in a wider SQL statement
 	 *	to restrict results to items, which a certain user has access rights to.
 	 *
-	 *	@access public
+	 *	@public
 	 *	@param string $field The field to test against
 	 *	@param string() $roles The roles to test against (default will grab the current users roles).
 	 *	@return string SQL fragment based on field and roles

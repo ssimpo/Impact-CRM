@@ -1,13 +1,12 @@
 <?php
 /**
-*		Calendar.Event class
-*		
-*		@Author: Stephen Simpson
-*		@Version: 0.0.1
-*		@License: LGPL
-*		
-*/
-
+ *	Calendar.Event class
+ *		
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.0.3
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Calendar	
+ */
 class dateParser_ISO8601Date {
 	
 	public function parse($date,$timezone='') {

@@ -1,17 +1,16 @@
 <?php
 /**
-*	Main base class.
-*
-*	Class is used as a base for most of the classes throughout the platform.
-*	It includes all the functions that are necessary to work
-*	using the, "Impact formula".
-*		
-*	@author Stephen Simpson <me@simpo.org>
-*	@version 0.1
-*	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@package Impact
-*		
-*/
+ *	Main base class.
+ *
+ *	Class is used as a base for most of the classes throughout the platform.
+ *	It includes all the functions that are necessary to work
+ *	using the, "Impact formula".
+ *		
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.1
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Impact	
+ */
 class Impact_Superclass {
 	
 	/**
@@ -23,7 +22,7 @@ class Impact_Superclass {
 	 *	on-the-fly.  Classes are only included if they are used,
 	 *	saving load over-heads.  The factory method knows where to find the files.
 	 *
-	 *	@access public
+	 *	@public
 	 *	@static
 	 *	@param String $className The name of the class to load.
 	 *	@todo Method needs to be made more generic so it isn't overidden in subclasses
@@ -41,7 +40,7 @@ class Impact_Superclass {
 	/**
 	*	Get the the file location of the current class.
 	*
-	*	@access public
+	*	@public
 	*/
 	public function get_include_directory() {
 		$debug = debug_backtrace();

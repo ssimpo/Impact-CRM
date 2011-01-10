@@ -1,13 +1,12 @@
 <?php
 /**
-*		Calendar.Journal class
-*		
-*		@Author: Stephen Simpson
-*		@Version: 0.0.1
-*		@License: LGPL
-*		
-*/
-
+ *	Calendar.Journal class
+ *		
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.0.3
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Calendar	
+ */
 class Calendar_Supercass {
 	protected $data = array();
 	

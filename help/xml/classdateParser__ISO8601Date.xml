@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="classdateParser__ISO8601Date" kind="class" prot="public">
+    <compoundname>dateParser_ISO8601Date</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classdateParser__ISO8601Date_1a31ce14d4600edabcf51672a2c43c37c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>parse</definition>
+        <argsstring>($date, $timezone=&apos;&apos;)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>$</type>
+          <declname>date</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>timezone</declname>
+          <defval>&apos;&apos;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/dateParser/class.dateParser.ISO8601Date.php" line="12" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/dateParser/class.dateParser.ISO8601Date.php" bodystart="12" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/dateParser/class.dateParser.ISO8601Date.php" line="10" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/dateParser/class.dateParser.ISO8601Date.php" bodystart="10" bodyend="36"/>
+    <listofallmembers>
+      <member refid="classdateParser__ISO8601Date_1a31ce14d4600edabcf51672a2c43c37c8" prot="public" virt="non-virtual"><scope>dateParser_ISO8601Date</scope><name>parse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
