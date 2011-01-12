@@ -3,12 +3,12 @@
   <compounddef id="main_8php" kind="file">
     <compoundname>main.php</compoundname>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="main_8php_1a537fa9b460dddc2a67074faab810398a" prot="public" static="no" mutable="no">
         <type></type>
-        <definition>$impact</definition>
+        <definition>$application</definition>
         <argsstring></argsstring>
-        <name>$impact</name>
-        <initializer> Impact::singleton()</initializer>
+        <name>$application</name>
+        <initializer> Application::singleton()</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -41,19 +41,19 @@
     <programlisting>
 <codeline lineno="1"><highlight class="normal">&lt;?php</highlight></codeline>
 <codeline lineno="10"><highlight class="comment">//Include<sp/>the<sp/>core/base<sp/>classes,<sp/>needed<sp/>throughout</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal">require_once(ROOT_BACK.</highlight><highlight class="stringliteral">&apos;/models/superclass.php&apos;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="12"><highlight class="normal">require_once(ROOT_BACK.</highlight><highlight class="stringliteral">&apos;/models/class.Impact.php&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">require_once(ROOT_BACK.</highlight><highlight class="stringliteral">&apos;/models/base.Impact.php&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">require_once(ROOT_BACK.</highlight><highlight class="stringliteral">&apos;/models/class.Application.php&apos;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="13"><highlight class="normal">require_once(ROOT_BACK.</highlight><highlight class="stringliteral">&apos;/models/class.Database.php&apos;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//Load<sp/>the<sp/>main<sp/>application<sp/>class<sp/>and<sp/>database<sp/>class</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><ref refid="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" kindref="member">$impact</ref><sp/>=<sp/>Impact::singleton();</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><ref refid="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" kindref="member">$impact</ref>-&gt;setup();</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><ref refid="main_8php_1a537fa9b460dddc2a67074faab810398a" kindref="member">$application</ref><sp/>=<sp/>Application::singleton();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><ref refid="main_8php_1a537fa9b460dddc2a67074faab810398a" kindref="member">$application</ref>-&gt;setup();</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref><sp/>=<sp/>Database::singleton();</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" kindref="member">$impact</ref>-&gt;pageErrorCheck)<sp/>{</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$tparser<sp/>=<sp/><ref refid="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" kindref="member">$impact</ref>-&gt;factory(</highlight><highlight class="stringliteral">&apos;templater&apos;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$tparser-&gt;init(<ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref>-&gt;getPage(),<ref refid="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" kindref="member">$impact</ref>-&gt;application);</highlight></codeline>
+<codeline lineno="25"><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="main_8php_1a537fa9b460dddc2a67074faab810398a" kindref="member">$application</ref>-&gt;pageErrorCheck)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$tparser<sp/>=<sp/><ref refid="main_8php_1a537fa9b460dddc2a67074faab810398a" kindref="member">$application</ref>-&gt;factory(</highlight><highlight class="stringliteral">&apos;templater&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$tparser-&gt;init(<ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref>-&gt;getPage(),<ref refid="main_8php_1a537fa9b460dddc2a67074faab810398a" kindref="member">$application</ref>-&gt;settings);</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>echo<sp/>$tparser-&gt;parse(ROOT_BACK.</highlight><highlight class="stringliteral">&apos;/views/&apos;</highlight><highlight class="normal">.USE_THEME.</highlight><highlight class="stringliteral">&apos;/main.xml&apos;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="30"><highlight class="normal">}</highlight></codeline>

@@ -5,9 +5,10 @@
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.2
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
- *	@package Calendar	
+ *	@package Calendar
+ *	@extends Calendar_Base
  */
-class Calendar_Event Extends Calendar_Supercass {
+class Calendar_Event Extends Calendar_Base {
 
 	function __construct() {
 		parent::__construct();

@@ -6,10 +6,8 @@
     </briefdescription>
     <detaileddescription>
 <para>Main impact class</para><para>Class containing a vast amount of functions and different concepts. Will need breaking down into seperate classes for different aspects of the platform. Eg. Seperate <ref refid="namespaceDatabase" kindref="compound">Database</ref> and Facebook classes?</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
-<simplesect kind="version"><para>0.0.3  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL </para></simplesect>
-<xrefsect id="todo_1_todo000002"><xreftitle>Todo</xreftitle><xrefdescription><para>Breakdown into seperate classes for different areas</para></xrefdescription></xrefsect></para><para>Main base class.</para><para>Class is used as a base for most of the classes throughout the platform. It includes all the functions that are necessary to work using the, &quot;Impact formula&quot;.</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
-<simplesect kind="version"><para>0.1  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL </para></simplesect>
-</para>    </detaileddescription>
-    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Impact.php" line="13"/>
+<simplesect kind="version"><para>0.0.4  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+<xrefsect id="todo_1_todo000002"><xreftitle>Todo</xreftitle><xrefdescription><para>Breakdown into seperate classes for different areas</para></xrefdescription></xrefsect></para>    </detaileddescription>
+    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="14"/>
   </compounddef>
 </doxygen>

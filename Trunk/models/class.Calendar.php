@@ -7,7 +7,7 @@
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
 *	@package Calendar	
 */
-include_once 'Calendar/superclass.Calendar.php';
+include_once 'Calendar/base.Calendar.php';
 
 class Calendar {
 	protected $objects = array();

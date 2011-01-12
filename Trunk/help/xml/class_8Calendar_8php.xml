@@ -10,7 +10,7 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="normal">&lt;?php</highlight></codeline>
-<codeline lineno="10"><highlight class="normal">include_once<sp/></highlight><highlight class="stringliteral">&apos;Calendar/superclass.Calendar.php&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">include_once<sp/></highlight><highlight class="stringliteral">&apos;Calendar/base.Calendar.php&apos;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
 <codeline lineno="12" refid="classCalendar" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCalendar" kindref="compound">Calendar</ref><sp/>{</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal"><sp/><ref refid="classCalendar_1a255f6b6db4c45b1418e9c15cf4e2bcdd" kindref="member">$objects</ref><sp/>=<sp/>array();</highlight></codeline>

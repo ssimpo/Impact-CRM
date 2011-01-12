@@ -2,50 +2,8 @@
 \section{H:/Projects/ImpactCRM/ImpactCRM/includes/functions.php File Reference}
 \label{functions_8php}\index{H:/Projects/ImpactCRM/ImpactCRM/includes/functions.php@{H:/Projects/ImpactCRM/ImpactCRM/includes/functions.php}}
 }
-\subsection*{Functions}
+\subsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{functions_8php_ad0abe98dc00be95f647b055b6ad2ab49}{get\_\-include\_\-directory} ()
-\item 
-\hyperlink{functions_8php_a5601b98f14b2b75257d3ceead500f723}{require\_\-all\_\-once} (\$pattern)
+class \hyperlink{classI}{I}
 \end{DoxyCompactItemize}
-
-
-\subsection{Function Documentation}
-\hypertarget{functions_8php_ad0abe98dc00be95f647b055b6ad2ab49}{
-\index{functions.php@{functions.php}!get\_\-include\_\-directory@{get\_\-include\_\-directory}}
-\index{get\_\-include\_\-directory@{get\_\-include\_\-directory}!functions.php@{functions.php}}
-\subsubsection[{get\_\-include\_\-directory}]{\setlength{\rightskip}{0pt plus 5cm}get\_\-include\_\-directory (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{functions_8php_ad0abe98dc00be95f647b055b6ad2ab49}
-Global functions
-
-These functions are used throughout the system and are essentially globals. Functions here should be kept to a minimum. Also, these may be moved into an application class like \hyperlink{namespaceImpact}{Impact} at some point to avoid use of globals.
-
-\begin{DoxyAuthor}{Author}
-Stephen Simpson $<$\href{mailto:me@simpo.org}{\tt me@simpo.org}$>$ 
-\end{DoxyAuthor}
-\begin{DoxyVersion}{Version}
-0.1  \href{http://www.gnu.org/licenses/lgpl.html}{\tt http://www.gnu.org/licenses/lgpl.html} LGPL Get the the file location of the current class. 
-\end{DoxyVersion}
-\hypertarget{functions_8php_a5601b98f14b2b75257d3ceead500f723}{
-\index{functions.php@{functions.php}!require\_\-all\_\-once@{require\_\-all\_\-once}}
-\index{require\_\-all\_\-once@{require\_\-all\_\-once}!functions.php@{functions.php}}
-\subsubsection[{require\_\-all\_\-once}]{\setlength{\rightskip}{0pt plus 5cm}require\_\-all\_\-once (
-\begin{DoxyParamCaption}
-\item[{\$}]{pattern}
-\end{DoxyParamCaption}
-)}}
-\label{functions_8php_a5601b98f14b2b75257d3ceead500f723}
-Load all the files (via require\_\-once function) using supplied pattern.
-
-Allows the loading of all files within a particular folder or following a specified pattern. Eg: {\ttfamily  $<$?php require\_\-all\_\-once('includes/$\ast$.php'); ?$>$ } This will include all the php files in the includes folder.
-
-
-\begin{DoxyParams}[1]{Parameters}
-string & {\em \$pattern} & The file search pattern for requiring. \\
-\hline
-\end{DoxyParams}

@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
   <compounddef id="class_8Calendar_8Journal_8php" kind="file">
     <compoundname>class.Calendar.Journal.php</compoundname>
-    <innerclass refid="classCalendar__Supercass" prot="public">Calendar_Supercass</innerclass>
+    <innerclass refid="classCalendar__Base" prot="public">Calendar_Base</innerclass>
     <innernamespace refid="namespaceCalendar">Calendar</innernamespace>
     <briefdescription>
     </briefdescription>
@@ -10,7 +10,7 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="normal">&lt;?php</highlight></codeline>
-<codeline lineno="9"><highlight class="keyword">class<sp/></highlight><highlight class="normal">Calendar_Journal<sp/>Extends<sp/><ref refid="classCalendar__Supercass" kindref="compound">Calendar_Supercass</ref><sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="keyword">class<sp/></highlight><highlight class="normal">Calendar_Journal<sp/>Extends<sp/><ref refid="classCalendar__Base" kindref="compound">Calendar_Base</ref><sp/>{</highlight></codeline>
 <codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>function<sp/>__construct()<sp/>{</highlight></codeline>

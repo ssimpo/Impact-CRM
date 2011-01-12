@@ -4,17 +4,17 @@
     <compoundname>H:/Projects/ImpactCRM/ImpactCRM/models/</compoundname>
     <innerdir refid="dir_ac7b30b026423f6867a24a5bf282fb74">H:/Projects/ImpactCRM/ImpactCRM/models/Calendar/</innerdir>
     <innerdir refid="dir_48b9218383b363c99ee5b860739752e5">H:/Projects/ImpactCRM/ImpactCRM/models/dateParser/</innerdir>
+    <innerfile refid="base_8Impact_8php">base.Impact.php</innerfile>
     <innerfile refid="class_8ACL_8php">class.ACL.php</innerfile>
+    <innerfile refid="class_8Application_8php">class.Application.php</innerfile>
     <innerfile refid="class_8Calendar_8php">class.Calendar.php</innerfile>
     <innerfile refid="class_8Database_8php">class.Database.php</innerfile>
     <innerfile refid="class_8dateParser_8php">class.dateParser.php</innerfile>
     <innerfile refid="class_8iCalInterpreter_8php">class.iCalInterpreter.php</innerfile>
-    <innerfile refid="class_8Impact_8php">class.Impact.php</innerfile>
     <innerfile refid="class_8Plugin_8php">class.Plugin.php</innerfile>
     <innerfile refid="class_8repeatParser_8php">class.repeatParser.php</innerfile>
     <innerfile refid="class_8SAVI_8php">class.SAVI.php</innerfile>
     <innerfile refid="class_8templater_8php">class.templater.php</innerfile>
-    <innerfile refid="superclass_8php">superclass.php</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

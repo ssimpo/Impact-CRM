@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="14" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="14" bodyend="-1"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="13" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="13" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classtemplater_1a537fa9b460dddc2a67074faab810398a" prot="protected" static="no" mutable="no">
         <type></type>
@@ -28,7 +28,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="15" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="15" bodyend="-1"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="14" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="14" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classtemplater_1a211527c21ba56109545060b49b628e59" prot="protected" static="no" mutable="no">
         <type></type>
@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="16" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="16" bodyend="-1"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="15" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="15" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classtemplater_1a83952ded4d59c57271c0cb128f7feb26" prot="protected" static="no" mutable="no">
         <type></type>
@@ -54,7 +54,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="17" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="17" bodyend="-1"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="16" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classtemplater_1a0e6e927aed984ad8947f77bf803b70bb" prot="protected" static="no" mutable="no">
         <type></type>
@@ -67,7 +67,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="18" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="18" bodyend="-1"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="17" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="17" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -82,7 +82,7 @@
 <para>Constructor</para><para>No constructor code is required </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="27" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="27" bodyend="28"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="26" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="26" bodyend="27"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1a4b200fdf13aa91e11ac17bb13ff998d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -132,7 +132,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="41" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="41" bodyend="58"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="40" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="40" bodyend="57"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1a16cb512b453ef9d52c8632f9ffb2b70f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -159,7 +159,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="69" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="69" bodyend="110"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="68" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="68" bodyend="109"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -187,7 +187,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="122" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="122" bodyend="135"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="121" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="121" bodyend="134"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1a08bc130dde68ebbef1a0ecbcd4dc80f4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -204,7 +204,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="137" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="137" bodyend="163"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="136" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="136" bodyend="162"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1a105fd4fd2d04263da1688461af3bfb1c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -221,7 +221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="165" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="165" bodyend="175"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="164" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="164" bodyend="174"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1a075e62e0defc4943e453bfc8949207a2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -238,7 +238,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="177" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="177" bodyend="194"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="176" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="176" bodyend="193"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1afe09ec38c203a7906bfe4dc3de39229e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -255,7 +255,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="196" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="196" bodyend="221"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="195" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="195" bodyend="220"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1acb5dac6096e17eb7c7dc1aaab994d8f2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -272,7 +272,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="223" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="223" bodyend="244"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="222" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="222" bodyend="243"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1a345b5176475e6002c36ddb34db9d3492" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -289,7 +289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="246" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="246" bodyend="269"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="245" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="245" bodyend="268"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1af7bc1d3618ff46e6a368a3a8a3eb47d7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -310,7 +310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="271" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="271" bodyend="301"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="270" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="270" bodyend="300"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1a6ea00eab265dfcba5b44ffd1e2836215" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -327,7 +327,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="303" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="303" bodyend="316"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="302" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="302" bodyend="315"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1a421ef5fd3409c14911b123dedb0d569c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -344,7 +344,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="318" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="318" bodyend="340"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="317" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="317" bodyend="339"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1ad92b7e7ac928563e309ff407bc975a4d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -361,7 +361,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="342" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="342" bodyend="381"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="341" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="341" bodyend="380"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1a03cce8ddd3c98e958ef5d0887f491085" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -378,7 +378,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="383" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="383" bodyend="399"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="382" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="382" bodyend="398"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1a632a0e87c541dcf981f2cbb59cbd1f53" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -395,7 +395,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="401" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="401" bodyend="416"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="400" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="400" bodyend="415"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1a9f36397b7e6b1993fa271234467063f2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -412,7 +412,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="418" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="418" bodyend="425"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="417" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="417" bodyend="424"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1ac3c323257f1e5872b817d058a0a62a5e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -439,7 +439,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="438" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="438" bodyend="445"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="437" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="437" bodyend="444"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1aca1ddfa6fa3f8e348cff01d23556efda" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -466,7 +466,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="457" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="457" bodyend="459"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="456" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="456" bodyend="458"/>
       </memberdef>
       <memberdef kind="function" id="classtemplater_1aa84917bddd2eaa401c9c606311452f84" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -503,14 +503,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="469" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="469" bodyend="472"/>
+        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="468" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="468" bodyend="471"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="12" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="12" bodyend="473"/>
+    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" line="12" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.templater.php" bodystart="12" bodyend="472"/>
     <listofallmembers>
       <member refid="classtemplater_1a0e6e927aed984ad8947f77bf803b70bb" prot="protected" virt="non-virtual"><scope>templater</scope><name>$ACL</name></member>
       <member refid="classtemplater_1a537fa9b460dddc2a67074faab810398a" prot="protected" virt="non-virtual"><scope>templater</scope><name>$application</name></member>
