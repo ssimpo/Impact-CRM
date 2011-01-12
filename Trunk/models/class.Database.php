@@ -70,7 +70,7 @@ class Database Extends Impact_Base {
 	 *	@todo Make generic version so platform can connect to muliple database sources.
 	 */
 	private function _make_database_connection() {
-		require_once($this->get_include_directory().'/adodb/adodb.inc.php');
+		require_once(ROOT_BACK.'/includes/adodb/adodb.inc.php');
 		$ADODB_CACHE_DIR = ROOT_BACK.'/'.CACHE_DIRECTORY;
 		
 		switch (strtoupper(DB_DRIVER)) {
