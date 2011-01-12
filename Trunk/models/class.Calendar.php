@@ -9,7 +9,7 @@
 */
 include_once 'Calendar/base.Calendar.php';
 
-class Calendar {
+class Calendar Extends Impact_Base {
 	protected $objects = array();
 	
 	public function __call($name,$arguments) {
@@ -31,14 +31,13 @@ class Calendar {
 	}
 	
 	public static function factory($className) {
-		$debug = debug_backtrace();
-		$dir = dirname($debug[0][file]);
+		$dir = self::_get_include_directory();
 		
-        if (include_once $dir.'/Calendar/class.'.str_replace('_','.',$className).'.php') {
-            return new $className;
-        } else {
-            throw new Exception($className.' Class not found');
-        }
+		if (include_once $dir.'/Calendar/class.'.str_replace('_','.',$className).'.php') {
+			return new $className;
+		} else {
+			throw new Exception($className.' Class not found');
+		}
     }
 	
 	

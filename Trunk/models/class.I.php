@@ -36,5 +36,52 @@ class I {
 		require_once $file;
 		}
 	}
+	
+	/**
+	*	Add square brackets between list items.
+	*
+	*	This method is used to make searching for key-values in an SQL
+	*	database work.  Eg. PC,Mobile,Facebook would become: [PC],
+	*	[Mobile],[Facebook].  You can then search for Like *[PC]* and
+	*	not find 'PC' in the middle of a word.  Method will also get rid
+	*	of double square-bracket notation '[[' used in Impact plugins.
+	*
+	*	@public
+	*	@param string $text The string to parse.
+	*	@return string Parsed text with square brackets.
+	*/
+	public function add_square_brakets($text) {
+		$txt = '['.str_replace(',','],[',$text).']';
+		$txt = str_replace('[[','[',$text);
+		$txt = str_replace(']]',']',$text);
+		$txt = str_replace('[ ','[',$text);
+		return str_replace(' ]',']',$text);
+	}
+	
+	/**
+	 *	Load a config file
+	 *
+	 *	Loads a config file (XML) and returns it's values as an array. String-values
+	 *	are returned as strings and integer-values as intergers.
+	 *
+	 *	@publiic
+	 *	@param String $path Location of the settings file.
+	 *	@return string()|interger()
+	 *	@todo Make it work with more complex data types.
+	 */
+	public function load_config($path) {
+		$config = simplexml_load_file($path);
+	
+		foreach ($config->param as $param) {
+				switch ($param['type']) {
+				case 'string':
+					define($param['name'],$param['value']);
+					break;
+				case 'integer':
+					define($param['name'],(int) $param['value']);
+					break;
+			}
+		}
+	}
 }
 ?>

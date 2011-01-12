@@ -79,7 +79,7 @@ class Application Extends Impact_Base {
 	 *	@todo Make generic so that settings can be loaded from anywhere?
 	 */
 	private function _load_constants() {
-		$this->load_config(I::get_include_directory().'/../config/settings.xml');
+		I::load_config(I::get_include_directory().'/../config/settings.xml');
 	}
 	
 	/**
@@ -231,7 +231,7 @@ class Application Extends Impact_Base {
 			}
 		}
 		
-		$this->media = $this->_add_square_brakets($media);
+		$this->media = I::add_square_brakets($media);
 	}
 	
 	/**
@@ -256,33 +256,7 @@ class Application Extends Impact_Base {
 			}
 		}
 		
-		$this->language = $this->_add_square_brakets($lang);
-	}
-	
-	/**
-	 *	Load a config file
-	 *
-	 *	Loads a config file (XML) and returns it's values as an array. String-values
-	 *	are returned as strings and integer-values as intergers.
-	 *
-	 *	@publiic
-	 *	@param String $path Location of the settings file.
-	 *	@return string()|interger()
-	 *	@todo Make it work with more complex data types.
-	 */
-	public function load_config($path) {
-		$config = simplexml_load_file($path);
-	
-		foreach ($config->param as $param) {
-				switch ($param['type']) {
-				case 'string':
-					define($param['name'],$param['value']);
-					break;
-				case 'integer':
-					define($param['name'],(int) $param['value']);
-					break;
-			}
-		}
+		$this->language = I::add_square_brakets($lang);
 	}
 }
 ?>
