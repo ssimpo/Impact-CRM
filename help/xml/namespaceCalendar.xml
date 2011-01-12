@@ -5,14 +5,14 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>Calendar.Alarm class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<para>Calendar.Journal class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.3  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+Calendar.Alarm class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
 <simplesect kind="version"><para>0.0.1  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
 Calendar.Event class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
 <simplesect kind="version"><para>0.0.2  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
 <simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
 <simplesect kind="version"><para>0.0.1  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
-Calendar.Journal class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
-<simplesect kind="version"><para>0.0.3  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
 <ref refid="classCalendar" kindref="compound">Calendar</ref> class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
 <simplesect kind="version"><para>0.0.3  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
 <ref refid="classCalendar" kindref="compound">Calendar</ref> date parser class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
@@ -26,6 +26,6 @@ Simple API for vCard/iCal/vCalendar, this is the iCal equivilant of SAX</para><p
 Calendar.Event class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
 <simplesect kind="version"><para>0.0.3  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL </para></simplesect>
 </para>    </detaileddescription>
-    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/Calendar/class.Calendar.Alarm.php" line="8"/>
+    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/Calendar/base.Calendar.php" line="8"/>
   </compounddef>
 </doxygen>

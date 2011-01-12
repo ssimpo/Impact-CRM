@@ -10,9 +10,10 @@
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.5
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
- *	@package Database		
+ *	@package Database
+ *	@extends Impact_Base
  */
-class Database Extends Impact_Superclass {
+class Database Extends Impact_Base {
 	private static $instance;
 	private $database;
 	
@@ -115,18 +116,18 @@ class Database Extends Impact_Superclass {
 	 *	@return mixed()|boolean Either the result-row or false on failure.
 	 */
 	public function getPage($entityID='') {
-		$impact = Impact::singleton();
+		$application = Application::singleton();
 		$reader_roles = $this->_create_roles_SQL('readers');
-		if ($entityID === '') { $entityID = $impact->entityID; }
+		if ($entityID === '') { $entityID = $application->entityID; }
 		
 		$SQL = '
 			SELECT entities.application as application, content.* FROM content
 			INNER JOIN entities ON entities.ID = content.entityID
 			WHERE (entities.ID='.$entityID.') AND (current="YES") 
-				AND (media LIKE "%'.$impact->media.'%") AND (content.lang 
+				AND (media LIKE "%'.$application->media.'%") AND (content.lang 
 		';
 		
-		$rc = $this->getRow(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower($impact->language).'%")');
+		$rc = $this->getRow(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower($application->language).'%")');
 		if ($rs === false) {
 			$SQL_p2 = '"'.strtolower(DEFAULT_LANG).'"';
 			$rc = $this->getRow(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower(DEFAULT_LANG).'%")');
@@ -183,8 +184,8 @@ class Database Extends Impact_Superclass {
 	 *	@return string SQL fragment based on field and roles
 	 */
 	public function _create_roles_SQL($field,$roles='') {
-		$impact = Impact::singleton();
-		if ($roles == '') { $roles = $impact->roles; }
+		$application = Application::singleton();
+		if ($roles == '') { $roles = $application->roles; }
 		
 		$SQL = '';
 		foreach ($roles as $role) {

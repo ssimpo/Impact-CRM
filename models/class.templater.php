@@ -10,7 +10,6 @@
 *	@package Templater	
 */
 class templater {
-
 	protected $xml = '';
 	protected $application;
 	protected $component;

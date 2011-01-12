@@ -9,9 +9,8 @@
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
- *	@package Impact	
  */
-class Impact_Superclass {
+class Impact_Base {
 	
 	/**
 	 *	Factory method
@@ -47,11 +46,24 @@ class Impact_Superclass {
 		return dirname($debug[0][file]);
 	}
 	
-	public function _add_square_brakets($txt) {
-		$txt = '['.str_replace(',','],[',$txt).']';
-		$txt = str_replace('[[','[',$txt);
-		$txt = str_replace(']]',']',$txt);
-		$txt = str_replace('[ ','[',$txt);
-		return str_replace(' ]',']',$txt);
+	/**
+	*	Add square brackets between list items.
+	*
+	*	This method is used to make searching for key-values in an SQL
+	*	database work.  Eg. PC,Mobile,Facebook would become: [PC],
+	*	[Mobile],[Facebook].  You can then search for Like *[PC]* and
+	*	not find 'PC' in the middle of a word.  Method will also get rid
+	*	of double square-bracket notation '[[' used in Impact plugins.
+	*
+	*	@public
+	*	@param string $text The string to parse.
+	*	@return string Parsed text with square brackets.
+	*/
+	public function _add_square_brakets($text) {
+		$txt = '['.str_replace(',','],[',$text).']';
+		$txt = str_replace('[[','[',$text);
+		$txt = str_replace(']]',']',$text);
+		$txt = str_replace('[ ','[',$text);
+		return str_replace(' ]',']',$text);
 	}
 }

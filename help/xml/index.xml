@@ -19,16 +19,16 @@
     <member refid="classCalendar_1a1ff6b5b97cfc56fb8fde66a6a86e97b9" kind="function"><name>_rnd_string</name></member>
     <member refid="classCalendar_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c" kind="function"><name>factory</name></member>
   </compound>
-  <compound refid="classCalendar__Supercass" kind="class"><name>Calendar_Supercass</name>
-    <member refid="classCalendar__Supercass_1a6efc15b5a2314dd4b5aaa556a375c6d6" kind="variable"><name>$data</name></member>
-    <member refid="classCalendar__Supercass_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
-    <member refid="classCalendar__Supercass_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
-    <member refid="classCalendar__Supercass_1ad5b32584e46ed2d74d0c67bcb9e628ee" kind="function"><name>set_startDate</name></member>
-    <member refid="classCalendar__Supercass_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
-    <member refid="classCalendar__Supercass_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
-    <member refid="classCalendar__Supercass_1a3815af62ed9d37b2dcaa175379bbfeca" kind="function"><name>__call</name></member>
-    <member refid="classCalendar__Supercass_1a874ebcd7e488d259eebddc1a2bc83980" kind="function"><name>expand_repeats</name></member>
-    <member refid="classCalendar__Supercass_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c" kind="function"><name>factory</name></member>
+  <compound refid="classCalendar__Base" kind="class"><name>Calendar_Base</name>
+    <member refid="classCalendar__Base_1a6efc15b5a2314dd4b5aaa556a375c6d6" kind="variable"><name>$data</name></member>
+    <member refid="classCalendar__Base_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
+    <member refid="classCalendar__Base_1a3815af62ed9d37b2dcaa175379bbfeca" kind="function"><name>__call</name></member>
+    <member refid="classCalendar__Base_1a874ebcd7e488d259eebddc1a2bc83980" kind="function"><name>expand_repeats</name></member>
+    <member refid="classCalendar__Base_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
+    <member refid="classCalendar__Base_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
+    <member refid="classCalendar__Base_1ad5b32584e46ed2d74d0c67bcb9e628ee" kind="function"><name>set_startDate</name></member>
+    <member refid="classCalendar__Base_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
+    <member refid="classCalendar__Base_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c" kind="function"><name>factory</name></member>
   </compound>
   <compound refid="classdateParser" kind="class"><name>dateParser</name>
     <member refid="classdateParser_1a49c7011be9c979d9174c52a8b83e5d8e" kind="variable"><name>$config</name></member>
@@ -42,6 +42,10 @@
   <compound refid="classdateParser__ISO8601Date" kind="class"><name>dateParser_ISO8601Date</name>
     <member refid="classdateParser__ISO8601Date_1a31ce14d4600edabcf51672a2c43c37c8" kind="function"><name>parse</name></member>
   </compound>
+  <compound refid="classI" kind="class"><name>I</name>
+    <member refid="classI_1ad0abe98dc00be95f647b055b6ad2ab49" kind="function"><name>get_include_directory</name></member>
+    <member refid="classI_1a5601b98f14b2b75257d3ceead500f723" kind="function"><name>require_all_once</name></member>
+  </compound>
   <compound refid="classiCal__Interpreter" kind="class"><name>iCal_Interpreter</name>
     <member refid="classiCal__Interpreter_1a6b1385559f5a7063aaf24688452c5d55" kind="variable"><name>$SAVI</name></member>
     <member refid="classiCal__Interpreter_1a6efc15b5a2314dd4b5aaa556a375c6d6" kind="variable"><name>$data</name></member>
@@ -54,39 +58,39 @@
     <member refid="classiCal__Interpreter_1ac0560d6481f66765ea05016e58c36536" kind="function"><name>_textContent</name></member>
     <member refid="classiCal__Interpreter_1a31f9ef9369186dce8b0978f587d37998" kind="function"><name>_add_element_get_ref</name></member>
   </compound>
-  <compound refid="classImpact__Superclass" kind="class"><name>Impact_Superclass</name>
-    <member refid="classImpact__Superclass_1a6438a1b53245abfe71a285472f24934d" kind="variable"><name>$instance</name></member>
-    <member refid="classImpact__Superclass_1a7691c0162d89de0b6ba47edcd8ba8878" kind="variable"><name>$database</name></member>
-    <member refid="classImpact__Superclass_1a537fa9b460dddc2a67074faab810398a" kind="variable"><name>$application</name></member>
-    <member refid="classImpact__Superclass_1a0e6e927aed984ad8947f77bf803b70bb" kind="variable"><name>$ACL</name></member>
-    <member refid="classImpact__Superclass_1a4b9bb5e9f7a5ea9381bdbe31c44e9339" kind="variable"><name>$facebook</name></member>
-    <member refid="classImpact__Superclass_1a92c4441a7b5fe8069992f5a4a29f24fe" kind="variable"><name>$fbsession</name></member>
-    <member refid="classImpact__Superclass_1ad856a60cee1894f180e845f9b7b81458" kind="variable"><name>$me</name></member>
-    <member refid="classImpact__Superclass_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
-    <member refid="classImpact__Superclass_1a16870e7c667f514a099afacc1009252b" kind="function"><name>_make_database_connection</name></member>
-    <member refid="classImpact__Superclass_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
-    <member refid="classImpact__Superclass_1a2c7019c3058ec100b498ed14dd2c4d23" kind="function"><name>_load_constants</name></member>
-    <member refid="classImpact__Superclass_1a6e7a5edea355b304f86d731e4d57dc84" kind="function"><name>_userAccessDetect</name></member>
-    <member refid="classImpact__Superclass_1af527068985bac6010736b5959643eda7" kind="function"><name>singleton</name></member>
-    <member refid="classImpact__Superclass_1af527068985bac6010736b5959643eda7" kind="function"><name>singleton</name></member>
-    <member refid="classImpact__Superclass_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c" kind="function"><name>factory</name></member>
-    <member refid="classImpact__Superclass_1ad0cb87b388bc74d63dc884accdca8713" kind="function"><name>__clone</name></member>
-    <member refid="classImpact__Superclass_1a9945c96006a5b6b0f7a9616bc583699e" kind="function"><name>getRow</name></member>
-    <member refid="classImpact__Superclass_1a1298c8e04eb0b7ee14c83f943057c5f9" kind="function"><name>getPage</name></member>
-    <member refid="classImpact__Superclass_1aca5aa43c8f7299f34139634dd1813556" kind="function"><name>getRoles</name></member>
-    <member refid="classImpact__Superclass_1a797fe24addf6c8900aeb9eb15aff8c72" kind="function"><name>getAccess</name></member>
-    <member refid="classImpact__Superclass_1ac9be16a907db4f8122071242957efd5e" kind="function"><name>_create_roles_SQL</name></member>
-    <member refid="classImpact__Superclass_1a1d04139db3a5ad5713ecbd14d97da879" kind="function"><name>setup</name></member>
-    <member refid="classImpact__Superclass_1ab2e18c82d6909c852402b07aa48340bc" kind="function"><name>_make_facebook_connection</name></member>
-    <member refid="classImpact__Superclass_1ad0cb87b388bc74d63dc884accdca8713" kind="function"><name>__clone</name></member>
-    <member refid="classImpact__Superclass_1a9b7f2b58fa3c9e81f142efb424433163" kind="function"><name>__set</name></member>
-    <member refid="classImpact__Superclass_1a6481e8cfc93c80885b3d72a6e1f15a1f" kind="function"><name>__get</name></member>
-    <member refid="classImpact__Superclass_1a17d34c36f889ed7235dc17000bc34a93" kind="function"><name>_getPageRequestInfo</name></member>
-    <member refid="classImpact__Superclass_1aa0142dba3a229260d22d37308f9544f7" kind="function"><name>load_config</name></member>
-    <member refid="classImpact__Superclass_1ad0abe98dc00be95f647b055b6ad2ab49" kind="function"><name>get_include_directory</name></member>
-    <member refid="classImpact__Superclass_1a0c85fae0cdcc586cb407ba794178d889" kind="function"><name>_add_square_brakets</name></member>
-    <member refid="classImpact__Superclass_1a36245233fa9d0fbb0a71e2a985e79c72" kind="function"><name>_mediaDetect</name></member>
-    <member refid="classImpact__Superclass_1a06e0d9a42275d91e76f877af01c9b0de" kind="function"><name>_languageDetect</name></member>
+  <compound refid="classImpact__Base" kind="class"><name>Impact_Base</name>
+    <member refid="classImpact__Base_1a6438a1b53245abfe71a285472f24934d" kind="variable"><name>$instance</name></member>
+    <member refid="classImpact__Base_1ac7c3353107070daa85f641882931b358" kind="variable"><name>$settings</name></member>
+    <member refid="classImpact__Base_1a0e6e927aed984ad8947f77bf803b70bb" kind="variable"><name>$ACL</name></member>
+    <member refid="classImpact__Base_1a4b9bb5e9f7a5ea9381bdbe31c44e9339" kind="variable"><name>$facebook</name></member>
+    <member refid="classImpact__Base_1a92c4441a7b5fe8069992f5a4a29f24fe" kind="variable"><name>$fbsession</name></member>
+    <member refid="classImpact__Base_1ad856a60cee1894f180e845f9b7b81458" kind="variable"><name>$me</name></member>
+    <member refid="classImpact__Base_1a7691c0162d89de0b6ba47edcd8ba8878" kind="variable"><name>$database</name></member>
+    <member refid="classImpact__Base_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c" kind="function"><name>factory</name></member>
+    <member refid="classImpact__Base_1af527068985bac6010736b5959643eda7" kind="function"><name>singleton</name></member>
+    <member refid="classImpact__Base_1af527068985bac6010736b5959643eda7" kind="function"><name>singleton</name></member>
+    <member refid="classImpact__Base_1ad0abe98dc00be95f647b055b6ad2ab49" kind="function"><name>get_include_directory</name></member>
+    <member refid="classImpact__Base_1a07992a5e5c1652992b241992ea8cd37c" kind="function"><name>_add_square_brakets</name></member>
+    <member refid="classImpact__Base_1a1d04139db3a5ad5713ecbd14d97da879" kind="function"><name>setup</name></member>
+    <member refid="classImpact__Base_1ab2e18c82d6909c852402b07aa48340bc" kind="function"><name>_make_facebook_connection</name></member>
+    <member refid="classImpact__Base_1ad0cb87b388bc74d63dc884accdca8713" kind="function"><name>__clone</name></member>
+    <member refid="classImpact__Base_1a9b7f2b58fa3c9e81f142efb424433163" kind="function"><name>__set</name></member>
+    <member refid="classImpact__Base_1a6481e8cfc93c80885b3d72a6e1f15a1f" kind="function"><name>__get</name></member>
+    <member refid="classImpact__Base_1a17d34c36f889ed7235dc17000bc34a93" kind="function"><name>_getPageRequestInfo</name></member>
+    <member refid="classImpact__Base_1aa0142dba3a229260d22d37308f9544f7" kind="function"><name>load_config</name></member>
+    <member refid="classImpact__Base_1ad0cb87b388bc74d63dc884accdca8713" kind="function"><name>__clone</name></member>
+    <member refid="classImpact__Base_1a9945c96006a5b6b0f7a9616bc583699e" kind="function"><name>getRow</name></member>
+    <member refid="classImpact__Base_1a1298c8e04eb0b7ee14c83f943057c5f9" kind="function"><name>getPage</name></member>
+    <member refid="classImpact__Base_1aca5aa43c8f7299f34139634dd1813556" kind="function"><name>getRoles</name></member>
+    <member refid="classImpact__Base_1a797fe24addf6c8900aeb9eb15aff8c72" kind="function"><name>getAccess</name></member>
+    <member refid="classImpact__Base_1ac9be16a907db4f8122071242957efd5e" kind="function"><name>_create_roles_SQL</name></member>
+    <member refid="classImpact__Base_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
+    <member refid="classImpact__Base_1a2c7019c3058ec100b498ed14dd2c4d23" kind="function"><name>_load_constants</name></member>
+    <member refid="classImpact__Base_1a6e7a5edea355b304f86d731e4d57dc84" kind="function"><name>_userAccessDetect</name></member>
+    <member refid="classImpact__Base_1a095c5d389db211932136b53f25f39685" kind="function"><name>__construct</name></member>
+    <member refid="classImpact__Base_1a16870e7c667f514a099afacc1009252b" kind="function"><name>_make_database_connection</name></member>
+    <member refid="classImpact__Base_1a36245233fa9d0fbb0a71e2a985e79c72" kind="function"><name>_mediaDetect</name></member>
+    <member refid="classImpact__Base_1a06e0d9a42275d91e76f877af01c9b0de" kind="function"><name>_languageDetect</name></member>
   </compound>
   <compound refid="classPlugin" kind="class"><name>Plugin</name>
     <member refid="classPlugin_1a2e1c796d21cead98ace46779e2cf088c" kind="function"><name>factory</name></member>
@@ -165,12 +169,14 @@
   <compound refid="namespaceTemplator" kind="namespace"><name>Templator</name>
   </compound>
   <compound refid="main_8php" kind="file"><name>main.php</name>
-    <member refid="main_8php_1aa2b1d90a164e1b0d5e34333b25e2d94f" kind="variable"><name>$impact</name></member>
+    <member refid="main_8php_1a537fa9b460dddc2a67074faab810398a" kind="variable"><name>$application</name></member>
     <member refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kind="variable"><name>$database</name></member>
   </compound>
   <compound refid="functions_8php" kind="file"><name>functions.php</name>
-    <member refid="functions_8php_1ad0abe98dc00be95f647b055b6ad2ab49" kind="function"><name>get_include_directory</name></member>
-    <member refid="functions_8php_1a5601b98f14b2b75257d3ceead500f723" kind="function"><name>require_all_once</name></member>
+  </compound>
+  <compound refid="base_8Impact_8php" kind="file"><name>base.Impact.php</name>
+  </compound>
+  <compound refid="base_8Calendar_8php" kind="file"><name>base.Calendar.php</name>
   </compound>
   <compound refid="class_8Calendar_8Alarm_8php" kind="file"><name>class.Calendar.Alarm.php</name>
   </compound>
@@ -180,9 +186,9 @@
   </compound>
   <compound refid="class_8Calendar_8Todo_8php" kind="file"><name>class.Calendar.Todo.php</name>
   </compound>
-  <compound refid="superclass_8Calendar_8php" kind="file"><name>superclass.Calendar.php</name>
-  </compound>
   <compound refid="class_8ACL_8php" kind="file"><name>class.ACL.php</name>
+  </compound>
+  <compound refid="class_8Application_8php" kind="file"><name>class.Application.php</name>
   </compound>
   <compound refid="class_8Calendar_8php" kind="file"><name>class.Calendar.php</name>
   </compound>
@@ -191,8 +197,6 @@
   <compound refid="class_8dateParser_8php" kind="file"><name>class.dateParser.php</name>
   </compound>
   <compound refid="class_8iCalInterpreter_8php" kind="file"><name>class.iCalInterpreter.php</name>
-  </compound>
-  <compound refid="class_8Impact_8php" kind="file"><name>class.Impact.php</name>
   </compound>
   <compound refid="class_8Plugin_8php" kind="file"><name>class.Plugin.php</name>
   </compound>
@@ -203,8 +207,6 @@
   <compound refid="class_8templater_8php" kind="file"><name>class.templater.php</name>
   </compound>
   <compound refid="class_8dateParser_8ISO8601Date_8php" kind="file"><name>class.dateParser.ISO8601Date.php</name>
-  </compound>
-  <compound refid="superclass_8php" kind="file"><name>superclass.php</name>
   </compound>
   <compound refid="todo" kind="page"><name>todo</name>
   </compound>

@@ -7,14 +7,16 @@
  *	platform. Eg. Seperate Database and Facebook classes?
  *		
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.3
+ *	@version 0.0.4
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ 
  *	@todo Breakdown into seperate classes for different areas
- *	@package Impact		
+ *	@package Impact
+ *	@extends Impact_Base
  */
-class Impact Extends Impact_Superclass {
+class Application Extends Impact_Base {
 	private static $instance;
-	public $application = array();
+	public $settings = array();
 	public $ACL;
 	public $facebook;
 	public $fbsession;
@@ -55,7 +57,7 @@ class Impact Extends Impact_Superclass {
 	 *	@public
 	 */
 	public function setup() {
-		$this->application[FBID] = 0;
+		$this->settings[FBID] = 0;
 		$this->_load_constants();
 		$this->_make_facebook_connection();
 		$this->_languageDetect();
@@ -77,7 +79,7 @@ class Impact Extends Impact_Superclass {
 	 *	@todo Make generic so that settings can be loaded from anywhere?
 	 */
 	private function _load_constants() {
-		$this->load_config(get_include_directory().'/../config/settings.xml');
+		$this->load_config(I::get_include_directory().'/../config/settings.xml');
 	}
 	
 	/**
@@ -127,7 +129,7 @@ class Impact Extends Impact_Superclass {
 	 *	@public
 	 */
 	public function __set($property,$value) {
-		$this->application[$property] = $value;
+		$this->settings[$property] = $value;
 	}
 	
 	/**
@@ -139,8 +141,8 @@ class Impact Extends Impact_Superclass {
 	 *	@public
 	 */
 	public function __get($property) {
-		if (array_key_exists($property,$this->application)) {
-			return $this->application[$property];
+		if (array_key_exists($property,$this->settings)) {
+			return $this->settings[$property];
 		} else {
 			return false;
 		}
@@ -161,11 +163,11 @@ class Impact Extends Impact_Superclass {
 		
 		//This needs a better implimentation but will do to get us going
 		$this->ACL = $this->factory('ACL');
-		$this->ACL->FBID = $this->application[FBID];
-		$this->ACL->accesslevel = $this->application[accessLevel];
+		$this->ACL->FBID = $this->settings[FBID];
+		$this->ACL->accesslevel = $this->settings[accessLevel];
 		$this->ACL->facebook = $this->facebook;
-		$this->ACL->load_roles($this->application[roles]);
-		$this->application[ACL] = $this->ACL;
+		$this->ACL->load_roles($this->settings[roles]);
+		$this->settings[ACL] = $this->ACL;
 	}
 	
 	/**

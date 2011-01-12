@@ -7,7 +7,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar	
  */
-class Calendar_Supercass {
+class Calendar_Base {
 	protected $data = array();
 	
 	function __construct() {
