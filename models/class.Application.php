@@ -92,6 +92,8 @@ class Application Extends Impact_Base {
 	 *	@todo Update to the newest Facebook API.
 	 */
 	function _make_facebook_connection() {
+		require_once(ROOT_BACK.'/includes/facebook.php');
+		
 		$this->facebook = new Facebook(array(
 			'appId'  => FB_APPKEY,
 			'secret' => FB_SECRET,
