@@ -151,7 +151,7 @@ class Database Extends Impact_Base {
 			DEFAULT_CACHE_TIMEOUT,
 			'SELECT roles,access FROM users WHERE FBID='.$FBID
 		);
-		return explode(',',$this->_add_square_brakets($roles[roles]));
+		return explode(',',I::add_square_brakets($roles[roles]));
 	}
 	
 	/**

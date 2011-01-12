@@ -27,9 +27,9 @@ class Impact_Base {
 	 *	@todo Method needs to be made more generic so it isn't overidden in subclasses
 	*/
 	public static function factory($className) {
-		$dir = self::get_include_directory();
+		$dir = self::_get_include_directory();
 		
-		if (include_once '/class.'.str_replace('_','.',$className).'.php') {
+		if (include_once $dir.'/class.'.str_replace('_','.',$className).'.php') {
 			return new $className;
 		} else {
 			throw new Exception($className.' Class not found');
@@ -39,31 +39,10 @@ class Impact_Base {
 	/**
 	*	Get the the file location of the current class.
 	*
-	*	@public
+	*	@private
 	*/
-	public function get_include_directory() {
+	private function _get_include_directory() {
 		$debug = debug_backtrace();
 		return dirname($debug[0][file]);
-	}
-	
-	/**
-	*	Add square brackets between list items.
-	*
-	*	This method is used to make searching for key-values in an SQL
-	*	database work.  Eg. PC,Mobile,Facebook would become: [PC],
-	*	[Mobile],[Facebook].  You can then search for Like *[PC]* and
-	*	not find 'PC' in the middle of a word.  Method will also get rid
-	*	of double square-bracket notation '[[' used in Impact plugins.
-	*
-	*	@public
-	*	@param string $text The string to parse.
-	*	@return string Parsed text with square brackets.
-	*/
-	public function _add_square_brakets($text) {
-		$txt = '['.str_replace(',','],[',$text).']';
-		$txt = str_replace('[[','[',$text);
-		$txt = str_replace(']]',']',$text);
-		$txt = str_replace('[ ','[',$text);
-		return str_replace(' ]',']',$text);
 	}
 }
