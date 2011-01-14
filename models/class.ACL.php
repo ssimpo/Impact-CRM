@@ -18,15 +18,35 @@ class ACL {
 	function __construct() {
 	}
 	
-	public function load_roles($rtext) {
-		$rarray = explode(',',$this->reformatRole($rtext));
-		foreach ($rarray as $role) {
+	/**
+	 *	Set the users roles according to supplied data.
+	 *
+	 *	Parse the supplied string into an array containing the users
+	 *	roles.  Roles also gathered from supplied Facebook details.
+	 *
+	 *	@public
+	 *	@param string $rolesText Text containing roles (eg. [ADMIN],[WEB] ...etc).
+	 */
+	public function load_roles($rolesText) {
+		$rolesArray = explode(',',I::add_square_brakets($rolesText));
+		foreach ($rolesArray as $role) {
 			$this->roles[trim($role)] = trim($role);
 		}
 		$this->roles['[FBUSER:'.$this->FBID.']'] = '[FBUSER:'.$this->FBID.']';
 	}
 	
-	public function allowed($include) {
+	/**
+	 *	Test if the user is allowed.
+	 *
+	 *	Test the user against the supplied roles that are allolwed/
+	 *	disallowed and return true/false.
+	 *
+	 *	@public
+	 *	@param string $include Roles, which are included.
+	 *	@param string $exclude Roles, which are excluded.
+	 *	@return boolean Are they allowed or not?
+	 */
+	public function allowed($include='',$exclude='') {
 		$numargs = func_num_args();
 		
 		$exclude='';
@@ -34,20 +54,31 @@ class ACL {
 		
 		if (($include == '') && ($exclude == '')) { return true; }
 		
-		if ($this->testRole($exclude)) { return false; } else { return $this->testRole($include); }
+		if ($this->testRole($exclude)) {
+			return false;
+		} else {
+			return $this->testRole($include);
+		}
 	}
 	
-	protected function testRole($rtext) {
-		$rtext = $this->reformatRole($rtext);
+	/**
+	 *	Test if supplied text contains role, which user is in.
+	 *
+	 *	@protected
+	 *	@param string $rolesText The text-string containing roles to test.
+	 *	@return boolean 
+	 */
+	protected function testRole($rolesText) {
+		$rolesText = I::add_square_brakets($rolesText);
 		
 		foreach ($this->roles as $role) {
-			if (contains($rtext,$role)) { return true; }
+			if (contains($rolesText,$role)) { return true; }
 		}
 		
-		if (contains($rtext,':')) {
-			$rarray = explode(',',$rtext);
-			foreach ($rarray as $role) {
-				if (contains($rtext,':')) {
+		if (contains($rolesText,':')) {
+			$rolesArray = explode(',',$rolesText);
+			foreach ($rolesArray as $role) {
+				if (contains($rolesText,':')) {
 					if ($this->testSpecialRole($role)) { return true; }
 				}
 			}
@@ -56,6 +87,18 @@ class ACL {
 		return false;
 	}
 	
+	/**
+	 *	Test against a series of special roles.
+	 *
+	 *	Test against special roles, which generated on-the-fly from other
+	 *	user-data or the application status.  Roles, which relate to Facebook
+	 *	groups, browsers or geographic location.
+	 *
+	 *	@protected
+	 *	@param string $role Special role to test against
+	 *	@return boolean
+	 *	@todo All the special cases listed below as stubs.
+	 */
 	protected function testSpecialRole($role) {
 		preg_match_all('/\[([A-Za-z_]+)\:([0-9]+)\]/',$role,$matches);
 		$type = $matches[1][0];
@@ -92,18 +135,5 @@ class ACL {
 		
 		return false;
 	}
-	
-	protected function reformatRole ($rtext) {
-		$rtext = '['.str_replace(',','],[',$rtext).']';
-		$rtext = str_replace('[[','[',$rtext);
-		$rtext = str_replace(']]',']',$rtext);
-	
-		return $rtext;
-	}
-	
-	function __destruct() {
-	}
-	
-	
 }
 ?>

@@ -1,52 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-	<param name="DEFAULT_MEDIA" type="string" value="PC" label="Default media" 
+	<param name="DEFAULT_MEDIA" type="string" value="PC" label="Default media"
 		description="The default media/platform for the application (eg. PC, Mobile, Facebook ...etc)." />
-	<param name="DEFAULT_LANG" type="string" value="en_gb" label="Default language" 
+	<param name="DEFAULT_LANG" type="string" value="en_gb" label="Default language"
 		description="The default language code for the application (eg. en_gb, en, de, fr ....etc)." />
-		
-	<param name="DEFAULT_HOMEPAGE" type="string" value="home" label="Default homepage" description="" />
-	<param name="DEFAULT_DOCID" type="string" value="37" label="Default hompage (DocID)" description="" />
-		
-	<param name="DEFAULT_404" type="string" value="error404" label="404 Error page" description="" />
-	<param name="DEFAULT_404_DOCID" type="integer" value="60" label="404 Error page (DocId)" description="" />
-	<param name="DEFAULT_401" type="string" value="error401" label="401 Error page" description="" />
-	<param name="DEFAULT_401_DOCID" type="integer" value="76" label="401 Error page (DocId)" description="" />
-	<param name="DEFAULT_403" type="string" value="error403" label="403 Error page" description="" />
-	<param name="DEFAULT_403_DOCID" type="integer" value="77" label="403 Error page (DocId)" description="" />
-	<param name="DEFAULT_402" type="string" value="error402" label="402 Error page" description="" />
-	<param name="DEFAULT_402_DOCID" type="integer" value="78" label="402 Error page (DocId)" description="" />
-	<param name="DEFAULT_405" type="string" value="error405" label="405 Error page" description="" />
-	<param name="DEFAULT_405_DOCID" type="integer" value="79" label="405 Error page (DocId)" description="" />
-	<param name="DEFAULT_500" type="string" value="error500" label="500 Error page" description="" />
-	<param name="DEFAULT_500_DOCID" type="integer" value="80" label="500 Error page (DocId)" description="" />
-	
-	<param name="DB_DRIVER" type="string" value="SQLITE" label="Datebase type" description="The database type, eg: MYSQL, SQLITE, ORACLE, ...etc" />
-	<param name="DB_SERVER" type="string" value="" label="Database server" description="" />
-	<param name="DB_USERNAME" type="string" value="" label="Database username" description="" />
-	<param name="DB_PASSWORD" type="string" value="" label="Database password" description="" />
-	<param name="DB_NAME" type="string" value="database/impact.db#" label="Database name" description="" />
-	
-	<!--param name="DB_DRIVER" type="string" value="MYSQL" label="Datebase type" description="The database type, eg: MYSQL, SQLITE, ORACLE, ...etc" />
-	<param name="DB_SERVER" type="string" value="localhost" label="Database server" description="" />
-	<param name="DB_USERNAME" type="string" value="impact" label="Database username" description="" />
-	<param name="DB_PASSWORD" type="string" value="impact" label="Database password" description="" />
-	<param name="DB_NAME" type="string" value="impactsf" label="Database name" description="" /-->
-	
-	<param name="FB_APPKEY" type="string" value="3e2328696e3826b6a04a67f7fd206065" label="Facebook Application Key" description="" />
-	<param name="FB_SECRET" type="string" value="SECRET" label="Facebook Application Secret" description="" />
-	<param name="FB_APPID" type="string" value="154612184550807" label="Facebook Application ID" description="" />
-	
-	<param name="CACHE_DIRECTORY" type="string" value="cache/" label="Cache directory" description="" />
-	<!--param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="3600" label="Cache timeout (seconds)" description="" /-->
-	<param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="0" label="Cache timeout (seconds)" description="" />
-	
-	
-	<param name="USE_THEME" type="string" value="ImpactProject" label="Theme" description="The theme to apply across the website" />
-	
-	<!--
-	<param name="" type="" value="" label="" description="" />
-	<param name="" type="" value="" label="" description="" />
-	<param name="" type="" value="" label="" description="" />
-	-->
+
+	<param name="DEFAULT_HOMEPAGE" type="string" value="home"
+		label="Default homepage" description="" />
+	<param name="DEFAULT_DOCID" type="string" value="37"
+		label="Default hompage (DocID)" description="" />
+
+	<param name="DEFAULT_404" type="string" value="error404" label="404 Error page"
+		description="" />
+	<param name="DEFAULT_404_DOCID" type="integer" value="60"
+		label="404 Error page (DocId)" description="" />
+	<param name="DEFAULT_401" type="string" value="error401" label="401 Error page"
+		description="" />
+	<param name="DEFAULT_401_DOCID" type="integer" value="76"
+		label="401 Error page (DocId)" description="" />
+	<param name="DEFAULT_403" type="string" value="error403" label="403 Error page"
+		description="" />
+	<param name="DEFAULT_403_DOCID" type="integer" value="77"
+		label="403 Error page (DocId)" description="" />
+	<param name="DEFAULT_402" type="string" value="error402" label="402 Error page"
+		description="" />
+	<param name="DEFAULT_402_DOCID" type="integer" value="78"
+		label="402 Error page (DocId)" description="" />
+	<param name="DEFAULT_405" type="string" value="error405" label="405 Error page"
+		description="" />
+	<param name="DEFAULT_405_DOCID" type="integer" value="79"
+		label="405 Error page (DocId)" description="" />
+	<param name="DEFAULT_500" type="string" value="error500" label="500 Error page"
+		description="" />
+	<param name="DEFAULT_500_DOCID" type="integer" value="80"
+		label="500 Error page (DocId)" description="" />
+
+	<param name="DB_DRIVER" type="string" value="SQLITE" label="Datebase type"
+		description="The database type, eg: MYSQL, SQLITE, ORACLE, ...etc" />
+	<param name="DB_SERVER" type="string" value="" label="Database server"
+		description="" />
+	<param name="DB_USERNAME" type="string" value="" label="Database username"
+		description="" />
+	<param name="DB_PASSWORD" type="string" value="" label="Database password"
+		description="" />
+	<param name="DB_NAME" type="string" value="database/impact.db#"
+		label="Database name" description="" />
+
+	<!--param name="DB_DRIVER" type="string" value="MYSQL" label="Datebase type" 
+		description="The database type, eg: MYSQL, SQLITE, ORACLE, ...etc" /> <param 
+		name="DB_SERVER" type="string" value="localhost" label="Database server" 
+		description="" /> <param name="DB_USERNAME" type="string" value="impact" 
+		label="Database username" description="" /> <param name="DB_PASSWORD" type="string" 
+		value="impact" label="Database password" description="" /> <param name="DB_NAME" 
+		type="string" value="impactsf" label="Database name" description="" / -->
+
+	<param name="FB_APPKEY" type="string" value="3e2328696e3826b6a04a67f7fd206065"
+		label="Facebook Application Key" description="" />
+	<param name="FB_SECRET" type="string" value="SECRET"
+		label="Facebook Application Secret" description="" />
+	<param name="FB_APPID" type="string" value="154612184550807"
+		label="Facebook Application ID" description="" />
+
+	<param name="CACHE_DIRECTORY" type="string" value="cache/"
+		label="Cache directory" description="" />
+	<!--param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="3600" label="Cache 
+		timeout (seconds)" description="" / -->
+	<param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="0"
+		label="Cache timeout (seconds)" description="" />
+
+
+	<param name="USE_THEME" type="string" value="ImpactProject"
+		label="Theme" description="The theme to apply across the website" />
+
+	<!-- <param name="" type="" value="" label="" description="" /> <param name="" 
+		type="" value="" label="" description="" /> <param name="" type="" value="" 
+		label="" description="" /> -->
 </config>

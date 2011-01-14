@@ -4,7 +4,7 @@
  *
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1
- *	@license http://www.gnu.org/licenses/lgpl.html LGPL	
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  */
 
 //Include the core/base classes, needed throughout
@@ -25,7 +25,7 @@ $database = Database::singleton();
 if ($application->pageErrorCheck) {
 	$tparser = $application->factory('templater');
 	$tparser->init($database->getPage(),$application->settings);
-	
+
 	echo $tparser->parse(ROOT_BACK.'/views/'.USE_THEME.'/main.xml');
 }
 

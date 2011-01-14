@@ -1,52 +1,880 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
-  <compounddef id="class_8Calendar_8php" kind="file">
-    <compoundname>class.Calendar.php</compoundname>
-    <innerclass refid="classCalendar" prot="public">Calendar</innerclass>
-    <innernamespace refid="namespaceCalendar">Calendar</innernamespace>
-    <briefdescription>
-    </briefdescription>
-    <detaileddescription>
-    </detaileddescription>
-    <programlisting>
-<codeline lineno="1"><highlight class="normal">&lt;?php</highlight></codeline>
-<codeline lineno="10"><highlight class="normal">include_once<sp/></highlight><highlight class="stringliteral">&apos;Calendar/base.Calendar.php&apos;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12" refid="classCalendar" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCalendar" kindref="compound">Calendar</ref><sp/>{</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal"><sp/><ref refid="classCalendar_1a255f6b6db4c45b1418e9c15cf4e2bcdd" kindref="member">$objects</ref><sp/>=<sp/>array();</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>function<sp/><ref refid="classCalendar_1a3815af62ed9d37b2dcaa175379bbfeca" kindref="member">__call</ref>($name,$arguments)<sp/>{</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$parts<sp/>=<sp/>explode(</highlight><highlight class="charliteral">&apos;_&apos;</highlight><highlight class="normal">,strtolower($name));</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(count($parts)<sp/>==<sp/>2)<sp/>{</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>($parts[0])<sp/>{</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&apos;add&apos;</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$id<sp/>=<sp/>$this-&gt;<ref refid="classCalendar_1a1ff6b5b97cfc56fb8fde66a6a86e97b9" kindref="member">_rnd_string</ref>();</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;objects[$id]<sp/>=<sp/>$this-&gt;<ref refid="classCalendar_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c" kindref="member">factory</ref>(</highlight><highlight class="stringliteral">&apos;Calendar_&apos;</highlight><highlight class="normal">.$parts[1]);</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;objects[$id]-&gt;set_id($id);</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>$this-&gt;objects[$id];</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal"><sp/>function<sp/><ref refid="classCalendar_1a1ff6b5b97cfc56fb8fde66a6a86e97b9" kindref="member">_rnd_string</ref><sp/>()<sp/>{</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>md5(chr(rand(1,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)));</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>function<sp/><ref refid="classCalendar_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c" kindref="member">factory</ref>($className)<sp/>{</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$debug<sp/>=<sp/>debug_backtrace();</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$dir<sp/>=<sp/>dirname($debug[0][file]);</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(include_once<sp/>$dir.</highlight><highlight class="stringliteral">&apos;/Calendar/class.&apos;</highlight><highlight class="normal">.str_replace(</highlight><highlight class="charliteral">&apos;_&apos;</highlight><highlight class="normal">,</highlight><highlight class="charliteral">&apos;.&apos;</highlight><highlight class="normal">,$className).</highlight><highlight class="stringliteral">&apos;.php&apos;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>$className;</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>Exception($className.</highlight><highlight class="stringliteral">&apos;<sp/>Class<sp/>not<sp/>found&apos;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
-    </programlisting>
-    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Calendar.php"/>
-  </compounddef>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+	<compounddef id="class_8Calendar_8php" kind="file">
+		<compoundname>class.Calendar.php</compoundname>
+		<innerclass refid="classCalendar" prot="public">Calendar</innerclass>
+		<innernamespace refid="namespaceCalendar">Calendar</innernamespace>
+		<briefdescription>
+		</briefdescription>
+		<detaileddescription>
+		</detaileddescription>
+		<programlisting>
+			<codeline lineno="1">
+				<highlight class="normal">&lt;?php</highlight>
+			</codeline>
+			<codeline lineno="10">
+				<highlight class="normal">
+					include_once
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;Calendar/base.Calendar.php&apos;
+				</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="11">
+				<highlight class="normal"></highlight>
+			</codeline>
+			<codeline lineno="12" refid="classCalendar" refkind="compound">
+				<highlight class="normal"></highlight>
+				<highlight class="keyword">
+					class
+					<sp />
+				</highlight>
+				<highlight class="normal">
+					<ref refid="classCalendar" kindref="compound">Calendar</ref>
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="13">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">protected</highlight>
+				<highlight class="normal">
+					<sp />
+					<ref refid="classCalendar_1a255f6b6db4c45b1418e9c15cf4e2bcdd"
+						kindref="member">$objects</ref>
+					<sp />
+					=
+					<sp />
+					array();
+				</highlight>
+			</codeline>
+			<codeline lineno="14">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="15">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					<ref refid="classCalendar_1a3815af62ed9d37b2dcaa175379bbfeca"
+						kindref="member">__call</ref>
+					($name,$arguments)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="16">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$parts
+					<sp />
+					=
+					<sp />
+					explode(
+				</highlight>
+				<highlight class="charliteral">&apos;_&apos;</highlight>
+				<highlight class="normal">,strtolower($name));</highlight>
+			</codeline>
+			<codeline lineno="17">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					(count($parts)
+					<sp />
+					==
+					<sp />
+					2)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="18">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">switch</highlight>
+				<highlight class="normal">
+					<sp />
+					($parts[0])
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="19">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">case</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;add&apos;</highlight>
+				<highlight class="normal">:</highlight>
+			</codeline>
+			<codeline lineno="20">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$id
+					<sp />
+					=
+					<sp />$this-&gt;
+					<ref refid="classCalendar_1a1ff6b5b97cfc56fb8fde66a6a86e97b9"
+						kindref="member">_rnd_string</ref>
+					();
+				</highlight>
+			</codeline>
+			<codeline lineno="21">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;objects[$id]
+					<sp />
+					=
+					<sp />$this-&gt;
+					<ref refid="classCalendar_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c"
+						kindref="member">factory</ref>
+					(
+				</highlight>
+				<highlight class="stringliteral">&apos;Calendar_&apos;</highlight>
+				<highlight class="normal">.$parts[1]);</highlight>
+			</codeline>
+			<codeline lineno="22">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;objects[$id]-&gt;set_id($id);
+				</highlight>
+			</codeline>
+			<codeline lineno="23">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />$this-&gt;objects[$id];
+				</highlight>
+			</codeline>
+			<codeline lineno="24">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">break</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="25">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="26">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="27">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="28">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="29">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">protected</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					<ref refid="classCalendar_1a1ff6b5b97cfc56fb8fde66a6a86e97b9"
+						kindref="member">_rnd_string</ref>
+					<sp />
+					()
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="30">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+					md5(chr(rand(1,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)));
+				</highlight>
+			</codeline>
+			<codeline lineno="31">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="32">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="33">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">static</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					<ref refid="classCalendar_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c"
+						kindref="member">factory</ref>
+					($className)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="34">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$debug
+					<sp />
+					=
+					<sp />
+					debug_backtrace();
+				</highlight>
+			</codeline>
+			<codeline lineno="35">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$dir
+					<sp />
+					=
+					<sp />
+					dirname($debug[0][file]);
+				</highlight>
+			</codeline>
+			<codeline lineno="36">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="37">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					(include_once
+					<sp />
+					$dir.
+				</highlight>
+				<highlight class="stringliteral">&apos;/Calendar/class.&apos;</highlight>
+				<highlight class="normal">.str_replace(</highlight>
+				<highlight class="charliteral">&apos;_&apos;</highlight>
+				<highlight class="normal">,</highlight>
+				<highlight class="charliteral">&apos;.&apos;</highlight>
+				<highlight class="normal">,$className).</highlight>
+				<highlight class="stringliteral">&apos;.php&apos;</highlight>
+				<highlight class="normal">
+					)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="38">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">new</highlight>
+				<highlight class="normal">
+					<sp />
+					$className;
+				</highlight>
+			</codeline>
+			<codeline lineno="39">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">else</highlight>
+				<highlight class="normal">
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="40">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">throw</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">new</highlight>
+				<highlight class="normal">
+					<sp />
+					Exception($className.
+				</highlight>
+				<highlight class="stringliteral">
+					&apos;
+					<sp />
+					Class
+					<sp />
+					not
+					<sp />found&apos;
+				</highlight>
+				<highlight class="normal">);</highlight>
+			</codeline>
+			<codeline lineno="41">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="42">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="43">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="44">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="45">
+				<highlight class="normal">}</highlight>
+			</codeline>
+		</programlisting>
+		<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Calendar.php" />
+	</compounddef>
 </doxygen>

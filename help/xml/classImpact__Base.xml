@@ -1,631 +1,1178 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
-  <compounddef id="classImpact__Base" kind="class" prot="public">
-    <compoundname>Impact_Base</compoundname>
-      <sectiondef kind="private-static-attrib">
-      <memberdef kind="variable" id="classImpact__Base_1a6438a1b53245abfe71a285472f24934d" prot="private" static="yes" mutable="no">
-        <type>static</type>
-        <definition>static $instance</definition>
-        <argsstring></argsstring>
-        <name>$instance</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="18" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="18" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="classImpact__Base_1ac7c3353107070daa85f641882931b358" prot="public" static="no" mutable="no">
-        <type></type>
-        <definition>$settings</definition>
-        <argsstring></argsstring>
-        <name>$settings</name>
-        <initializer> array()</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="19" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="19" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classImpact__Base_1a0e6e927aed984ad8947f77bf803b70bb" prot="public" static="no" mutable="no">
-        <type></type>
-        <definition>$ACL</definition>
-        <argsstring></argsstring>
-        <name>$ACL</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="20" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="20" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classImpact__Base_1a4b9bb5e9f7a5ea9381bdbe31c44e9339" prot="public" static="no" mutable="no">
-        <type></type>
-        <definition>$facebook</definition>
-        <argsstring></argsstring>
-        <name>$facebook</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="21" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="21" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classImpact__Base_1a92c4441a7b5fe8069992f5a4a29f24fe" prot="public" static="no" mutable="no">
-        <type></type>
-        <definition>$fbsession</definition>
-        <argsstring></argsstring>
-        <name>$fbsession</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="22" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="22" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classImpact__Base_1ad856a60cee1894f180e845f9b7b81458" prot="public" static="no" mutable="no">
-        <type></type>
-        <definition>$me</definition>
-        <argsstring></argsstring>
-        <name>$me</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="23" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="23" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="classImpact__Base_1a7691c0162d89de0b6ba47edcd8ba8878" prot="private" static="no" mutable="no">
-        <type></type>
-        <definition>$database</definition>
-        <argsstring></argsstring>
-        <name>$database</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" line="18" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" bodystart="18" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="classImpact__Base_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>static</type>
-        <definition>static factory</definition>
-        <argsstring>($className)</argsstring>
-        <name>factory</name>
-        <param>
-          <type>$</type>
-          <declname>className</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Factory method</para><para>The factory method is used to generate new classes according to the standard rules of the <ref refid="namespaceImpact" kindref="compound">Impact</ref> Platform. The class is sometimes overidden in base-classes if the class has it&apos;s own sub-classes that are loaded on-the-fly. Classes are only included if they are used, saving load over-heads. The factory method knows where to find the files.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>String</parametertype>
-<parametername>$className</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The name of the class to load. </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<xrefsect id="todo_1_todo000001"><xreftitle>Todo</xreftitle><xrefdescription><para>Method needs to be made more generic so it isn&apos;t overidden in subclasses </para></xrefdescription></xrefsect></para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php" line="29" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php" bodystart="29" bodyend="37"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1af527068985bac6010736b5959643eda7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>static</type>
-        <definition>static singleton</definition>
-        <argsstring>()</argsstring>
-        <name>singleton</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Singleton method.</para><para>Provide a reference to the one static instance of this class. Stops class being declared muliple times.</para><para><simplesect kind="return"><para><ref refid="namespaceImpact" kindref="compound">Impact</ref> </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="46" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="46" bodyend="52"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1af527068985bac6010736b5959643eda7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>static</type>
-        <definition>static singleton</definition>
-        <argsstring>()</argsstring>
-        <name>singleton</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Singleton method.</para><para>Provide a reference to the one static instance of this class. Stops class being declared muliple times.</para><para><simplesect kind="return"><para><ref refid="namespaceDatabase" kindref="compound">Database</ref> </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" line="43" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" bodystart="43" bodyend="50"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="public-func">
-      <memberdef kind="function" id="classImpact__Base_1ad0abe98dc00be95f647b055b6ad2ab49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>get_include_directory</definition>
-        <argsstring>()</argsstring>
-        <name>get_include_directory</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Get the the file location of the current class. </para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php" line="44" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php" bodystart="44" bodyend="47"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a07992a5e5c1652992b241992ea8cd37c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_add_square_brakets</definition>
-        <argsstring>($text)</argsstring>
-        <name>_add_square_brakets</name>
-        <param>
-          <type>$</type>
-          <declname>text</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Add square brackets between list items.</para><para>This method is used to make searching for key-values in an SQL database work. Eg. PC,Mobile,Facebook would become: [PC], [Mobile],[Facebook]. You can then search for Like *[PC]* and not find &apos;PC&apos; in the middle of a word. Method will also get rid of double square-bracket notation &apos;[[&apos; used in <ref refid="namespaceImpact" kindref="compound">Impact</ref> plugins.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>string</parametertype>
-<parametername>$text</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The string to parse. </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>string Parsed text with square brackets. </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php" line="62" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php" bodystart="62" bodyend="68"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a1d04139db3a5ad5713ecbd14d97da879" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>setup</definition>
-        <argsstring>()</argsstring>
-        <name>setup</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Intitization method. </para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="59" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="59" bodyend="70"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1ab2e18c82d6909c852402b07aa48340bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_make_facebook_connection</definition>
-        <argsstring>()</argsstring>
-        <name>_make_facebook_connection</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Make a Facebook connection.</para><para>Connect to Facebook and return the session and Facebook objects to <ref refid="namespaceImpact" kindref="compound">Impact</ref> properties (facebook and fbsession).</para><para><xrefsect id="todo_1_todo000004"><xreftitle>Todo</xreftitle><xrefdescription><para>Update to the newest Facebook API. </para></xrefdescription></xrefsect></para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="94" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="94" bodyend="110"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1ad0cb87b388bc74d63dc884accdca8713" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>__clone</definition>
-        <argsstring>()</argsstring>
-        <name>__clone</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Cloning method.</para><para>This returns an error, since cloning of a singleton is not allowed. </para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="119" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="119" bodyend="121"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a9b7f2b58fa3c9e81f142efb424433163" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>__set</definition>
-        <argsstring>($property, $value)</argsstring>
-        <name>__set</name>
-        <param>
-          <type>$</type>
-          <declname>property</declname>
-        </param>
-        <param>
-          <type>$</type>
-          <declname>value</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Generic set property method.</para><para>Set the value of an application property. Values are stored in the application array and accessed via the __set and __get methods. </para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="131" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="131" bodyend="133"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a6481e8cfc93c80885b3d72a6e1f15a1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>__get</definition>
-        <argsstring>($property)</argsstring>
-        <name>__get</name>
-        <param>
-          <type>$</type>
-          <declname>property</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Generic get property method.</para><para>Get the value of an application property. Values are stored in the application array and accessed via the __set and __get methods. </para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="143" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="143" bodyend="149"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a17d34c36f889ed7235dc17000bc34a93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_getPageRequestInfo</definition>
-        <argsstring>()</argsstring>
-        <name>_getPageRequestInfo</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Check if current page request is valid.</para><para>Does the requested page exist? Does the current user have access.</para><para><simplesect kind="return"><para>boolean Is the request valid. </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="181" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="181" bodyend="208"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1aa0142dba3a229260d22d37308f9544f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>load_config</definition>
-        <argsstring>($path)</argsstring>
-        <name>load_config</name>
-        <param>
-          <type>$</type>
-          <declname>path</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Load a config file</para><para>Loads a config file (XML) and returns it&apos;s values as an array. String-values are returned as strings and integer-values as intergers.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>String</parametertype>
-<parametername>$path</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Location of the settings file. </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>string()|interger() </para></simplesect>
-<xrefsect id="todo_1_todo000008"><xreftitle>Todo</xreftitle><xrefdescription><para>Make it work with more complex data types. </para></xrefdescription></xrefsect></para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="271" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="271" bodyend="284"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1ad0cb87b388bc74d63dc884accdca8713" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>__clone</definition>
-        <argsstring>()</argsstring>
-        <name>__clone</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Cloning method.</para><para>This returns an error, since cloning of a singleton is not allowed. </para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" line="59" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" bodystart="59" bodyend="61"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a9945c96006a5b6b0f7a9616bc583699e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>getRow</definition>
-        <argsstring>($timeout, $SQL)</argsstring>
-        <name>getRow</name>
-        <param>
-          <type>$</type>
-          <declname>timeout</declname>
-        </param>
-        <param>
-          <type>$</type>
-          <declname>SQL</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Get a database row.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>integer</parametertype>
-<parametername>$timeout</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>How long to allow before returning false. </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametertype>string</parametertype>
-<parametername>$SQL</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The SQL statement to execute. </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>mixed()|boolean Either the result-row or false on failure. </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" line="99" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" bodystart="99" bodyend="107"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a1298c8e04eb0b7ee14c83f943057c5f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>getPage</definition>
-        <argsstring>($entityID=&apos;&apos;)</argsstring>
-        <name>getPage</name>
-        <param>
-          <type>$</type>
-          <declname>entityID</declname>
-          <defval>&apos;&apos;</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Get the specified page.</para><para>Specific <ref refid="namespaceImpact" kindref="compound">Impact</ref> method for returning page data.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>integer</parametertype>
-<parametername>$entityID</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The ID of the page to return. </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>mixed()|boolean Either the result-row or false on failure. </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" line="118" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" bodystart="118" bodyend="137"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1aca5aa43c8f7299f34139634dd1813556" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>getRoles</definition>
-        <argsstring>($FBID=0)</argsstring>
-        <name>getRoles</name>
-        <param>
-          <type>$</type>
-          <declname>FBID</declname>
-          <defval>0</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Get the users access roles.</para><para>Specific <ref refid="namespaceImpact" kindref="compound">Impact</ref> method for returning the ACL-roles, which the supplied user is a member.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>integer</parametertype>
-<parametername>$FBID</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The Facebook ID of the user to query. </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>string() Array of all the rules that the user is in </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" line="149" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" bodystart="149" bodyend="155"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a797fe24addf6c8900aeb9eb15aff8c72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>getAccess</definition>
-        <argsstring>($FBID=0)</argsstring>
-        <name>getAccess</name>
-        <param>
-          <type>$</type>
-          <declname>FBID</declname>
-          <defval>0</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Get the users access level.</para><para>Specific <ref refid="namespaceImpact" kindref="compound">Impact</ref> method for returning the <ref refid="classACL" kindref="compound">ACL</ref> access level of the supplied user.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>interger</parametertype>
-<parametername>$FBID</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The Facebook ID of the user to query. </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>interger Access level of the supplied user. </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" line="167" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" bodystart="167" bodyend="173"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1ac9be16a907db4f8122071242957efd5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_create_roles_SQL</definition>
-        <argsstring>($field, $roles=&apos;&apos;)</argsstring>
-        <name>_create_roles_SQL</name>
-        <param>
-          <type>$</type>
-          <declname>field</declname>
-        </param>
-        <param>
-          <type>$</type>
-          <declname>roles</declname>
-          <defval>&apos;&apos;</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Generate SQL fragment for testing against certain roles.</para><para>Create a fagment of SQL, which can be used in a wider SQL statement to restrict results to items, which a certain user has access rights to.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>string</parametertype>
-<parametername>$field</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The field to test against </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>string()</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>$roles The roles to test against (default will grab the current users roles). </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>string SQL fragment based on field and roles </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" line="186" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" bodystart="186" bodyend="196"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="private-func">
-      <memberdef kind="function" id="classImpact__Base_1a095c5d389db211932136b53f25f39685" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>__construct</definition>
-        <argsstring>()</argsstring>
-        <name>__construct</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Main constructor.</para><para><xrefsect id="deprecated_1_deprecated000001"><xreftitle>Deprecated</xreftitle><xrefdescription></xrefdescription></xrefsect></para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="31" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="31" bodyend="32"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a2c7019c3058ec100b498ed14dd2c4d23" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_load_constants</definition>
-        <argsstring>()</argsstring>
-        <name>_load_constants</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Load constants from an XML file.</para><para>Loads a series of constants from a settings file (XML). Values are loaded into the global scope.</para><para><xrefsect id="todo_1_todo000003"><xreftitle>Todo</xreftitle><xrefdescription><para>Make generic so that settings can be loaded from anywhere? </para></xrefdescription></xrefsect></para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="81" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="81" bodyend="83"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a6e7a5edea355b304f86d731e4d57dc84" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_userAccessDetect</definition>
-        <argsstring>()</argsstring>
-        <name>_userAccessDetect</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Set the current users access levels.</para><para>These are calculated from data stored in the database.</para><para><xrefsect id="todo_1_todo000005"><xreftitle>Todo</xreftitle><xrefdescription><para>Needs a bit of work to improve it but works well and dosen&apos;t have any major security flaws. </para></xrefdescription></xrefsect></para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="159" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="159" bodyend="171"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a095c5d389db211932136b53f25f39685" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>__construct</definition>
-        <argsstring>()</argsstring>
-        <name>__construct</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Constructor method.</para><para>Method is private, since it is meant to be used as a static-singlton. </para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" line="27" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" bodystart="27" bodyend="29"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a16870e7c667f514a099afacc1009252b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_make_database_connection</definition>
-        <argsstring>()</argsstring>
-        <name>_make_database_connection</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Make a database connection.</para><para>Connect to the database defined in the global constants.</para><para><xrefsect id="todo_1_todo000009"><xreftitle>Todo</xreftitle><xrefdescription><para>Test with other backends (other than MySQL/SQLite). </para><para>Make generic version so platform can connect to muliple database sources. </para></xrefdescription></xrefsect></para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" line="72" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php" bodystart="72" bodyend="89"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="protected-func">
-      <memberdef kind="function" id="classImpact__Base_1a36245233fa9d0fbb0a71e2a985e79c72" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_mediaDetect</definition>
-        <argsstring>()</argsstring>
-        <name>_mediaDetect</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Detect the media being used.</para><para>Will detect the media being used (eg. Desktop PC, Mobile, iPad, Facebook, ...etc). Data is returned to the media property.</para><para><xrefsect id="todo_1_todo000006"><xreftitle>Todo</xreftitle><xrefdescription><para>Add detection for wider range of media. </para></xrefdescription></xrefsect></para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="219" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="219" bodyend="233"/>
-      </memberdef>
-      <memberdef kind="function" id="classImpact__Base_1a06e0d9a42275d91e76f877af01c9b0de" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_languageDetect</definition>
-        <argsstring>()</argsstring>
-        <name>_languageDetect</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Dectect the language being used.</para><para>What is the native language of the current user? Is detected from the browser request headers and query-string. Data is returned to the language property.</para><para><xrefsect id="todo_1_todo000007"><xreftitle>Todo</xreftitle><xrefdescription><para>Allow Facebook language detection and user database lookup (for stored setting). </para></xrefdescription></xrefsect></para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" line="245" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" bodystart="245" bodyend="258"/>
-      </memberdef>
-      </sectiondef>
-    <briefdescription>
-    </briefdescription>
-    <detaileddescription>
-<para>Main base class.</para><para>Class is used as a base for most of the classes throughout the platform. It includes all the functions that are necessary to work using the, &quot;Impact formula&quot;.</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
-<simplesect kind="version"><para>0.1  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL </para></simplesect>
-</para>    </detaileddescription>
-    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php" line="13" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php" bodystart="13" bodyend="69"/>
-    <listofallmembers>
-      <member refid="classImpact__Base_1a0e6e927aed984ad8947f77bf803b70bb" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>$ACL</name></member>
-      <member refid="classImpact__Base_1a7691c0162d89de0b6ba47edcd8ba8878" prot="private" virt="non-virtual"><scope>Impact_Base</scope><name>$database</name></member>
-      <member refid="classImpact__Base_1a4b9bb5e9f7a5ea9381bdbe31c44e9339" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>$facebook</name></member>
-      <member refid="classImpact__Base_1a92c4441a7b5fe8069992f5a4a29f24fe" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>$fbsession</name></member>
-      <member refid="classImpact__Base_1a6438a1b53245abfe71a285472f24934d" prot="private" virt="non-virtual"><scope>Impact_Base</scope><name>$instance</name></member>
-      <member refid="classImpact__Base_1ad856a60cee1894f180e845f9b7b81458" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>$me</name></member>
-      <member refid="classImpact__Base_1ac7c3353107070daa85f641882931b358" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>$settings</name></member>
-      <member refid="classImpact__Base_1ad0cb87b388bc74d63dc884accdca8713" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>__clone</name></member>
-      <member refid="classImpact__Base_1ad0cb87b388bc74d63dc884accdca8713" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>__clone</name></member>
-      <member refid="classImpact__Base_1a095c5d389db211932136b53f25f39685" prot="private" virt="non-virtual"><scope>Impact_Base</scope><name>__construct</name></member>
-      <member refid="classImpact__Base_1a095c5d389db211932136b53f25f39685" prot="private" virt="non-virtual"><scope>Impact_Base</scope><name>__construct</name></member>
-      <member refid="classImpact__Base_1a6481e8cfc93c80885b3d72a6e1f15a1f" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>__get</name></member>
-      <member refid="classImpact__Base_1a9b7f2b58fa3c9e81f142efb424433163" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>__set</name></member>
-      <member refid="classImpact__Base_1a07992a5e5c1652992b241992ea8cd37c" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>_add_square_brakets</name></member>
-      <member refid="classImpact__Base_1ac9be16a907db4f8122071242957efd5e" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>_create_roles_SQL</name></member>
-      <member refid="classImpact__Base_1a17d34c36f889ed7235dc17000bc34a93" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>_getPageRequestInfo</name></member>
-      <member refid="classImpact__Base_1a06e0d9a42275d91e76f877af01c9b0de" prot="protected" virt="non-virtual"><scope>Impact_Base</scope><name>_languageDetect</name></member>
-      <member refid="classImpact__Base_1a2c7019c3058ec100b498ed14dd2c4d23" prot="private" virt="non-virtual"><scope>Impact_Base</scope><name>_load_constants</name></member>
-      <member refid="classImpact__Base_1a16870e7c667f514a099afacc1009252b" prot="private" virt="non-virtual"><scope>Impact_Base</scope><name>_make_database_connection</name></member>
-      <member refid="classImpact__Base_1ab2e18c82d6909c852402b07aa48340bc" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>_make_facebook_connection</name></member>
-      <member refid="classImpact__Base_1a36245233fa9d0fbb0a71e2a985e79c72" prot="protected" virt="non-virtual"><scope>Impact_Base</scope><name>_mediaDetect</name></member>
-      <member refid="classImpact__Base_1a6e7a5edea355b304f86d731e4d57dc84" prot="private" virt="non-virtual"><scope>Impact_Base</scope><name>_userAccessDetect</name></member>
-      <member refid="classImpact__Base_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>factory</name></member>
-      <member refid="classImpact__Base_1ad0abe98dc00be95f647b055b6ad2ab49" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>get_include_directory</name></member>
-      <member refid="classImpact__Base_1a797fe24addf6c8900aeb9eb15aff8c72" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>getAccess</name></member>
-      <member refid="classImpact__Base_1a1298c8e04eb0b7ee14c83f943057c5f9" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>getPage</name></member>
-      <member refid="classImpact__Base_1aca5aa43c8f7299f34139634dd1813556" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>getRoles</name></member>
-      <member refid="classImpact__Base_1a9945c96006a5b6b0f7a9616bc583699e" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>getRow</name></member>
-      <member refid="classImpact__Base_1aa0142dba3a229260d22d37308f9544f7" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>load_config</name></member>
-      <member refid="classImpact__Base_1a1d04139db3a5ad5713ecbd14d97da879" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>setup</name></member>
-      <member refid="classImpact__Base_1af527068985bac6010736b5959643eda7" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>singleton</name></member>
-      <member refid="classImpact__Base_1af527068985bac6010736b5959643eda7" prot="public" virt="non-virtual"><scope>Impact_Base</scope><name>singleton</name></member>
-    </listofallmembers>
-  </compounddef>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+	<compounddef id="classImpact__Base" kind="class" prot="public">
+		<compoundname>Impact_Base</compoundname>
+		<sectiondef kind="private-static-attrib">
+			<memberdef kind="variable"
+				id="classImpact__Base_1a6438a1b53245abfe71a285472f24934d" prot="private"
+				static="yes" mutable="no">
+				<type>static</type>
+				<definition>static $instance</definition>
+				<argsstring></argsstring>
+				<name>$instance</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="18" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="18" bodyend="-1" />
+			</memberdef>
+		</sectiondef>
+		<sectiondef kind="public-attrib">
+			<memberdef kind="variable"
+				id="classImpact__Base_1ac7c3353107070daa85f641882931b358" prot="public"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$settings</definition>
+				<argsstring></argsstring>
+				<name>$settings</name>
+				<initializer> array()</initializer>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="19" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="19" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classImpact__Base_1a0e6e927aed984ad8947f77bf803b70bb" prot="public"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$ACL</definition>
+				<argsstring></argsstring>
+				<name>$ACL</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="20" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="20" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classImpact__Base_1a4b9bb5e9f7a5ea9381bdbe31c44e9339" prot="public"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$facebook</definition>
+				<argsstring></argsstring>
+				<name>$facebook</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="21" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="21" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classImpact__Base_1a92c4441a7b5fe8069992f5a4a29f24fe" prot="public"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$fbsession</definition>
+				<argsstring></argsstring>
+				<name>$fbsession</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="22" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="22" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classImpact__Base_1ad856a60cee1894f180e845f9b7b81458" prot="public"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$me</definition>
+				<argsstring></argsstring>
+				<name>$me</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="23" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="23" bodyend="-1" />
+			</memberdef>
+		</sectiondef>
+		<sectiondef kind="private-attrib">
+			<memberdef kind="variable"
+				id="classImpact__Base_1a7691c0162d89de0b6ba47edcd8ba8878" prot="private"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$database</definition>
+				<argsstring></argsstring>
+				<name>$database</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					line="18" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					bodystart="18" bodyend="-1" />
+			</memberdef>
+		</sectiondef>
+		<sectiondef kind="public-static-func">
+			<memberdef kind="function"
+				id="classImpact__Base_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c" prot="public"
+				static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type>static</type>
+				<definition>static factory</definition>
+				<argsstring>($className)</argsstring>
+				<name>factory</name>
+				<param>
+					<type>$</type>
+					<declname>className</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Factory method</para>
+					<para>
+						The factory method is used to generate new classes according to
+						the standard rules of the
+						<ref refid="namespaceImpact" kindref="compound">Impact</ref>
+						Platform. The class is sometimes overidden in base-classes if the
+						class has it&apos;s own sub-classes that are loaded on-the-fly.
+						Classes are only included if they are used, saving load
+						over-heads. The factory method knows where to find the files.
+					</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>String</parametertype>
+									<parametername>$className</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The name of the class to load. </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<xrefsect id="todo_1_todo000001">
+							<xreftitle>Todo</xreftitle>
+							<xrefdescription>
+								<para>Method needs to be made more generic so it isn&apos;t
+									overidden in subclasses </para>
+							</xrefdescription>
+						</xrefsect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php"
+					line="29" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php"
+					bodystart="29" bodyend="37" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1af527068985bac6010736b5959643eda7" prot="public"
+				static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type>static</type>
+				<definition>static singleton</definition>
+				<argsstring>()</argsstring>
+				<name>singleton</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Singleton method.</para>
+					<para>Provide a reference to the one static instance of this class.
+						Stops class being declared muliple times.</para>
+					<para>
+						<simplesect kind="return">
+							<para>
+								<ref refid="namespaceImpact" kindref="compound">Impact</ref>
+							</para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="46" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="46" bodyend="52" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1af527068985bac6010736b5959643eda7" prot="public"
+				static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type>static</type>
+				<definition>static singleton</definition>
+				<argsstring>()</argsstring>
+				<name>singleton</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Singleton method.</para>
+					<para>Provide a reference to the one static instance of this class.
+						Stops class being declared muliple times.</para>
+					<para>
+						<simplesect kind="return">
+							<para>
+								<ref refid="namespaceDatabase" kindref="compound">Database</ref>
+							</para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					line="43" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					bodystart="43" bodyend="50" />
+			</memberdef>
+		</sectiondef>
+		<sectiondef kind="public-func">
+			<memberdef kind="function"
+				id="classImpact__Base_1ad0abe98dc00be95f647b055b6ad2ab49" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>get_include_directory</definition>
+				<argsstring>()</argsstring>
+				<name>get_include_directory</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Get the the file location of the current class. </para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php"
+					line="44" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php"
+					bodystart="44" bodyend="47" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a07992a5e5c1652992b241992ea8cd37c" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_add_square_brakets</definition>
+				<argsstring>($text)</argsstring>
+				<name>_add_square_brakets</name>
+				<param>
+					<type>$</type>
+					<declname>text</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Add square brackets between list items.</para>
+					<para>This
+						method is used to make searching for key-values in an SQL database
+						work. Eg. PC,Mobile,Facebook would become: [PC],
+						[Mobile],[Facebook]. You can then search for Like *[PC]* and not
+						find &apos;PC&apos; in the middle of a word. Method will also get
+						rid of double square-bracket notation &apos;[[&apos; used in
+						<ref refid="namespaceImpact" kindref="compound">Impact</ref>
+						plugins.
+					</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>string</parametertype>
+									<parametername>$text</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The string to parse. </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>string Parsed text with square brackets. </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php"
+					line="62" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php"
+					bodystart="62" bodyend="68" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a1d04139db3a5ad5713ecbd14d97da879" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>setup</definition>
+				<argsstring>()</argsstring>
+				<name>setup</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Intitization method. </para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="59" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="59" bodyend="70" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1ab2e18c82d6909c852402b07aa48340bc" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_make_facebook_connection</definition>
+				<argsstring>()</argsstring>
+				<name>_make_facebook_connection</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Make a Facebook connection.</para>
+					<para>
+						Connect to Facebook and return the session and Facebook objects to
+						<ref refid="namespaceImpact" kindref="compound">Impact</ref>
+						properties (facebook and fbsession).
+					</para>
+					<para>
+						<xrefsect id="todo_1_todo000004">
+							<xreftitle>Todo</xreftitle>
+							<xrefdescription>
+								<para>Update to the newest Facebook API. </para>
+							</xrefdescription>
+						</xrefsect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="94" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="94" bodyend="110" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1ad0cb87b388bc74d63dc884accdca8713" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>__clone</definition>
+				<argsstring>()</argsstring>
+				<name>__clone</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Cloning method.</para>
+					<para>This returns an error, since cloning of a singleton is not
+						allowed. </para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="119" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="119" bodyend="121" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a9b7f2b58fa3c9e81f142efb424433163" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>__set</definition>
+				<argsstring>($property, $value)</argsstring>
+				<name>__set</name>
+				<param>
+					<type>$</type>
+					<declname>property</declname>
+				</param>
+				<param>
+					<type>$</type>
+					<declname>value</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Generic set property method.</para>
+					<para>Set the value of an application property. Values are stored
+						in the application array and accessed via the __set and __get
+						methods. </para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="131" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="131" bodyend="133" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a6481e8cfc93c80885b3d72a6e1f15a1f" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>__get</definition>
+				<argsstring>($property)</argsstring>
+				<name>__get</name>
+				<param>
+					<type>$</type>
+					<declname>property</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Generic get property method.</para>
+					<para>Get the value of an application property. Values are stored
+						in the application array and accessed via the __set and __get
+						methods. </para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="143" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="143" bodyend="149" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a17d34c36f889ed7235dc17000bc34a93" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_getPageRequestInfo</definition>
+				<argsstring>()</argsstring>
+				<name>_getPageRequestInfo</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Check if current page request is valid.</para>
+					<para>Does the requested page exist? Does the current user have
+						access.</para>
+					<para>
+						<simplesect kind="return">
+							<para>boolean Is the request valid. </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="181" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="181" bodyend="208" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1aa0142dba3a229260d22d37308f9544f7" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>load_config</definition>
+				<argsstring>($path)</argsstring>
+				<name>load_config</name>
+				<param>
+					<type>$</type>
+					<declname>path</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Load a config file</para>
+					<para>Loads a config file (XML) and returns it&apos;s values as an
+						array. String-values are returned as strings and integer-values as
+						intergers.</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>String</parametertype>
+									<parametername>$path</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>Location of the settings file. </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>string()|interger() </para>
+						</simplesect>
+						<xrefsect id="todo_1_todo000008">
+							<xreftitle>Todo</xreftitle>
+							<xrefdescription>
+								<para>Make it work with more complex data types. </para>
+							</xrefdescription>
+						</xrefsect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="271" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="271" bodyend="284" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1ad0cb87b388bc74d63dc884accdca8713" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>__clone</definition>
+				<argsstring>()</argsstring>
+				<name>__clone</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Cloning method.</para>
+					<para>This returns an error, since cloning of a singleton is not
+						allowed. </para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					line="59" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					bodystart="59" bodyend="61" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a9945c96006a5b6b0f7a9616bc583699e" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>getRow</definition>
+				<argsstring>($timeout, $SQL)</argsstring>
+				<name>getRow</name>
+				<param>
+					<type>$</type>
+					<declname>timeout</declname>
+				</param>
+				<param>
+					<type>$</type>
+					<declname>SQL</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Get a database row.</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>integer</parametertype>
+									<parametername>$timeout</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>How long to allow before returning false. </para>
+								</parameterdescription>
+							</parameteritem>
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>string</parametertype>
+									<parametername>$SQL</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The SQL statement to execute. </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>mixed()|boolean Either the result-row or false on failure.
+							</para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					line="99" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					bodystart="99" bodyend="107" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a1298c8e04eb0b7ee14c83f943057c5f9" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>getPage</definition>
+				<argsstring>($entityID=&apos;&apos;)</argsstring>
+				<name>getPage</name>
+				<param>
+					<type>$</type>
+					<declname>entityID</declname>
+					<defval>&apos;&apos;</defval>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Get the specified page.</para>
+					<para>
+						Specific
+						<ref refid="namespaceImpact" kindref="compound">Impact</ref>
+						method for returning page data.
+					</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>integer</parametertype>
+									<parametername>$entityID</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The ID of the page to return. </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>mixed()|boolean Either the result-row or false on failure.
+							</para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					line="118" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					bodystart="118" bodyend="137" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1aca5aa43c8f7299f34139634dd1813556" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>getRoles</definition>
+				<argsstring>($FBID=0)</argsstring>
+				<name>getRoles</name>
+				<param>
+					<type>$</type>
+					<declname>FBID</declname>
+					<defval>0</defval>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Get the users access roles.</para>
+					<para>
+						Specific
+						<ref refid="namespaceImpact" kindref="compound">Impact</ref>
+						method for returning the ACL-roles, which the supplied user is a
+						member.
+					</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>integer</parametertype>
+									<parametername>$FBID</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The Facebook ID of the user to query. </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>string() Array of all the rules that the user is in </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					line="149" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					bodystart="149" bodyend="155" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a797fe24addf6c8900aeb9eb15aff8c72" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>getAccess</definition>
+				<argsstring>($FBID=0)</argsstring>
+				<name>getAccess</name>
+				<param>
+					<type>$</type>
+					<declname>FBID</declname>
+					<defval>0</defval>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Get the users access level.</para>
+					<para>
+						Specific
+						<ref refid="namespaceImpact" kindref="compound">Impact</ref>
+						method for returning the
+						<ref refid="classACL" kindref="compound">ACL</ref>
+						access level of the supplied user.
+					</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>interger</parametertype>
+									<parametername>$FBID</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The Facebook ID of the user to query. </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>interger Access level of the supplied user. </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					line="167" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					bodystart="167" bodyend="173" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1ac9be16a907db4f8122071242957efd5e" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_create_roles_SQL</definition>
+				<argsstring>($field, $roles=&apos;&apos;)</argsstring>
+				<name>_create_roles_SQL</name>
+				<param>
+					<type>$</type>
+					<declname>field</declname>
+				</param>
+				<param>
+					<type>$</type>
+					<declname>roles</declname>
+					<defval>&apos;&apos;</defval>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Generate SQL fragment for testing against certain roles.
+					</para>
+					<para>Create a fagment of SQL, which can be used in a wider SQL
+						statement to restrict results to items, which a certain user has
+						access rights to.</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>string</parametertype>
+									<parametername>$field</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The field to test against </para>
+								</parameterdescription>
+							</parameteritem>
+							<parameteritem>
+								<parameternamelist>
+									<parametername>string()</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>$roles The roles to test against (default will grab the
+										current users roles). </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>string SQL fragment based on field and roles </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					line="186" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					bodystart="186" bodyend="196" />
+			</memberdef>
+		</sectiondef>
+		<sectiondef kind="private-func">
+			<memberdef kind="function"
+				id="classImpact__Base_1a095c5d389db211932136b53f25f39685" prot="private"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>__construct</definition>
+				<argsstring>()</argsstring>
+				<name>__construct</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Main constructor.</para>
+					<para>
+						<xrefsect id="deprecated_1_deprecated000001">
+							<xreftitle>Deprecated</xreftitle>
+							<xrefdescription></xrefdescription>
+						</xrefsect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="31" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="31" bodyend="32" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a2c7019c3058ec100b498ed14dd2c4d23" prot="private"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_load_constants</definition>
+				<argsstring>()</argsstring>
+				<name>_load_constants</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Load constants from an XML file.</para>
+					<para>Loads a series of constants from a settings file (XML).
+						Values are loaded into the global scope.</para>
+					<para>
+						<xrefsect id="todo_1_todo000003">
+							<xreftitle>Todo</xreftitle>
+							<xrefdescription>
+								<para>Make generic so that settings can be loaded from anywhere?
+								</para>
+							</xrefdescription>
+						</xrefsect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="81" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="81" bodyend="83" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a6e7a5edea355b304f86d731e4d57dc84" prot="private"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_userAccessDetect</definition>
+				<argsstring>()</argsstring>
+				<name>_userAccessDetect</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Set the current users access levels.</para>
+					<para>These are calculated from data stored in the database.</para>
+					<para>
+						<xrefsect id="todo_1_todo000005">
+							<xreftitle>Todo</xreftitle>
+							<xrefdescription>
+								<para>Needs a bit of work to improve it but works well and
+									dosen&apos;t have any major security flaws. </para>
+							</xrefdescription>
+						</xrefsect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="159" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="159" bodyend="171" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a095c5d389db211932136b53f25f39685" prot="private"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>__construct</definition>
+				<argsstring>()</argsstring>
+				<name>__construct</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Constructor method.</para>
+					<para>Method is private, since it is meant to be used as a
+						static-singlton. </para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					line="27" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					bodystart="27" bodyend="29" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a16870e7c667f514a099afacc1009252b" prot="private"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_make_database_connection</definition>
+				<argsstring>()</argsstring>
+				<name>_make_database_connection</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Make a database connection.</para>
+					<para>Connect to the database defined in the global constants.
+					</para>
+					<para>
+						<xrefsect id="todo_1_todo000009">
+							<xreftitle>Todo</xreftitle>
+							<xrefdescription>
+								<para>Test with other backends (other than MySQL/SQLite). </para>
+								<para>Make generic version so platform can connect to muliple
+									database sources. </para>
+							</xrefdescription>
+						</xrefsect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					line="72" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Database.php"
+					bodystart="72" bodyend="89" />
+			</memberdef>
+		</sectiondef>
+		<sectiondef kind="protected-func">
+			<memberdef kind="function"
+				id="classImpact__Base_1a36245233fa9d0fbb0a71e2a985e79c72" prot="protected"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_mediaDetect</definition>
+				<argsstring>()</argsstring>
+				<name>_mediaDetect</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Detect the media being used.</para>
+					<para>Will detect the media being used (eg. Desktop PC, Mobile,
+						iPad, Facebook, ...etc). Data is returned to the media property.
+					</para>
+					<para>
+						<xrefsect id="todo_1_todo000006">
+							<xreftitle>Todo</xreftitle>
+							<xrefdescription>
+								<para>Add detection for wider range of media. </para>
+							</xrefdescription>
+						</xrefsect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="219" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="219" bodyend="233" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classImpact__Base_1a06e0d9a42275d91e76f877af01c9b0de" prot="protected"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_languageDetect</definition>
+				<argsstring>()</argsstring>
+				<name>_languageDetect</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Dectect the language being used.</para>
+					<para>What is the native language of the current user? Is detected
+						from the browser request headers and query-string. Data is
+						returned to the language property.</para>
+					<para>
+						<xrefsect id="todo_1_todo000007">
+							<xreftitle>Todo</xreftitle>
+							<xrefdescription>
+								<para>Allow Facebook language detection and user database lookup
+									(for stored setting). </para>
+							</xrefdescription>
+						</xrefsect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location
+					file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					line="245" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"
+					bodystart="245" bodyend="258" />
+			</memberdef>
+		</sectiondef>
+		<briefdescription>
+		</briefdescription>
+		<detaileddescription>
+			<para>Main base class.</para>
+			<para>Class is used as a base for most of the classes throughout the
+				platform. It includes all the functions that are necessary to work
+				using the, &quot;Impact formula&quot;.</para>
+			<para>
+				<simplesect kind="author">
+					<para>Stephen
+						Simpson &lt;
+						<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>
+						&gt;
+					</para>
+				</simplesect>
+				<simplesect kind="version">
+					<para>
+						0.1
+						<ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink>
+						LGPL
+					</para>
+				</simplesect>
+			</para>
+		</detaileddescription>
+		<location file="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php"
+			line="13" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/base.Impact.php"
+			bodystart="13" bodyend="69" />
+		<listofallmembers>
+			<member refid="classImpact__Base_1a0e6e927aed984ad8947f77bf803b70bb"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>$ACL</name>
+			</member>
+			<member refid="classImpact__Base_1a7691c0162d89de0b6ba47edcd8ba8878"
+				prot="private" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>$database</name>
+			</member>
+			<member refid="classImpact__Base_1a4b9bb5e9f7a5ea9381bdbe31c44e9339"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>$facebook</name>
+			</member>
+			<member refid="classImpact__Base_1a92c4441a7b5fe8069992f5a4a29f24fe"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>$fbsession</name>
+			</member>
+			<member refid="classImpact__Base_1a6438a1b53245abfe71a285472f24934d"
+				prot="private" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>$instance</name>
+			</member>
+			<member refid="classImpact__Base_1ad856a60cee1894f180e845f9b7b81458"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>$me</name>
+			</member>
+			<member refid="classImpact__Base_1ac7c3353107070daa85f641882931b358"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>$settings</name>
+			</member>
+			<member refid="classImpact__Base_1ad0cb87b388bc74d63dc884accdca8713"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>__clone</name>
+			</member>
+			<member refid="classImpact__Base_1ad0cb87b388bc74d63dc884accdca8713"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>__clone</name>
+			</member>
+			<member refid="classImpact__Base_1a095c5d389db211932136b53f25f39685"
+				prot="private" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>__construct</name>
+			</member>
+			<member refid="classImpact__Base_1a095c5d389db211932136b53f25f39685"
+				prot="private" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>__construct</name>
+			</member>
+			<member refid="classImpact__Base_1a6481e8cfc93c80885b3d72a6e1f15a1f"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>__get</name>
+			</member>
+			<member refid="classImpact__Base_1a9b7f2b58fa3c9e81f142efb424433163"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>__set</name>
+			</member>
+			<member refid="classImpact__Base_1a07992a5e5c1652992b241992ea8cd37c"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>_add_square_brakets</name>
+			</member>
+			<member refid="classImpact__Base_1ac9be16a907db4f8122071242957efd5e"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>_create_roles_SQL</name>
+			</member>
+			<member refid="classImpact__Base_1a17d34c36f889ed7235dc17000bc34a93"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>_getPageRequestInfo</name>
+			</member>
+			<member refid="classImpact__Base_1a06e0d9a42275d91e76f877af01c9b0de"
+				prot="protected" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>_languageDetect</name>
+			</member>
+			<member refid="classImpact__Base_1a2c7019c3058ec100b498ed14dd2c4d23"
+				prot="private" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>_load_constants</name>
+			</member>
+			<member refid="classImpact__Base_1a16870e7c667f514a099afacc1009252b"
+				prot="private" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>_make_database_connection</name>
+			</member>
+			<member refid="classImpact__Base_1ab2e18c82d6909c852402b07aa48340bc"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>_make_facebook_connection</name>
+			</member>
+			<member refid="classImpact__Base_1a36245233fa9d0fbb0a71e2a985e79c72"
+				prot="protected" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>_mediaDetect</name>
+			</member>
+			<member refid="classImpact__Base_1a6e7a5edea355b304f86d731e4d57dc84"
+				prot="private" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>_userAccessDetect</name>
+			</member>
+			<member refid="classImpact__Base_1a8c0508f1ea0fe72c8d0e6e8dd2a1c41c"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>factory</name>
+			</member>
+			<member refid="classImpact__Base_1ad0abe98dc00be95f647b055b6ad2ab49"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>get_include_directory</name>
+			</member>
+			<member refid="classImpact__Base_1a797fe24addf6c8900aeb9eb15aff8c72"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>getAccess</name>
+			</member>
+			<member refid="classImpact__Base_1a1298c8e04eb0b7ee14c83f943057c5f9"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>getPage</name>
+			</member>
+			<member refid="classImpact__Base_1aca5aa43c8f7299f34139634dd1813556"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>getRoles</name>
+			</member>
+			<member refid="classImpact__Base_1a9945c96006a5b6b0f7a9616bc583699e"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>getRow</name>
+			</member>
+			<member refid="classImpact__Base_1aa0142dba3a229260d22d37308f9544f7"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>load_config</name>
+			</member>
+			<member refid="classImpact__Base_1a1d04139db3a5ad5713ecbd14d97da879"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>setup</name>
+			</member>
+			<member refid="classImpact__Base_1af527068985bac6010736b5959643eda7"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>singleton</name>
+			</member>
+			<member refid="classImpact__Base_1af527068985bac6010736b5959643eda7"
+				prot="public" virt="non-virtual">
+				<scope>Impact_Base</scope>
+				<name>singleton</name>
+			</member>
+		</listofallmembers>
+	</compounddef>
 </doxygen>
