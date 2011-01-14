@@ -1,78 +1,1964 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
-  <compounddef id="class_8repeatParser_8php" kind="file">
-    <compoundname>class.repeatParser.php</compoundname>
-    <innerclass refid="classrepeatParser" prot="public">repeatParser</innerclass>
-    <innernamespace refid="namespaceCalendar">Calendar</innernamespace>
-    <briefdescription>
-    </briefdescription>
-    <detaileddescription>
-    </detaileddescription>
-    <programlisting>
-<codeline lineno="1"><highlight class="normal">&lt;?php</highlight></codeline>
-<codeline lineno="10" refid="classrepeatParser" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classrepeatParser" kindref="compound">repeatParser</ref><sp/>{</highlight></codeline>
-<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal"><sp/><ref refid="classrepeatParser_1a6efc15b5a2314dd4b5aaa556a375c6d6" kindref="member">$data</ref><sp/>=<sp/>array();</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>function<sp/><ref refid="classrepeatParser_1a3815af62ed9d37b2dcaa175379bbfeca" kindref="member">__call</ref>($name,$arguments)<sp/>{</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$parts<sp/>=<sp/>explode(</highlight><highlight class="charliteral">&apos;_&apos;</highlight><highlight class="normal">,$name);</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(count($parts)<sp/>==<sp/>2)<sp/>{</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>($parts[0])<sp/>{</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&apos;set&apos;</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(count($arguments)&gt;0)<sp/>{</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;data[$parts[1]]<sp/>=<sp/>$arguments[0];</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&apos;get&apos;</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(array_key_exists($parts[1],$this-&gt;data))<sp/>{</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>$this-&gt;data[$parts[1]];</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print_r($this-&gt;data);</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>function<sp/><ref refid="classrepeatParser_1a1bf43fc9d8d04fc2e5fa846269f30e70" kindref="member">expand</ref>($start,$end)<sp/>{</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$dates<sp/>=<sp/>array();</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Find<sp/>includes</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">foreach</highlight><highlight class="normal"><sp/>($this-&gt;data[repeatIncludeRules]<sp/>as<sp/>$RRULE)<sp/>{</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array_push($dates,$this-&gt;<ref refid="classrepeatParser_1aee0716ed16629ab6df05dd9c28044514" kindref="member">expand_rule</ref>($RRULE,$start,$end));</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>array_push($dates,$this-&gt;data[repeatInclude]);</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$dates<sp/>=<sp/>array_unique($dates);</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Find<sp/>excludes</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">foreach</highlight><highlight class="normal"><sp/>($this-&gt;data[repeatExcludeRules]<sp/>as<sp/>$RRULE)<sp/>{</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">foreach</highlight><highlight class="normal"><sp/>($this-&gt;<ref refid="classrepeatParser_1aee0716ed16629ab6df05dd9c28044514" kindref="member">expand_rule</ref>($RRULE,$start,$end)<sp/>as<sp/>$cdate)<sp/>{</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$key<sp/>=<sp/>array_search($cdate,$dates);</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>($key<sp/>!==<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">)<sp/>{<sp/>unset($dates[$key]);<sp/>}</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">foreach</highlight><highlight class="normal"><sp/>($this-&gt;data[repeatExclude]<sp/>as<sp/>$cdate)<sp/>{</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$key<sp/>=<sp/>array_search($cdate,$dates);</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>($key<sp/>!==<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">)<sp/>{<sp/>unset($dates[$key]);<sp/>}</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>$dates;</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal"><sp/>function<sp/><ref refid="classrepeatParser_1aee0716ed16629ab6df05dd9c28044514" kindref="member">expand_rule</ref>($RRULE,$start,$until)<sp/>{</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$cdate<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$dates<sp/>=<sp/>array();</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>($cdate<sp/>&lt;<sp/>$until)<sp/>{</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>($cdate<sp/>&gt;<sp/>$start)<sp/>{<sp/>array_push($dates,$cdate);<sp/>}</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>$dates;</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
-    </programlisting>
-    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.repeatParser.php"/>
-  </compounddef>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+	<compounddef id="class_8repeatParser_8php" kind="file">
+		<compoundname>class.repeatParser.php</compoundname>
+		<innerclass refid="classrepeatParser" prot="public">repeatParser</innerclass>
+		<innernamespace refid="namespaceCalendar">Calendar</innernamespace>
+		<briefdescription>
+		</briefdescription>
+		<detaileddescription>
+		</detaileddescription>
+		<programlisting>
+			<codeline lineno="1">
+				<highlight class="normal">&lt;?php</highlight>
+			</codeline>
+			<codeline lineno="10" refid="classrepeatParser" refkind="compound">
+				<highlight class="keyword">
+					class
+					<sp />
+				</highlight>
+				<highlight class="normal">
+					<ref refid="classrepeatParser" kindref="compound">repeatParser</ref>
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="11">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">private</highlight>
+				<highlight class="normal">
+					<sp />
+					<ref refid="classrepeatParser_1a6efc15b5a2314dd4b5aaa556a375c6d6"
+						kindref="member">$data</ref>
+					<sp />
+					=
+					<sp />
+					array();
+				</highlight>
+			</codeline>
+			<codeline lineno="12">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="13">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					<ref refid="classrepeatParser_1a3815af62ed9d37b2dcaa175379bbfeca"
+						kindref="member">__call</ref>
+					($name,$arguments)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="14">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$parts
+					<sp />
+					=
+					<sp />
+					explode(
+				</highlight>
+				<highlight class="charliteral">&apos;_&apos;</highlight>
+				<highlight class="normal">,$name);</highlight>
+			</codeline>
+			<codeline lineno="15">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					(count($parts)
+					<sp />
+					==
+					<sp />
+					2)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="16">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">switch</highlight>
+				<highlight class="normal">
+					<sp />
+					($parts[0])
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="17">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">case</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;set&apos;</highlight>
+				<highlight class="normal">:</highlight>
+			</codeline>
+			<codeline lineno="18">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />(count($arguments)&gt;0)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="19">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;data[$parts[1]]
+					<sp />
+					=
+					<sp />
+					$arguments[0];
+				</highlight>
+			</codeline>
+			<codeline lineno="20">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">true</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="21">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">else</highlight>
+				<highlight class="normal">
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="22">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">false</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="23">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="24">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">break</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="25">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">case</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;get&apos;</highlight>
+				<highlight class="normal">:</highlight>
+			</codeline>
+			<codeline lineno="26">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />(array_key_exists($parts[1],$this-&gt;data))
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="27">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />$this-&gt;data[$parts[1]];
+				</highlight>
+			</codeline>
+			<codeline lineno="28">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">else</highlight>
+				<highlight class="normal">
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="29">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />print_r($this-&gt;data);
+				</highlight>
+			</codeline>
+			<codeline lineno="30">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">false</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="31">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="32">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="33">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="34">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="35">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="36">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					<ref refid="classrepeatParser_1a1bf43fc9d8d04fc2e5fa846269f30e70"
+						kindref="member">expand</ref>
+					($start,$end)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="37">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$dates
+					<sp />
+					=
+					<sp />
+					array();
+				</highlight>
+			</codeline>
+			<codeline lineno="38">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="39">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="comment">
+					//Find
+					<sp />
+					includes
+				</highlight>
+				<highlight class="normal"></highlight>
+			</codeline>
+			<codeline lineno="40">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">foreach</highlight>
+				<highlight class="normal">
+					<sp />($this-&gt;data[repeatIncludeRules]
+					<sp />
+					as
+					<sp />
+					$RRULE)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="41">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />array_push($dates,$this-&gt;
+					<ref refid="classrepeatParser_1aee0716ed16629ab6df05dd9c28044514"
+						kindref="member">expand_rule</ref>
+					($RRULE,$start,$end));
+				</highlight>
+			</codeline>
+			<codeline lineno="42">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="43">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />array_push($dates,$this-&gt;data[repeatInclude]);
+				</highlight>
+			</codeline>
+			<codeline lineno="44">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$dates
+					<sp />
+					=
+					<sp />
+					array_unique($dates);
+				</highlight>
+			</codeline>
+			<codeline lineno="45">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="46">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="comment">
+					//Find
+					<sp />
+					excludes
+				</highlight>
+				<highlight class="normal"></highlight>
+			</codeline>
+			<codeline lineno="47">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">foreach</highlight>
+				<highlight class="normal">
+					<sp />($this-&gt;data[repeatExcludeRules]
+					<sp />
+					as
+					<sp />
+					$RRULE)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="48">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">foreach</highlight>
+				<highlight class="normal">
+					<sp />($this-&gt;
+					<ref refid="classrepeatParser_1aee0716ed16629ab6df05dd9c28044514"
+						kindref="member">expand_rule</ref>
+					($RRULE,$start,$end)
+					<sp />
+					as
+					<sp />
+					$cdate)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="49">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$key
+					<sp />
+					=
+					<sp />
+					array_search($cdate,$dates);
+				</highlight>
+			</codeline>
+			<codeline lineno="50">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					($key
+					<sp />
+					!==
+					<sp />
+				</highlight>
+				<highlight class="keyword">false</highlight>
+				<highlight class="normal">
+					)
+					<sp />
+					{
+					<sp />
+					unset($dates[$key]);
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="51">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="52">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="53">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">foreach</highlight>
+				<highlight class="normal">
+					<sp />($this-&gt;data[repeatExclude]
+					<sp />
+					as
+					<sp />
+					$cdate)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="54">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$key
+					<sp />
+					=
+					<sp />
+					array_search($cdate,$dates);
+				</highlight>
+			</codeline>
+			<codeline lineno="55">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					($key
+					<sp />
+					!==
+					<sp />
+				</highlight>
+				<highlight class="keyword">false</highlight>
+				<highlight class="normal">
+					)
+					<sp />
+					{
+					<sp />
+					unset($dates[$key]);
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="56">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="57">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="58">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+					$dates;
+				</highlight>
+			</codeline>
+			<codeline lineno="59">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="60">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="61">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">protected</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					<ref refid="classrepeatParser_1aee0716ed16629ab6df05dd9c28044514"
+						kindref="member">expand_rule</ref>
+					($RRULE,$start,$until)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="62">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$cdate
+					<sp />
+					=
+					<sp />
+					0;
+				</highlight>
+			</codeline>
+			<codeline lineno="63">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$dates
+					<sp />
+					=
+					<sp />
+					array();
+				</highlight>
+			</codeline>
+			<codeline lineno="64">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">while</highlight>
+				<highlight class="normal">
+					<sp />
+					($cdate
+					<sp />
+					&lt;
+					<sp />
+					$until)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="65">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="66">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="67">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					($cdate
+					<sp />
+					&gt;
+					<sp />
+					$start)
+					<sp />
+					{
+					<sp />
+					array_push($dates,$cdate);
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="68">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="69">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+					$dates;
+				</highlight>
+			</codeline>
+			<codeline lineno="70">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="71">
+				<highlight class="normal">}</highlight>
+			</codeline>
+		</programlisting>
+		<location
+			file="H:/Projects/ImpactCRM/ImpactCRM/models/class.repeatParser.php" />
+	</compounddef>
 </doxygen>

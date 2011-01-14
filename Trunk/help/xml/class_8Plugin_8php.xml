@@ -1,28 +1,202 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
-  <compounddef id="class_8Plugin_8php" kind="file">
-    <compoundname>class.Plugin.php</compoundname>
-    <innerclass refid="classPlugin" prot="public">Plugin</innerclass>
-    <innernamespace refid="namespaceTemplator">Templator</innernamespace>
-    <briefdescription>
-    </briefdescription>
-    <detaileddescription>
-    </detaileddescription>
-    <programlisting>
-<codeline lineno="1"><highlight class="normal">&lt;?php</highlight></codeline>
-<codeline lineno="15" refid="classPlugin" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classPlugin" kindref="compound">Plugin</ref><sp/>{</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>function<sp/><ref refid="classPlugin_1a2e1c796d21cead98ace46779e2cf088c" kindref="member">factory</ref><sp/>($type){</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(include_once<sp/></highlight><highlight class="stringliteral">&apos;plugins/content/&apos;</highlight><highlight class="normal">.strtolower($type).</highlight><highlight class="stringliteral">&apos;.php&apos;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$classname<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;Plugin_&apos;</highlight><highlight class="normal"><sp/>.<sp/>$type;</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>$classname;</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="35"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="36"><highlight class="normal">?&gt;</highlight></codeline>
-    </programlisting>
-    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Plugin.php"/>
-  </compounddef>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+	<compounddef id="class_8Plugin_8php" kind="file">
+		<compoundname>class.Plugin.php</compoundname>
+		<innerclass refid="classPlugin" prot="public">Plugin</innerclass>
+		<innernamespace refid="namespaceTemplator">Templator</innernamespace>
+		<briefdescription>
+		</briefdescription>
+		<detaileddescription>
+		</detaileddescription>
+		<programlisting>
+			<codeline lineno="1">
+				<highlight class="normal">&lt;?php</highlight>
+			</codeline>
+			<codeline lineno="15" refid="classPlugin" refkind="compound">
+				<highlight class="keyword">
+					class
+					<sp />
+				</highlight>
+				<highlight class="normal">
+					<ref refid="classPlugin" kindref="compound">Plugin</ref>
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="16">
+				<highlight class="normal"></highlight>
+			</codeline>
+			<codeline lineno="27">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">static</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					<ref refid="classPlugin_1a2e1c796d21cead98ace46779e2cf088c"
+						kindref="member">factory</ref>
+					<sp />
+					($type){
+				</highlight>
+			</codeline>
+			<codeline lineno="28">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					(include_once
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;plugins/content/&apos;</highlight>
+				<highlight class="normal">.strtolower($type).</highlight>
+				<highlight class="stringliteral">&apos;.php&apos;</highlight>
+				<highlight class="normal">
+					)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="29">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$classname
+					<sp />
+					=
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;Plugin_&apos;</highlight>
+				<highlight class="normal">
+					<sp />
+					.
+					<sp />
+					$type;
+				</highlight>
+			</codeline>
+			<codeline lineno="30">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">new</highlight>
+				<highlight class="normal">
+					<sp />
+					$classname;
+				</highlight>
+			</codeline>
+			<codeline lineno="31">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">else</highlight>
+				<highlight class="normal">
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="32">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">false</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="33">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="34">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="35">
+				<highlight class="normal">}</highlight>
+			</codeline>
+			<codeline lineno="36">
+				<highlight class="normal">?&gt;</highlight>
+			</codeline>
+		</programlisting>
+		<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Plugin.php" />
+	</compounddef>
 </doxygen>

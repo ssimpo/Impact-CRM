@@ -1,176 +1,4142 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
-  <compounddef id="class_8Application_8php" kind="file">
-    <compoundname>class.Application.php</compoundname>
-    <innerclass refid="classImpact__Base" prot="public">Impact_Base</innerclass>
-    <innernamespace refid="namespaceImpact">Impact</innernamespace>
-    <briefdescription>
-    </briefdescription>
-    <detaileddescription>
-    </detaileddescription>
-    <programlisting>
-<codeline lineno="1"><highlight class="normal">&lt;?php</highlight></codeline>
-<codeline lineno="17"><highlight class="keyword">class<sp/></highlight><highlight class="normal">Application<sp/>Extends<sp/><ref refid="classImpact__Base" kindref="compound">Impact_Base</ref><sp/>{</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>$instance;</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>$settings<sp/>=<sp/>array();</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>$ACL;</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>$facebook;</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>$fbsession;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>$me;</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal"><sp/>function<sp/>__construct()<sp/>{</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>function<sp/>singleton()<sp/>{</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!isset(self::$instance))<sp/>{</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$c<sp/>=<sp/>__CLASS__;</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self::$instance<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>$c;</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>self::$instance;</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>function<sp/>setup()<sp/>{</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;settings[FBID]<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;_load_constants();</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;_make_facebook_connection();</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;_languageDetect();</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;_mediaDetect();</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;_userAccessDetect();</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;pageName<sp/>=<sp/>strtolower(addslashes($_GET[page]));</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>($this-&gt;pageName<sp/>==<sp/></highlight><highlight class="stringliteral">&apos;&apos;</highlight><highlight class="normal">)<sp/>{$this-&gt;pageName<sp/>=<sp/>DEFAULT_HOMEPAGE;}</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;pageErrorCheck<sp/>=<sp/>$this-&gt;_getPageRequestInfo();</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal"><sp/>function<sp/>_load_constants()<sp/>{</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;load_config(<ref refid="classI_1ad0abe98dc00be95f647b055b6ad2ab49" kindref="member">I::get_include_directory</ref>().</highlight><highlight class="stringliteral">&apos;/../config/settings.xml&apos;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>function<sp/>_make_facebook_connection()<sp/>{</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;facebook<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>Facebook(array(</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;appId&apos;</highlight><highlight class="normal"><sp/><sp/>=&gt;<sp/>FB_APPKEY,</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;secret&apos;</highlight><highlight class="normal"><sp/>=&gt;<sp/>FB_SECRET,</highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;cookie&apos;</highlight><highlight class="normal"><sp/>=&gt;<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>));</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;fbsession<sp/>=<sp/>$this-&gt;facebook-&gt;getSession();</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>($this-&gt;fbsession)<sp/>{</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;uid<sp/>=<sp/>$this-&gt;facebook-&gt;getUser();</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;me<sp/>=<sp/>$this-&gt;facebook-&gt;api(</highlight><highlight class="stringliteral">&apos;/me&apos;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(FacebookApiException<sp/>$e)<sp/>{</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_log($e);</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>function<sp/>__clone()<sp/>{</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>trigger_error(</highlight><highlight class="stringliteral">&apos;Clone<sp/>is<sp/>not<sp/>allowed.&apos;</highlight><highlight class="normal">,<sp/>E_USER_ERROR);</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>function<sp/>__set($property,$value)<sp/>{</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;settings[$property]<sp/>=<sp/>$value;</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>function<sp/>__get($property)<sp/>{</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(array_key_exists($property,$this-&gt;settings))<sp/>{</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>$this-&gt;settings[$property];</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal"><sp/>function<sp/>_userAccessDetect<sp/>()<sp/>{</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref><sp/>=<sp/>Database::singleton();</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;roles<sp/>=<sp/><ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref>-&gt;getRoles($this-&gt;FBID);</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;accessLevel<sp/>=<sp/><ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref>-&gt;getAccess($this-&gt;FBID);</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//This<sp/>needs<sp/>a<sp/>better<sp/>implimentation<sp/>but<sp/>will<sp/>do<sp/>to<sp/>get<sp/>us<sp/>going</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;<ref refid="classACL" kindref="compound">ACL</ref><sp/>=<sp/>$this-&gt;factory(</highlight><highlight class="stringliteral">&apos;ACL&apos;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;<ref refid="classACL" kindref="compound">ACL</ref>-&gt;FBID<sp/>=<sp/>$this-&gt;settings[FBID];</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;<ref refid="classACL" kindref="compound">ACL</ref>-&gt;accesslevel<sp/>=<sp/>$this-&gt;settings[accessLevel];</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;<ref refid="classACL" kindref="compound">ACL</ref>-&gt;facebook<sp/>=<sp/>$this-&gt;facebook;</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;<ref refid="classACL" kindref="compound">ACL</ref>-&gt;<ref refid="classACL_1a9a4659729420394ae67f53af92014161" kindref="member">load_roles</ref>($this-&gt;settings[roles]);</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;settings[<ref refid="classACL" kindref="compound">ACL</ref>]<sp/>=<sp/>$this-&gt;<ref refid="classACL" kindref="compound">ACL</ref>;</highlight></codeline>
-<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>function<sp/>_getPageRequestInfo()<sp/>{</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;entityID<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$errorcheck<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref><sp/>=<sp/>Database::singleton();</highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$reader_roles<sp/>=<sp/><ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref>-&gt;_create_roles_SQL(</highlight><highlight class="stringliteral">&apos;readers&apos;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(is_numeric($this-&gt;pageName))<sp/>{</highlight></codeline>
-<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$errorcheck<sp/>=<sp/><ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref>-&gt;getRow(</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEFAULT_CACHE_TIMEOUT,</highlight></codeline>
-<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;SELECT<sp/>Title<sp/>FROM<sp/>entities<sp/>WHERE<sp/>(ID=&apos;</highlight><highlight class="normal">.$this-&gt;pageName.</highlight><highlight class="stringliteral">&apos;)<sp/>AND<sp/>&apos;</highlight><highlight class="normal">.$reader_roles</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>($errorcheck)<sp/>{</highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;entityID<sp/>=<sp/><ref refid="main_8php_1a537fa9b460dddc2a67074faab810398a" kindref="member">$application</ref>[pageName];</highlight></codeline>
-<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;pageName<sp/>=<sp/>$errorcheck[</highlight><highlight class="stringliteral">&apos;Title&apos;</highlight><highlight class="normal">];</highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$errorcheck<sp/>=<sp/><ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878" kindref="member">$database</ref>-&gt;getRow(</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEFAULT_CACHE_TIMEOUT,</highlight></codeline>
-<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;SELECT<sp/>ID<sp/>FROM<sp/>entities<sp/>WHERE<sp/>(Title=&quot;&apos;</highlight><highlight class="normal">.$this-&gt;pageName.</highlight><highlight class="stringliteral">&apos;&quot;)<sp/>AND<sp/>&apos;</highlight><highlight class="normal">.$reader_roles</highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>($errorcheck)<sp/>{</highlight></codeline>
-<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;entityID<sp/>=<sp/>$errorcheck[</highlight><highlight class="stringliteral">&apos;ID&apos;</highlight><highlight class="normal">];</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
-<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>($errorcheck)?</highlight><highlight class="keyword">true</highlight><highlight class="normal">:</highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal"><sp/>function<sp/>_mediaDetect()<sp/>{</highlight></codeline>
-<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$media<sp/>=<sp/>DEFAULT_MEDIA;</highlight></codeline>
-<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(isset($_GET[media]))<sp/>{</highlight></codeline>
-<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$media<sp/>=<sp/>strtoupper(addslashes($_GET[media]));</highlight></codeline>
-<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="224"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#Auto-detection<sp/>of<sp/>Robots<sp/>and<sp/>FB<sp/>needed<sp/>:)</highlight></codeline>
-<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(substr(DOMAIN,0,2)<sp/>==<sp/></highlight><highlight class="stringliteral">&apos;m.&apos;</highlight><highlight class="normal">)<sp/>{#Accessed<sp/>the<sp/>mobile<sp/>subdomain</highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$media<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;MOBILE&apos;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>elseif<sp/>(<ref refid="main_8php_1a537fa9b460dddc2a67074faab810398a" kindref="member">$application</ref>[browser]-&gt;isMobileDevice)<sp/>{</highlight></codeline>
-<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$media<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;MOBILE&apos;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;media<sp/>=<sp/>$this-&gt;_add_square_brakets($media);</highlight></codeline>
-<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal"><sp/>function<sp/>_languageDetect()<sp/>{</highlight></codeline>
-<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$lang<sp/>=<sp/>DEFAULT_LANG;</highlight></codeline>
-<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(isset($_GET[lang]))<sp/>{</highlight></codeline>
-<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$lang<sp/>=<sp/>strtolower(addslashes($_GET[lang]));</highlight></codeline>
-<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(isset($_SERVER[HTTP_ACCEPT_LANGUAGE]))<sp/>{#Auto<sp/>detection<sp/>of<sp/>first<sp/>language</highlight></codeline>
-<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$lang<sp/>=<sp/>explode(</highlight><highlight class="charliteral">&apos;,&apos;</highlight><highlight class="normal">,$_SERVER[HTTP_ACCEPT_LANGUAGE]);</highlight></codeline>
-<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$lang<sp/>=<sp/>$lang[0];</highlight></codeline>
-<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$lang<sp/>=<sp/>str_replace(</highlight><highlight class="charliteral">&apos;-&apos;</highlight><highlight class="normal">,</highlight><highlight class="charliteral">&apos;_&apos;</highlight><highlight class="normal">,$lang);</highlight></codeline>
-<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$this-&gt;language<sp/>=<sp/>$this-&gt;_add_square_brakets($lang);</highlight></codeline>
-<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>function<sp/>load_config($path)<sp/>{</highlight></codeline>
-<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>$config<sp/>=<sp/>simplexml_load_file($path);</highlight></codeline>
-<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">foreach</highlight><highlight class="normal"><sp/>($config-&gt;param<sp/>as<sp/>$param)<sp/>{</highlight></codeline>
-<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>($param[</highlight><highlight class="stringliteral">&apos;type&apos;</highlight><highlight class="normal">])<sp/>{</highlight></codeline>
-<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&apos;string&apos;</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>define($param[</highlight><highlight class="stringliteral">&apos;name&apos;</highlight><highlight class="normal">],$param[</highlight><highlight class="stringliteral">&apos;value&apos;</highlight><highlight class="normal">]);</highlight></codeline>
-<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&apos;integer&apos;</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>define($param[</highlight><highlight class="stringliteral">&apos;name&apos;</highlight><highlight class="normal">],(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<sp/>$param[</highlight><highlight class="stringliteral">&apos;value&apos;</highlight><highlight class="normal">]);</highlight></codeline>
-<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="285"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="286"><highlight class="normal">?&gt;</highlight></codeline>
-    </programlisting>
-    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php"/>
-  </compounddef>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+	<compounddef id="class_8Application_8php" kind="file">
+		<compoundname>class.Application.php</compoundname>
+		<innerclass refid="classImpact__Base" prot="public">Impact_Base</innerclass>
+		<innernamespace refid="namespaceImpact">Impact</innernamespace>
+		<briefdescription>
+		</briefdescription>
+		<detaileddescription>
+		</detaileddescription>
+		<programlisting>
+			<codeline lineno="1">
+				<highlight class="normal">&lt;?php</highlight>
+			</codeline>
+			<codeline lineno="17">
+				<highlight class="keyword">
+					class
+					<sp />
+				</highlight>
+				<highlight class="normal">
+					Application
+					<sp />
+					Extends
+					<sp />
+					<ref refid="classImpact__Base" kindref="compound">Impact_Base</ref>
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="18">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">private</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">static</highlight>
+				<highlight class="normal">
+					<sp />
+					$instance;
+				</highlight>
+			</codeline>
+			<codeline lineno="19">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					$settings
+					<sp />
+					=
+					<sp />
+					array();
+				</highlight>
+			</codeline>
+			<codeline lineno="20">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					$ACL;
+				</highlight>
+			</codeline>
+			<codeline lineno="21">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					$facebook;
+				</highlight>
+			</codeline>
+			<codeline lineno="22">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					$fbsession;
+				</highlight>
+			</codeline>
+			<codeline lineno="23">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					$me;
+				</highlight>
+			</codeline>
+			<codeline lineno="24">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="31">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">private</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					__construct()
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="32">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="33">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="46">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">static</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					singleton()
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="47">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					(!isset(self::$instance))
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="48">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$c
+					<sp />
+					=
+					<sp />
+					__CLASS__;
+				</highlight>
+			</codeline>
+			<codeline lineno="49">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					self::$instance
+					<sp />
+					=
+					<sp />
+				</highlight>
+				<highlight class="keyword">new</highlight>
+				<highlight class="normal">
+					<sp />
+					$c;
+				</highlight>
+			</codeline>
+			<codeline lineno="50">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="51">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+					self::$instance;
+				</highlight>
+			</codeline>
+			<codeline lineno="52">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="53">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="59">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					setup()
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="60">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;settings[FBID]
+					<sp />
+					=
+					<sp />
+					0;
+				</highlight>
+			</codeline>
+			<codeline lineno="61">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;_load_constants();
+				</highlight>
+			</codeline>
+			<codeline lineno="62">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;_make_facebook_connection();
+				</highlight>
+			</codeline>
+			<codeline lineno="63">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;_languageDetect();
+				</highlight>
+			</codeline>
+			<codeline lineno="64">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;_mediaDetect();
+				</highlight>
+			</codeline>
+			<codeline lineno="65">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;_userAccessDetect();
+				</highlight>
+			</codeline>
+			<codeline lineno="66">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="67">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;pageName
+					<sp />
+					=
+					<sp />
+					strtolower(addslashes($_GET[page]));
+				</highlight>
+			</codeline>
+			<codeline lineno="68">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />($this-&gt;pageName
+					<sp />
+					==
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;&apos;</highlight>
+				<highlight class="normal">
+					)
+					<sp />{$this-&gt;pageName
+					<sp />
+					=
+					<sp />
+					DEFAULT_HOMEPAGE;}
+				</highlight>
+			</codeline>
+			<codeline lineno="69">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;pageErrorCheck
+					<sp />
+					=
+					<sp />$this-&gt;_getPageRequestInfo();
+				</highlight>
+			</codeline>
+			<codeline lineno="70">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="71">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="81">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">private</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					_load_constants()
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="82">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;load_config(
+					<ref refid="classI_1ad0abe98dc00be95f647b055b6ad2ab49" kindref="member">I::get_include_directory</ref>
+					().
+				</highlight>
+				<highlight class="stringliteral">&apos;/../config/settings.xml&apos;
+				</highlight>
+				<highlight class="normal">);</highlight>
+			</codeline>
+			<codeline lineno="83">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="84">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="94">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					function
+					<sp />
+					_make_facebook_connection()
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="95">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;facebook
+					<sp />
+					=
+					<sp />
+				</highlight>
+				<highlight class="keyword">new</highlight>
+				<highlight class="normal">
+					<sp />
+					Facebook(array(
+				</highlight>
+			</codeline>
+			<codeline lineno="96">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;appId&apos;</highlight>
+				<highlight class="normal">
+					<sp />
+					<sp />=&gt;
+					<sp />
+					FB_APPKEY,
+				</highlight>
+			</codeline>
+			<codeline lineno="97">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;secret&apos;</highlight>
+				<highlight class="normal">
+					<sp />=&gt;
+					<sp />
+					FB_SECRET,
+				</highlight>
+			</codeline>
+			<codeline lineno="98">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;cookie&apos;</highlight>
+				<highlight class="normal">
+					<sp />=&gt;
+					<sp />
+				</highlight>
+				<highlight class="keyword">true</highlight>
+				<highlight class="normal">,</highlight>
+			</codeline>
+			<codeline lineno="99">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					));
+				</highlight>
+			</codeline>
+			<codeline lineno="100">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;fbsession
+					<sp />
+					=
+					<sp />$this-&gt;facebook-&gt;getSession();
+				</highlight>
+			</codeline>
+			<codeline lineno="101">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="102">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />($this-&gt;fbsession)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="103">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">try</highlight>
+				<highlight class="normal">
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="104">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;uid
+					<sp />
+					=
+					<sp />$this-&gt;facebook-&gt;getUser();
+				</highlight>
+			</codeline>
+			<codeline lineno="105">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;me
+					<sp />
+					=
+					<sp />$this-&gt;facebook-&gt;api(
+				</highlight>
+				<highlight class="stringliteral">&apos;/me&apos;</highlight>
+				<highlight class="normal">);</highlight>
+			</codeline>
+			<codeline lineno="106">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">catch</highlight>
+				<highlight class="normal">
+					<sp />
+					(FacebookApiException
+					<sp />
+					$e)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="107">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					error_log($e);
+				</highlight>
+			</codeline>
+			<codeline lineno="108">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="109">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="110">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="111">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="119">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					__clone()
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="120">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					trigger_error(
+				</highlight>
+				<highlight class="stringliteral">
+					&apos;Clone
+					<sp />
+					is
+					<sp />
+					not
+					<sp />allowed.&apos;
+				</highlight>
+				<highlight class="normal">
+					,
+					<sp />
+					E_USER_ERROR);
+				</highlight>
+			</codeline>
+			<codeline lineno="121">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="122">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="131">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					__set($property,$value)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="132">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;settings[$property]
+					<sp />
+					=
+					<sp />
+					$value;
+				</highlight>
+			</codeline>
+			<codeline lineno="133">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="134">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="143">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					__get($property)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="144">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />(array_key_exists($property,$this-&gt;settings))
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="145">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />$this-&gt;settings[$property];
+				</highlight>
+			</codeline>
+			<codeline lineno="146">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">else</highlight>
+				<highlight class="normal">
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="147">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="keyword">false</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="148">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="149">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="150">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="159">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">private</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					_userAccessDetect
+					<sp />
+					()
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="160">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878"
+						kindref="member">$database</ref>
+					<sp />
+					=
+					<sp />
+					Database::singleton();
+				</highlight>
+			</codeline>
+			<codeline lineno="161">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;roles
+					<sp />
+					=
+					<sp />
+					<ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878"
+						kindref="member">$database</ref>-&gt;getRoles($this-&gt;FBID);
+				</highlight>
+			</codeline>
+			<codeline lineno="162">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;accessLevel
+					<sp />
+					=
+					<sp />
+					<ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878"
+						kindref="member">$database</ref>-&gt;getAccess($this-&gt;FBID);
+				</highlight>
+			</codeline>
+			<codeline lineno="163">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="164">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="comment">
+					//This
+					<sp />
+					needs
+					<sp />
+					a
+					<sp />
+					better
+					<sp />
+					implimentation
+					<sp />
+					but
+					<sp />
+					will
+					<sp />
+					do
+					<sp />
+					to
+					<sp />
+					get
+					<sp />
+					us
+					<sp />
+					going
+				</highlight>
+				<highlight class="normal"></highlight>
+			</codeline>
+			<codeline lineno="165">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;
+					<ref refid="classACL" kindref="compound">ACL</ref>
+					<sp />
+					=
+					<sp />$this-&gt;factory(
+				</highlight>
+				<highlight class="stringliteral">&apos;ACL&apos;</highlight>
+				<highlight class="normal">);</highlight>
+			</codeline>
+			<codeline lineno="166">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;
+					<ref refid="classACL" kindref="compound">ACL</ref>-&gt;FBID
+					<sp />
+					=
+					<sp />$this-&gt;settings[FBID];
+				</highlight>
+			</codeline>
+			<codeline lineno="167">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;
+					<ref refid="classACL" kindref="compound">ACL</ref>-&gt;accesslevel
+					<sp />
+					=
+					<sp />$this-&gt;settings[accessLevel];
+				</highlight>
+			</codeline>
+			<codeline lineno="168">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;
+					<ref refid="classACL" kindref="compound">ACL</ref>-&gt;facebook
+					<sp />
+					=
+					<sp />$this-&gt;facebook;
+				</highlight>
+			</codeline>
+			<codeline lineno="169">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;
+					<ref refid="classACL" kindref="compound">ACL</ref>-&gt;
+					<ref refid="classACL_1a9a4659729420394ae67f53af92014161"
+						kindref="member">load_roles</ref>($this-&gt;settings[roles]);
+				</highlight>
+			</codeline>
+			<codeline lineno="170">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;settings[
+					<ref refid="classACL" kindref="compound">ACL</ref>
+					]
+					<sp />
+					=
+					<sp />$this-&gt;
+					<ref refid="classACL" kindref="compound">ACL</ref>
+					;
+				</highlight>
+			</codeline>
+			<codeline lineno="171">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="172">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="181">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					function
+					<sp />
+					_getPageRequestInfo()
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="182">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;entityID
+					<sp />
+					=
+					<sp />
+					0;
+				</highlight>
+			</codeline>
+			<codeline lineno="183">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$errorcheck
+					<sp />
+					=
+					<sp />
+				</highlight>
+				<highlight class="keyword">false</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="184">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878"
+						kindref="member">$database</ref>
+					<sp />
+					=
+					<sp />
+					Database::singleton();
+				</highlight>
+			</codeline>
+			<codeline lineno="185">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="186">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$reader_roles
+					<sp />
+					=
+					<sp />
+					<ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878"
+						kindref="member">$database</ref>-&gt;_create_roles_SQL(
+				</highlight>
+				<highlight class="stringliteral">&apos;readers&apos;</highlight>
+				<highlight class="normal">);</highlight>
+			</codeline>
+			<codeline lineno="187">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="188">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />(is_numeric($this-&gt;pageName))
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="189">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$errorcheck
+					<sp />
+					=
+					<sp />
+					<ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878"
+						kindref="member">$database</ref>-&gt;getRow(
+				</highlight>
+			</codeline>
+			<codeline lineno="190">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					DEFAULT_CACHE_TIMEOUT,
+				</highlight>
+			</codeline>
+			<codeline lineno="191">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">
+					&apos;SELECT
+					<sp />
+					Title
+					<sp />
+					FROM
+					<sp />
+					entities
+					<sp />
+					WHERE
+					<sp />(ID=&apos;
+				</highlight>
+				<highlight class="normal">.$this-&gt;pageName.</highlight>
+				<highlight class="stringliteral">
+					&apos;)
+					<sp />
+					AND
+					<sp />
+					&apos;
+				</highlight>
+				<highlight class="normal">.$reader_roles</highlight>
+			</codeline>
+			<codeline lineno="192">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					);
+				</highlight>
+			</codeline>
+			<codeline lineno="193">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					($errorcheck)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="194">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;entityID
+					<sp />
+					=
+					<sp />
+					<ref refid="main_8php_1a537fa9b460dddc2a67074faab810398a"
+						kindref="member">$application</ref>
+					[pageName];
+				</highlight>
+			</codeline>
+			<codeline lineno="195">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;pageName
+					<sp />
+					=
+					<sp />
+					$errorcheck[
+				</highlight>
+				<highlight class="stringliteral">&apos;Title&apos;</highlight>
+				<highlight class="normal">];</highlight>
+			</codeline>
+			<codeline lineno="196">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="197">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">else</highlight>
+				<highlight class="normal">
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="198">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$errorcheck
+					<sp />
+					=
+					<sp />
+					<ref refid="main_8php_1a7691c0162d89de0b6ba47edcd8ba8878"
+						kindref="member">$database</ref>-&gt;getRow(
+				</highlight>
+			</codeline>
+			<codeline lineno="199">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					DEFAULT_CACHE_TIMEOUT,
+				</highlight>
+			</codeline>
+			<codeline lineno="200">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">
+					&apos;SELECT
+					<sp />
+					ID
+					<sp />
+					FROM
+					<sp />
+					entities
+					<sp />
+					WHERE
+					<sp />(Title=&quot;&apos;
+				</highlight>
+				<highlight class="normal">.$this-&gt;pageName.</highlight>
+				<highlight class="stringliteral">&apos;&quot;)
+					<sp />
+					AND
+					<sp />
+					&apos;
+				</highlight>
+				<highlight class="normal">.$reader_roles</highlight>
+			</codeline>
+			<codeline lineno="201">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					);
+				</highlight>
+			</codeline>
+			<codeline lineno="202">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					($errorcheck)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="203">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;entityID
+					<sp />
+					=
+					<sp />
+					$errorcheck[
+				</highlight>
+				<highlight class="stringliteral">&apos;ID&apos;</highlight>
+				<highlight class="normal">];</highlight>
+			</codeline>
+			<codeline lineno="204">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="205">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="206">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="207">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">return</highlight>
+				<highlight class="normal">
+					<sp />
+					($errorcheck)?
+				</highlight>
+				<highlight class="keyword">true</highlight>
+				<highlight class="normal">:</highlight>
+				<highlight class="keyword">false</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="208">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="209">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="219">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">protected</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					_mediaDetect()
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="220">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$media
+					<sp />
+					=
+					<sp />
+					DEFAULT_MEDIA;
+				</highlight>
+			</codeline>
+			<codeline lineno="221">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					(isset($_GET[media]))
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="222">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$media
+					<sp />
+					=
+					<sp />
+					strtoupper(addslashes($_GET[media]));
+				</highlight>
+			</codeline>
+			<codeline lineno="223">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">else</highlight>
+				<highlight class="normal">
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="224">
+				<highlight class="normal"></highlight>
+				<highlight class="preprocessor">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					#Auto-detection
+					<sp />
+					of
+					<sp />
+					Robots
+					<sp />
+					and
+					<sp />
+					FB
+					<sp />
+					needed
+					<sp />
+					:)
+				</highlight>
+			</codeline>
+			<codeline lineno="225">
+				<highlight class="preprocessor"></highlight>
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					(substr(DOMAIN,0,2)
+					<sp />
+					==
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;m.&apos;</highlight>
+				<highlight class="normal">
+					)
+					<sp />
+					{#Accessed
+					<sp />
+					the
+					<sp />
+					mobile
+					<sp />
+					subdomain
+				</highlight>
+			</codeline>
+			<codeline lineno="226">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$media
+					<sp />
+					=
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;MOBILE&apos;</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="227">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+					elseif
+					<sp />
+					(
+					<ref refid="main_8php_1a537fa9b460dddc2a67074faab810398a"
+						kindref="member">$application</ref>[browser]-&gt;isMobileDevice)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="228">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$media
+					<sp />
+					=
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;MOBILE&apos;</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="229">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="230">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="231">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="232">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;media
+					<sp />
+					=
+					<sp />$this-&gt;_add_square_brakets($media);
+				</highlight>
+			</codeline>
+			<codeline lineno="233">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="234">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="245">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">protected</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					_languageDetect()
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="246">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$lang
+					<sp />
+					=
+					<sp />
+					DEFAULT_LANG;
+				</highlight>
+			</codeline>
+			<codeline lineno="247">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					(isset($_GET[lang]))
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="248">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$lang
+					<sp />
+					=
+					<sp />
+					strtolower(addslashes($_GET[lang]));
+				</highlight>
+			</codeline>
+			<codeline lineno="249">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">else</highlight>
+				<highlight class="normal">
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="250">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">if</highlight>
+				<highlight class="normal">
+					<sp />
+					(isset($_SERVER[HTTP_ACCEPT_LANGUAGE]))
+					<sp />
+					{#Auto
+					<sp />
+					detection
+					<sp />
+					of
+					<sp />
+					first
+					<sp />
+					language
+				</highlight>
+			</codeline>
+			<codeline lineno="251">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$lang
+					<sp />
+					=
+					<sp />
+					explode(
+				</highlight>
+				<highlight class="charliteral">&apos;,&apos;</highlight>
+				<highlight class="normal">,$_SERVER[HTTP_ACCEPT_LANGUAGE]);
+				</highlight>
+			</codeline>
+			<codeline lineno="252">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$lang
+					<sp />
+					=
+					<sp />
+					$lang[0];
+				</highlight>
+			</codeline>
+			<codeline lineno="253">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$lang
+					<sp />
+					=
+					<sp />
+					str_replace(
+				</highlight>
+				<highlight class="charliteral">&apos;-&apos;</highlight>
+				<highlight class="normal">,</highlight>
+				<highlight class="charliteral">&apos;_&apos;</highlight>
+				<highlight class="normal">,$lang);</highlight>
+			</codeline>
+			<codeline lineno="254">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="255">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="256">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="257">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />$this-&gt;language
+					<sp />
+					=
+					<sp />$this-&gt;_add_square_brakets($lang);
+				</highlight>
+			</codeline>
+			<codeline lineno="258">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="259">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="271">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keyword">public</highlight>
+				<highlight class="normal">
+					<sp />
+					function
+					<sp />
+					load_config($path)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="272">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					$config
+					<sp />
+					=
+					<sp />
+					simplexml_load_file($path);
+				</highlight>
+			</codeline>
+			<codeline lineno="273">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+			</codeline>
+			<codeline lineno="274">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">foreach</highlight>
+				<highlight class="normal">
+					<sp />($config-&gt;param
+					<sp />
+					as
+					<sp />
+					$param)
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="275">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">switch</highlight>
+				<highlight class="normal">
+					<sp />
+					($param[
+				</highlight>
+				<highlight class="stringliteral">&apos;type&apos;</highlight>
+				<highlight class="normal">
+					])
+					<sp />
+					{
+				</highlight>
+			</codeline>
+			<codeline lineno="276">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">case</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;string&apos;</highlight>
+				<highlight class="normal">:</highlight>
+			</codeline>
+			<codeline lineno="277">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					define($param[
+				</highlight>
+				<highlight class="stringliteral">&apos;name&apos;</highlight>
+				<highlight class="normal">],$param[</highlight>
+				<highlight class="stringliteral">&apos;value&apos;</highlight>
+				<highlight class="normal">]);</highlight>
+			</codeline>
+			<codeline lineno="278">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">break</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="279">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">case</highlight>
+				<highlight class="normal">
+					<sp />
+				</highlight>
+				<highlight class="stringliteral">&apos;integer&apos;</highlight>
+				<highlight class="normal">:</highlight>
+			</codeline>
+			<codeline lineno="280">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					define($param[
+				</highlight>
+				<highlight class="stringliteral">&apos;name&apos;</highlight>
+				<highlight class="normal">],(</highlight>
+				<highlight class="keywordtype">int</highlight>
+				<highlight class="normal">
+					)
+					<sp />
+					$param[
+				</highlight>
+				<highlight class="stringliteral">&apos;value&apos;</highlight>
+				<highlight class="normal">]);</highlight>
+			</codeline>
+			<codeline lineno="281">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+				</highlight>
+				<highlight class="keywordflow">break</highlight>
+				<highlight class="normal">;</highlight>
+			</codeline>
+			<codeline lineno="282">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="283">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="284">
+				<highlight class="normal">
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					<sp />
+					}
+				</highlight>
+			</codeline>
+			<codeline lineno="285">
+				<highlight class="normal">}</highlight>
+			</codeline>
+			<codeline lineno="286">
+				<highlight class="normal">?&gt;</highlight>
+			</codeline>
+		</programlisting>
+		<location
+			file="H:/Projects/ImpactCRM/ImpactCRM/models/class.Application.php" />
+	</compounddef>
 </doxygen>

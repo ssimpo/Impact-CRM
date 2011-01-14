@@ -1,749 +1,1194 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
-  <compounddef id="classSAVI__Parser" kind="class" prot="public">
-    <compoundname>SAVI_Parser</compoundname>
-      <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="classSAVI__Parser_1a9e2fcfa96c544bf4bd3c5a71a7bf2739" prot="protected" static="no" mutable="no">
-        <type></type>
-        <definition>$lineNo</definition>
-        <argsstring></argsstring>
-        <name>$lineNo</name>
-        <initializer> -1</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="11" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="11" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classSAVI__Parser_1a63d046010fb22e14107bd3861e1d9dd5" prot="protected" static="no" mutable="no">
-        <type></type>
-        <definition>$errNo</definition>
-        <argsstring></argsstring>
-        <name>$errNo</name>
-        <initializer> 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="12" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="12" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classSAVI__Parser_1ad86c3fbc5672e1deeafc5229012b0b5d" prot="protected" static="no" mutable="no">
-        <type></type>
-        <definition>$handle</definition>
-        <argsstring></argsstring>
-        <name>$handle</name>
-        <initializer> false</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="14" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="14" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classSAVI__Parser_1ac37a18f959e7a225e0a690852367523d" prot="protected" static="no" mutable="no">
-        <type></type>
-        <definition>$lineFixer</definition>
-        <argsstring></argsstring>
-        <name>$lineFixer</name>
-        <initializer> true</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="15" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="15" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classSAVI__Parser_1a87f087d55e041fbc48604cfe47019f6e" prot="protected" static="no" mutable="no">
-        <type></type>
-        <definition>$multiLineFixer</definition>
-        <argsstring></argsstring>
-        <name>$multiLineFixer</name>
-        <initializer> true</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="16" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="16" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classSAVI__Parser_1ab025198049ed7f6ff96c43aba8c4ad20" prot="protected" static="no" mutable="no">
-        <type></type>
-        <definition>$uppercaseTags</definition>
-        <argsstring></argsstring>
-        <name>$uppercaseTags</name>
-        <initializer> true</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="17" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="17" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classSAVI__Parser_1a0a6ff866cad56154d31e649d69ac8c0f" prot="protected" static="no" mutable="no">
-        <type></type>
-        <definition>$starter</definition>
-        <argsstring></argsstring>
-        <name>$starter</name>
-        <initializer> &apos;&apos;</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="18" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="18" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classSAVI__Parser_1accbd2f26bb805e2a243cab5498237ac8" prot="protected" static="no" mutable="no">
-        <type></type>
-        <definition>$ender</definition>
-        <argsstring></argsstring>
-        <name>$ender</name>
-        <initializer> &apos;&apos;</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="19" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="19" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classSAVI__Parser_1a5a878b1c34cc555349cbc4acbcdd54e7" prot="protected" static="no" mutable="no">
-        <type></type>
-        <definition>$charHandle</definition>
-        <argsstring></argsstring>
-        <name>$charHandle</name>
-        <initializer> &apos;&apos;</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="20" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="20" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="protected-static-attrib">
-      <memberdef kind="variable" id="classSAVI__Parser_1af21b3b8a4d4bcfa682cd5f411e0eb566" prot="protected" static="yes" mutable="no">
-        <type>static</type>
-        <definition>$errorMsgs</definition>
-        <argsstring></argsstring>
-        <name>$errorMsgs</name>
-        <initializer> &apos;&apos;</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="13" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="13" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="public-func">
-      <memberdef kind="function" id="classSAVI__Parser_1a242c7fe86fb7c62f11f9212afbfa6112" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>__construct</definition>
-        <argsstring>($lineFixer=true, $uppercaseTags=true, $multiLinefixer=true)</argsstring>
-        <name>__construct</name>
-        <param>
-          <type>$</type>
-          <declname>lineFixer</declname>
-          <defval>true</defval>
-        </param>
-        <param>
-          <type>$</type>
-          <declname>uppercaseTags</declname>
-          <defval>true</defval>
-        </param>
-        <param>
-          <type>$</type>
-          <declname>multiLinefixer</declname>
-          <defval>true</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Constructer for class <parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>Boolen</parametertype>
-<parametername>$lineFixer</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Remove leading tabs from the start of lines </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametertype>Boolen</parametertype>
-<parametername>$uppercaseTags</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Uppercase all the tags before passing to supplied processing functions </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametertype>Boolen</parametertype>
-<parametername>$multiLinefixer</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Fix multiline content (not implimented yet) </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>Object Reference to the object </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="29" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="29" bodyend="36"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a26a305bbf09bf4742f1da2262f6c5ae2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>ical_parse</definition>
-        <argsstring>($parser, $data)</argsstring>
-        <name>ical_parse</name>
-        <param>
-          <type>$</type>
-          <declname>parser</declname>
-        </param>
-        <param>
-          <type>$</type>
-          <declname>data</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Start parsing</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>Object</parametertype>
-<parametername>$parser</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Reference to the parser to use </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametertype>String</parametertype>
-<parametername>$data</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The data to parse or a file/resourse name to load as parsable data </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>Boolean TRUE </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="45" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="45" bodyend="48"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a866029e3a4a8f04843dc6735368ec3e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>load_data</definition>
-        <argsstring>($parser, $filename)</argsstring>
-        <name>load_data</name>
-        <param>
-          <type>$</type>
-          <declname>parser</declname>
-        </param>
-        <param>
-          <type>$</type>
-          <declname>filename</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Load and parse the content</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>Object</parametertype>
-<parametername>$parser</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Reference to parser to use </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametertype>String</parametertype>
-<parametername>$filename</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The filename or resource to load </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>Object Reference to the parser object or FALSE on failure </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="57" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="57" bodyend="96"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1aff34336fb5f79c52c0a06ac3c5a50291" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_fix_multilines</definition>
-        <argsstring>($data)</argsstring>
-        <name>_fix_multilines</name>
-        <param>
-          <type>$</type>
-          <declname>data</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Fix for when a line is split with a newline in the actual feed.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>String</parametertype>
-<parametername>$data</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The raw data to parse for messey lines </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>String() The lines as a series of array items, ready for parsing </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="134" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="134" bodyend="148"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1af5040d51f1be467234b13837eefc9d53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>ical_set_element_handler</definition>
-        <argsstring>($parser, $starter, $ender)</argsstring>
-        <name>ical_set_element_handler</name>
-        <param>
-          <type>$</type>
-          <declname>parser</declname>
-        </param>
-        <param>
-          <type>$</type>
-          <declname>starter</declname>
-        </param>
-        <param>
-          <type>$</type>
-          <declname>ender</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Equivilant to xml_set_element_handler, except the starter function will accept parsed content as well but can be ignored if required</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>Object</parametertype>
-<parametername>$parser</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Reference iCal to the parser to use </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>Function()</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>$starter The function to call with an opening tag. Expected arguments are:<itemizedlist>
-<listitem><para>Object $parser Reference to the parser object</para></listitem><listitem><para>String $tag Name of the tag</para></listitem><listitem><para>String() $attributes The attributes of the tag</para></listitem><listitem><para>Content() $content The tag content will return an array if it is array content </para></listitem></itemizedlist>
-</para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>Function()</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>$ender The function to call on closing tag. Expected arguments are:<itemizedlist>
-<listitem><para>Object $parser Reference to the parser object</para></listitem><listitem><para>String $tag Name of the closing tag </para></listitem></itemizedlist>
-</para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>Boolean TRUE </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="297" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="297" bodyend="301"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a9167bc8a37cf9e9766b1f82f5784cdaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>ical_set_character_data_handler</definition>
-        <argsstring>($parser, $charHandle)</argsstring>
-        <name>ical_set_character_data_handler</name>
-        <param>
-          <type>$</type>
-          <declname>parser</declname>
-        </param>
-        <param>
-          <type>$</type>
-          <declname>charHandle</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Equivilant to xml_set_character_data_handler.</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>Object</parametertype>
-<parametername>$parser</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Reference iCal to the parser to use </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>Function()</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>$charHandle The function to call with text content. Expected arguments are:<itemizedlist>
-<listitem><para>Object $parser Reference to the parser object</para></listitem><listitem><para>String $content The raw text </para></listitem></itemizedlist>
-</para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>Boolean TRUE </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="312" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="312" bodyend="315"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a0af36ab5229619c8c396d454c8c89116" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>utf8_decode</definition>
-        <argsstring>($data)</argsstring>
-        <name>utf8_decode</name>
-        <param>
-          <type>$</type>
-          <declname>data</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Convert a text string from UTF-8 to ISO-8859-1. Exactly the same as the SAX parser equivilant</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>String</parametertype>
-<parametername>$data</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The UTF-8 encoded string to convert </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>String A ISO-8859-1 encoded string </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="323" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="323" bodyend="325"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a9e9a4aca94f8a18a6fbc1dbc27ba594b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>utf8_encode</definition>
-        <argsstring>($data)</argsstring>
-        <name>utf8_encode</name>
-        <param>
-          <type>$</type>
-          <declname>data</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Convert a text string from ISO-8859-1 to UTF-8. Exactly the same as the SAX parser equivilant</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>String</parametertype>
-<parametername>$data</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The ISO-8859-1 encoded string to convert </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>String A UTF-8 encoded string </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="333" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="333" bodyend="335"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1abbb9a24b226831f7ebf5d27b9754b69e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>ical_get_error_code</definition>
-        <argsstring>()</argsstring>
-        <name>ical_get_error_code</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Equivilant of xml_get_error_code() in the standard PHP SAX Parser. Will return the current error number if one exists</para><para><simplesect kind="return"><para>Interger The current error number or -1 if no error has occured </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="342" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="342" bodyend="344"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a77d83b11f08a322cae57654f43ed0b22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>ical_get_error_string</definition>
-        <argsstring>($errNo=0)</argsstring>
-        <name>ical_get_error_string</name>
-        <param>
-          <type>$</type>
-          <declname>errNo</declname>
-          <defval>0</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Equivalnt to xml_get_error_string in the standard PHP SAX Parser. Will return error message 0 if no number is passed or error code does not exist</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>Interger</parametertype>
-<parametername>$errNo</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The error string you want to lookup </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>String The error string for the given code </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="352" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="352" bodyend="358"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a099de2f0a6cf07f9433080fb3a38556d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>ical_get_current_line_number</definition>
-        <argsstring>()</argsstring>
-        <name>ical_get_current_line_number</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Equivalnt to xml_get_current_line_number in the standard PHP SAX Parser. Will return the current line number the parser has got to in the parsing proccess. Use to find out where an error happended.</para><para><simplesect kind="return"><para>Interger The line number the parser is up to </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="365" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="365" bodyend="367"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a7dd9766590f266ab55bd78d7e9ac2963" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>ical_get_current_byte_index</definition>
-        <argsstring>()</argsstring>
-        <name>ical_get_current_byte_index</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Equivalnt to xml_get_current_byte_index in the standard PHP SAX Parser. Will the current byte number the parser got to in the parsing process. Use to find out where an error happended.</para><para><simplesect kind="return"><para>Interger The byte number </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="374" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="374" bodyend="380"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a88fdf5a60b67329b81255715822af3a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>ical_get_current_column_number</definition>
-        <argsstring>()</argsstring>
-        <name>ical_get_current_column_number</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Equivalnt to xml_get_current_column_number in the standard PHP SAX Parser. Will the current column position the parser got to in the parsing process. Use to find out where an error happended.</para><para><simplesect kind="return"><para>Interger the column number </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="387" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="387" bodyend="389"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="private-func">
-      <memberdef kind="function" id="classSAVI__Parser_1a9249bb71395565b7156613162682bd6a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_handle_line</definition>
-        <argsstring>($parser, $parsed)</argsstring>
-        <name>_handle_line</name>
-        <param>
-          <type>$</type>
-          <declname>parser</declname>
-        </param>
-        <param>
-          <type>$</type>
-          <declname>parsed</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Handle parsed line and call any defined function for handling current line</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>Object</parametertype>
-<parametername>$parser</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Reference to parser object to use </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>Array()</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>$parsed The parsed contents of a line that needs handling </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="104" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="104" bodyend="126"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1ac79dff5d0807ccfa3717642732dd3989" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_line_parser</definition>
-        <argsstring>($line)</argsstring>
-        <name>_line_parser</name>
-        <param>
-          <type>$</type>
-          <declname>line</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Parse one line of text into an array, which represents its content</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>String</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Line of text to parse </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>Array() Parsed content in the following format: array( &apos;tag&apos; =&gt; The Tag name &apos;attributes&apos; =&gt; An array of the attributes in format attribute_name=&gt;attribut_value (attribute_value can be a further array) &apos;content&apos; =&gt; The content, either as plain-text or parsed into an array if content was parsable. Semicolon-seperated content is parsed as item_name=&gt;item_value, like attributes (item_value can be a further array). Comma -eperated content is parsed as index=&gt;item_value. &apos;rawtextcontent&apos; =&gt; The unparsed text content ) </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="162" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="162" bodyend="192"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a01b434009c98e3b51b6b7970f27515a9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_delimit_replace</definition>
-        <argsstring>($content)</argsstring>
-        <name>_delimit_replace</name>
-        <param>
-          <type>$</type>
-          <declname>content</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="244" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="244" bodyend="249"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a8276afb7bf6d48ce368a297f2847b462" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_delimit_unreplace</definition>
-        <argsstring>($content)</argsstring>
-        <name>_delimit_unreplace</name>
-        <param>
-          <type>$</type>
-          <declname>content</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="251" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="251" bodyend="258"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a9d1f0ed86b56c640a69784a385d65bf1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_fix_line</definition>
-        <argsstring>($line)</argsstring>
-        <name>_fix_line</name>
-        <param>
-          <type>$</type>
-          <declname>line</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>This is line fixer, removes tabs that may have crept into the line. Just makes the parser more friendly, not strictly speaking conforming to the iCal standard. Also fixes the different newline methods</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>String</parametertype>
-<parametername>$line</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The line to apply fixes to </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>String The fixed line </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="266" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="266" bodyend="270"/>
-      </memberdef>
-      <memberdef kind="function" id="classSAVI__Parser_1a9a632e210730850956e1aefb27ce7d87" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_define_error_messages</definition>
-        <argsstring>()</argsstring>
-        <name>_define_error_messages</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Function to define the parser errors/codes - stores in a class static </para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="275" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="275" bodyend="281"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="protected-func">
-      <memberdef kind="function" id="classSAVI__Parser_1a67ad30f64dcdbd2dad8787ba3f5aeb5e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type></type>
-        <definition>_value_list_parser</definition>
-        <argsstring>($valueList)</argsstring>
-        <name>_value_list_parser</name>
-        <param>
-          <type>$</type>
-          <declname>valueList</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Take an input string and split it according to standard iCal rules, hence:<itemizedlist>
-<listitem><para>split key1=&quot;value2&quot;;key2=&quot;value2&quot; or key1=value2;key2=value2, into array</para></listitem><listitem><para>split value1,value2,value3... into an array</para></listitem></itemizedlist>
-</para><para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametertype>String</parametertype>
-<parametername>$valueList</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The string to split </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>String() An array containing the split values or the orginal string if nothing to split </para></simplesect>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="202" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="202" bodyend="242"/>
-      </memberdef>
-      </sectiondef>
-    <briefdescription>
-    </briefdescription>
-    <detaileddescription>
-    </detaileddescription>
-    <location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" line="10" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php" bodystart="10" bodyend="391"/>
-    <listofallmembers>
-      <member refid="classSAVI__Parser_1a5a878b1c34cc555349cbc4acbcdd54e7" prot="protected" virt="non-virtual"><scope>SAVI_Parser</scope><name>$charHandle</name></member>
-      <member refid="classSAVI__Parser_1accbd2f26bb805e2a243cab5498237ac8" prot="protected" virt="non-virtual"><scope>SAVI_Parser</scope><name>$ender</name></member>
-      <member refid="classSAVI__Parser_1a63d046010fb22e14107bd3861e1d9dd5" prot="protected" virt="non-virtual"><scope>SAVI_Parser</scope><name>$errNo</name></member>
-      <member refid="classSAVI__Parser_1af21b3b8a4d4bcfa682cd5f411e0eb566" prot="protected" virt="non-virtual"><scope>SAVI_Parser</scope><name>$errorMsgs</name></member>
-      <member refid="classSAVI__Parser_1ad86c3fbc5672e1deeafc5229012b0b5d" prot="protected" virt="non-virtual"><scope>SAVI_Parser</scope><name>$handle</name></member>
-      <member refid="classSAVI__Parser_1ac37a18f959e7a225e0a690852367523d" prot="protected" virt="non-virtual"><scope>SAVI_Parser</scope><name>$lineFixer</name></member>
-      <member refid="classSAVI__Parser_1a9e2fcfa96c544bf4bd3c5a71a7bf2739" prot="protected" virt="non-virtual"><scope>SAVI_Parser</scope><name>$lineNo</name></member>
-      <member refid="classSAVI__Parser_1a87f087d55e041fbc48604cfe47019f6e" prot="protected" virt="non-virtual"><scope>SAVI_Parser</scope><name>$multiLineFixer</name></member>
-      <member refid="classSAVI__Parser_1a0a6ff866cad56154d31e649d69ac8c0f" prot="protected" virt="non-virtual"><scope>SAVI_Parser</scope><name>$starter</name></member>
-      <member refid="classSAVI__Parser_1ab025198049ed7f6ff96c43aba8c4ad20" prot="protected" virt="non-virtual"><scope>SAVI_Parser</scope><name>$uppercaseTags</name></member>
-      <member refid="classSAVI__Parser_1a242c7fe86fb7c62f11f9212afbfa6112" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>__construct</name></member>
-      <member refid="classSAVI__Parser_1a9a632e210730850956e1aefb27ce7d87" prot="private" virt="non-virtual"><scope>SAVI_Parser</scope><name>_define_error_messages</name></member>
-      <member refid="classSAVI__Parser_1a01b434009c98e3b51b6b7970f27515a9" prot="private" virt="non-virtual"><scope>SAVI_Parser</scope><name>_delimit_replace</name></member>
-      <member refid="classSAVI__Parser_1a8276afb7bf6d48ce368a297f2847b462" prot="private" virt="non-virtual"><scope>SAVI_Parser</scope><name>_delimit_unreplace</name></member>
-      <member refid="classSAVI__Parser_1a9d1f0ed86b56c640a69784a385d65bf1" prot="private" virt="non-virtual"><scope>SAVI_Parser</scope><name>_fix_line</name></member>
-      <member refid="classSAVI__Parser_1aff34336fb5f79c52c0a06ac3c5a50291" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>_fix_multilines</name></member>
-      <member refid="classSAVI__Parser_1a9249bb71395565b7156613162682bd6a" prot="private" virt="non-virtual"><scope>SAVI_Parser</scope><name>_handle_line</name></member>
-      <member refid="classSAVI__Parser_1ac79dff5d0807ccfa3717642732dd3989" prot="private" virt="non-virtual"><scope>SAVI_Parser</scope><name>_line_parser</name></member>
-      <member refid="classSAVI__Parser_1a67ad30f64dcdbd2dad8787ba3f5aeb5e" prot="protected" virt="non-virtual"><scope>SAVI_Parser</scope><name>_value_list_parser</name></member>
-      <member refid="classSAVI__Parser_1a7dd9766590f266ab55bd78d7e9ac2963" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>ical_get_current_byte_index</name></member>
-      <member refid="classSAVI__Parser_1a88fdf5a60b67329b81255715822af3a5" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>ical_get_current_column_number</name></member>
-      <member refid="classSAVI__Parser_1a099de2f0a6cf07f9433080fb3a38556d" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>ical_get_current_line_number</name></member>
-      <member refid="classSAVI__Parser_1abbb9a24b226831f7ebf5d27b9754b69e" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>ical_get_error_code</name></member>
-      <member refid="classSAVI__Parser_1a77d83b11f08a322cae57654f43ed0b22" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>ical_get_error_string</name></member>
-      <member refid="classSAVI__Parser_1a26a305bbf09bf4742f1da2262f6c5ae2" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>ical_parse</name></member>
-      <member refid="classSAVI__Parser_1a9167bc8a37cf9e9766b1f82f5784cdaf" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>ical_set_character_data_handler</name></member>
-      <member refid="classSAVI__Parser_1af5040d51f1be467234b13837eefc9d53" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>ical_set_element_handler</name></member>
-      <member refid="classSAVI__Parser_1a866029e3a4a8f04843dc6735368ec3e7" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>load_data</name></member>
-      <member refid="classSAVI__Parser_1a0af36ab5229619c8c396d454c8c89116" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>utf8_decode</name></member>
-      <member refid="classSAVI__Parser_1a9e9a4aca94f8a18a6fbc1dbc27ba594b" prot="public" virt="non-virtual"><scope>SAVI_Parser</scope><name>utf8_encode</name></member>
-    </listofallmembers>
-  </compounddef>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+	<compounddef id="classSAVI__Parser" kind="class" prot="public">
+		<compoundname>SAVI_Parser</compoundname>
+		<sectiondef kind="protected-attrib">
+			<memberdef kind="variable"
+				id="classSAVI__Parser_1a9e2fcfa96c544bf4bd3c5a71a7bf2739" prot="protected"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$lineNo</definition>
+				<argsstring></argsstring>
+				<name>$lineNo</name>
+				<initializer> -1</initializer>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="11" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="11" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classSAVI__Parser_1a63d046010fb22e14107bd3861e1d9dd5" prot="protected"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$errNo</definition>
+				<argsstring></argsstring>
+				<name>$errNo</name>
+				<initializer> 0</initializer>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="12" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="12" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classSAVI__Parser_1ad86c3fbc5672e1deeafc5229012b0b5d" prot="protected"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$handle</definition>
+				<argsstring></argsstring>
+				<name>$handle</name>
+				<initializer> false</initializer>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="14" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="14" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classSAVI__Parser_1ac37a18f959e7a225e0a690852367523d" prot="protected"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$lineFixer</definition>
+				<argsstring></argsstring>
+				<name>$lineFixer</name>
+				<initializer> true</initializer>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="15" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="15" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classSAVI__Parser_1a87f087d55e041fbc48604cfe47019f6e" prot="protected"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$multiLineFixer</definition>
+				<argsstring></argsstring>
+				<name>$multiLineFixer</name>
+				<initializer> true</initializer>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="16" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="16" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classSAVI__Parser_1ab025198049ed7f6ff96c43aba8c4ad20" prot="protected"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$uppercaseTags</definition>
+				<argsstring></argsstring>
+				<name>$uppercaseTags</name>
+				<initializer> true</initializer>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="17" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="17" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classSAVI__Parser_1a0a6ff866cad56154d31e649d69ac8c0f" prot="protected"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$starter</definition>
+				<argsstring></argsstring>
+				<name>$starter</name>
+				<initializer> &apos;&apos;</initializer>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="18" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="18" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classSAVI__Parser_1accbd2f26bb805e2a243cab5498237ac8" prot="protected"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$ender</definition>
+				<argsstring></argsstring>
+				<name>$ender</name>
+				<initializer> &apos;&apos;</initializer>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="19" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="19" bodyend="-1" />
+			</memberdef>
+			<memberdef kind="variable"
+				id="classSAVI__Parser_1a5a878b1c34cc555349cbc4acbcdd54e7" prot="protected"
+				static="no" mutable="no">
+				<type></type>
+				<definition>$charHandle</definition>
+				<argsstring></argsstring>
+				<name>$charHandle</name>
+				<initializer> &apos;&apos;</initializer>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="20" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="20" bodyend="-1" />
+			</memberdef>
+		</sectiondef>
+		<sectiondef kind="protected-static-attrib">
+			<memberdef kind="variable"
+				id="classSAVI__Parser_1af21b3b8a4d4bcfa682cd5f411e0eb566" prot="protected"
+				static="yes" mutable="no">
+				<type>static</type>
+				<definition>$errorMsgs</definition>
+				<argsstring></argsstring>
+				<name>$errorMsgs</name>
+				<initializer> &apos;&apos;</initializer>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="13" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="13" bodyend="-1" />
+			</memberdef>
+		</sectiondef>
+		<sectiondef kind="public-func">
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a242c7fe86fb7c62f11f9212afbfa6112" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>__construct</definition>
+				<argsstring>($lineFixer=true, $uppercaseTags=true,
+					$multiLinefixer=true)</argsstring>
+				<name>__construct</name>
+				<param>
+					<type>$</type>
+					<declname>lineFixer</declname>
+					<defval>true</defval>
+				</param>
+				<param>
+					<type>$</type>
+					<declname>uppercaseTags</declname>
+					<defval>true</defval>
+				</param>
+				<param>
+					<type>$</type>
+					<declname>multiLinefixer</declname>
+					<defval>true</defval>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>
+						Constructer for class
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>Boolen</parametertype>
+									<parametername>$lineFixer</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>Remove leading tabs from the start of lines </para>
+								</parameterdescription>
+							</parameteritem>
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>Boolen</parametertype>
+									<parametername>$uppercaseTags</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>Uppercase all the tags before passing to supplied
+										processing functions </para>
+								</parameterdescription>
+							</parameteritem>
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>Boolen</parametertype>
+									<parametername>$multiLinefixer</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>Fix multiline content (not implimented yet) </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>Object Reference to the object </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="29" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="29" bodyend="36" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a26a305bbf09bf4742f1da2262f6c5ae2" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>ical_parse</definition>
+				<argsstring>($parser, $data)</argsstring>
+				<name>ical_parse</name>
+				<param>
+					<type>$</type>
+					<declname>parser</declname>
+				</param>
+				<param>
+					<type>$</type>
+					<declname>data</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Start parsing</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>Object</parametertype>
+									<parametername>$parser</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>Reference to the parser to use </para>
+								</parameterdescription>
+							</parameteritem>
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>String</parametertype>
+									<parametername>$data</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The data to parse or a file/resourse name to load as
+										parsable data </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>Boolean TRUE </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="45" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="45" bodyend="48" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a866029e3a4a8f04843dc6735368ec3e7" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>load_data</definition>
+				<argsstring>($parser, $filename)</argsstring>
+				<name>load_data</name>
+				<param>
+					<type>$</type>
+					<declname>parser</declname>
+				</param>
+				<param>
+					<type>$</type>
+					<declname>filename</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Load and parse the content</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>Object</parametertype>
+									<parametername>$parser</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>Reference to parser to use </para>
+								</parameterdescription>
+							</parameteritem>
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>String</parametertype>
+									<parametername>$filename</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The filename or resource to load </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>Object Reference to the parser object or FALSE on failure
+							</para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="57" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="57" bodyend="96" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1aff34336fb5f79c52c0a06ac3c5a50291" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_fix_multilines</definition>
+				<argsstring>($data)</argsstring>
+				<name>_fix_multilines</name>
+				<param>
+					<type>$</type>
+					<declname>data</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Fix for when a line is split with a newline in the actual
+						feed.</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>String</parametertype>
+									<parametername>$data</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The raw data to parse for messey lines </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>String() The lines as a series of array items, ready for
+								parsing </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="134" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="134" bodyend="148" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1af5040d51f1be467234b13837eefc9d53" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>ical_set_element_handler</definition>
+				<argsstring>($parser, $starter, $ender)</argsstring>
+				<name>ical_set_element_handler</name>
+				<param>
+					<type>$</type>
+					<declname>parser</declname>
+				</param>
+				<param>
+					<type>$</type>
+					<declname>starter</declname>
+				</param>
+				<param>
+					<type>$</type>
+					<declname>ender</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Equivilant to xml_set_element_handler, except the starter
+						function will accept parsed content as well but can be ignored if
+						required</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>Object</parametertype>
+									<parametername>$parser</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>Reference iCal to the parser to use </para>
+								</parameterdescription>
+							</parameteritem>
+							<parameteritem>
+								<parameternamelist>
+									<parametername>Function()</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>
+										$starter The function to call with an opening tag. Expected
+										arguments are:
+										<itemizedlist>
+											<listitem>
+												<para>Object $parser Reference to the parser object</para>
+											</listitem>
+											<listitem>
+												<para>String $tag Name of the tag</para>
+											</listitem>
+											<listitem>
+												<para>String() $attributes The attributes of the tag</para>
+											</listitem>
+											<listitem>
+												<para>Content() $content The tag content will return an
+													array if it is array content </para>
+											</listitem>
+										</itemizedlist>
+									</para>
+								</parameterdescription>
+							</parameteritem>
+							<parameteritem>
+								<parameternamelist>
+									<parametername>Function()</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>
+										$ender The function to call on closing tag. Expected arguments
+										are:
+										<itemizedlist>
+											<listitem>
+												<para>Object $parser Reference to the parser object</para>
+											</listitem>
+											<listitem>
+												<para>String $tag Name of the closing tag </para>
+											</listitem>
+										</itemizedlist>
+									</para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>Boolean TRUE </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="297" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="297" bodyend="301" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a9167bc8a37cf9e9766b1f82f5784cdaf" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>ical_set_character_data_handler</definition>
+				<argsstring>($parser, $charHandle)</argsstring>
+				<name>ical_set_character_data_handler</name>
+				<param>
+					<type>$</type>
+					<declname>parser</declname>
+				</param>
+				<param>
+					<type>$</type>
+					<declname>charHandle</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Equivilant to xml_set_character_data_handler.</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>Object</parametertype>
+									<parametername>$parser</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>Reference iCal to the parser to use </para>
+								</parameterdescription>
+							</parameteritem>
+							<parameteritem>
+								<parameternamelist>
+									<parametername>Function()</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>
+										$charHandle The function to call with text content. Expected
+										arguments are:
+										<itemizedlist>
+											<listitem>
+												<para>Object $parser Reference to the parser object</para>
+											</listitem>
+											<listitem>
+												<para>String $content The raw text </para>
+											</listitem>
+										</itemizedlist>
+									</para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>Boolean TRUE </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="312" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="312" bodyend="315" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a0af36ab5229619c8c396d454c8c89116" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>utf8_decode</definition>
+				<argsstring>($data)</argsstring>
+				<name>utf8_decode</name>
+				<param>
+					<type>$</type>
+					<declname>data</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Convert a text string from UTF-8 to ISO-8859-1. Exactly the
+						same as the SAX parser equivilant</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>String</parametertype>
+									<parametername>$data</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The UTF-8 encoded string to convert </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>String A ISO-8859-1 encoded string </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="323" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="323" bodyend="325" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a9e9a4aca94f8a18a6fbc1dbc27ba594b" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>utf8_encode</definition>
+				<argsstring>($data)</argsstring>
+				<name>utf8_encode</name>
+				<param>
+					<type>$</type>
+					<declname>data</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Convert a text string from ISO-8859-1 to UTF-8. Exactly the
+						same as the SAX parser equivilant</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>String</parametertype>
+									<parametername>$data</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The ISO-8859-1 encoded string to convert </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>String A UTF-8 encoded string </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="333" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="333" bodyend="335" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1abbb9a24b226831f7ebf5d27b9754b69e" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>ical_get_error_code</definition>
+				<argsstring>()</argsstring>
+				<name>ical_get_error_code</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Equivilant of xml_get_error_code() in the standard PHP SAX
+						Parser. Will return the current error number if one exists</para>
+					<para>
+						<simplesect kind="return">
+							<para>Interger The current error number or -1 if no error has
+								occured </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="342" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="342" bodyend="344" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a77d83b11f08a322cae57654f43ed0b22" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>ical_get_error_string</definition>
+				<argsstring>($errNo=0)</argsstring>
+				<name>ical_get_error_string</name>
+				<param>
+					<type>$</type>
+					<declname>errNo</declname>
+					<defval>0</defval>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Equivalnt to xml_get_error_string in the standard PHP SAX
+						Parser. Will return error message 0 if no number is passed or
+						error code does not exist</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>Interger</parametertype>
+									<parametername>$errNo</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The error string you want to lookup </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>String The error string for the given code </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="352" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="352" bodyend="358" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a099de2f0a6cf07f9433080fb3a38556d" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>ical_get_current_line_number</definition>
+				<argsstring>()</argsstring>
+				<name>ical_get_current_line_number</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Equivalnt to xml_get_current_line_number in the standard PHP
+						SAX Parser. Will return the current line number the parser has got
+						to in the parsing proccess. Use to find out where an error
+						happended.</para>
+					<para>
+						<simplesect kind="return">
+							<para>Interger The line number the parser is up to </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="365" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="365" bodyend="367" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a7dd9766590f266ab55bd78d7e9ac2963" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>ical_get_current_byte_index</definition>
+				<argsstring>()</argsstring>
+				<name>ical_get_current_byte_index</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Equivalnt to xml_get_current_byte_index in the standard PHP
+						SAX Parser. Will the current byte number the parser got to in the
+						parsing process. Use to find out where an error happended.</para>
+					<para>
+						<simplesect kind="return">
+							<para>Interger The byte number </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="374" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="374" bodyend="380" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a88fdf5a60b67329b81255715822af3a5" prot="public"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>ical_get_current_column_number</definition>
+				<argsstring>()</argsstring>
+				<name>ical_get_current_column_number</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Equivalnt to xml_get_current_column_number in the standard
+						PHP SAX Parser. Will the current column position the parser got to
+						in the parsing process. Use to find out where an error happended.
+					</para>
+					<para>
+						<simplesect kind="return">
+							<para>Interger the column number </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="387" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="387" bodyend="389" />
+			</memberdef>
+		</sectiondef>
+		<sectiondef kind="private-func">
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a9249bb71395565b7156613162682bd6a" prot="private"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_handle_line</definition>
+				<argsstring>($parser, $parsed)</argsstring>
+				<name>_handle_line</name>
+				<param>
+					<type>$</type>
+					<declname>parser</declname>
+				</param>
+				<param>
+					<type>$</type>
+					<declname>parsed</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Handle parsed line and call any defined function for handling
+						current line</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>Object</parametertype>
+									<parametername>$parser</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>Reference to parser object to use </para>
+								</parameterdescription>
+							</parameteritem>
+							<parameteritem>
+								<parameternamelist>
+									<parametername>Array()</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>$parsed The parsed contents of a line that needs handling
+									</para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="104" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="104" bodyend="126" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1ac79dff5d0807ccfa3717642732dd3989" prot="private"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_line_parser</definition>
+				<argsstring>($line)</argsstring>
+				<name>_line_parser</name>
+				<param>
+					<type>$</type>
+					<declname>line</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Parse one line of text into an array, which represents its
+						content</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametername>String</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>Line of text to parse </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>Array() Parsed content in the following format: array(
+								&apos;tag&apos; =&gt; The Tag name &apos;attributes&apos; =&gt;
+								An array of the attributes in format
+								attribute_name=&gt;attribut_value (attribute_value can be a
+								further array) &apos;content&apos; =&gt; The content, either as
+								plain-text or parsed into an array if content was parsable.
+								Semicolon-seperated content is parsed as
+								item_name=&gt;item_value, like attributes (item_value can be a
+								further array). Comma -eperated content is parsed as
+								index=&gt;item_value. &apos;rawtextcontent&apos; =&gt; The
+								unparsed text content ) </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="162" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="162" bodyend="192" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a01b434009c98e3b51b6b7970f27515a9" prot="private"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_delimit_replace</definition>
+				<argsstring>($content)</argsstring>
+				<name>_delimit_replace</name>
+				<param>
+					<type>$</type>
+					<declname>content</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="244" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="244" bodyend="249" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a8276afb7bf6d48ce368a297f2847b462" prot="private"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_delimit_unreplace</definition>
+				<argsstring>($content)</argsstring>
+				<name>_delimit_unreplace</name>
+				<param>
+					<type>$</type>
+					<declname>content</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="251" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="251" bodyend="258" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a9d1f0ed86b56c640a69784a385d65bf1" prot="private"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_fix_line</definition>
+				<argsstring>($line)</argsstring>
+				<name>_fix_line</name>
+				<param>
+					<type>$</type>
+					<declname>line</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>This is line fixer, removes tabs that may have crept into the
+						line. Just makes the parser more friendly, not strictly speaking
+						conforming to the iCal standard. Also fixes the different newline
+						methods</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>String</parametertype>
+									<parametername>$line</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The line to apply fixes to </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>String The fixed line </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="266" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="266" bodyend="270" />
+			</memberdef>
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a9a632e210730850956e1aefb27ce7d87" prot="private"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_define_error_messages</definition>
+				<argsstring>()</argsstring>
+				<name>_define_error_messages</name>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>Function to define the parser errors/codes - stores in a
+						class static </para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="275" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="275" bodyend="281" />
+			</memberdef>
+		</sectiondef>
+		<sectiondef kind="protected-func">
+			<memberdef kind="function"
+				id="classSAVI__Parser_1a67ad30f64dcdbd2dad8787ba3f5aeb5e" prot="protected"
+				static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+				<type></type>
+				<definition>_value_list_parser</definition>
+				<argsstring>($valueList)</argsstring>
+				<name>_value_list_parser</name>
+				<param>
+					<type>$</type>
+					<declname>valueList</declname>
+				</param>
+				<briefdescription>
+				</briefdescription>
+				<detaileddescription>
+					<para>
+						Take an input string and split it according to standard iCal
+						rules, hence:
+						<itemizedlist>
+							<listitem>
+								<para>split key1=&quot;value2&quot;;key2=&quot;value2&quot; or
+									key1=value2;key2=value2, into array</para>
+							</listitem>
+							<listitem>
+								<para>split value1,value2,value3... into an array</para>
+							</listitem>
+						</itemizedlist>
+					</para>
+					<para>
+						<parameterlist kind="param">
+							<parameteritem>
+								<parameternamelist>
+									<parametertype>String</parametertype>
+									<parametername>$valueList</parametername>
+								</parameternamelist>
+								<parameterdescription>
+									<para>The string to split </para>
+								</parameterdescription>
+							</parameteritem>
+						</parameterlist>
+						<simplesect kind="return">
+							<para>String() An array containing the split values or the
+								orginal string if nothing to split </para>
+						</simplesect>
+					</para>
+				</detaileddescription>
+				<inbodydescription>
+				</inbodydescription>
+				<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					line="202" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+					bodystart="202" bodyend="242" />
+			</memberdef>
+		</sectiondef>
+		<briefdescription>
+		</briefdescription>
+		<detaileddescription>
+		</detaileddescription>
+		<location file="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+			line="10" bodyfile="H:/Projects/ImpactCRM/ImpactCRM/models/class.SAVI.php"
+			bodystart="10" bodyend="391" />
+		<listofallmembers>
+			<member refid="classSAVI__Parser_1a5a878b1c34cc555349cbc4acbcdd54e7"
+				prot="protected" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>$charHandle</name>
+			</member>
+			<member refid="classSAVI__Parser_1accbd2f26bb805e2a243cab5498237ac8"
+				prot="protected" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>$ender</name>
+			</member>
+			<member refid="classSAVI__Parser_1a63d046010fb22e14107bd3861e1d9dd5"
+				prot="protected" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>$errNo</name>
+			</member>
+			<member refid="classSAVI__Parser_1af21b3b8a4d4bcfa682cd5f411e0eb566"
+				prot="protected" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>$errorMsgs</name>
+			</member>
+			<member refid="classSAVI__Parser_1ad86c3fbc5672e1deeafc5229012b0b5d"
+				prot="protected" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>$handle</name>
+			</member>
+			<member refid="classSAVI__Parser_1ac37a18f959e7a225e0a690852367523d"
+				prot="protected" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>$lineFixer</name>
+			</member>
+			<member refid="classSAVI__Parser_1a9e2fcfa96c544bf4bd3c5a71a7bf2739"
+				prot="protected" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>$lineNo</name>
+			</member>
+			<member refid="classSAVI__Parser_1a87f087d55e041fbc48604cfe47019f6e"
+				prot="protected" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>$multiLineFixer</name>
+			</member>
+			<member refid="classSAVI__Parser_1a0a6ff866cad56154d31e649d69ac8c0f"
+				prot="protected" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>$starter</name>
+			</member>
+			<member refid="classSAVI__Parser_1ab025198049ed7f6ff96c43aba8c4ad20"
+				prot="protected" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>$uppercaseTags</name>
+			</member>
+			<member refid="classSAVI__Parser_1a242c7fe86fb7c62f11f9212afbfa6112"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>__construct</name>
+			</member>
+			<member refid="classSAVI__Parser_1a9a632e210730850956e1aefb27ce7d87"
+				prot="private" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>_define_error_messages</name>
+			</member>
+			<member refid="classSAVI__Parser_1a01b434009c98e3b51b6b7970f27515a9"
+				prot="private" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>_delimit_replace</name>
+			</member>
+			<member refid="classSAVI__Parser_1a8276afb7bf6d48ce368a297f2847b462"
+				prot="private" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>_delimit_unreplace</name>
+			</member>
+			<member refid="classSAVI__Parser_1a9d1f0ed86b56c640a69784a385d65bf1"
+				prot="private" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>_fix_line</name>
+			</member>
+			<member refid="classSAVI__Parser_1aff34336fb5f79c52c0a06ac3c5a50291"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>_fix_multilines</name>
+			</member>
+			<member refid="classSAVI__Parser_1a9249bb71395565b7156613162682bd6a"
+				prot="private" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>_handle_line</name>
+			</member>
+			<member refid="classSAVI__Parser_1ac79dff5d0807ccfa3717642732dd3989"
+				prot="private" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>_line_parser</name>
+			</member>
+			<member refid="classSAVI__Parser_1a67ad30f64dcdbd2dad8787ba3f5aeb5e"
+				prot="protected" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>_value_list_parser</name>
+			</member>
+			<member refid="classSAVI__Parser_1a7dd9766590f266ab55bd78d7e9ac2963"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>ical_get_current_byte_index</name>
+			</member>
+			<member refid="classSAVI__Parser_1a88fdf5a60b67329b81255715822af3a5"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>ical_get_current_column_number</name>
+			</member>
+			<member refid="classSAVI__Parser_1a099de2f0a6cf07f9433080fb3a38556d"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>ical_get_current_line_number</name>
+			</member>
+			<member refid="classSAVI__Parser_1abbb9a24b226831f7ebf5d27b9754b69e"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>ical_get_error_code</name>
+			</member>
+			<member refid="classSAVI__Parser_1a77d83b11f08a322cae57654f43ed0b22"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>ical_get_error_string</name>
+			</member>
+			<member refid="classSAVI__Parser_1a26a305bbf09bf4742f1da2262f6c5ae2"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>ical_parse</name>
+			</member>
+			<member refid="classSAVI__Parser_1a9167bc8a37cf9e9766b1f82f5784cdaf"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>ical_set_character_data_handler</name>
+			</member>
+			<member refid="classSAVI__Parser_1af5040d51f1be467234b13837eefc9d53"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>ical_set_element_handler</name>
+			</member>
+			<member refid="classSAVI__Parser_1a866029e3a4a8f04843dc6735368ec3e7"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>load_data</name>
+			</member>
+			<member refid="classSAVI__Parser_1a0af36ab5229619c8c396d454c8c89116"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>utf8_decode</name>
+			</member>
+			<member refid="classSAVI__Parser_1a9e9a4aca94f8a18a6fbc1dbc27ba594b"
+				prot="public" virt="non-virtual">
+				<scope>SAVI_Parser</scope>
+				<name>utf8_encode</name>
+			</member>
+		</listofallmembers>
+	</compounddef>
 </doxygen>

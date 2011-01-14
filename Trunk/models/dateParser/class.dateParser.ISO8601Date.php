@@ -9,6 +9,13 @@
  */
 class dateParser_ISO8601Date {
 	
+	/**
+	 *	Date parser method.
+	 *
+	 *	@param string $date The date to parse.
+	 *	@param string $timezone The timezone of the date.
+	 *	@return date The date in standard PHP date format.
+	 */
 	public function parse($date,$timezone='') {
 		$utc = false;
 		$dateLen = strlen($date);
