@@ -57,15 +57,17 @@ class Application Extends Impact_Base {
 	 *	@public
 	 */
 	public function setup() {
-		$this->settings[FBID] = 0;
+		$this->settings['FBID'] = 0;
 		$this->_load_constants();
 		$this->_make_facebook_connection();
 		$this->_languageDetect();
 		$this->_mediaDetect();
 		$this->_userAccessDetect();
 		
-		$this->pageName = strtolower(addslashes($_GET[page]));
-		if ($this->pageName == '') {$this->pageName = DEFAULT_HOMEPAGE;}
+		$this->pageName = strtolower(addslashes($_GET['page']));
+		if ($this->pageName == '') {
+			$this->pageName = DEFAULT_HOMEPAGE;
+		}
 		$this->pageErrorCheck = $this->_getPageRequestInfo();
 	}
 	
@@ -165,11 +167,11 @@ class Application Extends Impact_Base {
 		
 		//This needs a better implimentation but will do to get us going
 		$this->ACL = $this->factory('ACL');
-		$this->ACL->FBID = $this->settings[FBID];
-		$this->ACL->accesslevel = $this->settings[accessLevel];
+		$this->ACL->FBID = $this->settings['FBID'];
+		$this->ACL->accesslevel = $this->settings['accessLevel'];
 		$this->ACL->facebook = $this->facebook;
-		$this->ACL->load_roles($this->settings[roles]);
-		$this->settings[ACL] = $this->ACL;
+		$this->ACL->load_roles($this->settings['roles']);
+		$this->settings['ACL'] = $this->ACL;
 	}
 	
 	/**
@@ -193,7 +195,7 @@ class Application Extends Impact_Base {
 				'SELECT Title FROM entities WHERE (ID='.$this->pageName.') AND '.$reader_roles
 			);
 			if ($errorcheck) {
-				$this->entityID = $application[pageName];
+				$this->entityID = $application['pageName'];
 				$this->pageName = $errorcheck['Title'];
 			} 
 		} else {
@@ -220,18 +222,18 @@ class Application Extends Impact_Base {
 	 */
 	protected function _mediaDetect() {
 		$media = DEFAULT_MEDIA;
-		if (isset($_GET[media])) {
-			$media = strtoupper(addslashes($_GET[media]));
+		if (isset($_GET['media'])) {
+			$media = strtoupper(addslashes($_GET['media']));
 		} else {
 			#Auto-detection of Robots and FB needed :)
 			if (substr(DOMAIN,0,2) == 'm.') {#Accessed the mobile subdomain
 				$media = 'MOBILE';
-			} elseif ($application[browser]->isMobileDevice) {
+			} elseif ($application['browser']->isMobileDevice) {
 				$media = 'MOBILE';
 			}
 		}
 		
-		$this->media = I::add_square_brakets($media);
+		$this->media = I::reformat_role_string($media);
 	}
 	
 	/**
@@ -246,17 +248,17 @@ class Application Extends Impact_Base {
 	 */
 	protected function _languageDetect() {
 		$lang = DEFAULT_LANG;
-		if (isset($_GET[lang])) {
-			$lang = strtolower(addslashes($_GET[lang]));
+		if (isset($_GET['lang'])) {
+			$lang = strtolower(addslashes($_GET['lang']));
 		} else {
-			if (isset($_SERVER[HTTP_ACCEPT_LANGUAGE])) {#Auto detection of first language
-				$lang = explode(',',$_SERVER[HTTP_ACCEPT_LANGUAGE]);
+			if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {#Auto detection of first language
+				$lang = explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
 				$lang = $lang[0];
 				$lang = str_replace('-','_',$lang);
 			}
 		}
 		
-		$this->language = I::add_square_brakets($lang);
+		$this->language = I::reformat_role_string($lang);
 	}
 }
 ?>

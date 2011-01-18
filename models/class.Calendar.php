@@ -62,7 +62,7 @@ class Calendar Extends Impact_Base {
 		} else {
 			throw new Exception($className.' Class not found');
 		}
-    }
+	}
 	
 	
 }

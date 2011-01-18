@@ -44,15 +44,19 @@ class templater {
 		
 		$this->application = $application;
 		if (is_string($path)) {
-			if ($path !='') { $this->parse($path); }
-			$this->component = $this->application[component];
-			$this->ACL = $this->application[ACL];
+			if ($path !='') {
+				$this->parse($path);
+			}
+			$this->component = $this->application['component'];
+			$this->ACL = $this->application['ACL'];
 		} else {
 			$this->mainApplication = $path;
-			$this->component = $this->mainApplication[component];
-			$this->ACL = $this->mainApplication[ACL];
-			#$this->application[ACL] = $this->mainApplication[ACL];
-			if ($path2 !='') { $this->parse($path2); }
+			$this->component = $this->mainApplication['component'];
+			$this->ACL = $this->mainApplication['ACL'];
+			#$this->application[ACL] = $this->mainApplication['ACL'];
+			if ($path2 !='') {
+				$this->parse($path2);
+			}
 		}
 	}
 	
@@ -141,10 +145,10 @@ class templater {
 		if ($this->_ACL($attributes)) {
 			$array = '';
 			if (array_key_exists('name',$attributes)) {
-				if (array_key_exists($attributes[name],$this->application)) {
-					$array =  $attributes[name];
-				} elseif (array_key_exists($attributes[name],$this->mainApplication)) {
-					$array =  $attributes[name];
+				if (array_key_exists($attributes['name'],$this->application)) {
+					$array =  $attributes['name'];
+				} elseif (array_key_exists($attributes['name'],$this->mainApplication)) {
+					$array =  $attributes['name'];
 				} else {
 					return '';
 				}
@@ -199,10 +203,10 @@ class templater {
 	
 		$template = '';
 		if ($this->_ACL($attributes)) {
-			if (array_key_exists($attributes[name],$this->application)) {
-				$template =  $this->application[$attributes[name]];
-			} elseif (array_key_exists($attributes[name],$this->mainApplication)) {
-				$template =  $this->mainApplication[$attributes[name]];
+			if (array_key_exists($attributes['name'],$this->application)) {
+				$template =  $this->application[$attributes['name']];
+			} elseif (array_key_exists($attributes['name'],$this->mainApplication)) {
+				$template =  $this->mainApplication[$attributes['name']];
 			} else {
 				$template =  '';
 			}
@@ -210,7 +214,7 @@ class templater {
 		
 		#Here you need to parse the content for more template data (allows for plugins...etc)
 		if (array_key_exists('parsedata',$attributes)) {
-			if ($attributes[parsedata] = 'true') {
+			if ($attributes['parsedata'] = 'true') {
 				$parser = new templater($this->application);
 				$template = $parser->parse($template);
 			}
@@ -227,12 +231,12 @@ class templater {
 
 		$template = '';
 		if ($this->_ACL($attributes)) {
-			if ($attributes[type] == 'component') {
-				if ($attributes[name] == 'main') {
+			if ($attributes['type'] == 'component') {
+				if ($attributes['name'] == 'main') {
 					$parser = new templater($this->application);
 					$template = $parser->parse(ROOT_BACK.'/views/'.USE_TEMPLATE.'/'.$comtem);
 				}
-				if ($attributes[name] == 'meta') {
+				if ($attributes['name'] == 'meta') {
 					$parser = new templater($this->application);
 					$template = $parser->parse(ROOT_BACK.'/views/'.USE_TEMPLATE.'/meta/'.$comtem);
 				}
@@ -250,11 +254,11 @@ class templater {
 		if ($this->_ACL($attributes)) {#Can be defined directly or in the database
 			$showone = false;
 			if (array_key_exists('showone',$attributes)) {
-				$showone = (isEqual($attributes[showone],'true') ? true:false);
+				$showone = (isEqual($attributes['showone'],'true') ? true:false);
 			}
 			
 			if (array_key_exists('name',$attributes)) {
-				$template = $this->_feature_loader($attributes[name],$showone);
+				$template = $this->_feature_loader($attributes['name'],$showone);
 			}
 			if (isEqual($template,'')) {
 				if (array_key_exists('default',$attributes)) {
@@ -282,17 +286,19 @@ class templater {
 			}
 				
 			if ($feature) {
-				$feature[start] = $this->_dateReformat($feature[start]);
-				$feature[end] = $this->_dateReformat($feature[end]);
+				$feature['start'] = $this->_dateReformat($feature['start']);
+				$feature['end'] = $this->_dateReformat($feature['end']);
 					
 				if ($this->_ACL($feature)) {#If defined in database - double-lock system
 					$parser = new templater($this->application);
-					$template .= $parser->parse(stripslashes($feature[HTML]));
+					$template .= $parser->parse(stripslashes($feature['HTML']));
 				}
 			}
 			
 			if ($showone) {
-				if (!isEqual($template,'')) { break; }
+				if (!isEqual($template,'')) {
+					break;
+				}
 			}
 		}	
 		
@@ -305,7 +311,7 @@ class templater {
 		$template = '';
 		
 		if ((array_key_exists('name',$attributes)) && ($this->_ACL($attributes))) {
-			$plugin = Plugin::factory($attributes[name]);
+			$plugin = Plugin::factory($attributes['name']);
 			if ($plugin !== false) {
 				$template = $plugin->run($attributes);
 			}
@@ -323,13 +329,17 @@ class templater {
 				if ($this->application[$test] == '') {
 					return false;
 				} elseif (is_numeric($this->application[$test])) {
-					if ($this->application[$test] == 0) { return false; }
+					if ($this->application[$test] == 0) {
+						return false;
+					}
 				}
 			} elseif (array_key_exists($test,$this->mainApplication)) {
 				if ($this->mainApplication[$test] == '') {
 					return false;
 				} elseif (is_numeric($this->mainApplication[$test])) {
-					if ($this->mainApplication[$test] == 0) { return false; }
+					if ($this->mainApplication[$test] == 0) {
+						return false;
+					}
 				}
 			} else {
 				return false;
@@ -344,19 +354,25 @@ class templater {
 		
 		#Restrictions based on a value not being blank/null/zero
 		if (array_key_exists('notblank',$attributes)) {
-			if (!$this->_notblank($attributes[notblank])) { return false; }
+			if (!$this->_notblank($attributes['notblank'])) {
+				return false;
+			}
 		}
 		
 		#Restrictions based on media - eg. [PC],[FACEBOOK],[MOBILE] ...etc
 		if (array_key_exists('media',$attributes)) {
-			$test = $this->_testFormatter($attributes[media]);
-			if (!$this->_contains($test,'['.$this->application[media].']')) { return false; }
+			$test = $this->_testFormatter($attributes['media']);
+			if (!$this->_contains($test,'['.$this->application['media'].']')) {
+				return false;
+			}
 		}
 		
 		#Restrictions based on language - eg. en_gb, es, de, jp ...etc
 		if (array_key_exists('lang',$attributes)) {
-			$test = $this->_testFormatter($attributes[lang]);
-			if (!$this->_contains($test,'['.$this->applications[lang].']')) { return false; }
+			$test = $this->_testFormatter($attributes['lang']);
+			if (!$this->_contains($test,'['.$this->applications['lang'].']')) {
+				return false;
+			}
 		}
 		
 		#Restriction based on dates/times
@@ -367,13 +383,19 @@ class templater {
 			(array_key_exists('rdate',$attributes)) || (array_key_exists('rrule',$attributes)) ||
 			(array_key_exists('ical',$attributes)) 
 		) {
-			if (!$this->_ical($attributes)) { return false; }
+			if (!$this->_ical($attributes)) {
+				return false;
+			}
 		}
 		
 		#Main ACL functionality based on user groups and special on-the-fly groups
 		# eg. [WEB],[ADMIN],[CRMGROUP:5],[GEOTOWN:Middlesbrough],[FBEVENT_INVITED:12578975] ...etc
-		if (!array_key_exists('include',$attributes)) { $attributes['include']=''; }
-		if (!array_key_exists('exclude',$attributes)) { $attributes['exclude']=''; }
+		if (!array_key_exists('include',$attributes)) {
+			$attributes['include']='';
+		}
+		if (!array_key_exists('exclude',$attributes)) {
+			$attributes['exclude']='';
+		}
 		
 		
 		return $this->ACL->allowed($attributes['include'],$attributes['exclude']);
@@ -382,13 +404,27 @@ class templater {
 	protected function _ical(&$attributes) {
 		
 		$ical = 'BEGIN:VEVENT'."\n";
-		if (array_key_exists('start',$attributes)) { $ical .= 'DTSTART:'.$attributes[start]."\n"; }
-		if (array_key_exists('end',$attributes)) { $ical .= 'DTEND:'.$attributes[end]."\n"; }
-		if (array_key_exists('duration',$attributes)) { $ical .= 'DURATION:'.$attributes[duration]."\n"; }
-		if (array_key_exists('exdate',$attributes)) { $ical .= 'EXDATE:'.$attributes[exdate]."\n"; }
-		if (array_key_exists('exrule',$attributes)) { $ical .= 'EXRULE:'.$attributes[exrule]."\n"; }
-		if (array_key_exists('rdate',$attributes)) { $ical .= 'RDATE:'.$attributes[rdate]."\n"; }
-		if (array_key_exists('rrule',$attributes)) { $ical .= 'RRULE:'.$attributes[rrule]."\n"; }
+		if (array_key_exists('start',$attributes)) {
+			$ical .= 'DTSTART:'.$attributes['start']."\n";
+		}
+		if (array_key_exists('end',$attributes)) {
+			$ical .= 'DTEND:'.$attributes['end']."\n";
+		}
+		if (array_key_exists('duration',$attributes)) {
+			$ical .= 'DURATION:'.$attributes['duration']."\n";
+		}
+		if (array_key_exists('exdate',$attributes)) {
+			$ical .= 'EXDATE:'.$attributes['exdate']."\n";
+		}
+		if (array_key_exists('exrule',$attributes)) {
+			$ical .= 'EXRULE:'.$attributes['exrule']."\n";
+		}
+		if (array_key_exists('rdate',$attributes)) {
+			$ical .= 'RDATE:'.$attributes['rdate']."\n";
+		}
+		if (array_key_exists('rrule',$attributes)) {
+			$ical .= 'RRULE:'.$attributes['rrule']."\n";
+		}
 		$ical .= 'END:VEVENT';
 		
 		$iParser = new iCalParser($ical);
@@ -438,7 +474,9 @@ class templater {
 
 		$attributes = array();
 		$count = preg_match_all('/([a-zA-Z0-9_]+)[= ]+[\"\'](.*?)[\"\']/',$att,$matches);
-		for ($i = 0; $i <= $count; $i++) {$attributes[$matches[1][$i]] = $matches[2][$i];}
+		for ($i = 0; $i <= $count; $i++) {
+			$attributes[$matches[1][$i]] = $matches[2][$i];
+		}
 	
 		return $attributes;
 	}

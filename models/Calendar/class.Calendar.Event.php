@@ -17,7 +17,7 @@ class Calendar_Event Extends Calendar_Base {
 	public function set_startDate($date,$timezone='') {
 		$dateParser = $this->factory('dateParser');
 		$utc_date = $dateParser->convert_date($date,'',$timezone);
-		$this->data[startDate] = $utc_date;
+		$this->data['startDate'] = $utc_date;
 	}
 
 }

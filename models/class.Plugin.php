@@ -24,7 +24,7 @@ class Plugin {
     *		@param string $type The plugin name to load.
     *		@return object/boolean The plugin class or false if it couldn't be found.
     */
-    public static function factory ($type){
+    public static function factory ($type) {
 	if (include_once 'plugins/content/'.strtolower($type).'.php') {
 	    $classname = 'Plugin_' . $type;
 	    return new $classname;

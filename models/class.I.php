@@ -9,6 +9,7 @@
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Impact
  */
 class I {
 	/**
@@ -16,7 +17,7 @@ class I {
 	*/
 	public function get_include_directory() {
 		$debug = debug_backtrace();
-		return dirname($debug[0][file]);
+		return dirname($debug[0]['file']);
 	}
 
 	/**
@@ -33,7 +34,7 @@ class I {
 	*/
 	public function require_all_once ($pattern) {
 		foreach (glob($pattern) as $file) {
-		require_once $file;
+			require_once $file;
 		}
 	}
 	
@@ -47,15 +48,27 @@ class I {
 	*	of double square-bracket notation '[[' used in Impact plugins.
 	*
 	*	@public
-	*	@param string $text The string to parse.
+	*	@param string|array $text The string to parse.
 	*	@return string Parsed text with square brackets.
 	*/
-	public function add_square_brakets($text) {
-		$txt = '['.str_replace(',','],[',$text).']';
-		$txt = str_replace('[[','[',$text);
-		$txt = str_replace(']]',']',$text);
-		$txt = str_replace('[ ','[',$text);
-		return str_replace(' ]',']',$text);
+	public function reformat_role_string($text) {
+		if (is_array($text)) {
+			$text = implode(',',$text);
+		}
+		
+		$text = preg_replace('/\s{0,}\[\s{0,}/', '[', $text);
+		$text = preg_replace('/\s{0,}\]\s{0,}/', ']', $text);
+		$text = str_replace('][',',',$text);
+		
+		$text = str_replace('[','',$text);
+		$text = str_replace(']','',$text);
+		
+		$text = str_replace(' ,',',',$text);
+		$text = str_replace(', ',',',$text);
+		$text = str_replace(',,',',',$text);
+		
+		$text = '['.str_replace(',','],[',trim($text)).']';
+		return $text;
 	}
 	
 	/**
@@ -73,7 +86,7 @@ class I {
 		$config = simplexml_load_file($path);
 	
 		foreach ($config->param as $param) {
-				switch ($param['type']) {
+			switch ($param['type']) {
 				case 'string':
 					define($param['name'],$param['value']);
 					break;

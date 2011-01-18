@@ -27,7 +27,9 @@ class SAVI_Parser {
 	*	@return Object Reference to the object
 	*/
 	function __construct($lineFixer=true,$uppercaseTags=true,$multiLinefixer=true) {
-		if (empty($this->errorMsgs)) { $this->_define_error_messages(); }
+		if (empty($this->errorMsgs)) {
+			$this->_define_error_messages();
+		}
 		#$this->lineFixer = $linefixer;
 		#$this->uppercaseTags = $uppercaseTags;
 		#$this->multiLineFixer = $multiLineFixer;
@@ -60,7 +62,9 @@ class SAVI_Parser {
 			$filename = '';
 			
 			if ($parser->multiLineFixer) {
-				while (!feof($parser->handle)) { $filename .= fgets($parser->handle); }
+				while (!feof($parser->handle)) {
+					$filename .= fgets($parser->handle);
+				}
 			} else {
 				while (!feof($parser->handle)) {
 					$line = fgets($parser->handle);
@@ -102,25 +106,25 @@ class SAVI_Parser {
 	*	@param Array() $parsed The parsed contents of a line that needs handling
 	*/
 	private function _handle_line ($parser,$parsed) {
-		if ($parsed[tag] == 'BEGIN') {
-			$parsed[tag] = trim($parsed[content]);
-			$parsed[content] = '';
-			$parsed[rawtextcontent] = '';
+		if ($parsed['tag'] == 'BEGIN') {
+			$parsed['tag'] = trim($parsed['content']);
+			$parsed['content'] = '';
+			$parsed['rawtextcontent'] = '';
 		}
 		
-		if ( ($parsed[tag] == 'END') && (is_callable($parser->ender)) ) {
-			call_user_func($parser->ender,$parser,trim($parsed[content]));
+		if ( ($parsed['tag'] == 'END') && (is_callable($parser->ender)) ) {
+			call_user_func($parser->ender,$parser,trim($parsed['content']));
 		} elseif (is_callable($parser->starter)) {
 			call_user_func(
 				$parser->starter,
-				$parser,$parsed[tag],$parsed[attributes],$parsed[content]
+				$parser,$parsed['tag'],$parsed['attributes'],$parsed['content']
 			);
 		}
 				
-		if ( (is_callable($this->charHandle)) && ($parsed[rawtextcontent] !='') ) {
+		if ( (is_callable($this->charHandle)) && ($parsed['rawtextcontent'] !='') ) {
 			call_user_func(
 				$parser->charHandle,
-				$parser,$parsed[rawtextcontent]
+				$parser,$parsed['rawtextcontent']
 			);
 		}
 	}
@@ -160,7 +164,9 @@ class SAVI_Parser {
 	*		)
 	*/
 	private function _line_parser($line) {
-		if ($this->lineFixer) { $line = $this->_fix_line($line); }
+		if ($this->lineFixer) {
+			$line = $this->_fix_line($line);
+		}
 		$line = $this->_delimit_replace($line);
 		
 		$tag = '';
@@ -182,7 +188,9 @@ class SAVI_Parser {
 			$content = $this->_value_list_parser($content);
 		}
 		
-		if ($this->uppercaseTags) { $tag = strtoupper($tag); }
+		if ($this->uppercaseTags) {
+			$tag = strtoupper($tag);
+		}
 		return array(
 			'tag' => trim($tag),
 			'attributes' => $attributes,

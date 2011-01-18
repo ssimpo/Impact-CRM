@@ -118,7 +118,9 @@ class Database Extends Impact_Base {
 	public function getPage($entityID='') {
 		$application = Application::singleton();
 		$reader_roles = $this->_create_roles_SQL('readers');
-		if ($entityID === '') { $entityID = $application->entityID; }
+		if ($entityID === '') {
+			$entityID = $application->entityID;
+		}
 		
 		$SQL = '
 			SELECT entities.application as application, content.* FROM content
@@ -151,7 +153,7 @@ class Database Extends Impact_Base {
 			DEFAULT_CACHE_TIMEOUT,
 			'SELECT roles,access FROM users WHERE FBID='.$FBID
 		);
-		return explode(',',I::add_square_brakets($roles[roles]));
+		return explode(',',I::reformat_role_string($roles['roles']));
 	}
 	
 	/**
@@ -169,7 +171,7 @@ class Database Extends Impact_Base {
 			DEFAULT_CACHE_TIMEOUT,
 			'SELECT access FROM users WHERE FBID='.$FBID
 		);
-		return $access[access];
+		return $access['access'];
 	}
 	
 	/**
@@ -185,11 +187,15 @@ class Database Extends Impact_Base {
 	 */
 	public function _create_roles_SQL($field,$roles='') {
 		$application = Application::singleton();
-		if ($roles == '') { $roles = $application->roles; }
+		if ($roles == '') {
+			$roles = $application->roles;
+		}
 		
 		$SQL = '';
 		foreach ($roles as $role) {
-			if ($SQL != '') { $SQL .= ' OR '; }
+			if ($SQL != '') {
+				$SQL .= ' OR ';
+			}
 			$SQL .= '('.$field.' LIKE "%'.$role.'%")';
 		}
 		return '('.$SQL.')';

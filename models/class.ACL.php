@@ -28,7 +28,7 @@ class ACL {
 	 *	@param string $rolesText Text containing roles (eg. [ADMIN],[WEB] ...etc).
 	 */
 	public function load_roles($rolesText) {
-		$rolesArray = explode(',',I::add_square_brakets($rolesText));
+		$rolesArray = explode(',',I::reformat_role_string($rolesText));
 		foreach ($rolesArray as $role) {
 			$this->roles[trim($role)] = trim($role);
 		}
@@ -50,9 +50,13 @@ class ACL {
 		$numargs = func_num_args();
 		
 		$exclude='';
-		if ($numargs > 1) {$exclude = func_get_arg(1);}
+		if ($numargs > 1) {
+			$exclude = func_get_arg(1);
+		}
 		
-		if (($include == '') && ($exclude == '')) { return true; }
+		if (($include == '') && ($exclude == '')) {
+			return true;
+		}
 		
 		if ($this->testRole($exclude)) {
 			return false;
@@ -69,17 +73,21 @@ class ACL {
 	 *	@return boolean 
 	 */
 	protected function testRole($rolesText) {
-		$rolesText = I::add_square_brakets($rolesText);
+		$rolesText = I::reformat_role_string($rolesText);
 		
 		foreach ($this->roles as $role) {
-			if (contains($rolesText,$role)) { return true; }
+			if (contains($rolesText,$role)) {
+				return true;
+			}
 		}
 		
 		if (contains($rolesText,':')) {
 			$rolesArray = explode(',',$rolesText);
 			foreach ($rolesArray as $role) {
 				if (contains($rolesText,':')) {
-					if ($this->testSpecialRole($role)) { return true; }
+					if ($this->testSpecialRole($role)) {
+						return true;
+					}
 				}
 			}
 		}
@@ -106,10 +114,14 @@ class ACL {
 		
 		switch ($type) {
 			case 'FBUSER':
-				if ($lookup == $application[FBID]) { return true; }
+				if ($lookup == $application[FBID]) {
+					return true;
+				}
 				break;
 			case 'FBFRIEND':
-				if ($this->facebook->api_client->friend($this->FBID,$lookup)) { return true; }
+				if ($this->facebook->api_client->friend($this->FBID,$lookup)) {
+					return true;
+				}
 				break;
 			case 'FBLIKE':
 				break;
