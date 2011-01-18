@@ -11,13 +11,13 @@ class Calendar_Base {
 	protected $data = array();
 	
 	function __construct() {
-		$this->data[repeatIncludeRules] = array();
-		$this->data[repeatExcludeRules] = array();
-		$this->data[repeatInclude] = array();
-		$this->data[repeatExclude] = array();
-		$this->data[startDate] = '';
-		$this->data[endDate] = '';
-		$this->data[duration] = 0;
+		$this->data['repeatIncludeRules'] = array();
+		$this->data['repeatExcludeRules'] = array();
+		$this->data['repeatInclude'] = array();
+		$this->data['repeatExclude'] = array();
+		$this->data['startDate'] = '';
+		$this->data['endDate'] = '';
+		$this->data['duration'] = 0;
 	}
 	
 	public function __call($name,$arguments) {
@@ -46,13 +46,13 @@ class Calendar_Base {
 	public function expand_repeats ($start,$end) {
 		$repeatParser = $this->factory('repeatParser');
 		if ($repeatParser) {
-			$repeatParser->set_startDate($this->data[startDate]);
-			$repeatParser->set_endDate($this->data[endDate]);
-			$repeatParser->set_duration($this->data[duration]);
-			$repeatParser->set_repeatIncludeRules($this->data[repeatIncludeRules]);
-			$repeatParser->set_repeatExcludeRules($this->data[repeatExcludeRules]);
-			$repeatParser->set_repeatInclude($this->data[repeatInclude]);
-			$repeatParser->set_repeatExclude($this->data[repeatExclude]);
+			$repeatParser->set_startDate($this->data['startDate']);
+			$repeatParser->set_endDate($this->data['endDate']);
+			$repeatParser->set_duration($this->data['duration']);
+			$repeatParser->set_repeatIncludeRules($this->data['repeatIncludeRules']);
+			$repeatParser->set_repeatExcludeRules($this->data['repeatExcludeRules']);
+			$repeatParser->set_repeatInclude($this->data['repeatInclude']);
+			$repeatParser->set_repeatExclude($this->data['repeatExclude']);
 			
 			$dates = $repeatParser->expand($start,$end);
 			
@@ -64,13 +64,13 @@ class Calendar_Base {
 	
 	public static function factory($className) {
 		$debug = debug_backtrace();
-		$dir = dirname($debug[0][file]);
+		$dir = dirname($debug[0]['file']);
 		
-        if (include_once $dir.'/../class.'.str_replace('_','.',$className).'.php') {
+		if (include_once $dir.'/../class.'.str_replace('_','.',$className).'.php') {
 			return new $className;
-        } else {
-            throw new Exception($className.' Class not found');
-        }
-    }
+		} else {
+			throw new Exception($className.' Class not found');
+		}
+	}
 
 }

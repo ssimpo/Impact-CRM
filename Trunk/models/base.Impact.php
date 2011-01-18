@@ -9,6 +9,7 @@
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Impact
  */
 class Impact_Base {
 	
@@ -43,6 +44,6 @@ class Impact_Base {
 	*/
 	private function _get_include_directory() {
 		$debug = debug_backtrace();
-		return dirname($debug[0][file]);
+		return dirname($debug[0]['file']);
 	}
 }

@@ -37,22 +37,26 @@ class repeatParser {
 		$dates = array();
 		
 		//Find includes
-		foreach ($this->data[repeatIncludeRules] as $RRULE) {
+		foreach ($this->data['repeatIncludeRules'] as $RRULE) {
 			array_push($dates,$this->expand_rule($RRULE,$start,$end));
 		}
-		array_push($dates,$this->data[repeatInclude]);
+		array_push($dates,$this->data['repeatInclude']);
 		$dates = array_unique($dates);
 		
 		//Find excludes
-		foreach ($this->data[repeatExcludeRules] as $RRULE) {
+		foreach ($this->data['repeatExcludeRules'] as $RRULE) {
 			foreach ($this->expand_rule($RRULE,$start,$end) as $cdate) {
 				$key = array_search($cdate,$dates);
-				if ($key !== false) { unset($dates[$key]); }
+				if ($key !== false) {
+					unset($dates[$key]);
+				}
 			}
 		}
-		foreach ($this->data[repeatExclude] as $cdate) {
+		foreach ($this->data['repeatExclude'] as $cdate) {
 			$key = array_search($cdate,$dates);
-			if ($key !== false) { unset($dates[$key]); }
+			if ($key !== false) {
+				unset($dates[$key]);
+			}
 		}
 		
 		return $dates;
@@ -64,7 +68,9 @@ class repeatParser {
 		while ($cdate < $until) {
 			
 			
-			if ($cdate > $start) { array_push($dates,$cdate); }
+			if ($cdate > $start) {
+				array_push($dates,$cdate);
+			}
 		}
 		return $dates;
 	}
