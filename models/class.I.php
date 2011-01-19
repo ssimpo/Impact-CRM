@@ -32,7 +32,7 @@ class I {
 	*
 	*	@param string $pattern The file search pattern for requiring.
 	*/
-	public function require_all_once ($pattern) {
+	public function require_all_once($pattern) {
 		foreach (glob($pattern) as $file) {
 			require_once $file;
 		}

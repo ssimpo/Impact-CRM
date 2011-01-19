@@ -41,7 +41,7 @@ class Calendar Extends Impact_Base {
 	 *	@protected
 	 *	@return string*32 Random, 32-digit hexidecimal string
 	 */
-	protected function _rnd_string () {
+	protected function _rnd_string() {
 		return md5(chr(rand(1,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)));
 	}
 	

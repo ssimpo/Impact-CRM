@@ -1,7 +1,7 @@
 <?php
 class Plugin_date {
 
-	public function run ($attributes) {
+	public function run($attributes) {
 		
 		$HTML = '';
 		$date = date_create();

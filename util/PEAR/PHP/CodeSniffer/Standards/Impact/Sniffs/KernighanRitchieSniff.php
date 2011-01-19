@@ -61,8 +61,11 @@ class Impact_Sniffs_KernighanRitchieSniff implements PHP_CodeSniffer_Sniff
         if (isset($tokens[$stackPtr]['scope_opener']) === false) {
             return;
         }
-
-        $openingBrace = $tokens[$stackPtr]['scope_opener'];
+        
+        $scopeOpener = $tokens[$stackPtr]['scope_opener'];
+        $scopeCloser = $tokens[$stackPtr]['scope_closer'];
+        $scopeCondition = $tokens[$stackPtr]['scope_condition'];
+        $type = $tokens[$stackPtr]['type'];
 
         // The end of the function occurs at the end of the argument list. Its
         // like this because some people like to break long function declarations
@@ -70,49 +73,75 @@ class Impact_Sniffs_KernighanRitchieSniff implements PHP_CodeSniffer_Sniff
         
         $lineDifference = 0;
         if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
-            $parenthesiscloser = $tokens[$stackPtr]['parenthesis_closer'];
-            $functionLine = $tokens[$parenthesiscloser]['line'];
-            $braceLine = $tokens[$openingBrace]['line'];
+            $parenthesisCloser = $tokens[$stackPtr]['parenthesis_closer'];
+            $parenthesisOpener = $tokens[$stackPtr]['parenthesis_opener'];
+            $functionLine = $tokens[$parenthesisCloser]['line'];
+            $braceLine = $tokens[$scopeOpener]['line'];
             
             // Checks that the closing parenthesis and the opening brace are
             // separated by a whitespace character.
-            $closerColumn = $tokens[$parenthesiscloser]['column'];
-            $braceColumn  = $tokens[$openingBrace]['column'];
+            $closerColumn = $tokens[$parenthesisCloser]['column'];
+            $braceColumn  = $tokens[$scopeOpener]['column'];
 
             $columnDifference = ($braceColumn - $closerColumn);
 
             if ($columnDifference !== 2) {
                 $error = 'Expected 1 space between the closing parenthesis and the opening brace; found '.($columnDifference - 1).'.';
-                $phpcsFile->addError($error, $openingBrace);
+                $phpcsFile->addError($error, $scopeOpener);
                 return;
             }
 
             // Check that a tab was not used instead of a space.
-            $spaceTokenPtr = ($parenthesiscloser + 1);
+            $spaceTokenPtr = ($parenthesisCloser + 1);
             $spaceContent  = $tokens[$spaceTokenPtr]['content'];
             if ($spaceContent !== ' ') {
                 $error = 'Expected a single space character between closing parenthesis and opening brace; found "'.$spaceContent.'".';
-                $phpcsFile->addError($error, $openingBrace);
+                $phpcsFile->addError($error, $scopeOpener);
                 return;
             }
+            
+            //Check that there is no space between the funtion and the opening
+            // parenthesis and a single space for s statement - Eg.
+            // functionname(parm) not functionname (parm);
+            // and while ($i > 1) not while($i > 1)
+            $openerColumn = $tokens[$parenthesisOpener]['column'];
+            $previousTokenPtr = ($parenthesisOpener - 1);
+            $previousTokenType = $tokens[$previousTokenPtr]['type'];
+            $previousTokenContent = $tokens[$previousTokenPtr]['content'];
+            if ($type == 'T_FUNCTION') {
+                if ($previousTokenType != 'T_STRING') {
+                    $error = 'Gap between function name and parenthesis';
+                    $phpcsFile->addError($error, $scopeOpener);
+                    return;
+                }
+            } else {
+                if ($previousTokenType != 'T_WHITESPACE') {
+                    $error = 'No gap between control statement and parenthesis';
+                    $phpcsFile->addError($error, $scopeOpener);
+                    return;
+                } elseif ($previousTokenContent !== ' ') {
+                    $error = 'Expected a single space character between statement and opening parenthesis; found "'.$previousTokenContent.'".';
+                    $phpcsFile->addError($error, $scopeOpener);
+                    return;
+                }
+            }
         } else {
-            $functionLine = $tokens[$tokens[$stackPtr]['scope_condition']]['line'];
-            $braceLine = $tokens[$openingBrace]['line'];
+            $functionLine = $tokens[$scopeCondition]['line'];
+            $braceLine = $tokens[$scopeOpener]['line'];
         }
         
         $lineDifference = ($braceLine - $functionLine);
         if ($lineDifference > 0) {
             $error = 'Opening brace should be on the same line as the declaration';
-            $phpcsFile->addError($error, $openingBrace);
+            $phpcsFile->addError($error, $scopeOpener);
             return;
         }
         
+        // Check that the opening/closing curley-brackets are in the same column.
         $openingColumn = 0;
         $closingColumn = 0;
-        $scopeCloser = $tokens[$stackPtr]['scope_closer'];
-        $type = $tokens[$stackPtr]['type'];
         if ($type != 'T_FUNCTION') {
-            $openingColumn = $tokens[$tokens[$stackPtr]['scope_condition']]['column'];
+            $openingColumn = $tokens[$scopeCondition]['column'];
             $closingColumn = $tokens[$scopeCloser]['column'];
             
             if (($type == 'T_ELSE') || ($type == 'T_ELSEIF') || ($type == 'T_CATCH')) {

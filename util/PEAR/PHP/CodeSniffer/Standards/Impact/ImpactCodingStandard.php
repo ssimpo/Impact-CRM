@@ -39,13 +39,10 @@ class PHP_CodeSniffer_Standards_Impact_ImpactCodingStandard extends PHP_CodeSnif
      */
     public function getIncludedSniffs()
     {
-        return array(
-            'H:\Projects\ImpactCRM\ImpactCRM\util\PEAR\PHP\CodeSniffer\Standards\Impact\Sniffs\KernighanRitchieSniff.php',
-            'Generic/Sniffs/Classes/DuplicateClassNameSniff.php',
-            'Generic/Sniffs/NamingConventions/UpperCaseConstantNameSniff.php',
-            'PEAR/Sniffs/Functions/ValidDefaultValueSniff.php'
-        );
+        return array();
     }
+    
+    //'H:\Projects\ImpactCRM\ImpactCRM\util\PEAR\PHP\CodeSniffer\Standards\Impact\Sniffs\KernighanRitchieSniff.php',
 
 }
 ?>

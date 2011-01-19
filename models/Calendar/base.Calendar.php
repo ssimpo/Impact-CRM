@@ -9,7 +9,7 @@
  */
 class Calendar_Base {
 	protected $data = array();
-	
+
 	function __construct() {
 		$this->data['repeatIncludeRules'] = array();
 		$this->data['repeatExcludeRules'] = array();
@@ -19,7 +19,7 @@ class Calendar_Base {
 		$this->data['endDate'] = '';
 		$this->data['duration'] = 0;
 	}
-	
+
 	public function __call($name,$arguments) {
 		$parts = explode('_',$name);
 		if (count($parts) == 2) {
@@ -42,8 +42,8 @@ class Calendar_Base {
 			}
 		}
 	}
-	
-	public function expand_repeats ($start,$end) {
+
+	public function expand_repeats($start,$end) {
 		$repeatParser = $this->factory('repeatParser');
 		if ($repeatParser) {
 			$repeatParser->set_startDate($this->data['startDate']);
@@ -61,7 +61,7 @@ class Calendar_Base {
 			return $false;
 		}
 	}
-	
+
 	public static function factory($className) {
 		$debug = debug_backtrace();
 		$dir = dirname($debug[0]['file']);
