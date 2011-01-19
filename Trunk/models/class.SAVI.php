@@ -30,9 +30,9 @@ class SAVI_Parser {
 		if (empty($this->errorMsgs)) {
 			$this->_define_error_messages();
 		}
-		#$this->lineFixer = $linefixer;
-		#$this->uppercaseTags = $uppercaseTags;
-		#$this->multiLineFixer = $multiLineFixer;
+		//$this->lineFixer = $linefixer;
+		//$this->uppercaseTags = $uppercaseTags;
+		//$this->multiLineFixer = $multiLineFixer;
 		
 		return $this;
 	}
@@ -105,7 +105,7 @@ class SAVI_Parser {
 	*	@param Object $parser Reference to parser object to use
 	*	@param Array() $parsed The parsed contents of a line that needs handling
 	*/
-	private function _handle_line ($parser,$parsed) {
+	private function _handle_line($parser,$parsed) {
 		if ($parsed['tag'] == 'BEGIN') {
 			$parsed['tag'] = trim($parsed['content']);
 			$parsed['content'] = '';
@@ -216,7 +216,7 @@ class SAVI_Parser {
 				$attkey = trim($matches[1][$i]);
 				$attval = $matches[2][$i];
 						
-				if (array_key_exists($attkey,$attributes)) {//Just in case we get duplicates
+				if (array_key_exists($attkey,$attributes)) { //Just in case we get duplicates
 					$attributes[$attkey] .= ','.$attval;
 				} else {
 					$attributes[$attkey] = $attval;
@@ -250,16 +250,16 @@ class SAVI_Parser {
 	}
 	
 	private function _delimit_replace($content) {
-		$content = str_replace('\,','~~#~@COMMA@~#~~',$content);
-		$content = str_replace('\:','~~#~@COLON@~#~~',$content);
-		$content = str_replace('\;','~~#~@SEMICOLON@~#~~',$content);
+		$content = str_replace('\,','~~//~@COMMA@~//~~',$content);
+		$content = str_replace('\:','~~//~@COLON@~//~~',$content);
+		$content = str_replace('\;','~~//~@SEMICOLON@~//~~',$content);
 		return $content;
 	}
 	
 	private function _delimit_unreplace($content) {
-		$content = str_replace('~~#~@COMMA@~#~~',',',$content);
-		$content = str_replace('~~#~@COLON@~#~~',':',$content);
-		$content = str_replace('~~#~@SEMICOLON@~#~~',';',$content);
+		$content = str_replace('~~//~@COMMA@~//~~',',',$content);
+		$content = str_replace('~~//~@COLON@~//~~',':',$content);
+		$content = str_replace('~~//~@SEMICOLON@~//~~',';',$content);
 		$content = str_replace('\n',"\n",$content);
 		$content = str_replace('\t',"\t",$content);
 		return $content;
@@ -273,7 +273,7 @@ class SAVI_Parser {
 	*/
 	private function _fix_line($line) {
 		preg_replace('/\A\t*/','',$line);
-		#preg_replace('/[\r\f\n]/',"\n",$line);
+		//preg_replace('/[\r\f\n]/',"\n",$line);
 		return $line;
 	}
 	

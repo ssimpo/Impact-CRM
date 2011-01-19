@@ -31,7 +31,7 @@ class dateParser_ISO8601Date {
 				$second = substr($date,13,2);
 			}
 			
-			if ($dateLen == 16) {//Not sure if this is right way round + no timezone parsing yet!
+			if ($dateLen == 16) { //Not sure if this is right way round + no timezone parsing yet!
 				$utc = gmmktime($hour,$minute,$second,$month,$day,$year);
 			} else {
 				$utc = mktime($hour,$minute,$second,$month,$day,$year);

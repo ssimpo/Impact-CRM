@@ -26,7 +26,7 @@ class iCal_Interpreter {
 		$this->treePos = $data;
 	}
 	
-	public function parse ($filename) {
+	public function parse($filename) {
 		$this->data = array(
 			'VEVENT'=>array(), 'VJOURNAL'=>array(), 'VTODO'=>array(), 
 			'VTIMEZONE'=>array(), 'VFREEBUSY'=>array()
@@ -50,7 +50,7 @@ class iCal_Interpreter {
 			default:
 				$carray = array('CONTENT'=>$content, 'ATTRIBUTES'=>$attributes);
 				if (($this->subblock == '') && ($this->block == '')) {
-					#$this->data[$name] = $carray;
+					//$this->data[$name] = $carray;
 					if (array_key_exists($name,$this->data)) {
 						array_push($this->data[$name],$carray);
 					} else {
@@ -70,15 +70,15 @@ class iCal_Interpreter {
 					}
 				}
 		}
-		#echo '<p><b>TAG:</b> '.$name.'<br />'.$content.'</p>';
+		//echo '<p><b>TAG:</b> '.$name.'<br />'.$content.'</p>';
 	}
 
 	public function _endTag($parser,$name) {
-		#$this->treePos = &$this->treePos['PARENT'];
+		//$this->treePos = &$this->treePos['PARENT'];
 	}
 
 	public function _textContent($parser,$content) {
-		#echo '<p>RAWTEXT: '.$content.'</p>';
+		//echo '<p>RAWTEXT: '.$content.'</p>';
 	}
 	
 	private function _add_element_get_ref($key) {

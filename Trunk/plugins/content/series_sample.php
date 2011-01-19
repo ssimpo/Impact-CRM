@@ -1,7 +1,7 @@
 <?php
 class Plugin_series_sample {
 
-	public function run ($attributes) {
+	public function run($attributes) {
 		
 		$HTML = '';
 		
@@ -19,7 +19,7 @@ class Plugin_series_sample {
 		return $HTML;
 	}
 	
-	private function _recent_sermons ($attributes) {
+	private function _recent_sermons($attributes) {
 		
 		$HTML = '';
 		$nr = $attributes['rows'];
@@ -62,7 +62,7 @@ class Plugin_series_sample {
 		return $HTML;
 	}
 	
-	private function _theme_table ($attributes) {
+	private function _theme_table($attributes) {
 		$HTML = '';
 		
 		if (array_key_exists('title',$attributes)) {

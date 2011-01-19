@@ -160,7 +160,7 @@ class Application Extends Impact_Base {
 	 *	@private
 	 *	@todo Needs a bit of work to improve it but works well and dosen't have any major security flaws.
 	 */
-	private function _userAccessDetect () {
+	private function _userAccessDetect() {
 		$database = Database::singleton();
 		$this->roles = $database->getRoles($this->FBID);
 		$this->accessLevel = $database->getAccess($this->FBID);
@@ -225,8 +225,8 @@ class Application Extends Impact_Base {
 		if (isset($_GET['media'])) {
 			$media = strtoupper(addslashes($_GET['media']));
 		} else {
-			#Auto-detection of Robots and FB needed :)
-			if (substr(DOMAIN,0,2) == 'm.') {#Accessed the mobile subdomain
+			//Auto-detection of Robots and FB needed :)
+			if (substr(DOMAIN,0,2) == 'm.') { //Accessed the mobile subdomain
 				$media = 'MOBILE';
 			} elseif ($application['browser']->isMobileDevice) {
 				$media = 'MOBILE';
@@ -251,7 +251,7 @@ class Application Extends Impact_Base {
 		if (isset($_GET['lang'])) {
 			$lang = strtolower(addslashes($_GET['lang']));
 		} else {
-			if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {#Auto detection of first language
+			if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) { //Auto detection of first language
 				$lang = explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
 				$lang = $lang[0];
 				$lang = str_replace('-','_',$lang);
