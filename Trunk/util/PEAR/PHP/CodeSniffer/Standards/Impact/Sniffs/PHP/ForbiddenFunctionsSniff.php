@@ -15,7 +15,7 @@
  */
 
 /**
- * Generic_Sniffs_PHP_ForbiddenFunctionsSniff.
+ * Impact_Sniffs_PHP_ForbiddenFunctionsSniff.
  *
  * Discourages the use of alias functions that are kept in PHP for compatibility
  * with older versions. Can be used to forbid the use of any function.

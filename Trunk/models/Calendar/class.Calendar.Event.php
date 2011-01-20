@@ -14,9 +14,9 @@ class Calendar_Event Extends Calendar_Base {
 		parent::__construct();
 	}
 
-	public function set_startDate($date,$timezone='') {
-		$dateParser = $this->factory('dateParser');
-		$utc_date = $dateParser->convert_date($date,'',$timezone);
+	public function set_start_date($date,$timezone='') {
+		$Date_Parser = $this->factory('Date_Parser');
+		$utc_date = $Date_Parser->convert_date($date,'',$timezone);
 		$this->data['startDate'] = $utc_date;
 	}
 

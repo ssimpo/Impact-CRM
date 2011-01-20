@@ -15,7 +15,7 @@
  */
 
 /**
- * PHP_CodeSniffer_Sniffs_PEAR_Commenting_InlineCommentSniff.
+ * Impact_Sniffs_Commenting_InlineCommentSniff.
  *
  * Checks that no perl-style comments are used.
  *

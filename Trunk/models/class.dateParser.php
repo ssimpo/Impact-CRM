@@ -9,7 +9,7 @@
  *
  *	@todo derive Factory Method from base class
  */
-class dateParser Extends Impact_Base {
+class Date_Parser Extends Impact_Base {
 	private static $config=false;
 	
 	/**
@@ -21,7 +21,7 @@ class dateParser Extends Impact_Base {
 	 */
 	function __construct() {
 		if (!is_array($this->config)) {
-			$this->_load_config('dateParser/settings.xml');
+			$this->_load_config('Date_Parser/settings.xml');
 		}
 	}
 	
@@ -84,7 +84,7 @@ class dateParser Extends Impact_Base {
 			switch ($param['type']) {
 				case 'regx':
 					$value = (string) $param['value'];
-					$class = (string) 'dateParser_'.$param['name'];
+					$class = (string) 'Date_Parser_'.$param['name'];
 					array_push($this->config,array('REGEX'=>$value,'CLASS'=>$class));
 					break;
 			}
@@ -103,7 +103,7 @@ class dateParser Extends Impact_Base {
 	public static function factory($className) {
 		$dir = $this._get_include_directory();
 		
-		if (include_once $dir.'/dateParser/class.'.str_replace('_','.',$className).'.php') {
+		if (include_once $dir.'/Date_Parser/class.'.str_replace('_','.',$className).'.php') {
 			return new $className;
 		} else {
 			throw new Exception($className.' Class not found');

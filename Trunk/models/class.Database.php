@@ -96,7 +96,7 @@ class Database Extends Impact_Base {
 	 *	@param string $SQL The SQL statement to execute.
 	 *	@return mixed()|boolean Either the result-row or false on failure.
 	 */
-	public function getRow($timeout,$SQL) {
+	public function get_row($timeout,$SQL) {
 		$rs = $this->database->CacheSelectLimit($timeout,$SQL,1);
 		if ($rs) {
 			$rs = $rs->GetAll();
@@ -115,9 +115,9 @@ class Database Extends Impact_Base {
 	 *	@param integer $entityID The ID of the page to return.
 	 *	@return mixed()|boolean Either the result-row or false on failure.
 	 */
-	public function getPage($entityID='') {
+	public function get_page($entityID='') {
 		$application = Application::singleton();
-		$reader_roles = $this->_create_roles_SQL('readers');
+		$reader_roles = $this->create_roles_sql('readers');
 		if ($entityID === '') {
 			$entityID = $application->entityID;
 		}
@@ -129,10 +129,10 @@ class Database Extends Impact_Base {
 				AND (media LIKE "%'.$application->media.'%") AND (content.lang 
 		';
 		
-		$rc = $this->getRow(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower($application->language).'%")');
+		$rc = $this->get_row(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower($application->language).'%")');
 		if ($rs === false) {
 			$SQL_p2 = '"'.strtolower(DEFAULT_LANG).'"';
-			$rc = $this->getRow(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower(DEFAULT_LANG).'%")');
+			$rc = $this->get_row(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower(DEFAULT_LANG).'%")');
 		}
 
 		return $rc;
@@ -141,15 +141,15 @@ class Database Extends Impact_Base {
 	/**
 	 *	Get the users access roles.
 	 *
-	 *	Specific Impact method for returning the ACL-roles, which the supplied
+	 *	Specific Impact method for returning the Acl-roles, which the supplied
 	 *	user is a member.
 	 *
 	 *	@public
 	 *	@param integer $FBID The Facebook ID of the user to query.
 	 *	@return string() Array of all the rules that the user is in
 	 */
-	public function getRoles($FBID=0) {
-		$roles = $this->getRow(
+	public function get_roles($FBID=0) {
+		$roles = $this->get_row(
 			DEFAULT_CACHE_TIMEOUT,
 			'SELECT roles,access FROM users WHERE FBID='.$FBID
 		);
@@ -159,15 +159,15 @@ class Database Extends Impact_Base {
 	/**
 	 *	Get the users access level.
 	 *
-	 *	Specific Impact method for returning the ACL access level of the
+	 *	Specific Impact method for returning the Acl access level of the
 	 *	supplied user.
 	 *
 	 *	@public
 	 *	@param interger $FBID The Facebook ID of the user to query.
 	 *	@return interger Access level of the supplied user.
 	 */
-	public function getAccess($FBID=0) {
-		$access = $this->getRow(
+	public function get_access($FBID=0) {
+		$access = $this->get_row(
 			DEFAULT_CACHE_TIMEOUT,
 			'SELECT access FROM users WHERE FBID='.$FBID
 		);
@@ -185,7 +185,7 @@ class Database Extends Impact_Base {
 	 *	@param string() $roles The roles to test against (default will grab the current users roles).
 	 *	@return string SQL fragment based on field and roles
 	 */
-	public function _create_roles_SQL($field,$roles='') {
+	public function create_roles_sql($field,$roles='') {
 		$application = Application::singleton();
 		if ($roles == '') {
 			$roles = $application->roles;

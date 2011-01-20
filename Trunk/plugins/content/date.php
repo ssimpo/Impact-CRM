@@ -1,5 +1,5 @@
 <?php
-class Plugin_date {
+class Plugin_Date {
 
 	public function run($attributes) {
 		

@@ -7,21 +7,21 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar	
  */
-class iCal_Interpreter {
+class Ical_Interpreter {
 	private $SAVI = '';
 	private $data = '';
 	private $block = '';
 	private $subblock = '';
 	
 	public function __construct() {
-		$this->SAVI = new SAVI_Parser();
+		$this->SAVI = new Savi_Parser();
 		$this->SAVI->ical_set_element_handler(
 			$this->SAVI,
-			array($this,'_startTag'),array($this,'_endTag')
+			array($this,'start_tag'),array($this,'end_tag')
 		);
 		$this->SAVI->ical_set_character_data_handler(
 			$this->SAVI,
-			array($this,'_textContent')
+			array($this,'text_content')
 		);
 		$this->treePos = $data;
 	}
@@ -35,7 +35,7 @@ class iCal_Interpreter {
 		echo '<pre>';print_r($this->data);echo '</pre>';
 	}
 	
-	public function _startTag($parser,$name,$attributes,$content='') {
+	public function start_tag($parser,$name,$attributes,$content='') {
 		switch ($name) {
 			case 'VCALENDAR':
 				$this->block = ''; $this->subblock = '';
@@ -73,11 +73,11 @@ class iCal_Interpreter {
 		//echo '<p><b>TAG:</b> '.$name.'<br />'.$content.'</p>';
 	}
 
-	public function _endTag($parser,$name) {
+	public function end_tag($parser,$name) {
 		//$this->treePos = &$this->treePos['PARENT'];
 	}
 
-	public function _textContent($parser,$content) {
+	public function text_content($parser,$content) {
 		//echo '<p>RAWTEXT: '.$content.'</p>';
 	}
 	

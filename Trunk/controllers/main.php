@@ -24,7 +24,7 @@ $database = Database::singleton();
  */
 if ($application->pageErrorCheck) {
 	$tparser = $application->factory('templater');
-	$tparser->init($database->getPage(),$application->settings);
+	$tparser->init($database->get_page(),$application->settings);
 
 	echo $tparser->parse(ROOT_BACK.'/views/'.USE_THEME.'/main.xml');
 }

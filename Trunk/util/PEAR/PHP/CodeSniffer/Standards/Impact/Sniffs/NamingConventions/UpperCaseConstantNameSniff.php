@@ -15,7 +15,7 @@
  */
 
 /**
- * Generic_Sniffs_NamingConventions_UpperCaseConstantNameSniff.
+ * Impact_Sniffs_NamingConventions_UpperCaseConstantNameSniff.
  *
  * Ensures that constant names are all uppercase.
  *

@@ -15,7 +15,7 @@
  */
 
 /**
- * Squiz_Sniffs_Operators_ValidLogicalOperatorsSniff.
+ * Impact_Sniffs_Operators_ValidLogicalOperatorsSniff.
  *
  * Checks to ensure that the logical operators 'and' and 'or' are not used.
  * Use the && and || operators instead.

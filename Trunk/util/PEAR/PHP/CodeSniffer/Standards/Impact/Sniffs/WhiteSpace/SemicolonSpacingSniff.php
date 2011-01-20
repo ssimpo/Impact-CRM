@@ -15,7 +15,7 @@
  */
 
 /**
- * Squiz_Sniffs_WhiteSpace_SemicolonSpacingSniff.
+ * Impact_Sniffs_WhiteSpace_SemicolonSpacingSniff.
  *
  * Ensure there is no whitespace before a semicolon.
  *

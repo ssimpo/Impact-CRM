@@ -7,7 +7,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar
  */
-class repeatParser {
+class Repeat_Parser {
 	private $data = array();
 	
 	public function __call($name,$arguments) {
