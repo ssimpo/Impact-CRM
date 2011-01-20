@@ -15,7 +15,7 @@
  */
 
 /**
- * PEAR_Sniffs_Functions_ValidDefaultValueSniff.
+ * Impact_Sniffs_Functions_ValidDefaultValueSniff.
  *
  * A Sniff to ensure that parameters defined for a function that have a default
  * value come at the end of the function signature.

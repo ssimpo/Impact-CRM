@@ -9,12 +9,12 @@
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
 *	@package Templater	
 */
-class templater {
+class Templater {
 	protected $xml = '';
 	protected $application;
 	protected $component;
 	protected $mainApplication;
-	protected $ACL;
+	protected $Acl;
 	
 	/**
 	 *	Constructor
@@ -48,12 +48,12 @@ class templater {
 				$this->parse($path);
 			}
 			$this->component = $this->application['component'];
-			$this->ACL = $this->application['ACL'];
+			$this->Acl = $this->application['Acl'];
 		} else {
 			$this->mainApplication = $path;
 			$this->component = $this->mainApplication['component'];
-			$this->ACL = $this->mainApplication['ACL'];
-			//$this->application[ACL] = $this->mainApplication['ACL'];
+			$this->Acl = $this->mainApplication['Acl'];
+			//$this->application[Acl] = $this->mainApplication['Acl'];
 			if ($path2 !='') {
 				$this->parse($path2);
 			}
@@ -71,7 +71,7 @@ class templater {
 	 */
 	public function parse($path) {
 	
-		$this->_getXML($path);
+		$this->_get_xml($path);
 		
 		if ($this->_contains(&$this->xml,'[[')) {
 			$this->xml = preg_replace(
@@ -122,7 +122,7 @@ class templater {
 	 *
 	 *	@param string $path Filepath or XML string
 	 */
-	protected function _getXML($path) {
+	protected function _get_xml($path) {
 	//Grab the XMl from a file or if supplied as XMLString then grab from that
 		
 		if ($path != '') {
@@ -139,10 +139,10 @@ class templater {
 	
 	protected function _loop(&$matches) {
 	//Allows looping through an array, repeating the inner block against each item
-		$attributes = $this->_getAttributes($matches[1]);
+		$attributes = $this->_get_attributes($matches[1]);
 		$template = '';
 		
-		if ($this->_ACL($attributes)) {
+		if ($this->_acl($attributes)) {
 			$array = '';
 			if (array_key_exists('name',$attributes)) {
 				if (array_key_exists($attributes['name'],$this->application)) {
@@ -157,7 +157,7 @@ class templater {
 			}
 			
 			foreach ($array as $item) {
-				$parser = new templater($item,$this->mainApplication);
+				$parser = new Templater($item,$this->mainApplication);
 				$template .= $parser->parse($matches[2]);
 			}
 		}
@@ -166,11 +166,11 @@ class templater {
 	}
 	
 	protected function _block(&$matches) {
-	//If the ACL allows then include block, otherwise return a blank
+	//If the Acl allows then include block, otherwise return a blank
 	
-		$attributes = $this->_getAttributes($matches[1]);
+		$attributes = $this->_get_attributes($matches[1]);
 		
-		if ($this->_ACL($attributes)) {
+		if ($this->_acl($attributes)) {
 			return $matches[2];
 		} else {
 			return '';
@@ -197,12 +197,12 @@ class templater {
 	}
 	
 	protected function _data($match) {
-	//Include data content, according to ACL
+	//Include data content, according to Acl
 	
-		$attributes = $this->_getAttributes($match);
+		$attributes = $this->_get_attributes($match);
 	
 		$template = '';
-		if ($this->_ACL($attributes)) {
+		if ($this->_acl($attributes)) {
 			if (array_key_exists($attributes['name'],$this->application)) {
 				$template =  $this->application[$attributes['name']];
 			} elseif (array_key_exists($attributes['name'],$this->mainApplication)) {
@@ -215,7 +215,7 @@ class templater {
 		//Here you need to parse the content for more template data (allows for plugins...etc)
 		if (array_key_exists('parsedata',$attributes)) {
 			if ($attributes['parsedata'] = 'true') {
-				$parser = new templater($this->application);
+				$parser = new Templater($this->application);
 				$template = $parser->parse($template);
 			}
 		}
@@ -224,20 +224,20 @@ class templater {
 	}
 	
 	protected function _include($match) {
-	//Load include content, accoring to ACL
+	//Load include content, accoring to Acl
 		
-		$attributes = $this->_getAttributes($match);
+		$attributes = $this->_get_attributes($match);
 		$comtem = $this->component.'.xml';
 
 		$template = '';
-		if ($this->_ACL($attributes)) {
+		if ($this->_acl($attributes)) {
 			if ($attributes['type'] == 'component') {
 				if ($attributes['name'] == 'main') {
-					$parser = new templater($this->application);
+					$parser = new Templater($this->application);
 					$template = $parser->parse(ROOT_BACK.'/views/'.USE_TEMPLATE.'/'.$comtem);
 				}
 				if ($attributes['name'] == 'meta') {
-					$parser = new templater($this->application);
+					$parser = new Templater($this->application);
 					$template = $parser->parse(ROOT_BACK.'/views/'.USE_TEMPLATE.'/meta/'.$comtem);
 				}
 			}
@@ -248,10 +248,10 @@ class templater {
 	
 	protected function _feature($match) {
 	//Load a HTML snippet
-		$attributes = $this->_getAttributes($match);
+		$attributes = $this->_get_attributes($match);
 		$template = '';
 		
-		if ($this->_ACL($attributes)) { //Can be defined directly or in the database
+		if ($this->_acl($attributes)) { //Can be defined directly or in the database
 			$showone = false;
 			if (array_key_exists('showone',$attributes)) {
 				$showone = (isEqual($attributes['showone'],'true') ? true:false);
@@ -286,11 +286,11 @@ class templater {
 			}
 				
 			if ($feature) {
-				$feature['start'] = $this->_dateReformat($feature['start']);
-				$feature['end'] = $this->_dateReformat($feature['end']);
+				$feature['start'] = $this->_date_reformat($feature['start']);
+				$feature['end'] = $this->_date_reformat($feature['end']);
 					
-				if ($this->_ACL($feature)) { //If defined in database - double-lock system
-					$parser = new templater($this->application);
+				if ($this->_acl($feature)) { //If defined in database - double-lock system
+					$parser = new Templater($this->application);
 					$template .= $parser->parse(stripslashes($feature['HTML']));
 				}
 			}
@@ -307,10 +307,10 @@ class templater {
 	
 	protected function _plugin($match) {
 	//Load a plugin
-		$attributes = $this->_getAttributes($match);
+		$attributes = $this->_get_attributes($match);
 		$template = '';
 		
-		if ((array_key_exists('name',$attributes)) && ($this->_ACL($attributes))) {
+		if ((array_key_exists('name',$attributes)) && ($this->_acl($attributes))) {
 			$plugin = Plugin::factory($attributes['name']);
 			if ($plugin !== false) {
 				$template = $plugin->run($attributes);
@@ -348,8 +348,8 @@ class templater {
 		return true;
 	}
 	
-	protected function _ACL(&$attributes) {
-	//Handle the ACL - Loose meaning of ACL as it includes access-rights according to language,
+	protected function _acl(&$attributes) {
+	//Handle the Acl - Loose meaning of Acl as it includes access-rights according to language,
 	// media-type and date/time as well as user-roles
 		
 		//Restrictions based on a value not being blank/null/zero
@@ -361,7 +361,7 @@ class templater {
 		
 		//Restrictions based on media - eg. [PC],[FACEBOOK],[MOBILE] ...etc
 		if (array_key_exists('media',$attributes)) {
-			$test = $this->_testFormatter($attributes['media']);
+			$test = $this->_test_formatter($attributes['media']);
 			if (!$this->_contains($test,'['.$this->application['media'].']')) {
 				return false;
 			}
@@ -369,7 +369,7 @@ class templater {
 		
 		//Restrictions based on language - eg. en_gb, es, de, jp ...etc
 		if (array_key_exists('lang',$attributes)) {
-			$test = $this->_testFormatter($attributes['lang']);
+			$test = $this->_test_formatter($attributes['lang']);
 			if (!$this->_contains($test,'['.$this->applications['lang'].']')) {
 				return false;
 			}
@@ -388,7 +388,7 @@ class templater {
 			}
 		}
 		
-		//Main ACL functionality based on user groups and special on-the-fly groups
+		//Main Acl functionality based on user groups and special on-the-fly groups
 		// eg. [WEB],[ADMIN],[CRMGROUP:5],[GEOTOWN:Middlesbrough],[FBEVENT_INVITED:12578975] ...etc
 		if (!array_key_exists('include',$attributes)) {
 			$attributes['include']='';
@@ -398,7 +398,7 @@ class templater {
 		}
 		
 		
-		return $this->ACL->allowed($attributes['include'],$attributes['exclude']);
+		return $this->Acl->allowed($attributes['include'],$attributes['exclude']);
 	}
 	
 	protected function _ical(&$attributes) {
@@ -450,7 +450,7 @@ class templater {
 		}
 	}
 	
-	protected function _testFormatter($test) {
+	protected function _test_formatter($test) {
 	
 		$test = '['.str_replace(',','],[',$test).']';
 		$test = str_replace('[[','[',$test);
@@ -470,7 +470,7 @@ class templater {
 	 *	@param string $att The XML snippt containing the attributes to be parsed.
 	 *	@return string() Array of attributes stored as key/value pairs.
 	 */
-	protected function _getAttributes($att) {
+	protected function _get_attributes($att) {
 
 		$attributes = array();
 		$count = preg_match_all('/([a-zA-Z0-9_]+)[= ]+[\"\'](.*?)[\"\']/',$att,$matches);
@@ -491,7 +491,7 @@ class templater {
 	 *	@param string $date Date string to reformat.
 	 *	@return string Reformated string.
 	 */
-	protected function _dateReformat($date) {
+	protected function _date_reformat($date) {
 		return str_replace(':','',str_replace('-','',str_replace(' ','T',$date))).'Z';
 	}
 	

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Class for managing an ACL.  It will validate a given user against supplied roles.
+ *	Class for managing an Acl.  It will validate a given user against supplied roles.
  *	It will also allow for special user-groups that are assigned to various Facebook conditions or other
  *	concepts, such as people in a specfic locality.
  *		
@@ -9,7 +9,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
-class ACL {
+class Acl {
 	protected $roles = array();
 	public $accesslevel = 0;
 	public $facebook;
@@ -58,10 +58,10 @@ class ACL {
 			return true;
 		}
 		
-		if ($this->testRole($exclude)) {
+		if ($this->test_role($exclude)) {
 			return false;
 		} else {
-			return $this->testRole($include);
+			return $this->test_role($include);
 		}
 	}
 	
@@ -72,7 +72,7 @@ class ACL {
 	 *	@param string $rolesText The text-string containing roles to test.
 	 *	@return boolean 
 	 */
-	protected function testRole($rolesText) {
+	protected function test_role($rolesText) {
 		$rolesText = I::reformat_role_string($rolesText);
 		
 		foreach ($this->roles as $role) {
@@ -85,7 +85,7 @@ class ACL {
 			$rolesArray = explode(',',$rolesText);
 			foreach ($rolesArray as $role) {
 				if (contains($rolesText,':')) {
-					if ($this->testSpecialRole($role)) {
+					if ($this->test_special_role($role)) {
 						return true;
 					}
 				}
@@ -107,7 +107,7 @@ class ACL {
 	 *	@return boolean
 	 *	@todo All the special cases listed below as stubs.
 	 */
-	protected function testSpecialRole($role) {
+	protected function test_special_role($role) {
 		preg_match_all('/\[([A-Za-z_]+)\:([0-9]+)\]/',$role,$matches);
 		$type = $matches[1][0];
 		$lookup = $matches[2][0];

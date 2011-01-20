@@ -1,5 +1,5 @@
 <?php
-class Plugin_series_sample {
+class Plugin_Series_Sample {
 
 	public function run($attributes) {
 		

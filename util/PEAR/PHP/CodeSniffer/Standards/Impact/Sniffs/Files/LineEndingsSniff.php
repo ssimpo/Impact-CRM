@@ -15,7 +15,7 @@
  */
 
 /**
- * Generic_Sniffs_Files_LineEndingsSniff.
+ * Impact_Sniffs_Files_LineEndingsSniff.
  *
  * Checks that end of line characters are correct.
  *

@@ -17,7 +17,7 @@
 class Application Extends Impact_Base {
 	private static $instance;
 	public $settings = array();
-	public $ACL;
+	public $Acl;
 	public $facebook;
 	public $fbsession;
 	public $me;
@@ -60,15 +60,15 @@ class Application Extends Impact_Base {
 		$this->settings['FBID'] = 0;
 		$this->_load_constants();
 		$this->_make_facebook_connection();
-		$this->_languageDetect();
-		$this->_mediaDetect();
-		$this->_userAccessDetect();
+		$this->_language_detect();
+		$this->_media_detect();
+		$this->_user_access_detect();
 		
 		$this->pageName = strtolower(addslashes($_GET['page']));
 		if ($this->pageName == '') {
 			$this->pageName = DEFAULT_HOMEPAGE;
 		}
-		$this->pageErrorCheck = $this->_getPageRequestInfo();
+		$this->pageErrorCheck = $this->_get_page_request_info();
 	}
 	
 	/**
@@ -142,9 +142,10 @@ class Application Extends Impact_Base {
 	 *	Get the value of an application property.  Values are stored in
 	 *	the application array and accessed via the __set and __get methods.
 	 *
-	 *	@public
+	 *	@publi
 	 */
 	public function __get($property) {
+		//$convertedProperty = I::function_to_variable($property);
 		if (array_key_exists($property,$this->settings)) {
 			return $this->settings[$property];
 		} else {
@@ -160,18 +161,18 @@ class Application Extends Impact_Base {
 	 *	@private
 	 *	@todo Needs a bit of work to improve it but works well and dosen't have any major security flaws.
 	 */
-	private function _userAccessDetect() {
+	private function _user_access_detect() {
 		$database = Database::singleton();
-		$this->roles = $database->getRoles($this->FBID);
-		$this->accessLevel = $database->getAccess($this->FBID);
+		$this->roles = $database->get_roles($this->FBID);
+		$this->accessLevel = $database->get_access($this->FBID);
 		
 		//This needs a better implimentation but will do to get us going
-		$this->ACL = $this->factory('ACL');
-		$this->ACL->FBID = $this->settings['FBID'];
-		$this->ACL->accesslevel = $this->settings['accessLevel'];
-		$this->ACL->facebook = $this->facebook;
-		$this->ACL->load_roles($this->settings['roles']);
-		$this->settings['ACL'] = $this->ACL;
+		$this->Acl = $this->factory('Acl');
+		$this->Acl->FBID = $this->settings['FBID'];
+		$this->Acl->accesslevel = $this->settings['accessLevel'];
+		$this->Acl->facebook = $this->facebook;
+		$this->Acl->load_roles($this->settings['roles']);
+		$this->settings['Acl'] = $this->Acl;
 	}
 	
 	/**
@@ -182,15 +183,15 @@ class Application Extends Impact_Base {
 	 *	@public
 	 *	@return boolean Is the request valid.
 	 */
-	function _getPageRequestInfo() {
+	function _get_page_request_info() {
 		$this->entityID = 0;
 		$errorcheck = false;
 		$database = Database::singleton();
 		
-		$reader_roles = $database->_create_roles_SQL('readers');
+		$reader_roles = $database->create_roles_sql('readers');
 	
 		if (is_numeric($this->pageName)) {
-			$errorcheck = $database->getRow(
+			$errorcheck = $database->get_row(
 				DEFAULT_CACHE_TIMEOUT,
 				'SELECT Title FROM entities WHERE (ID='.$this->pageName.') AND '.$reader_roles
 			);
@@ -199,7 +200,7 @@ class Application Extends Impact_Base {
 				$this->pageName = $errorcheck['Title'];
 			} 
 		} else {
-			$errorcheck = $database->getRow(
+			$errorcheck = $database->get_row(
 				DEFAULT_CACHE_TIMEOUT,
 				'SELECT ID FROM entities WHERE (Title="'.$this->pageName.'") AND '.$reader_roles
 			);
@@ -220,7 +221,7 @@ class Application Extends Impact_Base {
 	 *	@protected
 	 *	@todo Add detection for wider range of media.
 	 */
-	protected function _mediaDetect() {
+	protected function _media_detect() {
 		$media = DEFAULT_MEDIA;
 		if (isset($_GET['media'])) {
 			$media = strtoupper(addslashes($_GET['media']));
@@ -246,7 +247,7 @@ class Application Extends Impact_Base {
 	 *	@protected
 	 *	@todo Allow Facebook language detection and user database lookup (for stored setting).
 	 */
-	protected function _languageDetect() {
+	protected function _language_detect() {
 		$lang = DEFAULT_LANG;
 		if (isset($_GET['lang'])) {
 			$lang = strtolower(addslashes($_GET['lang']));

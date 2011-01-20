@@ -15,7 +15,7 @@
  */
 
 /**
- * Generic_Sniffs_PHP_DisallowShortOpenTagSniff.
+ * Impact_Sniffs_PHP_DisallowShortOpenTagSniff.
  *
  * Makes sure that shorthand PHP open tags are not used.
  *

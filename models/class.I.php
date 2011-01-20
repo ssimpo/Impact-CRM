@@ -96,5 +96,29 @@ class I {
 			}
 		}
 	}
+	
+	public function function_to_variable($name) {
+		$variable = '';
+		$parts = explode('_',$name);
+		if ((count($parts) == 1) || (count($parts) == 2)&&($parts[0] == '')) {
+			return strtolower($name);	
+		}
+		
+		foreach ($parts as $part) {
+			if (strlen($part) > 1) {
+				$firstLetter = substr($part,0,1);
+				$afterFirstLetter = substr($part,1);
+				$variable .= strtoupper($firstLetter).strtolower($afterFirstLetter);
+			} elseif (strlen($part) == 1) {
+				$variable .= strtoupper($part);
+			}
+		}
+		$firstLetter = substr($name,0,1);
+		if ($firstLetter == '_') {
+			$variable = '_'.$variable;
+		}
+		
+		return $variable;
+	}
 }
 ?>

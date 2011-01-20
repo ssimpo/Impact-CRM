@@ -44,17 +44,17 @@ class Calendar_Base {
 	}
 
 	public function expand_repeats($start,$end) {
-		$repeatParser = $this->factory('repeatParser');
-		if ($repeatParser) {
-			$repeatParser->set_startDate($this->data['startDate']);
-			$repeatParser->set_endDate($this->data['endDate']);
-			$repeatParser->set_duration($this->data['duration']);
-			$repeatParser->set_repeatIncludeRules($this->data['repeatIncludeRules']);
-			$repeatParser->set_repeatExcludeRules($this->data['repeatExcludeRules']);
-			$repeatParser->set_repeatInclude($this->data['repeatInclude']);
-			$repeatParser->set_repeatExclude($this->data['repeatExclude']);
+		$Repeat_Parser = $this->factory('Repeat_Parser');
+		if ($Repeat_Parser) {
+			$Repeat_Parser->set_start_date($this->data['startDate']);
+			$Repeat_Parser->set_end_date($this->data['endDate']);
+			$Repeat_Parser->set_duration($this->data['duration']);
+			$Repeat_Parser->set_repeat_include_rules($this->data['repeatIncludeRules']);
+			$Repeat_Parser->set_repeat_exclude_rules($this->data['repeatExcludeRules']);
+			$Repeat_Parser->set_repeat_include($this->data['repeatInclude']);
+			$Repeat_Parser->set_repeat_exclude($this->data['repeatExclude']);
 			
-			$dates = $repeatParser->expand($start,$end);
+			$dates = $Repeat_Parser->expand($start,$end);
 			
 			return $dates;
 		} else {

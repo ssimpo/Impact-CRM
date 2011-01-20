@@ -15,6 +15,8 @@
  */
 
 /**
+ * Impact_Sniffs_Metrics_NestingLevelSniff
+ *
  * Checks the nesting level for methods.
  *
  * @category  PHP

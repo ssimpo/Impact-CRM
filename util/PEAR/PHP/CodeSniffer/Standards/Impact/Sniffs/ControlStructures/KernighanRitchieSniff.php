@@ -13,7 +13,7 @@
  */
 
 /**
- * Impact_Sniffs_KernighanRitchieSniff
+ * Impact_Sniffs_ControlStructures_KernighanRitchieSniff.
  *
  * If an assignment goes over two lines, ensure the equal sign is indented.
  *
@@ -25,7 +25,7 @@
  * @version   Release: 1.2.2
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class Impact_Sniffs_KernighanRitchieSniff implements PHP_CodeSniffer_Sniff
+class Impact_Sniffs_ControlStructures_KernighanRitchieSniff implements PHP_CodeSniffer_Sniff
 {
     
     /**

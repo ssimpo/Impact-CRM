@@ -14,6 +14,8 @@
  */
 
 /**
+ * Impact_Sniffs_Classes_DuplicateClassNameSniff
+ *
  * Reports errors if the same class or interface name is used in multiple files.
  *
  * @category  PHP

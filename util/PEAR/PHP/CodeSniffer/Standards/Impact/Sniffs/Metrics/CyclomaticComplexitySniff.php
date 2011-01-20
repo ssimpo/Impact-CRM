@@ -15,6 +15,8 @@
  */
 
 /**
+ * Impact_Sniffs_Metrics_CyclomaticComplexitySniff.
+ *
  * Checks the cyclomatic complexity (McCabe) for functions.
  *
  * The cyclomatic complexity (also called McCabe code metrics)

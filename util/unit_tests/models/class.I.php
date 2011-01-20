@@ -8,7 +8,7 @@
  *      @package UnitTests.Impact
  *      @extends PHPUnit_Framework_TestCase
  */
-class TEST_I extends PHPUnit_Framework_TestCase {
+class Test_I extends PHPUnit_Framework_TestCase {
     protected function setUp() {
         $debug = debug_backtrace();
 	$path = dirname($debug[0]['file']);
