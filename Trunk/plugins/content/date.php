@@ -1,5 +1,5 @@
 <?php
-class Plugin_Date {
+class Plugin_Date implements Impact_Plugin {
 
 	public function run($attributes) {
 		

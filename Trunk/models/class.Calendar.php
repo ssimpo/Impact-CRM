@@ -3,12 +3,14 @@
 *	Calendar class
 *		
 *	@author Stephen Simpson <me@simpo.org>
-*	@version 0.0.3
+*	@version 0.0.4
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
 *	@package Calendar
 *	@todo Start using a generic factory class.
 */
 include_once 'Calendar/base.Calendar.php';
+include_once 'Calendar/interface.CalendarObject.php';
+include_once 'dateParser/interface.dateParserObject.php';
 
 class Calendar Extends Impact_Base {
 	protected $objects = array();

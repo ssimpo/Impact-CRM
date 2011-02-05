@@ -8,6 +8,7 @@
  */
 
 //Include the core/base classes, needed throughout
+require_once(ROOT_BACK.'/plugins/interface.plugin.php');
 require_once(ROOT_BACK.'/models/base.Impact.php');
 require_once(ROOT_BACK.'/models/class.Application.php');
 require_once(ROOT_BACK.'/models/class.Database.php');
