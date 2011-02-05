@@ -28,7 +28,8 @@
  * @version   Release: 1.2.2
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class Impact_Sniffs_NamingConventions_UpperCaseConstantNameSniff implements PHP_CodeSniffer_Sniff
+class Impact_Sniffs_NamingConventions_UpperCaseConstantNameSniff
+    implements PHP_CodeSniffer_Sniff
 {
 
 
@@ -48,8 +49,8 @@ class Impact_Sniffs_NamingConventions_UpperCaseConstantNameSniff implements PHP_
      * Processes this test, when one of its tokens is encountered.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token in the
-     *                                        stack passed in $tokens.
+     * @param int                  $stackPtr  The position of the current token
+     *                                          in the stack passed in $tokens.
      *
      * @return void
      */
@@ -65,10 +66,14 @@ class Impact_Sniffs_NamingConventions_UpperCaseConstantNameSniff implements PHP_
 
         // If the next non-whitespace token after this token
         // is not an opening parenthesis then it is not a function call.
-        $openBracket = $phpcsFile->findNext(T_WHITESPACE, ($stackPtr + 1), null, true);
+        $openBracket = $phpcsFile->findNext(
+            T_WHITESPACE, ($stackPtr + 1), null, true
+        );
         if ($tokens[$openBracket]['code'] !== T_OPEN_PARENTHESIS) {
             $functionKeyword = $phpcsFile->findPrevious(
-                array(T_WHITESPACE, T_COMMA, T_COMMENT, T_STRING), ($stackPtr - 1), null, true);
+                array(T_WHITESPACE, T_COMMA, T_COMMENT, T_STRING),
+                ($stackPtr - 1), null, true
+            );
 
             $declarations = array(
                              T_FUNCTION,
@@ -79,7 +84,9 @@ class Impact_Sniffs_NamingConventions_UpperCaseConstantNameSniff implements PHP_
                              T_INSTANCEOF,
                              T_NEW,
                             );
-            if (in_array($tokens[$functionKeyword]['code'], $declarations) === true) {
+            
+            $functionCode = $tokens[$functionKeyword]['code'];
+            if (in_array($functionCode, $declarations) === true) {
                 // This is just a declaration; no constants here.
                 return;
             }
@@ -87,15 +94,20 @@ class Impact_Sniffs_NamingConventions_UpperCaseConstantNameSniff implements PHP_
             if ($tokens[$functionKeyword]['code'] === T_CONST) {
                 // This is a class constant.
                 if (strtoupper($constName) !== $constName) {
-                    $error = 'Class constants must be uppercase; expected '.strtoupper($constName)." but found $constName";
-                    $phpcsFile->addError($error, $stackPtr, 'ClassConstantNotUpperCase');
+                    $error = 'Class constants must be uppercase; expected '.
+                        strtoupper($constName)." but found $constName";
+                    $phpcsFile->addError(
+                        $error, $stackPtr, 'ClassConstantNotUpperCase'
+                    );
                 }
 
                 return;
             }
 
             // Is this a class name?
-            $nextPtr = $phpcsFile->findNext(T_WHITESPACE, ($stackPtr + 1), null, true);
+            $nextPtr = $phpcsFile->findNext(
+                T_WHITESPACE, ($stackPtr + 1), null, true
+            );
             if ($tokens[$nextPtr]['code'] === T_DOUBLE_COLON) {
                 return;
             }
@@ -108,44 +120,57 @@ class Impact_Sniffs_NamingConventions_UpperCaseConstantNameSniff implements PHP_
             }
 
             // Is this a member var name?
-            $prevPtr = $phpcsFile->findPrevious(T_WHITESPACE, ($stackPtr - 1), null, true);
+            $prevPtr = $phpcsFile->findPrevious(
+                T_WHITESPACE, ($stackPtr - 1), null, true
+            );
             if ($tokens[$prevPtr]['code'] === T_OBJECT_OPERATOR) {
                 return;
             }
 
             // Is this an instance of declare()
-            $prevPtr = $phpcsFile->findPrevious(array(T_WHITESPACE, T_OPEN_PARENTHESIS), ($stackPtr - 1), null, true);
+            $prevPtr = $phpcsFile->findPrevious(
+                array(T_WHITESPACE, T_OPEN_PARENTHESIS),
+                ($stackPtr - 1), null, true
+            );
             if ($tokens[$prevPtr]['code'] === T_DECLARE) {
                 return;
             }
 
             // This is a real constant.
             if (strtoupper($constName) !== $constName) {
-                $error = 'Constants must be uppercase; expected '.strtoupper($constName)." but found $constName";
+                $error = 'Constants must be uppercase; expected '.
+                    strtoupper($constName)." but found $constName";
                 $phpcsFile->addError($error, $stackPtr, 'ConstantNotUpperCase');
             }
 
-        } else if (strtolower($constName) === 'define' || strtolower($constName) === 'constant') {
+        } else if (strtolower($constName) === 'define'
+            || strtolower($constName) === 'constant'
+        ) {
 
             /*
                 This may be a "define" or "constant" function call.
             */
 
             // Make sure this is not a method call.
-            $prev = $phpcsFile->findPrevious(T_WHITESPACE, ($stackPtr - 1), null, true);
+            $prev = $phpcsFile->findPrevious(
+                T_WHITESPACE, ($stackPtr - 1), null, true
+            );
             if ($tokens[$prev]['code'] === T_OBJECT_OPERATOR) {
                 return;
             }
 
             // The next non-whitespace token must be the constant name.
-            $constPtr = $phpcsFile->findNext(T_WHITESPACE, ($openBracket + 1), null, true);
+            $constPtr = $phpcsFile->findNext(
+                T_WHITESPACE, ($openBracket + 1), null, true
+            );
             if ($tokens[$constPtr]['code'] !== T_CONSTANT_ENCAPSED_STRING) {
                 return;
             }
 
             $constName = $tokens[$constPtr]['content'];
             if (strtoupper($constName) !== $constName) {
-                $error = 'Constants must be uppercase; expected '.strtoupper($constName)." but found $constName";
+                $error = 'Constants must be uppercase; expected '.
+                    strtoupper($constName)." but found $constName";
                 $phpcsFile->addError($error, $stackPtr, 'ConstantNotUpperCase');
             }
         }//end if

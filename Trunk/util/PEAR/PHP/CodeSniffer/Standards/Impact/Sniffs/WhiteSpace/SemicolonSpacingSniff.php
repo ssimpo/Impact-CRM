@@ -68,10 +68,16 @@ class Impact_Sniffs_WhiteSpace_SemicolonSpacingSniff implements PHP_CodeSniffer_
 
         $prevType = $tokens[($stackPtr - 1)]['code'];
         if (in_array($prevType, PHP_CodeSniffer_Tokens::$emptyTokens) === true) {
-            $nonSpace = $phpcsFile->findPrevious(PHP_CodeSniffer_Tokens::$emptyTokens, ($stackPtr - 2), null, true);
+            $nonSpace = $phpcsFile->findPrevious(
+                PHP_CodeSniffer_Tokens::$emptyTokens,
+                ($stackPtr - 2), null, true
+            );
             $expected = $tokens[$nonSpace]['content'].';';
-            $found    = $phpcsFile->getTokensAsString($nonSpace, ($stackPtr - $nonSpace)).';';
-            $error    = "Space found before semicolon; expected \"$expected\" but found \"$found\"";
+            $found    = $phpcsFile->getTokensAsString(
+                $nonSpace, ($stackPtr - $nonSpace)
+            ).';';
+            $error    = 'Space found before semicolon; expected "'.$expected.
+                '" but found "'.$found.'"';
             $phpcsFile->addError($error, $stackPtr);
         }
 

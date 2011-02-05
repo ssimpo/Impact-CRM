@@ -69,8 +69,9 @@ class Impact_Sniffs_PHP_ForbiddenFunctionsSniff implements PHP_CodeSniffer_Sniff
      * Processes this test, when one of its tokens is encountered.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token in the
-     *                                        stack passed in $tokens.
+     * @param int                  $stackPtr  The position of the current
+     *                                        token in the stack passed in
+     *                                        $tokens.
      *
      * @return void
      */
@@ -85,7 +86,9 @@ class Impact_Sniffs_PHP_ForbiddenFunctionsSniff implements PHP_CodeSniffer_Sniff
                    T_CONST,
                   );
 
-        $prevToken = $phpcsFile->findPrevious(T_WHITESPACE, ($stackPtr - 1), null, true);
+        $prevToken = $phpcsFile->findPrevious(
+            T_WHITESPACE, ($stackPtr - 1), null, true
+        );
         if (in_array($tokens[$prevToken]['code'], $ignore) === true) {
             // Not a call to a PHP function.
             return;

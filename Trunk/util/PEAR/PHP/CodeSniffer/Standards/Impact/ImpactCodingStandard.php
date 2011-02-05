@@ -13,7 +13,9 @@
  */
  
 if (class_exists('PHP_CodeSniffer_Standards_CodingStandard', true) === false) {
-    throw new PHP_CodeSniffer_Exception('Class PHP_CodeSniffer_Standards_CodingStandard not found');
+    throw new PHP_CodeSniffer_Exception(
+        'Class PHP_CodeSniffer_Standards_CodingStandard not found'
+    );
 }
 
 /**
@@ -27,7 +29,8 @@ if (class_exists('PHP_CodeSniffer_Standards_CodingStandard', true) === false) {
  * @version   Release: 1.2.2
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class PHP_CodeSniffer_Standards_Impact_ImpactCodingStandard extends PHP_CodeSniffer_Standards_CodingStandard
+class PHP_CodeSniffer_Standards_Impact_ImpactCodingStandard
+    extends PHP_CodeSniffer_Standards_CodingStandard
 {
     
     /**
@@ -41,8 +44,5 @@ class PHP_CodeSniffer_Standards_Impact_ImpactCodingStandard extends PHP_CodeSnif
     {
         return array();
     }
-    
-    //'H:\Projects\ImpactCRM\ImpactCRM\util\PEAR\PHP\CodeSniffer\Standards\Impact\Sniffs\KernighanRitchieSniff.php',
-
 }
 ?>

@@ -72,14 +72,18 @@ class Impact_Sniffs_PHP_DisallowShortOpenTagSniff implements PHP_CodeSniffer_Sni
         $openTag = $tokens[$stackPtr];
 
         if ($openTag['content'] === '<?') {
-            $error = 'Short PHP opening tag used. Found "'.$openTag['content'].'" Expected "<?php".';
+            $error = 'Short PHP opening tag used. Found "'.
+                $openTag['content'].'" Expected "<?php".';
             $phpcsFile->addError($error, $stackPtr);
         }
 
         if ($openTag['code'] === T_OPEN_TAG_WITH_ECHO) {
-            $nextVar = $tokens[$phpcsFile->findNext(PHP_CodeSniffer_Tokens::$emptyTokens, ($stackPtr + 1), null, true)];
+            $nextVar = $tokens[$phpcsFile->findNext(
+                PHP_CodeSniffer_Tokens::$emptyTokens, ($stackPtr + 1), null, true
+            )];
             $error   = 'Short PHP opening tag used with echo. Found "';
-            $error  .= $openTag['content'].' '.$nextVar['content'].' ..." but expected "<?php echo '.$nextVar['content'].' ...".';
+            $error  .= $openTag['content'].' '.$nextVar['content'].
+                ' ..." but expected "<?php echo '.$nextVar['content'].' ...".';
             $phpcsFile->addError($error, $stackPtr);
         }
 

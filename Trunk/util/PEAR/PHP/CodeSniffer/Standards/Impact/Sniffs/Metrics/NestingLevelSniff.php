@@ -28,7 +28,8 @@
  * @version   Release: 1.2.2
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class Impact_Sniffs_Metrics_NestingLevelSniff implements PHP_CodeSniffer_Sniff
+class Impact_Sniffs_Metrics_NestingLevelSniff
+    implements PHP_CodeSniffer_Sniff
 {
 
     /**
@@ -94,10 +95,13 @@ class Impact_Sniffs_Metrics_NestingLevelSniff implements PHP_CodeSniffer_Sniff
         $nestingLevel = ($nestingLevel - $tokens[$stackPtr]['level'] - 1);
 
         if ($nestingLevel > $this->absoluteNestingLevel) {
-            $error = "Function's nesting level ($nestingLevel) exceeds allowed maximum of ".$this->absoluteNestingLevel;
+            $error = 'Function\'s nesting level ('.$nestingLevel.
+                ') exceeds allowed maximum of '.$this->absoluteNestingLevel;
             $phpcsFile->addError($error, $stackPtr);
         } else if ($nestingLevel > $this->nestingLevel) {
-            $warning = "Function's nesting level ($nestingLevel) exceeds ".$this->nestingLevel.'; consider refactoring the function';
+            $warning = 'Function\'s nesting level ('.$nestingLevel.
+                ') exceeds '.$this->nestingLevel.
+                '; consider refactoring the function';
             $phpcsFile->addWarning($warning, $stackPtr);
         }
 
