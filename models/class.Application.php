@@ -88,7 +88,7 @@ class Application Extends Impact_Base {
 	 *	Make a Facebook connection.
 	 *
 	 *	Connect to Facebook and return the session and Facebook objects
-	 *	to Impact properties (facebook and fbsession).
+	 *	to Impact properties (Facebook and fbsession).
 	 *
 	 *	@public
 	 *	@todo Update to the newest Facebook API.

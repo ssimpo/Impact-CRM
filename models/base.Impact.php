@@ -17,7 +17,7 @@ class Impact_Base {
 	 *	Factory method
 	 *
 	 *	The factory method is used to generate new classes according to the
-	 *	standard rules of the Impact Platform.  The class is sometimes overidden
+	 *	standard rules of the Impact Platform.  The class is sometimes overridden
 	 *	in base-classes if the class has it's own sub-classes that are loaded
 	 *	on-the-fly.  Classes are only included if they are used,
 	 *	saving load over-heads.  The factory method knows where to find the files.
@@ -25,7 +25,7 @@ class Impact_Base {
 	 *	@public
 	 *	@static
 	 *	@param String $className The name of the class to load.
-	 *	@todo Method needs to be made more generic so it isn't overidden in subclasses
+	 *	@todo Method needs to be made more generic so it isn't overridden in subclasses
 	*/
 	public static function factory($className) {
 		$dir = self::_get_include_directory();

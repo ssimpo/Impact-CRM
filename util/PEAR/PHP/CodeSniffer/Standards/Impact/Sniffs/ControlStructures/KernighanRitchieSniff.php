@@ -104,9 +104,9 @@ class Impact_Sniffs_ControlStructures_KernighanRitchieSniff
                 return;
             }
             
-            //Check that there is no space between the funtion and the opening
+            //Check that there is no space between the function and the opening
             // parenthesis and a single space for s statement - Eg.
-            // functionname(parm) not functionname (parm);
+            // functionname(param) not functionname (param);
             // and while ($i > 1) not while($i > 1)
             $openerColumn = $tokens[$parenthesisOpener]['column'];
             $previousTokenPtr = ($parenthesisOpener - 1);

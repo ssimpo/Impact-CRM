@@ -48,7 +48,7 @@ class Impact_Sniffs_PHP_ForbiddenFunctionsSniff implements PHP_CodeSniffer_Sniff
     /**
      * If true, an error will be thrown; otherwise a warning.
      *
-     * @var bool
+     * @var boolean
      */
     protected $error = true;
 

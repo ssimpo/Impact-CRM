@@ -2,7 +2,7 @@
 /*
 *	Class for building HTML from a supplied template.  Template is given either as a filepath 
 *	to an XML file or an XML content string. Given access to the $application object, the parser
-*	can determine which page featuers to display to each user
+*	can determine which page features to display to each user
 *	
 *	@author Stephen Simpson <me@simpo.org>
 *	@version 0.1
@@ -27,15 +27,15 @@ class Templater {
 	}
 	
 	/**
-	 *	Initization method.
+	 *	Initialization method.
 	 *
-	 *	Initize the main parser setting and parse any content
+	 *	Initialize the main parser setting and parse any content
 	 *	supplied (optional).
 	 *
 	 *	@public
 	 *	@param &mixed() $application The page array, containing data on the requested page (database record).
 	 *	@param &mixed()/string $path If it is a string then parse as XML template or path to template.  If it is an array then it is the application array context for the template (ie. user data and other global information).
-	 *	@param string $path2 Optional path/xml content to parse.
+	 *	@param string $path2 Optional path/XML content to parse.
 	 */
 	public function init(&$application,&$path='',$path2='') {
 		
@@ -123,7 +123,7 @@ class Templater {
 	 *	@param string $path Filepath or XML string
 	 */
 	protected function _get_xml($path) {
-	//Grab the XMl from a file or if supplied as XMLString then grab from that
+	//Grab the XML from a file or if supplied as XMLString then grab from that
 		
 		if ($path != '') {
 			//if (($this->_contains($path,'<')) || ($this->_contains($path,'[[')) || ($this->_contains($path,':'))) {
@@ -224,7 +224,7 @@ class Templater {
 	}
 	
 	protected function _include($match) {
-	//Load include content, accoring to Acl
+	//Load include content, according to Acl
 		
 		$attributes = $this->_get_attributes($match);
 		$comtem = $this->component.'.xml';
@@ -467,7 +467,7 @@ class Templater {
 	 *	Results are returned as an array in format (att1=>val1,att2=>val2).
 	 *
 	 *	@protected
-	 *	@param string $att The XML snippt containing the attributes to be parsed.
+	 *	@param string $att The XML snippet containing the attributes to be parsed.
 	 *	@return string() Array of attributes stored as key/value pairs.
 	 */
 	protected function _get_attributes($att) {
@@ -489,19 +489,19 @@ class Templater {
 	 *
 	 *	@protected
 	 *	@param string $date Date string to reformat.
-	 *	@return string Reformated string.
+	 *	@return string Reformatted string.
 	 */
 	protected function _date_reformat($date) {
 		return str_replace(':','',str_replace('-','',str_replace(' ','T',$date))).'Z';
 	}
 	
 	/**
-	 *	Test for text snippet in anonther string.
+	 *	Test for text snippet in another string.
 	 *
 	 *	@protected
 	 *	@param $txt1 The string to search.
 	 *	@param $txt2 The string to search for.
-	 *	@return boolean Was the text found?
+	 *	@return Boolean Was the text found?
 	 */
 	protected function _contains($txt1,$txt2) {
 		$pos = stripos($txt1, $txt2);
