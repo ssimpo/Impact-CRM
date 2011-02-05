@@ -11,11 +11,13 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
-static class I {
+class I {
 	/**
 	*	Get the the file location of the current class or running script file.
+	*
+	*	@static
 	*/
-	public function get_include_directory() {
+	static public function get_include_directory() {
 		$debug = debug_backtrace();
 		return dirname($debug[0]['file']);
 	}
@@ -29,10 +31,11 @@ static class I {
 	*	<?php require_all_once('includes/*.php'); ?>
 	*	</code>
 	*	This will include all the php files in the includes folder.
-	*
+	*	
+	*	@static
 	*	@param string $pattern The file search pattern for requiring.
 	*/
-	public function require_all_once($pattern) {
+	static public function require_all_once($pattern) {
 		foreach (glob($pattern) as $file) {
 			require_once $file;
 		}
@@ -46,12 +49,13 @@ static class I {
 	*	[Mobile],[Facebook].  You can then search for Like *[PC]* and
 	*	not find 'PC' in the middle of a word.  Method will also get rid
 	*	of double square-bracket notation '[[' used in Impact plugins.
-	*
+	*	
+	*	@static
 	*	@public
 	*	@param string|array $text The string to parse.
 	*	@return string Parsed text with square brackets.
 	*/
-	public function reformat_role_string($text) {
+	static public function reformat_role_string($text) {
 		if (is_array($text)) {
 			$text = implode(',',$text);
 		}
@@ -75,14 +79,15 @@ static class I {
 	 *	Load a config file
 	 *
 	 *	Loads a config file (XML) and returns it's values as an array. String-values
-	 *	are returned as strings and integer-values as intergers.
+	 *	are returned as strings and integer-values as integers.
 	 *
-	 *	@publiic
+	 *	@static
+	 *	@public
 	 *	@param String $path Location of the settings file.
-	 *	@return string()|interger()
+	 *	@return string()|integer()
 	 *	@todo Make it work with more complex data types.
 	 */
-	public function load_config($path) {
+	static public function load_config($path) {
 		$config = simplexml_load_file($path);
 	
 		foreach ($config->param as $param) {
@@ -97,7 +102,22 @@ static class I {
 		}
 	}
 	
-	public function function_to_variable($name) {
+	/**
+	 *
+	 *	Convert a function-name into a variable name.
+	 *
+	 *	According to the Impact coding standards, functions/methods
+	 *	are named with words separated with underscores;
+	 *	variables/properties are named using camelCase.  This function
+	 *	allows conversion so that the magic method __set()/__get() work
+	 *	as expected.
+	 *	
+	 *	@static
+	 *	@public
+	 *	@param String $name Name of function.
+	 *	@return	String The corresponding function name
+	 */
+	static public function function_to_variable($name) {
 		$variable = '';
 		$parts = explode('_',$name);
 		if ((count($parts) == 1) || (count($parts) == 2)&&($parts[0] == '')) {

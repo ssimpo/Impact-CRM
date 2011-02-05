@@ -91,7 +91,7 @@ class Impact_Sniffs_Functions_ValidDefaultValueSniff implements PHP_CodeSniffer_
      * @param int                  $argPtr    The position of the argument
      *                                        in the stack.
      *
-     * @return bool
+     * @return boolean
      */
     private static function _argHasDefault(PHP_CodeSniffer_File $phpcsFile, $argPtr)
     {

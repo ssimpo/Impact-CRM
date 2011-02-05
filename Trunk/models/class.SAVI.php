@@ -1,6 +1,6 @@
 <?php
 /**
- *	Simple API for vCard/iCal/vCalendar, this is the iCal equivilant of SAX
+ *	Simple API for vCard/iCal/vCalendar, this is the iCal equivalent of SAX
  *		
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.3
@@ -20,10 +20,10 @@ class Savi_Parser {
 	protected $charHandle = '';
 	
 	/**
-	*	Constructer for class
-	*	@param Boolen $lineFixer Remove leading tabs from the start of lines
-	*	@param Boolen $uppercaseTags Uppercase all the tags before passing to supplied processing functions
-	*	@param Boolen $multiLinefixer Fix multiline content (not implimented yet)
+	*	Constructor for class
+	*	@param Boolean $lineFixer Remove leading tabs from the start of lines
+	*	@param Boolean $uppercaseTags Uppercase all the tags before passing to supplied processing functions
+	*	@param Boolean $multiLinefixer Fix multiline content (not implemented yet)
 	*	@return Object Reference to the object
 	*/
 	function __construct($lineFixer=true,$uppercaseTags=true,$multiLinefixer=true) {
@@ -41,7 +41,7 @@ class Savi_Parser {
 	*	Start parsing
 	*	
 	*	@param Object $parser Reference to the parser to use
-	*	@param String $data The data to parse or a file/resourse name to load as parsable data
+	*	@param String $data The data to parse or a file/resource name to load as parsable data
 	*	@return Boolean TRUE
 	*/
 	public function ical_parse($parser,$data) {
@@ -159,7 +159,7 @@ class Savi_Parser {
 	*		array(
 	*			'tag' => The Tag name
 	*			'attributes' => An array of the attributes in format attribute_name=>attribut_value (attribute_value can be a further array)
-	*			'content' => The content, either as plain-text or parsed into an array if content was parsable.  Semicolon-seperated content is parsed as item_name=>item_value, like attributes (item_value can be a further array).  Comma -eperated content is parsed as index=>item_value.
+	*			'content' => The content, either as plain-text or parsed into an array if content was parsable.  Semicolon-seperated content is parsed as item_name=>item_value, like attributes (item_value can be a further array).  Comma -separated content is parsed as index=>item_value.
 	*			'rawtextcontent' => The unparsed text content
 	*		)
 	*/
@@ -205,7 +205,7 @@ class Savi_Parser {
 	*		- split value1,value2,value3... into an array
 	*	
 	*	@param String $valueList The string to split
-	*	@return String() An array containing the split values or the orginal string if nothing to split
+	*	@return String() An array containing the split values or the original string if nothing to split
 	*/
 	protected function _value_list_parser($valueList) {
 		$attributes = array();
@@ -289,7 +289,7 @@ class Savi_Parser {
 	}
 	
 	/** 
-	*	Equivilant to xml_set_element_handler, except the starter function will accept parsed content as well but can be ignored if required
+	*	Equivalent to xml_set_element_handler, except the starter function will accept parsed content as well but can be ignored if required
 	*	
 	*	@param Object $parser Reference iCal to the parser to use
 	*	@param Function() $starter The function to call with an opening tag.  Expected arguments are:
@@ -309,7 +309,7 @@ class Savi_Parser {
 	}
 	
 	/** 
-	*	Equivilant to xml_set_character_data_handler.
+	*	Equivalent to xml_set_character_data_handler.
 	*	
 	*	@param Object $parser Reference iCal to the parser to use
 	*	@param Function() $charHandle The function to call with text content.  Expected arguments are:
@@ -323,7 +323,7 @@ class Savi_Parser {
 	}
 	
 	/** 
-	*	Convert a text string from UTF-8 to ISO-8859-1.  Exactly the same as the SAX parser equivilant
+	*	Convert a text string from UTF-8 to ISO-8859-1.  Exactly the same as the SAX parser equivalent
 	*	
 	*	@param String $data The UTF-8 encoded string to convert
 	*	@return String A ISO-8859-1 encoded string
@@ -333,7 +333,7 @@ class Savi_Parser {
 	}
 	
 	/** 
-	*	Convert a text string from ISO-8859-1 to UTF-8. Exactly the same as the SAX parser equivilant
+	*	Convert a text string from ISO-8859-1 to UTF-8. Exactly the same as the SAX parser equivalent
 	*	
 	*	@param String $data The ISO-8859-1 encoded string to convert
 	*	@return String A UTF-8 encoded string
@@ -343,18 +343,18 @@ class Savi_Parser {
 	}
 	
 	/**
-	*	Equivilant of xml_get_error_code() in the standard PHP SAX Parser.  Will return the current error number if one exists
+	*	Equivalent of xml_get_error_code() in the standard PHP SAX Parser.  Will return the current error number if one exists
 	*	
-	*	@return Interger The current error number or -1 if no error has occured
+	*	@return Integer The current error number or -1 if no error has occurred
 	*/
 	public function ical_get_error_code() {
 		return $this->errNo;
 	}
 	
 	/**
-	*	Equivalnt to xml_get_error_string in the standard PHP SAX Parser. Will return error message 0 if no number is passed or error code does not exist
+	*	Equivalent to xml_get_error_string in the standard PHP SAX Parser. Will return error message 0 if no number is passed or error code does not exist
 	*
-	*	@param Interger $errNo The error string you want to lookup
+	*	@param Integer $errNo The error string you want to lookup
 	*	@return String The error string for the given code
 	*/
 	public function ical_get_error_string($errNo=0) {
@@ -366,18 +366,18 @@ class Savi_Parser {
 	}
 	
 	/**
-	*	Equivalnt to xml_get_current_line_number in the standard PHP SAX Parser. Will return the current line number the parser has got to in the parsing proccess.  Use to find out where an error happended.
+	*	Equivalent to xml_get_current_line_number in the standard PHP SAX Parser. Will return the current line number the parser has got to in the parsing process.  Use to find out where an error happened.
 	*
-	*	@return Interger The line number the parser is up to
+	*	@return Integer The line number the parser is up to
 	*/
 	public function ical_get_current_line_number() {
 		return $this->lineNo;
 	}
 	
 	/**
-	*	Equivalnt to xml_get_current_byte_index in the standard PHP SAX Parser. Will the current byte number the parser got to in the parsing process. Use to find out where an error happended.
+	*	Equivalent to xml_get_current_byte_index in the standard PHP SAX Parser. Will the current byte number the parser got to in the parsing process. Use to find out where an error happened.
 	*
-	*	@return Interger The byte number
+	*	@return Integer The byte number
 	*/
 	public function ical_get_current_byte_index() {
 		if ($this->handle) {
@@ -388,9 +388,9 @@ class Savi_Parser {
 	}
 	
 	/**
-	*	Equivalnt to xml_get_current_column_number in the standard PHP SAX Parser. Will the current column position the parser got to in the parsing process. Use to find out where an error happended.
+	*	Equivalent to xml_get_current_column_number in the standard PHP SAX Parser. Will the current column position the parser got to in the parsing process. Use to find out where an error happened.
 	*
-	*	@return Interger the column number
+	*	@return Integer the column number
 	*/
 	public function ical_get_current_column_number() {
 		return false;

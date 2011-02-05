@@ -44,7 +44,7 @@ class Impact_Sniffs_Metrics_CyclomaticComplexitySniff
     protected $complexity = 10;
 
     /**
-     * A complexity higer than this value will throw an error.
+     * A complexity higher than this value will throw an error.
      *
      * @var int
      */
