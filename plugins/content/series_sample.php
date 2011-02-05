@@ -1,5 +1,5 @@
 <?php
-class Plugin_Series_Sample {
+class Plugin_Series_Sample implements Impact_Plugin {
 
 	public function run($attributes) {
 		

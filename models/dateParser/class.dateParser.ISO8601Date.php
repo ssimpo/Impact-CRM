@@ -7,7 +7,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar	
  */
-class Date_Parser_Iso8601date {
+class Date_Parser_Iso8601date implements Date_Parser_Object {
 	
 	/**
 	 *	Date parser method.

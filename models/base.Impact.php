@@ -27,7 +27,7 @@ class Impact_Base {
 	 *	@param String $className The name of the class to load.
 	 *	@todo Method needs to be made more generic so it isn't overridden in subclasses
 	*/
-	public static function factory($className) {
+	public function factory($className) {
 		$dir = self::_get_include_directory();
 		
 		if (include_once $dir.'/class.'.str_replace('_','.',$className).'.php') {
@@ -40,9 +40,9 @@ class Impact_Base {
 	/**
 	*	Get the the file location of the current class.
 	*
-	*	@private
+	*	@protected
 	*/
-	private function _get_include_directory() {
+	protected function _get_include_directory() {
 		$debug = debug_backtrace();
 		return dirname($debug[0]['file']);
 	}
