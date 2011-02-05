@@ -53,8 +53,8 @@ class Impact_Sniffs_NamingConventions_NamingSniff implements PHP_CodeSniffer_Sni
      * Processes this test, when one of its tokens is encountered.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token in the
-     *                                        stack passed in $tokens.
+     * @param int                  $stackPtr  The position of the current token
+     *                                          in the stack passed in $tokens.
      *
      * @return void
      */
@@ -91,16 +91,18 @@ class Impact_Sniffs_NamingConventions_NamingSniff implements PHP_CodeSniffer_Sni
             
             if ($functionLine == $scopeLine) {
                 $scopeType = $tokens[$scopeModifier]['content'];
-                $firstLetter = substr($functionName,0,1);
+                $firstLetter = substr($functionName, 0, 1);
                 
-                if (in_array($functionName,$this->magicMethods) === false) {
+                if (in_array($functionName, $this->magicMethods) === false) {
                     if (($firstLetter != '_') && ($scopeType == 'private')) {
-                        $error = 'Private function '.$functionName.'() should start with an underscore';
+                        $error = 'Private function '.$functionName.
+                            '() should start with an underscore';
                         $phpcsFile->addError($error, $stackPtr);
                         return;
                     }
                     if (($firstLetter == '_') && ($scopeType == 'public')) {
-                        $error = 'Public function '.$functionName.'() should not start with an underscore';
+                        $error = 'Public function '.$functionName.
+                            '() should not start with an underscore';
                         $phpcsFile->addError($error, $stackPtr);
                         return;
                     }
@@ -119,19 +121,16 @@ class Impact_Sniffs_NamingConventions_NamingSniff implements PHP_CodeSniffer_Sni
             }
             
             $classNameError = false;
-            $parts = explode('_',$className);
+            $parts = explode('_', $className);
             foreach ($parts as $part) {
                 if (strlen($part) > 1) {
-                   $firstLetter = substr($part,0,1);
-                   $afterFirstLetter = substr($part,1);
-                   if (
-                       (strtolower($firstLetter) == $firstLetter)
-                       ||
-                       (strtolower($afterFirstLetter) != $afterFirstLetter)
-                       )
-                   {
-                       $classNameError = true;
-                   }
+                    $firstLetter = substr($part, 0, 1);
+                    $afterFirstLetter = substr($part, 1);
+                    if ((strtolower($firstLetter) == $firstLetter)
+                        || (strtolower($afterFirstLetter) != $afterFirstLetter)
+                    ) {
+                        $classNameError = true;
+                    }
                 } else {
                     if (strtolower($part) == $part) {
                         $classNameError = true;
@@ -139,7 +138,9 @@ class Impact_Sniffs_NamingConventions_NamingSniff implements PHP_CodeSniffer_Sni
                 }
             }
             if ($classNameError) {
-                $error = 'Class/Interface: '.$className.'{} name incorrectly, parts should be seperated by an underscore and each word should begin with a capital letter';
+                $error = 'Class/Interface: '.$className.
+                    '{} name incorrectly, parts should be seperated by an underscore
+                    and each word should begin with a capital letter';
                 $phpcsFile->addError($error, $stackPtr);
                 return;
             }

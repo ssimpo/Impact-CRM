@@ -11,7 +11,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
-class I {
+static class I {
 	/**
 	*	Get the the file location of the current class or running script file.
 	*/

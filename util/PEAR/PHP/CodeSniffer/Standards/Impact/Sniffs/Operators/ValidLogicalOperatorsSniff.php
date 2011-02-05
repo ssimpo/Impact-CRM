@@ -29,7 +29,8 @@
  * @version   Release: 1.2.2
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class Impact_Sniffs_Operators_ValidLogicalOperatorsSniff implements PHP_CodeSniffer_Sniff
+class Impact_Sniffs_Operators_ValidLogicalOperatorsSniff
+    implements PHP_CodeSniffer_Sniff
 {
 
 
@@ -53,8 +54,9 @@ class Impact_Sniffs_Operators_ValidLogicalOperatorsSniff implements PHP_CodeSnif
      * Processes this test, when one of its tokens is encountered.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The current file being scanned.
-     * @param int                  $stackPtr  The position of the current token in the
-     *                                        stack passed in $tokens.
+     * @param int                  $stackPtr  The position of the current
+     *                                          token in the stack passed
+     *                                          in $tokens.
      *
      * @return void
      */
@@ -74,7 +76,8 @@ class Impact_Sniffs_Operators_ValidLogicalOperatorsSniff implements PHP_CodeSnif
         }
 
         $replacement = $replacements[$operator];
-        $error       = "Logical operator \"$operator\" is prohibited; use \"$replacement\" instead";
+        $error       = 'Logical operator "'.$operator.
+            '" is prohibited; use "'.$replacement.'" instead';
         $phpcsFile->addError($error, $stackPtr);
 
     }//end process()

@@ -32,7 +32,8 @@
  * @version   Release: 1.2.2
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class Impact_Sniffs_Metrics_CyclomaticComplexitySniff implements PHP_CodeSniffer_Sniff
+class Impact_Sniffs_Metrics_CyclomaticComplexitySniff
+    implements PHP_CodeSniffer_Sniff
 {
 
     /**
@@ -109,10 +110,12 @@ class Impact_Sniffs_Metrics_CyclomaticComplexitySniff implements PHP_CodeSniffer
         }
 
         if ($complexity > $this->absoluteComplexity) {
-            $error = "Function's cyclomatic complexity ($complexity) exceeds allowed maximum of ".$this->absoluteComplexity;
+            $error = 'Function\'s cyclomatic complexity ('.$complexity.
+                ') exceeds allowed maximum of '.$this->absoluteComplexity;
             $phpcsFile->addError($error, $stackPtr);
         } else if ($complexity > $this->complexity) {
-            $warning = "Function's cyclomatic complexity ($complexity) exceeds ".$this->complexity.'; consider refactoring the function';
+            $warning = 'Function\'s cyclomatic complexity ('.$complexity.
+                ') exceeds '.$this->complexity.'; consider refactoring the function';
             $phpcsFile->addWarning($warning, $stackPtr);
         }
 

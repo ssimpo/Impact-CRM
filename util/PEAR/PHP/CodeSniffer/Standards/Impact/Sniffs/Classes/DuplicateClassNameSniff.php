@@ -26,7 +26,8 @@
  * @version   Release: 1.2.2
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class Impact_Sniffs_Classes_DuplicateClassNameSniff implements PHP_CodeSniffer_MultiFileSniff
+class Impact_Sniffs_Classes_DuplicateClassNameSniff
+    implements PHP_CodeSniffer_MultiFileSniff
 {
 
 
@@ -54,16 +55,19 @@ class Impact_Sniffs_Classes_DuplicateClassNameSniff implements PHP_CodeSniffer_M
                     $type  = strtolower($tokens[$stackPtr]['content']);
                     $file  = $foundClasses[$compareName]['file'];
                     $line  = $foundClasses[$compareName]['line'];
-                    $error = "Duplicate $type name \"$name\" found; first defined in $file on line $line";
+                    $error = 'Duplicate '.$type.' name "'.$name.
+                        '" found; first defined in '.$file.' on line '.$line;
                     $phpcsFile->addWarning($error, $stackPtr);
                 } else {
                     $foundClasses[$compareName] = array(
-                                                        'file' => $phpcsFile->getFilename(),
-                                                        'line' => $tokens[$stackPtr]['line'],
-                                                       );
+                        'file' => $phpcsFile->getFilename(),
+                        'line' => $tokens[$stackPtr]['line'],
+                    );
                 }
 
-                $stackPtr = $phpcsFile->findNext(array(T_CLASS, T_INTERFACE), ($stackPtr + 1));
+                $stackPtr = $phpcsFile->findNext(
+                    array(T_CLASS, T_INTERFACE), ($stackPtr + 1)
+                );
             }//end while
 
         }//end foreach

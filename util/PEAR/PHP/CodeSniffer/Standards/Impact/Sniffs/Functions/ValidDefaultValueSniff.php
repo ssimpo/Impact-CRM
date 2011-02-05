@@ -49,15 +49,14 @@ class Impact_Sniffs_Functions_ValidDefaultValueSniff implements PHP_CodeSniffer_
      * Processes this test, when one of its tokens is encountered.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token in the
-     *                                        stack passed in $tokens.
+     * @param int                  $stackPtr  The position of the current token
+     *                                          in the stack passed in $tokens.
      *
      * @return void
      */
     public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
         $argStart = $tokens[$stackPtr]['parenthesis_opener'];
         $argEnd   = $tokens[$stackPtr]['parenthesis_closer'];
 
@@ -66,7 +65,9 @@ class Impact_Sniffs_Functions_ValidDefaultValueSniff implements PHP_CodeSniffer_
         $defaultFound = false;
 
         $nextArg = $argStart;
-        while (($nextArg = $phpcsFile->findNext(T_VARIABLE, ($nextArg + 1), $argEnd)) !== false) {
+        while (($nextArg = $phpcsFile->findNext(
+            T_VARIABLE, ($nextArg + 1), $argEnd
+        )) !== false) {
             $argHasDefault = self::_argHasDefault($phpcsFile, $nextArg);
             if (($argHasDefault === false) && ($defaultFound === true)) {
                 $error  = 'Arguments with default values must be at the end';
@@ -95,7 +96,9 @@ class Impact_Sniffs_Functions_ValidDefaultValueSniff implements PHP_CodeSniffer_
     private static function _argHasDefault(PHP_CodeSniffer_File $phpcsFile, $argPtr)
     {
         $tokens    = $phpcsFile->getTokens();
-        $nextToken = $phpcsFile->findNext(PHP_CodeSniffer_Tokens::$emptyTokens, ($argPtr + 1), null, true);
+        $nextToken = $phpcsFile->findNext(
+            PHP_CodeSniffer_Tokens::$emptyTokens, ($argPtr + 1), null, true
+        );
         if ($tokens[$nextToken]['code'] !== T_EQUAL) {
             return false;
         }

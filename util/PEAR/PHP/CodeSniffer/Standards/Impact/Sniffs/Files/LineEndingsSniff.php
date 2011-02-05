@@ -66,8 +66,8 @@ class Impact_Sniffs_Files_LineEndingsSniff implements PHP_CodeSniffer_Sniff
      * Processes this sniff, when one of its tokens is encountered.
      *
      * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token in the
-     *                                        stack passed in $tokens.
+     * @param int                  $stackPtr  The position of the current token
+     *                                          in the stack passed in $tokens.
      *
      * @return void
      */
@@ -87,7 +87,8 @@ class Impact_Sniffs_Files_LineEndingsSniff implements PHP_CodeSniffer_Sniff
             $found    = $phpcsFile->eolChar;
             $found    = str_replace("\n", '\n', $found);
             $found    = str_replace("\r", '\r', $found);
-            $error    = "End of line character is invalid; expected \"$expected\" but found \"$found\"";
+            $error    = 'End of line character is invalid; expected "'.
+                $expected.'" but found "$found"';
             $phpcsFile->addError($error, $stackPtr, 'InvalidEOLChar');
         }
 

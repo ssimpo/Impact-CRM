@@ -25,7 +25,8 @@
  * @version   Release: 1.2.2
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class Impact_Sniffs_ControlStructures_KernighanRitchieSniff implements PHP_CodeSniffer_Sniff
+class Impact_Sniffs_ControlStructures_KernighanRitchieSniff
+    implements PHP_CodeSniffer_Sniff
 {
     
     /**
@@ -86,7 +87,8 @@ class Impact_Sniffs_ControlStructures_KernighanRitchieSniff implements PHP_CodeS
             $columnDifference = ($braceColumn - $closerColumn);
 
             if ($columnDifference !== 2) {
-                $error = 'Expected 1 space between the closing parenthesis and the opening brace; found '.($columnDifference - 1).'.';
+                $error = 'Expected 1 space between the closing parenthesis
+                    and the opening brace; found '.($columnDifference - 1).'.';
                 $phpcsFile->addError($error, $scopeOpener);
                 return;
             }
@@ -95,7 +97,9 @@ class Impact_Sniffs_ControlStructures_KernighanRitchieSniff implements PHP_CodeS
             $spaceTokenPtr = ($parenthesisCloser + 1);
             $spaceContent  = $tokens[$spaceTokenPtr]['content'];
             if ($spaceContent !== ' ') {
-                $error = 'Expected a single space character between closing parenthesis and opening brace; found "'.$spaceContent.'".';
+                $error = 'Expected a single space character between
+                    closing parenthesis and opening brace;
+                    found "'.$spaceContent.'".';
                 $phpcsFile->addError($error, $scopeOpener);
                 return;
             }
@@ -120,7 +124,9 @@ class Impact_Sniffs_ControlStructures_KernighanRitchieSniff implements PHP_CodeS
                     $phpcsFile->addError($error, $scopeOpener);
                     return;
                 } elseif ($previousTokenContent !== ' ') {
-                    $error = 'Expected a single space character between statement and opening parenthesis; found "'.$previousTokenContent.'".';
+                    $error = 'Expected a single space character between
+                        statement and opening parenthesis;
+                        found "'.$previousTokenContent.'".';
                     $phpcsFile->addError($error, $scopeOpener);
                     return;
                 }
@@ -144,7 +150,10 @@ class Impact_Sniffs_ControlStructures_KernighanRitchieSniff implements PHP_CodeS
             $openingColumn = $tokens[$scopeCondition]['column'];
             $closingColumn = $tokens[$scopeCloser]['column'];
             
-            if (($type == 'T_ELSE') || ($type == 'T_ELSEIF') || ($type == 'T_CATCH')) {
+            if (($type == 'T_ELSE')
+                || ($type == 'T_ELSEIF')
+                || ($type == 'T_CATCH')
+            ) {
                 $openingColumn -= 2;
             }
         } else {
@@ -160,7 +169,8 @@ class Impact_Sniffs_ControlStructures_KernighanRitchieSniff implements PHP_CodeS
             }
         }
         if ($openingColumn != $closingColumn) {
-            $error = 'Closing brace is not in the same column as the opening statement';
+            $error = 'Closing brace is not in the same column
+                as the opening statement';
             $phpcsFile->addError($error, $scopeCloser);
             return;
         }
