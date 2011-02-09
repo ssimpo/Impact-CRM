@@ -9,13 +9,22 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
-class Acl {
-	protected $roles = array();
+class Acl extends Impact_Base {
+	private $roles = array();
+	private $application;
 	public $accesslevel = 0;
 	public $facebook;
-	public $FBID;
+	
 
-	function __construct() {
+	function __construct($application = null) {
+		if (is_null($application)) {
+			$application = Application::instance();
+			$this->application = $application;
+		} else {
+			$this->application = $application;
+			$application = Application::instance();
+		}
+		$this->facebook = $application->facebook;
 	}
 	
 	/**
@@ -32,7 +41,7 @@ class Acl {
 		foreach ($rolesArray as $role) {
 			$this->roles[trim($role)] = trim($role);
 		}
-		$this->roles['[FBUSER:'.$this->FBID.']'] = '[FBUSER:'.$this->FBID.']';
+		$this->roles['[FBUSER:'.$this->application->FBID.']'] = '[FBUSER:'.$this->application->FBID.']';
 	}
 	
 	/**
@@ -76,19 +85,46 @@ class Acl {
 		$rolesText = I::reformat_role_string($rolesText);
 		
 		foreach ($this->roles as $role) {
-			if (contains($rolesText,$role)) {
+			if (I::contains($rolesText,$role)) {
 				return true;
 			}
 		}
 		
-		if (contains($rolesText,':')) {
+		if (I::contains($rolesText,':')) {
 			$rolesArray = explode(',',$rolesText);
 			foreach ($rolesArray as $role) {
-				if (contains($rolesText,':')) {
+				if (I::contains($role,':')) {
 					if ($this->test_special_role($role)) {
 						return true;
 					}
 				}
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 *	Split a special role into its seperate parts.
+	 *
+	 *	Will split a special role into it's componant parts so they can
+	 *	sent to the required class for parsing.  Eg. [FB:USER:93] will
+	 *	return array('FB','USER',array('93')). Return false on failure.
+	 *
+	 *	@private
+	 *	@param string $role Special role to split
+	 *	@return array|boolean
+	 */
+	private function _split_special_role($role) {
+		preg_match_all('/(?<=(?:\[|\:))(\w+)(?=(?:\]|\:))/',$role,$matches);
+		
+		if (isset($matches[0])) {
+			$attributes = $matches[0];
+			if (count($attributes) > 2) {
+				$type = array_shift($attributes);
+				$subtype = array_shift($attributes);
+			
+				return array($type,$subtype,$attributes);
 			}
 		}
 		
@@ -105,47 +141,46 @@ class Acl {
 	 *	@protected
 	 *	@param string $role Special role to test against
 	 *	@return boolean
-	 *	@todo All the special cases listed below as stubs.
 	 */
 	protected function test_special_role($role) {
-		preg_match_all('/\[([A-Za-z_]+)\:([0-9]+)\]/',$role,$matches);
-		$type = $matches[1][0];
-		$lookup = $matches[2][0];
+		list($type,$subtype,$attributes) = $this->_split_special_role($role);
 		
-		switch ($type) {
-			case 'FBUSER':
-				if ($lookup == $application[FBID]) {
-					return true;
-				}
-				break;
-			case 'FBFRIEND':
-				if ($this->facebook->api_client->friend($this->FBID,$lookup)) {
-					return true;
-				}
-				break;
-			case 'FBLIKE':
-				break;
-			case 'FBGROUP':
-				break;
-			case 'FBEVENT_INVITED':
-				break;
-			case 'FBEVENT_ATTENDING':
-				break;
-			case 'FBEVENT_MAYBE':
-				break;
-			case 'FBEVENT_DECLINED':
-				break;
-			case 'FBEVENT_NOREPLY':
-				break;
-			case 'GEOTOWN':
-				break;
-			case 'GEOCOUNTRY':
-				break;
-			case 'BROWSER':
-				break;
-		}
-		
-		return false;
+		$handle = $this->factory($type);
+		return $handle->test($subtype,$attributes);
 	}
+	
+	/**
+	 *	Factory method for classes, which are part of the calendar.
+	 *
+	 *	@public
+	 *
+	 *	@param	$className The name of the class to create.
+	 *	@return	object	The requested class if it was found.
+	 */
+	public function factory($className) {
+		$dir = $this->_get_include_directory();
+		
+		if (include_once $dir.'/Acl/class.'.str_replace('_','.',$className).'.php') {
+			return new $className;
+		} else {
+			throw new Exception($className.' Class not found');
+		}
+	}
+}
+
+interface Acl_Test {
+   public function __construct($application);
+   public function test($type,$attributes);
+}
+
+class Acl_Test_Base {
+   public function test($type,$attributes) {
+        $functionName = '_test_'.strtolower($type);
+        if (method_exists($this,$functionName)) {
+            call_user_method($functionName,$this,$attributes);
+        } else {
+            return false;
+        }
+    }
 }
 ?>

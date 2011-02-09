@@ -8,8 +8,6 @@
 *	@package Calendar
 *	@todo Start using a generic factory class.
 */
-include_once 'Calendar/base.Calendar.php';
-include_once 'Calendar/interface.CalendarObject.php';
 include_once 'dateParser/interface.dateParserObject.php';
 
 class Calendar Extends Impact_Base {
@@ -50,13 +48,12 @@ class Calendar Extends Impact_Base {
 	/**
 	 *	Factory method for classes, which are part of the calendar.
 	 *
-	 *	@static
 	 *	@public
 	 *
 	 *	@param	$className The name of the class to create.
 	 *	@return	object	The requested class if it was found.
 	 */
-	public static function factory($className) {
+	public function factory($className) {
 		$dir = self::_get_include_directory();
 		
 		if (include_once $dir.'/Calendar/class.'.str_replace('_','.',$className).'.php') {
@@ -67,4 +64,87 @@ class Calendar Extends Impact_Base {
 	}
 	
 	
+}
+
+/**
+ *      The interface for Calendar objects
+ *
+ *      Calendar objects interface, eg. Events, Journal entries, Todo items,
+ *      ...etc. 
+ *      
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.0.2
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Calendar
+ */
+interface Calendar_Object {
+   
+}
+
+class Calendar_Base {
+	protected $data = array();
+
+	function __construct() {
+		$this->data['repeatIncludeRules'] = array();
+		$this->data['repeatExcludeRules'] = array();
+		$this->data['repeatInclude'] = array();
+		$this->data['repeatExclude'] = array();
+		$this->data['startDate'] = '';
+		$this->data['endDate'] = '';
+		$this->data['duration'] = 0;
+	}
+
+	public function __call($name,$arguments) {
+		$parts = explode('_',$name);
+		if (count($parts) == 2) {
+			switch ($parts[0]) {
+				case 'set':
+					if (count($arguments)>0) {
+						$this->data[$parts[1]] = $arguments[0];
+						return true;
+					} else {
+						return false;
+					}
+					break;
+				case 'get':
+					if (array_key_exists($parts[1],$this->data)) {
+						return $this->data[$parts[1]];
+					} else {
+						print_r($this->data);
+						return false;
+					}
+			}
+		}
+	}
+
+	public function expand_repeats($start,$end) {
+		$Repeat_Parser = $this->factory('Repeat_Parser');
+		if ($Repeat_Parser) {
+			$Repeat_Parser->set_start_date($this->data['startDate']);
+			$Repeat_Parser->set_end_date($this->data['endDate']);
+			$Repeat_Parser->set_duration($this->data['duration']);
+			$Repeat_Parser->set_repeat_include_rules($this->data['repeatIncludeRules']);
+			$Repeat_Parser->set_repeat_exclude_rules($this->data['repeatExcludeRules']);
+			$Repeat_Parser->set_repeat_include($this->data['repeatInclude']);
+			$Repeat_Parser->set_repeat_exclude($this->data['repeatExclude']);
+			
+			$dates = $Repeat_Parser->expand($start,$end);
+			
+			return $dates;
+		} else {
+			return $false;
+		}
+	}
+
+	public static function factory($className) {
+		$debug = debug_backtrace();
+		$dir = dirname($debug[0]['file']);
+		
+		if (include_once $dir.'/../class.'.str_replace('_','.',$className).'.php') {
+			return new $className;
+		} else {
+			throw new Exception($className.' Class not found');
+		}
+	}
+
 }

@@ -37,7 +37,7 @@ class Templater {
 	 *	@param &mixed()/string $path If it is a string then parse as XML template or path to template.  If it is an array then it is the application array context for the template (ie. user data and other global information).
 	 *	@param string $path2 Optional path/XML content to parse.
 	 */
-	public function init(&$application,&$path='',$path2='') {
+	public function init($application,$path='',$path2='') {
 		
 		$this->application = array();
 		$this->mainApplication = array();
@@ -51,7 +51,12 @@ class Templater {
 			$this->Acl = $this->application['Acl'];
 		} else {
 			$this->mainApplication = $path;
-			$this->component = $this->mainApplication['component'];
+			if (isset($this->mainApplication['component'])) {
+				$this->component = $this->mainApplication['component'];
+			} else {
+				$this->component = '';
+			}
+			
 			$this->Acl = $this->mainApplication['Acl'];
 			//$this->application[Acl] = $this->mainApplication['Acl'];
 			if ($path2 !='') {
@@ -73,40 +78,40 @@ class Templater {
 	
 		$this->_get_xml($path);
 		
-		if ($this->_contains(&$this->xml,'[[')) {
+		if ($this->_contains($this->xml,'[[')) {
 			$this->xml = preg_replace(
 				'/\[\[(plugin|feature) (.*?)\]\]/mie',
 				'"<template:".strtolower("\1")." \2"." />"',
-				&$this->xml
+				$this->xml
 			);
 		}
 		
-		while ($this->_contains(&$this->xml,'<template:block')) {
+		while ($this->_contains($this->xml,'<template:block')) {
 			$this->xml = preg_replace_callback(
 				'/<template\:block(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:block\b[^>]*>))+|(?R))*)<\/template\:block>/m',
-				array(&$this, '_block'),
-				&$this->xml
+				array($this, '_block'),
+				$this->xml
 			);
 		}
 		
-		while ($this->_contains(&$this->xml,'<template:loop')) {
+		while ($this->_contains($this->xml,'<template:loop')) {
 			$this->xml = preg_replace_callback(
 				'/<template\:loop(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:loop\b[^>]*>))+|(?R))*)<\/template\:loop>/m',
-				array(&$this, '_loop'),
-				&$this->xml
+				array($this, '_loop'),
+				$this->xml
 			);
 		}
 		
 		$this->xml = preg_replace_callback(
 			'/template\:(constant|variable)\[(.*?)\]/m',
-			array(&$this, '_variable'),
-			&$this->xml
+			array($this, '_variable'),
+			$this->xml
 		);
 		
 		$this->xml = preg_replace_callback(
 			'/\<template\:(.*?) (.*?)\/>/m',
-			array(&$this, '_template'),
-			&$this->xml
+			array($this, '_template'),
+			$this->xml
 		);
 		
 		return $this->xml;
@@ -137,7 +142,7 @@ class Templater {
 		}
 	}
 	
-	protected function _loop(&$matches) {
+	protected function _loop($matches) {
 	//Allows looping through an array, repeating the inner block against each item
 		$attributes = $this->_get_attributes($matches[1]);
 		$template = '';
@@ -165,7 +170,7 @@ class Templater {
 		return $template;
 	}
 	
-	protected function _block(&$matches) {
+	protected function _block($matches) {
 	//If the Acl allows then include block, otherwise return a blank
 	
 		$attributes = $this->_get_attributes($matches[1]);
@@ -177,7 +182,7 @@ class Templater {
 		}
 	}
 	
-	protected function _template(&$matches) {
+	protected function _template($matches) {
 	//Match data/include tags and deal with them accordingly
 		
 		switch ($matches[1]) {
@@ -474,8 +479,10 @@ class Templater {
 
 		$attributes = array();
 		$count = preg_match_all('/([a-zA-Z0-9_]+)[= ]+[\"\'](.*?)[\"\']/',$att,$matches);
-		for ($i = 0; $i <= $count; $i++) {
-			$attributes[$matches[1][$i]] = $matches[2][$i];
+		if ($count !== false) {
+			for ($i = 0; $i < $count; $i++) {
+				$attributes[$matches[1][$i]] = $matches[2][$i];
+			}
 		}
 	
 		return $attributes;

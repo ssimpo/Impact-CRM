@@ -14,42 +14,15 @@
  *	@package Impact
  *	@extends Impact_Base
  */
-class Application Extends Impact_Base {
+class Application extends Singleton {
 	private static $instance;
 	public $settings = array();
 	public $Acl;
 	public $facebook;
 	public $fbsession;
 	public $me;
-	
-	/**
-	 *	Main constructor.
-	 *
-	 *	@private
-	 *	@deprecated
-	 */
-	private function __construct() {
-	}
-	
-	/**
-	 *	Singleton method.
-	 *
-	 *	Provide a reference to the one static instance of this class.  Stops
-	 *	class being declared muliple times.
-	 *
-	 *	@public
-	 *	@static
-	 *
-	 *	@return Impact
-	 *	
-	 */
-	public static function singleton() {
-		if (!isset(self::$instance)) {
-			$c = __CLASS__;
-			self::$instance = new $c;
-		}
-		return self::$instance;
-	}
+	public $pageName;
+	public $pageErrorCheck;
 	
 	/**
 	 *	Intitization method.
@@ -58,14 +31,16 @@ class Application Extends Impact_Base {
 	 */
 	public function setup() {
 		$this->settings['FBID'] = 0;
+		$this->browser = get_browser();
 		$this->_load_constants();
 		$this->_make_facebook_connection();
 		$this->_language_detect();
 		$this->_media_detect();
 		$this->_user_access_detect();
 		
-		$this->pageName = strtolower(addslashes($_GET['page']));
-		if ($this->pageName == '') {
+		if (isset($_GET['page'])) {
+			$this->pageName = strtolower(addslashes($_GET['page']));
+		} else {
 			$this->pageName = DEFAULT_HOMEPAGE;
 		}
 		$this->pageErrorCheck = $this->_get_page_request_info();
@@ -120,9 +95,9 @@ class Application Extends Impact_Base {
 	 *
 	 *	@public
 	 */
-	public function __clone() {
-		trigger_error('Clone is not allowed.', E_USER_ERROR);
-	}
+	//public function __clone() {
+		//trigger_error('Clone is not allowed.', E_USER_ERROR);
+	//}
 	
 	/**
 	 *	Generic set property method.
@@ -142,7 +117,7 @@ class Application Extends Impact_Base {
 	 *	Get the value of an application property.  Values are stored in
 	 *	the application array and accessed via the __set and __get methods.
 	 *
-	 *	@publi
+	 *	@public
 	 */
 	public function __get($property) {
 		//$convertedProperty = I::function_to_variable($property);
@@ -162,7 +137,7 @@ class Application Extends Impact_Base {
 	 *	@todo Needs a bit of work to improve it but works well and dosen't have any major security flaws.
 	 */
 	private function _user_access_detect() {
-		$database = Database::singleton();
+		$database = Database::instance();
 		$this->roles = $database->get_roles($this->FBID);
 		$this->accessLevel = $database->get_access($this->FBID);
 		
@@ -186,7 +161,7 @@ class Application Extends Impact_Base {
 	function _get_page_request_info() {
 		$this->entityID = 0;
 		$errorcheck = false;
-		$database = Database::singleton();
+		$database = Database::instance();
 		
 		$reader_roles = $database->create_roles_sql('readers');
 	
@@ -223,13 +198,14 @@ class Application Extends Impact_Base {
 	 */
 	protected function _media_detect() {
 		$media = DEFAULT_MEDIA;
+		
 		if (isset($_GET['media'])) {
 			$media = strtoupper(addslashes($_GET['media']));
 		} else {
 			//Auto-detection of Robots and FB needed :)
 			if (substr(DOMAIN,0,2) == 'm.') { //Accessed the mobile subdomain
 				$media = 'MOBILE';
-			} elseif ($application['browser']->isMobileDevice) {
+			} elseif ($this->browser->ismobiledevice) {
 				$media = 'MOBILE';
 			}
 		}
