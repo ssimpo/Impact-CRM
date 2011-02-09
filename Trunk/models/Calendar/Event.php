@@ -8,7 +8,7 @@
  *	@package Calendar
  *	@extends Calendar_Base
  */
-class Calendar_Event Extends Calendar_Base implements Calendar_Object {
+class Calendar_Event Extends CalendarBase implements Calendar_Object {
 
 	function __construct() {
 		parent::__construct();

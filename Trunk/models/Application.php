@@ -32,7 +32,6 @@ class Application extends Singleton {
 	public function setup() {
 		$this->settings['FBID'] = 0;
 		$this->browser = get_browser();
-		$this->_load_constants();
 		$this->_make_facebook_connection();
 		$this->_language_detect();
 		$this->_media_detect();
@@ -44,19 +43,6 @@ class Application extends Singleton {
 			$this->pageName = DEFAULT_HOMEPAGE;
 		}
 		$this->pageErrorCheck = $this->_get_page_request_info();
-	}
-	
-	/**
-	 *	Load constants from an XML file.
-	 *
-	 *	Loads a series of constants from a settings file (XML).  Values
-	 *	are loaded into the global scope.
-	 *
-	 *	@private.
-	 *	@todo Make generic so that settings can be loaded from anywhere?
-	 */
-	private function _load_constants() {
-		I::load_config(I::get_include_directory().'/../config/settings.xml');
 	}
 	
 	/**
