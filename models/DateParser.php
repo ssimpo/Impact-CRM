@@ -9,7 +9,7 @@
  *
  *	@todo derive Factory Method from base class
  */
-class Date_Parser Extends Impact_Base {
+class Date_Parser Extends ImpactBase {
 	private static $config=false;
 	
 	/**
@@ -90,24 +90,4 @@ class Date_Parser Extends Impact_Base {
 			}
 		}
 	}
-	
-	/**
-	 *	Factory method for classes, which are part of the date parser.
-	 *
-	 *	@static
-	 *	@public
-	 *
-	 *	@param	$className The name of the class to create.
-	 *	@return	object	The requested class if it was found.
-	 */
-	public static function factory($className) {
-		$dir = $this._get_include_directory();
-		
-		if (include_once $dir.'/Date_Parser/class.'.str_replace('_','.',$className).'.php') {
-			return new $className;
-		} else {
-			throw new Exception($className.' Class not found');
-		}
-	}
-	
 }

@@ -6,7 +6,7 @@
  *	@package Calendar
  *	@extends Calendar_Base
  */
-class Calendar_Todo Extends Calendar_Base implements Calendar_Object {
+class Calendar_Todo Extends CalendarBase implements Calendar_Object {
 	
 
 }

@@ -6,13 +6,21 @@
  *	@version 0.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  */
-
-//Include the core/base classes, needed throughout
-require_once(ROOT_BACK.'/models/base.Impact.php');
-require_once(ROOT_BACK.'/models/class.Singleton.php');
-require_once(ROOT_BACK.'/models/class.Application.php');
-require_once(ROOT_BACK.'/models/class.Database.php');
-require_once(ROOT_BACK.'/plugins/interface.plugin.php');
+function __autoload($className) {
+    $classFileName = str_replace('_',DIRECTORY_SEPARATOR,$className).'.php';
+    if (!include_once MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName) {
+	if (I::contains($classFileName,'Base.php')) {
+		$classFileName = str_replace(
+			DIRECTORY_SEPARATOR.'Base.php',
+			'.php',
+			$classFileName
+		);
+		if (!include_once MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName) {
+			throw new Exception($className.' Class not found');
+		}
+	}
+    }
+}
 
 //Load the main application class and database class
 $application = Application::instance();
@@ -25,10 +33,10 @@ $database = Database::instance();
  *	then load page, pass through the template parser and pass to the selected view
  */
 if ($application->pageErrorCheck) {
-	$tparser = $application->factory('templater');
+	$tparser = $application->factory('Templater');
 	$tparser->init($database->get_page(),$application->settings);
 
-	echo $tparser->parse(ROOT_BACK.'/views/'.USE_THEME.'/main.xml');
+	echo $tparser->parse(VIEWS_DIRECTORY.DIRECTORY_SEPARATOR.USE_THEME.DIRECTORY_SEPARATOR.'main.xml');
 }
 
 ?>

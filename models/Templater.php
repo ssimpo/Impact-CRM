@@ -9,7 +9,7 @@
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
 *	@package Templater	
 */
-class Templater {
+class Templater extends ImpactBase {
 	protected $xml = '';
 	protected $application;
 	protected $component;

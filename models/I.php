@@ -159,4 +159,6 @@ class I {
 		return ((stristr($text1,$text2) !== false) ? true:false);
 	}
 }
+
+I::load_config('config'.DIRECTORY_SEPARATOR.'settings.xml');
 ?>

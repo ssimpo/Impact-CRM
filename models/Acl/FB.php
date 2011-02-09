@@ -1,5 +1,5 @@
 <?php
-class Acl_FB extends Acl_Test_Base implements Acl_Test {
+class Acl_FB extends Acl_TestBase implements Acl_Test {
     private $application;
     private $facebook;
     

@@ -11,7 +11,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
-class Impact_Base {
+class ImpactBase {
 	
 	/**
 	 *	Factory method
@@ -23,27 +23,30 @@ class Impact_Base {
 	 *	saving load over-heads.  The factory method knows where to find the files.
 	 *
 	 *	@public
-	 *	@static
 	 *	@param String $className The name of the class to load.
-	 *	@todo Method needs to be made more generic so it isn't overridden in subclasses
 	*/
 	public function factory($className) {
-		$dir = self::_get_include_directory();
+		$classFileName = str_replace('_',DIRECTORY_SEPARATOR,$className).'.php';
 		
-		if (include_once $dir.'/class.'.str_replace('_','.',$className).'.php') {
-			return new $className;
-		} else {
+		if (!include_once MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName) {
+			if (I::contains($classFileName,'Base.php')) {
+				$classFileName = str_replace(
+					DIRECTORY_SEPARATOR.'Base.php',
+					'.php',
+					$classFileName
+				);
+				if (!include_once MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName) {
+					throw new Exception($className.' Class not found');
+				}
+			}
+		}
+		
+		try {
+			$class = new $className;
+			return $class;
+		} catch (Exception $e) {
 			throw new Exception($className.' Class not found');
 		}
-	}
-	
-	/**
-	*	Get the the file location of the current class.
-	*
-	*	@protected
-	*/
-	protected function _get_include_directory() {
-		$debug = debug_backtrace();
-		return dirname($debug[0]['file']);
+		
 	}
 }

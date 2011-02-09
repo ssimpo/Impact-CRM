@@ -10,7 +10,7 @@
 */
 include_once 'dateParser/interface.dateParserObject.php';
 
-class Calendar Extends Impact_Base {
+class Calendar Extends ImpactBase {
 	protected $objects = array();
 	
 	/**
@@ -44,26 +44,6 @@ class Calendar Extends Impact_Base {
 	protected function _rnd_string() {
 		return md5(chr(rand(1,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)));
 	}
-	
-	/**
-	 *	Factory method for classes, which are part of the calendar.
-	 *
-	 *	@public
-	 *
-	 *	@param	$className The name of the class to create.
-	 *	@return	object	The requested class if it was found.
-	 */
-	public function factory($className) {
-		$dir = self::_get_include_directory();
-		
-		if (include_once $dir.'/Calendar/class.'.str_replace('_','.',$className).'.php') {
-			return new $className;
-		} else {
-			throw new Exception($className.' Class not found');
-		}
-	}
-	
-	
 }
 
 /**
@@ -81,7 +61,7 @@ interface Calendar_Object {
    
 }
 
-class Calendar_Base {
+class CalendarBase {
 	protected $data = array();
 
 	function __construct() {
@@ -133,17 +113,6 @@ class Calendar_Base {
 			return $dates;
 		} else {
 			return $false;
-		}
-	}
-
-	public static function factory($className) {
-		$debug = debug_backtrace();
-		$dir = dirname($debug[0]['file']);
-		
-		if (include_once $dir.'/../class.'.str_replace('_','.',$className).'.php') {
-			return new $className;
-		} else {
-			throw new Exception($className.' Class not found');
 		}
 	}
 

@@ -9,7 +9,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
-class Acl extends Impact_Base {
+class Acl extends ImpactBase {
 	private $roles = array();
 	private $application;
 	public $accesslevel = 0;
@@ -148,24 +148,6 @@ class Acl extends Impact_Base {
 		$handle = $this->factory($type);
 		return $handle->test($subtype,$attributes);
 	}
-	
-	/**
-	 *	Factory method for classes, which are part of the calendar.
-	 *
-	 *	@public
-	 *
-	 *	@param	$className The name of the class to create.
-	 *	@return	object	The requested class if it was found.
-	 */
-	public function factory($className) {
-		$dir = $this->_get_include_directory();
-		
-		if (include_once $dir.'/Acl/class.'.str_replace('_','.',$className).'.php') {
-			return new $className;
-		} else {
-			throw new Exception($className.' Class not found');
-		}
-	}
 }
 
 interface Acl_Test {
@@ -173,7 +155,7 @@ interface Acl_Test {
    public function test($type,$attributes);
 }
 
-class Acl_Test_Base {
+class Acl_TestBase {
    public function test($type,$attributes) {
         $functionName = '_test_'.strtolower($type);
         if (method_exists($this,$functionName)) {

@@ -63,6 +63,12 @@
 
 	<param name="CACHE_DIRECTORY" type="string" value="cache/"
 		label="Cache directory" description="" />
+	<param name="MODELS_DIRECTORY" type="string" value="models"
+		label="Models directory" description="" />
+	<param name="CONTROLLERS_DIRECTORY" type="string" value="controllers"
+		label="Controllers directory" description="" />
+	<param name="VIEWS_DIRECTORY" type="string" value="views"
+		label="Views directory" description="" />
 	<!--param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="3600" label="Cache 
 		timeout (seconds)" description="" / -->
 	<param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="0"
