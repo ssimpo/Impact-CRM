@@ -13,7 +13,7 @@
  *	@package Database
  *	@extends Impact_Base
  */
-class Database Extends Impact_Base {
+class Database extends Singleton {
 	private static $instance;
 	private $database;
 	
@@ -24,40 +24,8 @@ class Database Extends Impact_Base {
 	 *	
 	 *	@private
 	 */
-	private function __construct() {
+	protected function __construct() {
 		$this->_make_database_connection();
-	}
-	
-	/**
-	 *	Singleton method.
-	 *
-	 *	Provide a reference to the one static instance of this class.  Stops
-	 *	class being declared muliple times.
-	 *
-	 *	@public
-	 *	@static
-	 *
-	 *	@return Database
-	 *	
-	 */
-	public static function singleton() {
-		if (!isset(self::$instance)) {
-			$c = __CLASS__;
-			self::$instance = new $c;
-		}
-
-		return self::$instance;
-	}
-	
-	/**
-	 *	Cloning method.
-	 *
-	 *	This returns an error, since cloning of a singleton is not allowed.
-	 *
-	 *	@public
-	 */
-	public function __clone() {
-		trigger_error('Clone is not allowed.', E_USER_ERROR);
 	}
 	
 	/**
@@ -116,7 +84,7 @@ class Database Extends Impact_Base {
 	 *	@return mixed()|boolean Either the result-row or false on failure.
 	 */
 	public function get_page($entityID='') {
-		$application = Application::singleton();
+		$application = Application::instance();
 		$reader_roles = $this->create_roles_sql('readers');
 		if ($entityID === '') {
 			$entityID = $application->entityID;
@@ -129,13 +97,13 @@ class Database Extends Impact_Base {
 				AND (media LIKE "%'.$application->media.'%") AND (content.lang 
 		';
 		
-		$rc = $this->get_row(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower($application->language).'%")');
+		$rs = $this->get_row(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower($application->language).'%")');
 		if ($rs === false) {
 			$SQL_p2 = '"'.strtolower(DEFAULT_LANG).'"';
 			$rc = $this->get_row(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower(DEFAULT_LANG).'%")');
 		}
 
-		return $rc;
+		return $rs;
 	}
 	
 	/**
@@ -186,7 +154,7 @@ class Database Extends Impact_Base {
 	 *	@return string SQL fragment based on field and roles
 	 */
 	public function create_roles_sql($field,$roles='') {
-		$application = Application::singleton();
+		$application = Application::instance();
 		if ($roles == '') {
 			$roles = $application->roles;
 		}

@@ -115,30 +115,48 @@ class I {
 	 *	@static
 	 *	@public
 	 *	@param String $name Name of function.
-	 *	@return	String The corresponding function name
+	 *	@return	String The corresponding variable name
 	 */
 	static public function function_to_variable($name) {
-		$variable = '';
-		$parts = explode('_',$name);
-		if ((count($parts) == 1) || (count($parts) == 2)&&($parts[0] == '')) {
-			return strtolower($name);	
-		}
-		
-		foreach ($parts as $part) {
-			if (strlen($part) > 1) {
-				$firstLetter = substr($part,0,1);
-				$afterFirstLetter = substr($part,1);
-				$variable .= strtoupper($firstLetter).strtolower($afterFirstLetter);
-			} elseif (strlen($part) == 1) {
-				$variable .= strtoupper($part);
-			}
-		}
-		$firstLetter = substr($name,0,1);
-		if ($firstLetter == '_') {
-			$variable = '_'.$variable;
-		}
-		
-		return $variable;
+		$variable = ucwords(str_replace('_',' ',$name));
+		$variable_length = strlen($variable);
+		$variable = lcfirst(ltrim($variable));
+		$variable = str_repeat('_',$variable_length-strlen($variable)).$variable;
+		$variable = rtrim($variable);
+		$variable = $variable.str_repeat('_',$variable_length-strlen($variable));
+		return str_replace(' ','',$variable);
+	}
+	
+	/**
+	 *
+	 *	Convert a variable name into afunction-name.
+	 *
+	 *	According to the Impact coding standards, functions/methods
+	 *	are named with words separated with underscores;
+	 *	variables/properties are named using camelCase.  This function
+	 *	allows conversion so that the magic method __set()/__get() work
+	 *	as expected.
+	 *	
+	 *	@static
+	 *	@public
+	 *	@param String $name Name of variable.
+	 *	@return	String The corresponding function name
+	 */
+	static public function variable_to_function($name) {
+		return strtolower(implode('_',preg_split('/(?<=\\w)(?=[A-Z])/', $name)));
+	}
+	
+	/**
+	 *	Is the one snippet of text contained within another.
+	 *
+	 *	@static
+	 *	@public
+	 *	@param String $text1 The string to search within.
+	 *	@param String $text2 The string to search for.
+	 *	@return Boolean
+	*/
+	static public function contains($text1,$text2) {
+		return ((stristr($text1,$text2) !== false) ? true:false);
 	}
 }
 ?>

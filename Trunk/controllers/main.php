@@ -8,15 +8,16 @@
  */
 
 //Include the core/base classes, needed throughout
-require_once(ROOT_BACK.'/plugins/interface.plugin.php');
 require_once(ROOT_BACK.'/models/base.Impact.php');
+require_once(ROOT_BACK.'/models/class.Singleton.php');
 require_once(ROOT_BACK.'/models/class.Application.php');
 require_once(ROOT_BACK.'/models/class.Database.php');
+require_once(ROOT_BACK.'/plugins/interface.plugin.php');
 
 //Load the main application class and database class
-$application = Application::singleton();
+$application = Application::instance();
 $application->setup();
-$database = Database::singleton();
+$database = Database::instance();
 
 
 /**
