@@ -2,11 +2,7 @@
 /**
  *	Singleton Class
  *	
- * 	This implementation of the singleton pattern does not conform to the strong
- * 	definition given by the "Gang of Four." The __construct() method has not be
- * 	privatized so that a singleton pattern is capable of being achieved; however,
- * 	multiple instantiations are also possible. This allows the user more freedom
- * 	with this pattern.  Must of the code for this class is taken directly from
+ * 	Must of the code for this class is taken directly from
  *	the PHP ActiveRecord Project <http://www.phpactiverecord.org/>.
  *
  * 	@author Stephen Simpson <me@simpo.org>
@@ -23,7 +19,9 @@ abstract class Singleton extends ImpactBase {
 	 * @param array
 	 */
 	private static $instances = array();
-
+	
+	final private function __construct() {}
+	
 	/**
 	 * Static method for instantiating a singleton object.
 	 *

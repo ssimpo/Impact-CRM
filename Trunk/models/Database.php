@@ -15,17 +15,19 @@
  */
 class Database extends Singleton {
 	private static $instance;
-	private $database;
+	private $database=null;
 	
 	/**
-	 *	Constructor method.
+	 *	Test connection.
 	 *
-	 *	Method is private, since it is meant to be used as a static-singlton.
+	 *	Test if connection is aleady made, if not, create it.
 	 *	
 	 *	@private
 	 */
-	protected function __construct() {
-		$this->_make_database_connection();
+	private function _test_connection() {
+		if (is_null($this->database)) {
+			$this->_make_database_connection();
+		}
 	}
 	
 	/**
@@ -38,7 +40,7 @@ class Database extends Singleton {
 	 *	@todo Make generic version so platform can connect to muliple database sources.
 	 */
 	private function _make_database_connection() {
-		require_once(ROOT_BACK.'/includes/adodb/adodb.inc.php');
+		require_once ROOT_BACK.'/includes/adodb/adodb.inc.php';
 		$ADODB_CACHE_DIR = ROOT_BACK.'/'.CACHE_DIRECTORY;
 		
 		switch (strtoupper(DB_DRIVER)) {
@@ -65,6 +67,7 @@ class Database extends Singleton {
 	 *	@return mixed()|boolean Either the result-row or false on failure.
 	 */
 	public function get_row($timeout,$SQL) {
+		$this->_test_connection();
 		$rs = $this->database->CacheSelectLimit($timeout,$SQL,1);
 		if ($rs) {
 			$rs = $rs->GetAll();
@@ -84,6 +87,7 @@ class Database extends Singleton {
 	 *	@return mixed()|boolean Either the result-row or false on failure.
 	 */
 	public function get_page($entityID='') {
+		$this->_test_connection();
 		$application = Application::instance();
 		$reader_roles = $this->create_roles_sql('readers');
 		if ($entityID === '') {

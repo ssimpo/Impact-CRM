@@ -7,20 +7,21 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  */
 function __autoload($className) {
-    $classFileName = str_replace('_',DIRECTORY_SEPARATOR,$className).'.php';
-    if (!include_once MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName) {
+    $classFileName = str_replace('_',DS,$className).'.php';
+    if (!include_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName) {
 	if (I::contains($classFileName,'Base.php')) {
 		$classFileName = str_replace(
-			DIRECTORY_SEPARATOR.'Base.php',
+			DS.'Base.php',
 			'.php',
 			$classFileName
 		);
-		if (!include_once MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName) {
+		if (!include_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName) {
 			throw new Exception($className.' Class not found');
 		}
 	}
     }
 }
+
 
 //Load the main application class and database class
 $application = Application::instance();
@@ -36,7 +37,7 @@ if ($application->pageErrorCheck) {
 	$tparser = $application->factory('Templater');
 	$tparser->init($database->get_page(),$application->settings);
 
-	echo $tparser->parse(VIEWS_DIRECTORY.DIRECTORY_SEPARATOR.USE_THEME.DIRECTORY_SEPARATOR.'main.xml');
+	echo $tparser->parse(VIEWS_DIRECTORY.DS.USE_THEME.DS.'main.xml');
 }
 
 ?>
