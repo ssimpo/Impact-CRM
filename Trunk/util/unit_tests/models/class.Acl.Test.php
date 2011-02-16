@@ -117,6 +117,16 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
         $this->assertTrue(
             $method->invokeArgs($this->Acl, array('[FB:USER:2]'))
         );
+        
+        $application->ip = '166.56.23.1';
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[GEO:CITY:ASHBURN]'))
+        );
+        
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[GEO:RADIUS:39.0335:-78.4838:90:KM]'))
+        );
+        
     }
 }
 
