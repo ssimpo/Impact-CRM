@@ -91,13 +91,15 @@ class I {
 		$config = simplexml_load_file($path);
 	
 		foreach ($config->param as $param) {
-			switch ($param['type']) {
-				case 'string':
-					define($param['name'],$param['value']);
-					break;
-				case 'integer':
-					define($param['name'],(int) $param['value']);
-					break;
+			if(!defined($param['name'])) {
+				switch ($param['type']) {
+					case 'string':
+						define($param['name'],$param['value']);
+						break;
+					case 'integer':
+						define($param['name'],(int) $param['value']);
+						break;
+				}
 			}
 		}
 	}
@@ -117,7 +119,7 @@ class I {
 	 *	@param String $name Name of function.
 	 *	@return	String The corresponding variable name
 	 */
-	static public function function_to_variable($name) {
+	static public function camelize($name) {
 		$variable = ucwords(str_replace('_',' ',$name));
 		$variable_length = strlen($variable);
 		$variable = lcfirst(ltrim($variable));
@@ -129,7 +131,7 @@ class I {
 	
 	/**
 	 *
-	 *	Convert a variable name into afunction-name.
+	 *	Convert a variable name into a function-name.
 	 *
 	 *	According to the Impact coding standards, functions/methods
 	 *	are named with words separated with underscores;
@@ -142,7 +144,7 @@ class I {
 	 *	@param String $name Name of variable.
 	 *	@return	String The corresponding function name
 	 */
-	static public function variable_to_function($name) {
+	static public function uncamelize($name) {
 		return strtolower(implode('_',preg_split('/(?<=\\w)(?=[A-Z])/', $name)));
 	}
 	
@@ -160,5 +162,5 @@ class I {
 	}
 }
 
-I::load_config('config'.DIRECTORY_SEPARATOR.'settings.xml');
+I::load_config(ROOT_BACK.'config'.DIRECTORY_SEPARATOR.'settings.xml');
 ?>

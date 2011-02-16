@@ -12,17 +12,24 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
     private $Acl;
     
     protected function setUp() {
+        if(!defined('DS')) { define('DS',DIRECTORY_SEPARATOR); }
+        if(!defined('MODELS_DIRECTORY')) { define('MODELS_DIRECTORY','models'); }
+        if(!defined('ROOT_BACK')) { define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS); }
         spl_autoload_register('self::__autoload');
-        $this->Acl = new Acl;
+        
+        $application = Application::instance();
+        $application->facebook =  $this->getMock('Facebook');
+        $this->Acl = new Acl($application);
+        $this->Acl->facebook = $application->facebook;
+        $this->Acl->facebook->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnValue(1));
+       
     }
     
     private function __autoload($className) {
-        if (stristr($className,'_base') !== false) {
-            $className = str_replace('_Base','',$className);
-            include_once '../models/base.'.str_replace('_','',$className).'.php';
-        } else {
-            include_once '../models/class.'.str_replace('_','',$className).'.php';
-        }
+        $classFileName = str_replace('_',DIRECTORY_SEPARATOR,$className).'.php';
+	require_once ROOT_BACK.MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName;
     }
     
     protected static function getMethod($name) {
@@ -33,6 +40,17 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
     }
     
     public function test_load_roles() {
+        $this->Acl->load_roles('[WEB][ADMIN][DEV]');
+        $method = self::getMethod('allowed');
+        
+        $this->assertFalse(
+            $method->invokeArgs($this->Acl, array('[WEB2]'))
+        );
+        
+        $this->Acl->load_roles('[WEB2]');
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[WEB2]'))
+        );
     }
     
     public function test_allowed() {
@@ -40,10 +58,10 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
         $method = self::getMethod('allowed');
         
         $this->assertTrue(
-            $method->invokeArgs($this->Acl, array('[WEB][FBUSER:93][DEVELOPER]','[WEB2]'))
+            $method->invokeArgs($this->Acl, array('[WEB][FB:USER:93][DEVELOPER]','[WEB2]'))
         );
         $this->assertFalse(
-            $method->invokeArgs($this->Acl, array('[WEB],[FBUSER:93],[DEVELOPER]','[DEV]'))
+            $method->invokeArgs($this->Acl, array('[WEB],[FB:USER:93],[DEVELOPER]','[DEV]'))
         );
         $this->assertTrue(
             $method->invokeArgs($this->Acl, array('[WEB]'))
@@ -60,15 +78,18 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
     }
     
     public function test_test_role() {
-        /*$this->Acl->load_roles('[WEB][ADMIN][DEV]');
+        $this->Acl->load_roles('[WEB][ADMIN][DEV]');
         $method = self::getMethod('test_role');
         
         $this->assertTrue(
-            $method->invokeArgs($this->Acl, array('[WEB][FBUSER:93][DEVELOPER]'))
+            $method->invokeArgs($this->Acl, array('[WEB][FB:USER:93][DEVELOPER]'))
         );
         $this->assertFalse(
-            $method->invokeArgs($this->Acl, array('[WEB2][FBUSER:93][DEVELOPER]'))
-        );*/
+            $method->invokeArgs($this->Acl, array('[WEB2][FB:USER:93][DEVELOPER]'))
+        );
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[WEB2][FB:USER:93][DEVELOPER][FB:USER:1]'))
+        );
     }
     
     public function test_split_special_role() {
@@ -87,10 +108,21 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
     public function test_test_special_role() {
         $method = self::getMethod('test_special_role');
         
-        $this->assertEquals(
-            'FB',
-            $method->invokeArgs($this->Acl, array('[FB:USER:93]'))
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[FB:USER:1]'))
         );
+        
+        $application = Application::instance();
+        $application->FBID = 2;
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[FB:USER:2]'))
+        );
+    }
+}
+
+class Facebook {
+    public function getUser() {
+        
     }
 }
 ?>

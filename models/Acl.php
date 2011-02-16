@@ -5,7 +5,7 @@
  *	concepts, such as people in a specfic locality.
  *		
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.5
+ *	@version 0.0.6
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
@@ -13,18 +13,51 @@ class Acl extends ImpactBase {
 	private $roles = array();
 	private $application;
 	public $accesslevel = 0;
-	public $facebook;
 	
-
-	function __construct($application = null) {
+	
+	/**
+	 *	Constructor.
+	 *
+	 *	@public
+	 *	@param object|string $application The application object or the roles to load.
+	 *	@param string $roles The roles to load.
+	 */
+	public function __construct($application=null,$roles=null) {
+		if (is_string($application)) {
+			$this->load_roles($application);
+			$application=null;
+		} 
 		if (is_null($application)) {
-			$application = Application::instance();
+			$application = $this->factory('Application');
 			$this->application = $application;
 		} else {
 			$this->application = $application;
-			$application = Application::instance();
 		}
-		$this->facebook = $application->facebook;
+		if (!is_null($roles)) {
+			$this->load_roles($roles);
+		} 
+	
+		$this->_get_facebook_object();
+	}
+	
+	/**
+	 *	Get the Facebook object and assign to property in application object.
+	 *
+	 *	Uses either the supplied application object or creates a new
+	 *	reference to the main application object to try and aquire it,
+	 *	otherwise set it to null.
+	 *
+	 *	@private
+	 */
+	private function _get_facebook_object() {
+		if (!property_exists($this->application,'facebook')) {
+			$application = $this->factory('Application');
+			if (property_exists($application,'facebook')) {
+				$this->application->facebook = $application->facebook;
+			} else {
+				$this->application->facebook = null;
+			}
+		}
 	}
 	
 	/**
@@ -41,7 +74,6 @@ class Acl extends ImpactBase {
 		foreach ($rolesArray as $role) {
 			$this->roles[trim($role)] = trim($role);
 		}
-		$this->roles['[FBUSER:'.$this->application->FBID.']'] = '[FBUSER:'.$this->application->FBID.']';
 	}
 	
 	/**
@@ -95,6 +127,7 @@ class Acl extends ImpactBase {
 			foreach ($rolesArray as $role) {
 				if (I::contains($role,':')) {
 					if ($this->test_special_role($role)) {
+						$this->load_roles($role); //cache for later.
 						return true;
 					}
 				}
@@ -144,8 +177,7 @@ class Acl extends ImpactBase {
 	 */
 	protected function test_special_role($role) {
 		list($type,$subtype,$attributes) = $this->_split_special_role($role);
-		
-		$handle = $this->factory($type);
+		$handle = $this->factory('Acl_'.$type,array($this->application));
 		return $handle->test($subtype,$attributes);
 	}
 }
@@ -159,7 +191,7 @@ class Acl_TestBase {
    public function test($type,$attributes) {
         $functionName = '_test_'.strtolower($type);
         if (method_exists($this,$functionName)) {
-            call_user_method($functionName,$this,$attributes);
+            return call_user_func(array($this,$functionName),$attributes);
         } else {
             return false;
         }

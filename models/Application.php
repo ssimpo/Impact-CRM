@@ -106,11 +106,11 @@ class Application extends Singleton {
 	 *	@public
 	 */
 	public function __get($property) {
-		//$convertedProperty = I::function_to_variable($property);
-		if (array_key_exists($property,$this->settings)) {
+		//$convertedProperty = I::camelize($property);
+		if (isset($this->settings[$property])) {
 			return $this->settings[$property];
 		} else {
-			return false;
+			throw new Exception('Property: '.$property.', does not exist');
 		}
 	}
 	

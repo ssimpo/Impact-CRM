@@ -25,28 +25,63 @@ class ImpactBase {
 	 *	@public
 	 *	@param String $className The name of the class to load.
 	*/
-	public function factory($className) {
-		$classFileName = str_replace('_',DIRECTORY_SEPARATOR,$className).'.php';
+	public function factory($className,$args=array()) {
 		
-		if (!include_once MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName) {
-			if (I::contains($classFileName,'Base.php')) {
-				$classFileName = str_replace(
-					DIRECTORY_SEPARATOR.'Base.php',
-					'.php',
-					$classFileName
-				);
-				if (!include_once MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName) {
-					throw new Exception($className.' Class not found');
-				}
-			}
+		
+		if (!(isset($this) && get_class($this) == __CLASS__)) {
+			$this->_dynamic_class_include($className);
+		} else {
+			self::_dynamic_class_include($className);
 		}
 		
+		
 		try {
-			$class = new $className;
-			return $class;
-		} catch (Exception $e) {
+			if (count($args) > 0) {
+				$reflection = new ReflectionClass($className);
+				return $reflection->newInstanceArgs($args);
+			}
+		} catch (ErrorException $e) {
 			throw new Exception($className.' Class not found');
 		}
 		
+		if ($this->_is_singleton($className)) {
+			return $className::instance();
+		} else {
+			return new $className;
+		}
+	}
+	
+	/**
+	 *	Test whether a given class should be initiated as a Singleton or not.
+	 *
+	 *	@private
+	 *	@param string $className Name of the class to test.
+	 *	@return boolean
+	 */
+	private function _is_singleton($className) {
+		$methods = get_class_methods($className);
+		return ((!in_array('__construct',$methods)) && (in_array('instance',$methods)));
+	}
+	
+	/**
+	 *	Dynamically include the files needed for a given class.
+	 *
+	 *	@private
+	 *	@param string $className Name of the class to include files for.
+	 */
+	private function _dynamic_class_include($className) {
+		$classFileName = str_replace('_',DS,$className).'.php';
+		if (!include_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName) {
+			if (I::contains($classFileName,'Base.php')) {
+				$classFileName = str_replace(
+					DS.'Base.php',
+					'.php',
+					$classFileName
+				);
+				if (!include_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName) {
+					throw new Exception($className.' Class not found');
+				};
+			}
+		}
 	}
 }
