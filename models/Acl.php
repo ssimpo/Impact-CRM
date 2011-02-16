@@ -149,7 +149,7 @@ class Acl extends ImpactBase {
 	 *	@return array|boolean
 	 */
 	private function _split_special_role($role) {
-		preg_match_all('/(?<=(?:\[|\:))(\w+)(?=(?:\]|\:))/',$role,$matches);
+		preg_match_all('/(?<=(?:\[|\:))([^:^\]^\[]+)(?=(?:\]|\:))/',$role,$matches);
 		
 		if (isset($matches[0])) {
 			$attributes = $matches[0];

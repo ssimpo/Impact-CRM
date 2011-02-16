@@ -5,7 +5,7 @@
  *	user is tested against.
  *		
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.5
+ *	@version 0.0.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
@@ -60,7 +60,7 @@ class Acl_FB extends Acl_TestBase implements Acl_Test {
     /**
      *		Is the current user a fiend of the user supplied in the attributes.
      *
-     *		@private
+     *		@public
      *		@param array $attributes The Facebook-ID of the friend in the form $attributes[0] = ID.
      *		@return boolean
      */
