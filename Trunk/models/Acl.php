@@ -153,7 +153,7 @@ class Acl extends ImpactBase {
 		
 		if (isset($matches[0])) {
 			$attributes = $matches[0];
-			if (count($attributes) > 2) {
+			if (count($attributes) > 1) {
 				$type = array_shift($attributes);
 				$subtype = array_shift($attributes);
 			

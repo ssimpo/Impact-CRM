@@ -10,7 +10,6 @@
  */
 class Acl_GEO extends Acl_TestBase implements Acl_Test {
     private $ip;
-    private $geoCountry=null;
     private $geoCity=null;
     private $lookup=array();
 
@@ -23,7 +22,7 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
      */
     public function __construct($application=null) {
         if(!defined('DS')) { define('DS',DIRECTORY_SEPARATOR); }
-        require_once 'Net/GeoIP.php';
+        require_once 'Net'.DS.'GeoIP.php';
   
 	if (!is_null($application)) {
             $this->ip = $application->ip;
@@ -79,6 +78,16 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
         return (strtoupper($data->city) == strtoupper($attributes[0]));
     }
     
+    public function _test_region($attributes) {
+        $data = $this->_city_lookup($this->ip);
+        return (strtoupper($data->rigion) == strtoupper($attributes[0]));
+    }
+    
+    public function _test_country($attributes) {
+        $data = $this->_city_lookup($this->ip);
+        return (strtoupper($data->countryCode) == strtoupper($attributes[0]));
+    }
+    
     public function _test_radius($attributes) {
         $data = $this->_city_lookup($this->ip);
         
@@ -87,10 +96,6 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
         );
         
         return ($distance <= (int) $attributes[2]);
-    }
-    
-    public function _test_country($attributes) {
-       return true;
     }
 }
 ?>

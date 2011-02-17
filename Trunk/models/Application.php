@@ -31,7 +31,6 @@ class Application extends Singleton {
 	 */
 	public function setup() {
 		$this->settings['FBID'] = 0;
-		$this->browser = get_browser();
 		$this->_make_facebook_connection();
 		$this->_language_detect();
 		$this->_media_detect();
@@ -191,9 +190,9 @@ class Application extends Singleton {
 			//Auto-detection of Robots and FB needed :)
 			if (substr(DOMAIN,0,2) == 'm.') { //Accessed the mobile subdomain
 				$media = 'MOBILE';
-			} elseif ($this->browser->ismobiledevice) {
+			} /*elseif ($this->browser->ismobiledevice) {
 				$media = 'MOBILE';
-			}
+			}*/
 		}
 		
 		$this->media = I::reformat_role_string($media);
