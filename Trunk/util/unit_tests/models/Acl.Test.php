@@ -18,13 +18,7 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
         spl_autoload_register('self::__autoload');
         
         $application = Application::instance();
-        $application->facebook =  $this->getMock('Facebook');
         $this->Acl = new Acl($application);
-        $this->Acl->facebook = $application->facebook;
-        $this->Acl->facebook->expects($this->any())
-            ->method('getUser')
-            ->will($this->returnValue(1));
-       
     }
     
     private function __autoload($className) {
@@ -87,9 +81,6 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
         $this->assertFalse(
             $method->invokeArgs($this->Acl, array('[WEB2][FB:USER:93][DEVELOPER]'))
         );
-        $this->assertTrue(
-            $method->invokeArgs($this->Acl, array('[WEB2][FB:USER:93][DEVELOPER][FB:USER:1]'))
-        );
     }
     
     public function test_split_special_role() {
@@ -103,60 +94,6 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
             array('GEO','TOWN',array('MIDDLESBROUGH','R','30','KM')),
             $method->invokeArgs($this->Acl, array('[GEO:TOWN:MIDDLESBROUGH:R:30:KM]'))
         );
-    }
-    
-    public function test_test_special_role() {
-        $method = self::getMethod('test_special_role');
-        
-        $this->assertTrue(
-            $method->invokeArgs($this->Acl, array('[FB:USER:1]'))
-        );
-        
-        $application = Application::instance();
-        $application->FBID = 2;
-        $this->assertTrue(
-            $method->invokeArgs($this->Acl, array('[FB:USER:2]'))
-        );
-        
-        $application->ip = '166.56.23.1';
-        $this->assertTrue(
-            $method->invokeArgs($this->Acl, array('[GEO:CITY:ASHBURN]'))
-        );
-        
-        $this->assertTrue(
-            $method->invokeArgs($this->Acl, array('[GEO:RADIUS:39.0335:-78.4838:90:KM]'))
-        );
-        
-        $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3';
-        $this->assertTrue(
-            $method->invokeArgs($this->Acl, array('[AGENT:BROWSER:FIREFOX]'))
-        );
-        $this->assertTrue(
-            $method->invokeArgs($this->Acl, array('[AGENT:PLATFORM:MACOSX]'))
-        );
-        $this->assertFalse(
-            $method->invokeArgs($this->Acl, array('[AGENT:MOBILE]'))
-        );
-        
-        $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3';
-        $this->assertTrue(
-            $method->invokeArgs($this->Acl, array('[AGENT:MOBILE]'))
-        );
-        
-        $_SERVER['HTTP_REFERER'] = 'http://www.google.co.uk/search?hl=en&xhr=t&q=churches+in+middlesbrough&cp=16&pf=p&sclient=psy&safe=off&aq=0&aqi=&aql=&oq=churches+in+midd&pbx=1&fp=2d2ccc87393ce188';
-        $this->assertTrue(
-            $method->invokeArgs($this->Acl, array('[REF:KEYWORDS:MIDDLESBROUGH:CHURCHES]'))
-        );
-        $this->assertFalse(
-            $method->invokeArgs($this->Acl, array('[REF:KEYWORDS:LONDON:CHURCHES]'))
-        );
-        
-    }
-}
-
-class Facebook {
-    public function getUser() {
-        
     }
 }
 ?>
