@@ -156,7 +156,6 @@ class Acl extends ImpactBase {
 			if (count($attributes) > 1) {
 				$type = array_shift($attributes);
 				$subtype = array_shift($attributes);
-			
 				return array($type,$subtype,$attributes);
 			}
 		}

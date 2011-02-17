@@ -33,6 +33,15 @@ class Test_Acl_REF extends PHPUnit_Framework_TestCase {
         return $method;
     }
     
+    public function test_test_role() {
+	$method = self::getMethod('test_role');
+	
+	$_SERVER['HTTP_REFERER'] = 'http://www.google.co.uk/search?hl=en&xhr=t&q=churches+in+middlesbrough&cp=16&pf=p&sclient=psy&safe=off&aq=0&aqi=&aql=&oq=churches+in+midd&pbx=1&fp=2d2ccc87393ce188';
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[REF:KEYWORDS:MIDDLESBROUGH:CHURCHES]'))
+        );
+    }
+    
     public function test_test_special_role() {
         $method = self::getMethod('test_special_role');
 	

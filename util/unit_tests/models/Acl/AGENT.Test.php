@@ -33,6 +33,15 @@ class Test_Acl_AGENT extends PHPUnit_Framework_TestCase {
         return $method;
     }
     
+    public function test_test_role() {
+	$method = self::getMethod('test_role');
+        
+	$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3';
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[AGENT:BROWSER:FIREFOX]'))
+        );
+    }
+    
     public function test_test_special_role() {
         $method = self::getMethod('test_special_role');
         
