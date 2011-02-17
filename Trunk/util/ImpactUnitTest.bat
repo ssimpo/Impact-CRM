@@ -1,2 +1,2 @@
 @cls
-@call phpunit unit_tests\models\
+@call phpunit unit_tests\

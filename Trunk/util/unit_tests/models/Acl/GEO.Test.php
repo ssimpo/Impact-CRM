@@ -33,6 +33,16 @@ class Test_Acl_GEO extends PHPUnit_Framework_TestCase {
         return $method;
     }
     
+    public function test_test_role() {
+	$method = self::getMethod('test_role');
+	
+	$application = Application::instance();
+	$application->ip = '166.56.23.1';
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[GEO:CITY:ASHBURN]'))
+        );
+    }
+    
     public function test_test_special_role() {
         $method = self::getMethod('test_special_role');
         
