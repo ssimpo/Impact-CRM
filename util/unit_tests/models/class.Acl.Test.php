@@ -127,6 +127,30 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
             $method->invokeArgs($this->Acl, array('[GEO:RADIUS:39.0335:-78.4838:90:KM]'))
         );
         
+        $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3';
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[AGENT:BROWSER:FIREFOX]'))
+        );
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[AGENT:PLATFORM:MACOSX]'))
+        );
+        $this->assertFalse(
+            $method->invokeArgs($this->Acl, array('[AGENT:MOBILE]'))
+        );
+        
+        $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3';
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[AGENT:MOBILE]'))
+        );
+        
+        $_SERVER['HTTP_REFERER'] = 'http://www.google.co.uk/search?hl=en&xhr=t&q=churches+in+middlesbrough&cp=16&pf=p&sclient=psy&safe=off&aq=0&aqi=&aql=&oq=churches+in+midd&pbx=1&fp=2d2ccc87393ce188';
+        $this->assertTrue(
+            $method->invokeArgs($this->Acl, array('[REF:KEYWORDS:MIDDLESBROUGH:CHURCHES]'))
+        );
+        $this->assertFalse(
+            $method->invokeArgs($this->Acl, array('[REF:KEYWORDS:LONDON:CHURCHES]'))
+        );
+        
     }
 }
 
