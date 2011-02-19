@@ -24,7 +24,14 @@ class Acl_REF extends Acl_TestBase implements Acl_Test {
 		}
 		$this->referer = $_SERVER['HTTP_REFERER'];
 	}
-    
+	
+	/**
+         *	Get the search-keywords from a URL
+         *
+         *      @private
+         *      @param string $url The URL to grab query from.
+         *      @return array
+         */
 	private function _get_query($url = null) {
 		$parts = parse_url($url);
 		$query = isset($parts['query']) ? $parts['query'] : (isset($parts['fragment']) ? $parts['fragment'] : '');
@@ -38,7 +45,13 @@ class Acl_REF extends Acl_TestBase implements Acl_Test {
 		);
 	}
 
-    
+	/**
+         *	Test whether the user arrived at the page via a url with specified keywords in the query.
+         *
+         *      @protected
+         *      @param array $attributes The keywords as a array-list.
+         *      @return boolean
+         */
 	protected function _test_keywords($attributes) {
 		$found = true;
 		$keywords = $this->_get_query($this->referer);

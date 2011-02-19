@@ -37,8 +37,8 @@ class Acl_FB extends Acl_TestBase implements Acl_Test {
 	/**
 	 *	Is the current user the one specified in the supplied attributes.
 	 *
-	 *	@public
-	 *	@param array[] $attributes The Facebook-ID of the user in form $attributes[0] = ID.
+	 *	@protected
+	 *	@param array $attributes The Facebook-ID of the user in form $attributes[0] = ID.
 	 *	@return boolean
 	 */
 	protected function _test_user($attributes) {
@@ -58,7 +58,7 @@ class Acl_FB extends Acl_TestBase implements Acl_Test {
 	/**
 	 *	Is the current user a fiend of the user supplied in the attributes.
 	 *
-	 *	@public
+	 *	@protected
 	 *	@param array $attributes The Facebook-ID of the friend in the form $attributes[0] = ID.
 	 *	@return boolean
 	 */
