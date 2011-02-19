@@ -125,7 +125,7 @@ class Templater extends ImpactBase {
 	 *
 	 *	@protected
 	 *
-	 *	@param string $path Filepath or XML string
+	 *	@param string $path filepath or XML string
 	 */
 	protected function _get_xml($path) {
 	//Grab the XML from a file or if supplied as XMLString then grab from that

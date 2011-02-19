@@ -182,18 +182,18 @@ class Acl extends ImpactBase {
 }
 
 interface Acl_Test {
-   public function __construct($application);
-   public function test($type,$attributes);
+	public function __construct($application);
+	public function test($type,$attributes);
 }
 
 class Acl_TestBase {
-   public function test($type,$attributes) {
-        $functionName = '_test_'.strtolower($type);
-        if (method_exists($this,$functionName)) {
-            return call_user_func(array($this,$functionName),$attributes);
-        } else {
-            return false;
-        }
-    }
+	public function test($type,$attributes) {
+		$functionName = '_test_'.strtolower($type);
+		if (method_exists($this,$functionName)) {
+			return call_user_func(array($this,$functionName),$attributes);
+		} else {
+			return false;
+		}
+	}
 }
 ?>

@@ -163,6 +163,31 @@ class Impact_Sniffs_ControlStructures_KernighanRitchieSniff
             $functionLine = $tokens[$stackPtr]['line'];
             $scopeLine = $tokens[$scopeModifier]['line'];
             
+            if ($scopeModifier) {
+                $modifier = $tokens[$scopeModifier-2]['content'];
+                $modifierLine = $tokens[$scopeModifier-2]['line'];
+                
+                if ($modifierLine == $tokens[$stackPtr]['line']) {
+                    if (($modifier == 'static') || ($modifier == 'final')) {
+                        $scopeModifier -=2;
+                    }
+                }
+                
+                $modifier = $tokens[$scopeModifier-2]['content'];
+                $modifierLine = $tokens[$scopeModifier-2]['line'];
+                if ($modifierLine == $tokens[$stackPtr]['line']) {
+                    if (($modifier == 'static') || ($modifier == 'final')) {
+                        $scopeModifier -=2;
+                    }
+                }
+            } else {
+                //This needs to test if in class/interface or not, otherwise
+                // throws error on global functions.
+                /*$error = 'Scope not specified for function';
+                $phpcsFile->addError($error, $scopeCloser);
+                return;*/
+            }
+            
             if ($functionLine == $scopeLine) {
                 $closingColumn = $tokens[$scopeCloser]['column'];
                 $openingColumn = $tokens[$scopeModifier]['column'];

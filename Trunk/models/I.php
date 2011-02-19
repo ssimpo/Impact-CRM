@@ -91,7 +91,7 @@ class I {
 		$config = simplexml_load_file($path);
 	
 		foreach ($config->param as $param) {
-			if(!defined($param['name'])) {
+			if (!defined($param['name'])) {
 				switch ($param['type']) {
 					case 'string':
 						define($param['name'],$param['value']);
