@@ -40,7 +40,7 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
          *      not occur.  Lookup is cached for later reuse.  Database instance is
          *      also cached.
          *
-         *      @private
+         *      @protected
          *      @param string $IP IP address in dotted-quad format.
          *      @return object The data returned from the database.
          */
@@ -57,7 +57,18 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
                 }
                 return $this->lookup[$IP];
         }
-    
+        
+        /**
+         *      Calculate the distance between two GPS co-ordinates in the specified unit of measurement.
+         *      
+         *      @private
+         *      @param integer $lat1 The 1st latitude co-ordinate.
+         *      @param integer $lon1 The 1st longitude co-ordinate.
+         *      @param integer $lat2 The 2nd latitude co-ordinate.
+         *      @param integer $lon2 The 2nd longitude co-ordinate.
+         *      @param integer $unit The units of measurement. (M = Miles, KM = Kilometers, N = Nautical Miles).
+         *      @return integer The distance.
+         */
         private function _lat_long_distance($lat1, $lon1, $lat2, $lon2, $unit) {
                 $unit = strtoupper($unit);
                 $dist = rad2deg(acos(sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($lon1 - $lon2))));
@@ -75,22 +86,49 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
                 return null;
         }
 
-
+        /**
+         *      Test whether the user is accessing the content from a specified city?
+         *
+         *      @protected
+         *      @param array $attributes Name of city to test against (expected format is $attributes[0] = '<CITY NAME>').
+         *      @return boolean
+         */
         protected function _test_city($attributes) {
                 $data = $this->_city_lookup($this->ip);
                 return (strtoupper($data->city) == strtoupper($attributes[0]));
         }
-    
+        
+        /**
+         *      Is the user accessing the content from a specified region?
+         *
+         *      @protected
+         *      @param array $attributes Name of region to test against (expected format is $attributes[0] = '<REGION NAME>').
+         *      @return boolean
+         */
         protected function _test_region($attributes) {
                 $data = $this->_city_lookup($this->ip);
                 return (strtoupper($data->rigion) == strtoupper($attributes[0]));
         }
-    
+
+        /**
+         *      Is the user accessing the content from a specified country?
+         *
+         *      @protected
+         *      @param array $attributes Name of country to test against (expected format is $attributes[0] = '<COUNTRY NAME>').
+         *      @return boolean
+         */
         protected function _test_country($attributes) {
                 $data = $this->_city_lookup($this->ip);
                 return (strtoupper($data->countryCode) == strtoupper($attributes[0]));
         }
-    
+        
+        /**
+         *      Is the user accessing the content from a vicinity of a set of GPS co-ordinates.
+         *
+         *      @protected
+         *      @param array $attributes Data to test against. (Expected format $attributes[0] = '<Latitude>', $attributes[1] = '<Longitude>', $attributes[2] = '<RADIUS DISTANCE>', $attributes[3] = '<UNITSOF MEASUREMENT>').
+         *      @return boolean
+         */
         protected function _test_radius($attributes) {
                 $data = $this->_city_lookup($this->ip);
                 
