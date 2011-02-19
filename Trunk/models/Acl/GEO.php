@@ -58,7 +58,7 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
                 return $this->lookup[$IP];
         }
     
-        function _lat_long_distance($lat1, $lon1, $lat2, $lon2, $unit) {
+        private function _lat_long_distance($lat1, $lon1, $lat2, $lon2, $unit) {
                 $unit = strtoupper($unit);
                 $dist = rad2deg(acos(sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($lon1 - $lon2))));
                 $miles = $dist * 60 * 1.1515;
@@ -76,23 +76,23 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
         }
 
 
-        public function _test_city($attributes) {
-                $data = $this->_city_lookup($this->IP);
+        protected function _test_city($attributes) {
+                $data = $this->_city_lookup($this->ip);
                 return (strtoupper($data->city) == strtoupper($attributes[0]));
         }
     
-        public function _test_region($attributes) {
-                $data = $this->_city_lookup($this->IP);
+        protected function _test_region($attributes) {
+                $data = $this->_city_lookup($this->ip);
                 return (strtoupper($data->rigion) == strtoupper($attributes[0]));
         }
     
-        public function _test_country($attributes) {
-                $data = $this->_city_lookup($this->IP);
+        protected function _test_country($attributes) {
+                $data = $this->_city_lookup($this->ip);
                 return (strtoupper($data->countryCode) == strtoupper($attributes[0]));
         }
     
-        public function _test_radius($attributes) {
-                $data = $this->_city_lookup($this->IP);
+        protected function _test_radius($attributes) {
+                $data = $this->_city_lookup($this->ip);
                 
                 $distance = $this->_lat_long_distance(
                         $data->latitude,$data->longitude,$attributes[0],$attributes[1],$attributes[3]

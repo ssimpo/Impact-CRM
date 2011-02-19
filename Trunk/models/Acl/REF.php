@@ -25,7 +25,7 @@ class Acl_REF extends Acl_TestBase implements Acl_Test {
 		$this->referer = $_SERVER['HTTP_REFERER'];
 	}
     
-	function _get_query($url = null) {
+	private function _get_query($url = null) {
 		$parts = parse_url($url);
 		$query = isset($parts['query']) ? $parts['query'] : (isset($parts['fragment']) ? $parts['fragment'] : '');
 		if (!$query) {
@@ -39,7 +39,7 @@ class Acl_REF extends Acl_TestBase implements Acl_Test {
 	}
 
     
-	public function _test_keywords($attributes) {
+	protected function _test_keywords($attributes) {
 		$found = true;
 		$keywords = $this->_get_query($this->referer);
 		foreach ($attributes as $keyword) {

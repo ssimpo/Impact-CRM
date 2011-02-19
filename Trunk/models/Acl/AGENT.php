@@ -32,17 +32,17 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 		return $this->lookup[$agent];
 	}
     
-	public function test_browser($attributes) {
+	protected function _test_browser($attributes) {
 		$browscap = $this->_get_browser_info($this->agent);
 		return (strtoupper($browscap->browser) == strtoupper($attributes[0]));
 	}
     
-	public function test_platform($attributes) {
+	protected function _test_platform($attributes) {
 		$browscap = $this->_get_browser_info($this->agent);
 		return (strtoupper($browscap->platform) == strtoupper($attributes[0]));
 	}
     
-	public function test_mobile($attributes) {
+	protected function _test_mobile($attributes) {
 		if ($this->_is_using_mobile_subdomain()) {
 			return true;
 		}
@@ -64,7 +64,7 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 	}
     
 	private function _is_using_mobile_subdomain() {
-		if ((defined(DOMAIN)) && (defined(MOBILE_SUBDOMAIN))) {
+		if ((defined('DOMAIN')) && (defined('MOBILE_SUBDOMAIN'))) {
 			$parts = explode('.',DOMAIN);
 			if (substr(DOMAIN,0,strlen($parts[0])+1) == $parts[0]+'.') {
 				return true;
