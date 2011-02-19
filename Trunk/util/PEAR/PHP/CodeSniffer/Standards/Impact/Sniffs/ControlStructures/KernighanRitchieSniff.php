@@ -156,6 +156,23 @@ class Impact_Sniffs_ControlStructures_KernighanRitchieSniff
             ) {
                 $openingColumn -= 2;
             }
+            
+            if (($type == 'T_INTERFACE') || ($type == 'T_CLASS')) {
+                if ($openingColumn != $closingColumn) {
+                    $pTokenPtr = ($scopeCondition - 1);
+                    $pTokenType = $tokens[$pTokenPtr]['type'];
+                    $pTokenContent = $tokens[$pTokenPtr]['content'];
+                    
+                    if ($pTokenType == 'T_WHITESPACE') {
+                        $pTokenPtr--;
+                        $pTokenContent = $tokens[$pTokenPtr]['content'];
+                        
+                        if ($pTokenContent == 'abstract') {
+                            $openingColumn = $tokens[$pTokenPtr]['column'];
+                        }
+                    }
+                }
+            }
         } else {
             $scopeModifier = $phpcsFile->findPrevious(
                 PHP_CodeSniffer_Tokens::$scopeModifiers, $stackPtr
@@ -194,8 +211,8 @@ class Impact_Sniffs_ControlStructures_KernighanRitchieSniff
             }
         }
         if ($openingColumn != $closingColumn) {
-            $error = 'Closing brace is not in the same column
-                as the opening statement';
+            $error = 'Closing brace is not in the same column '.
+                ' as the opening statement';
             $phpcsFile->addError($error, $scopeCloser);
             return;
         }
