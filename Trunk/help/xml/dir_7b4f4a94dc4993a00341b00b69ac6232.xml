@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="dir_7b4f4a94dc4993a00341b00b69ac6232" kind="dir">
+    <compoundname>H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/</compoundname>
+    <innerdir refid="dir_73a453e0aa8c957ffa4dfe68e817bbb7">H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/</innerdir>
+    <innerdir refid="dir_1d40f0b29514694c4e170028f565e254">H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Calendar/</innerdir>
+    <innerdir refid="dir_b9e654f79d4d06fc18789812d632444f">H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/dateParser/</innerdir>
+    <innerfile refid="Acl_8php">Acl.php</innerfile>
+    <innerfile refid="Application_8php">Application.php</innerfile>
+    <innerfile refid="Calendar_8php">Calendar.php</innerfile>
+    <innerfile refid="Database_8php">Database.php</innerfile>
+    <innerfile refid="DateParser_8php">DateParser.php</innerfile>
+    <innerfile refid="I_8php">I.php</innerfile>
+    <innerfile refid="iCalInterpreter_8php">iCalInterpreter.php</innerfile>
+    <innerfile refid="ImpactBase_8php">ImpactBase.php</innerfile>
+    <innerfile refid="Plugin_8php">Plugin.php</innerfile>
+    <innerfile refid="RepeatParser_8php">RepeatParser.php</innerfile>
+    <innerfile refid="SAVI_8php">SAVI.php</innerfile>
+    <innerfile refid="Singleton_8php">Singleton.php</innerfile>
+    <innerfile refid="Templater_8php">Templater.php</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/"/>
+  </compounddef>
+</doxygen>

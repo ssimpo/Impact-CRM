@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="classAcl__TestBase" kind="class" prot="public">
+    <compoundname>Acl_TestBase</compoundname>
+    <derivedcompoundref refid="classAcl__AGENT" prot="public" virt="non-virtual">Acl_AGENT</derivedcompoundref>
+    <derivedcompoundref refid="classAcl__FB" prot="public" virt="non-virtual">Acl_FB</derivedcompoundref>
+    <derivedcompoundref refid="classAcl__GEO" prot="public" virt="non-virtual">Acl_GEO</derivedcompoundref>
+    <derivedcompoundref refid="classAcl__REF" prot="public" virt="non-virtual">Acl_REF</derivedcompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAcl__TestBase_1a238b40425f758262db6061255cdf2d50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>test</definition>
+        <argsstring>($type, $attributes)</argsstring>
+        <name>test</name>
+        <param>
+          <type>$</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>attributes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl.php" line="190" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl.php" bodystart="190" bodyend="197"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="129">
+        <label>Acl_TestBase</label>
+        <link refid="classAcl__TestBase"/>
+      </node>
+      <node id="133">
+        <label>Acl_REF</label>
+        <link refid="classAcl__REF"/>
+        <childnode refid="129" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="132">
+        <label>Acl_GEO</label>
+        <link refid="classAcl__GEO"/>
+        <childnode refid="129" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>Acl_FB</label>
+        <link refid="classAcl__FB"/>
+        <childnode refid="129" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="130">
+        <label>Acl_AGENT</label>
+        <link refid="classAcl__AGENT"/>
+        <childnode refid="129" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl.php" line="189" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl.php" bodystart="189" bodyend="198"/>
+    <listofallmembers>
+      <member refid="classAcl__TestBase_1a238b40425f758262db6061255cdf2d50" prot="public" virt="non-virtual"><scope>Acl_TestBase</scope><name>test</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

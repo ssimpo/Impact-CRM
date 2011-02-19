@@ -1,0 +1,351 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="classAcl__GEO" kind="class" prot="public">
+    <compoundname>Acl_GEO</compoundname>
+    <basecompoundref refid="classAcl__TestBase" prot="public" virt="non-virtual">Acl_TestBase</basecompoundref>
+    <basecompoundref refid="interfaceAcl__Test" prot="public" virt="non-virtual">Acl_Test</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classAcl__GEO_1a9a08c84edd46f257c94cdf8d443cc77d" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>$ip</definition>
+        <argsstring></argsstring>
+        <name>$ip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" line="12" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAcl__GEO_1ad68212faa7abb0256e6be7d5234cd337" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>$geoCity</definition>
+        <argsstring></argsstring>
+        <name>$geoCity</name>
+        <initializer>null</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" line="13" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAcl__GEO_1abfbf677bba4b657eb5425cdc21cdfbbc" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>$lookup</definition>
+        <argsstring></argsstring>
+        <name>$lookup</name>
+        <initializer>array()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" line="14" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAcl__GEO_1a8093b0bcf6c990bf8b8383fdbbd8510b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>__construct</definition>
+        <argsstring>($application=null)</argsstring>
+        <name>__construct</name>
+        <reimplements refid="interfaceAcl__Test_1ad91b09dcf14858ad1397789c7dfca16c">__construct</reimplements>
+        <param>
+          <type>$</type>
+          <declname>application</declname>
+          <defval>null</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructor.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>object</parametertype>
+<parametername>$application</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The current (or other) application object. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>object <ref refid="classAcl__GEO" kindref="compound">Acl_GEO</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" line="23" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" bodystart="23" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classAcl__GEO_1ac911ef6f4570f705a3e2d68428bc7494" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_city_lookup</definition>
+        <argsstring>($IP)</argsstring>
+        <name>_city_lookup</name>
+        <param>
+          <type>$</type>
+          <declname>IP</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Do a lookup in the city database of a particular IP address.</para><para>Function allows for caching so repeated lookups on the same IP do not occur. Lookup is cached for later reuse. <ref refid="classDatabase" kindref="compound">Database</ref> instance is also cached.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$IP</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IP address in dotted-quad format. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>object The data returned from the database. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" line="47" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" bodystart="47" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classAcl__GEO_1a99ea91caa93777d6de8ae87dc9943e34" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_lat_long_distance</definition>
+        <argsstring>($lat1, $lon1, $lat2, $lon2, $unit)</argsstring>
+        <name>_lat_long_distance</name>
+        <param>
+          <type>$</type>
+          <declname>lat1</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>lon1</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>lat2</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>lon2</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>unit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calculate the distance between two GPS co-ordinates in the specified unit of measurement.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>integer</parametertype>
+<parametername>$lat1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The 1st latitude co-ordinate. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>integer</parametertype>
+<parametername>$lon1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The 1st longitude co-ordinate. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>integer</parametertype>
+<parametername>$lat2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The 2nd latitude co-ordinate. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>integer</parametertype>
+<parametername>$lon2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The 2nd longitude co-ordinate. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>integer</parametertype>
+<parametername>$unit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The units of measurement. (M = Miles, KM = Kilometers, N = Nautical Miles). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>integer The distance. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" line="72" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" bodystart="72" bodyend="87"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classAcl__GEO_1ad4726cffe867d61f6b7622f3eb9eeeab" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_test_city</definition>
+        <argsstring>($attributes)</argsstring>
+        <name>_test_city</name>
+        <param>
+          <type>$</type>
+          <declname>attributes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Test whether the user is accessing the content from a specified city?</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>array</parametertype>
+<parametername>$attributes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of city to test against (expected format is $attributes[0] = &apos;&lt;CITY name&gt;=&quot;&quot;&gt;&apos;). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>boolean </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" line="96" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" bodystart="96" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classAcl__GEO_1abae135cd3fe101f3530d7576e5be455b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_test_region</definition>
+        <argsstring>($attributes)</argsstring>
+        <name>_test_region</name>
+        <param>
+          <type>$</type>
+          <declname>attributes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is the user accessing the content from a specified region?</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>array</parametertype>
+<parametername>$attributes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of region to test against (expected format is $attributes[0] = &apos;&lt;REGION name&gt;=&quot;&quot;&gt;&apos;). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>boolean </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" line="108" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" bodystart="108" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classAcl__GEO_1ac17a11bd08662571117bc95ffeeb2bee" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_test_country</definition>
+        <argsstring>($attributes)</argsstring>
+        <name>_test_country</name>
+        <param>
+          <type>$</type>
+          <declname>attributes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is the user accessing the content from a specified country?</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>array</parametertype>
+<parametername>$attributes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of country to test against (expected format is $attributes[0] = &apos;&lt;COUNTRY name&gt;=&quot;&quot;&gt;&apos;). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>boolean </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" line="120" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" bodystart="120" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classAcl__GEO_1a96c0c853be1eea3ab4ed8f6a5d402e3d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_test_radius</definition>
+        <argsstring>($attributes)</argsstring>
+        <name>_test_radius</name>
+        <param>
+          <type>$</type>
+          <declname>attributes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is the user accessing the content from a vicinity of a set of GPS co-ordinates.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>array</parametertype>
+<parametername>$attributes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to test against. (Expected format $attributes[0] = &apos;&lt;Latitude&gt;&apos;, $attributes[1] = &apos;&lt;Longitude&gt;&apos;, $attributes[2] = &apos;&lt;RADIUS distance&gt;=&quot;&quot;&gt;&apos;, $attributes[3] = &apos;&lt;UNITSOF measurement&gt;=&quot;&quot;&gt;&apos;). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>boolean </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" line="132" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" bodystart="132" bodyend="139"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="112">
+        <label>Acl_TestBase</label>
+        <link refid="classAcl__TestBase"/>
+      </node>
+      <node id="111">
+        <label>Acl_GEO</label>
+        <link refid="classAcl__GEO"/>
+        <childnode refid="112" relation="public-inheritance">
+        </childnode>
+        <childnode refid="113" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="113">
+        <label>Acl_Test</label>
+        <link refid="interfaceAcl__Test"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="115">
+        <label>Acl_TestBase</label>
+        <link refid="classAcl__TestBase"/>
+      </node>
+      <node id="114">
+        <label>Acl_GEO</label>
+        <link refid="classAcl__GEO"/>
+        <childnode refid="115" relation="public-inheritance">
+        </childnode>
+        <childnode refid="116" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="116">
+        <label>Acl_Test</label>
+        <link refid="interfaceAcl__Test"/>
+      </node>
+    </collaborationgraph>
+    <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" line="11" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/GEO.php" bodystart="11" bodyend="140"/>
+    <listofallmembers>
+      <member refid="classAcl__GEO_1ad68212faa7abb0256e6be7d5234cd337" prot="private" virt="non-virtual"><scope>Acl_GEO</scope><name>$geoCity</name></member>
+      <member refid="classAcl__GEO_1a9a08c84edd46f257c94cdf8d443cc77d" prot="private" virt="non-virtual"><scope>Acl_GEO</scope><name>$ip</name></member>
+      <member refid="classAcl__GEO_1abfbf677bba4b657eb5425cdc21cdfbbc" prot="private" virt="non-virtual"><scope>Acl_GEO</scope><name>$lookup</name></member>
+      <member refid="classAcl__GEO_1a8093b0bcf6c990bf8b8383fdbbd8510b" prot="public" virt="non-virtual"><scope>Acl_GEO</scope><name>__construct</name></member>
+      <member refid="classAcl__GEO_1ac911ef6f4570f705a3e2d68428bc7494" prot="private" virt="non-virtual"><scope>Acl_GEO</scope><name>_city_lookup</name></member>
+      <member refid="classAcl__GEO_1a99ea91caa93777d6de8ae87dc9943e34" prot="private" virt="non-virtual"><scope>Acl_GEO</scope><name>_lat_long_distance</name></member>
+      <member refid="classAcl__GEO_1ad4726cffe867d61f6b7622f3eb9eeeab" prot="protected" virt="non-virtual"><scope>Acl_GEO</scope><name>_test_city</name></member>
+      <member refid="classAcl__GEO_1ac17a11bd08662571117bc95ffeeb2bee" prot="protected" virt="non-virtual"><scope>Acl_GEO</scope><name>_test_country</name></member>
+      <member refid="classAcl__GEO_1a96c0c853be1eea3ab4ed8f6a5d402e3d" prot="protected" virt="non-virtual"><scope>Acl_GEO</scope><name>_test_radius</name></member>
+      <member refid="classAcl__GEO_1abae135cd3fe101f3530d7576e5be455b" prot="protected" virt="non-virtual"><scope>Acl_GEO</scope><name>_test_region</name></member>
+      <member refid="classAcl__TestBase_1a238b40425f758262db6061255cdf2d50" prot="public" virt="non-virtual" ambiguityscope="Acl_TestBase::"><scope>Acl_GEO</scope><name>test</name></member>
+      <member refid="interfaceAcl__Test_1a238b40425f758262db6061255cdf2d50" prot="public" virt="non-virtual" ambiguityscope="Acl_Test::"><scope>Acl_GEO</scope><name>test</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

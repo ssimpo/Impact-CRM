@@ -1,0 +1,164 @@
+\hypertarget{classI}{
+\section{I Class Reference}
+\label{classI}\index{I@{I}}
+}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classI_a770286d140f1b44e5e98a9495e067f88}{get\_\-include\_\-directory} ()
+\item 
+static \hyperlink{classI_afdf75a0a80d03ecbc6660b61b3202933}{require\_\-all\_\-once} (\$pattern)
+\item 
+static \hyperlink{classI_a5bd88356365e8488e6989745f3f0dae3}{reformat\_\-role\_\-string} (\$text)
+\item 
+static \hyperlink{classI_a85077c9c8dcdcd64ca0f17d17b1e0626}{load\_\-config} (\$path)
+\item 
+static \hyperlink{classI_a52dd69e0432c6499c10fa0db446842e9}{camelize} (\$name)
+\item 
+static \hyperlink{classI_ae81ca51a5d6a37d2466fd85123b98ea2}{uncamelize} (\$name)
+\item 
+static \hyperlink{classI_ae5b2a61ce32761233d68b14312064f4b}{contains} (\$text1, \$text2)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classI_a52dd69e0432c6499c10fa0db446842e9}{
+\index{I@{I}!camelize@{camelize}}
+\index{camelize@{camelize}!I@{I}}
+\subsubsection[{camelize}]{\setlength{\rightskip}{0pt plus 5cm}static camelize (
+\begin{DoxyParamCaption}
+\item[{\$}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classI_a52dd69e0432c6499c10fa0db446842e9}
+Convert a function-\/name into a variable name.
+
+According to the \hyperlink{namespaceImpact}{Impact} coding standards, functions/methods are named with words separated with underscores; variables/properties are named using camelCase. This function allows conversion so that the magic method \_\-\_\-set()/\_\-\_\-get() work as expected.
+
+
+\begin{DoxyParams}[1]{Parameters}
+String & {\em \$name} & Name of function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String The corresponding variable name 
+\end{DoxyReturn}
+\hypertarget{classI_ae5b2a61ce32761233d68b14312064f4b}{
+\index{I@{I}!contains@{contains}}
+\index{contains@{contains}!I@{I}}
+\subsubsection[{contains}]{\setlength{\rightskip}{0pt plus 5cm}static contains (
+\begin{DoxyParamCaption}
+\item[{\$}]{text1, }
+\item[{\$}]{text2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classI_ae5b2a61ce32761233d68b14312064f4b}
+Is the one snippet of text contained within another.
+
+
+\begin{DoxyParams}[1]{Parameters}
+String & {\em \$text1} & The string to search within. \\
+\hline
+String & {\em \$text2} & The string to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Boolean 
+\end{DoxyReturn}
+\hypertarget{classI_a770286d140f1b44e5e98a9495e067f88}{
+\index{I@{I}!get\_\-include\_\-directory@{get\_\-include\_\-directory}}
+\index{get\_\-include\_\-directory@{get\_\-include\_\-directory}!I@{I}}
+\subsubsection[{get\_\-include\_\-directory}]{\setlength{\rightskip}{0pt plus 5cm}static get\_\-include\_\-directory (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classI_a770286d140f1b44e5e98a9495e067f88}
+Get the the file location of the current class or running script file. \hypertarget{classI_a85077c9c8dcdcd64ca0f17d17b1e0626}{
+\index{I@{I}!load\_\-config@{load\_\-config}}
+\index{load\_\-config@{load\_\-config}!I@{I}}
+\subsubsection[{load\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}static load\_\-config (
+\begin{DoxyParamCaption}
+\item[{\$}]{path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classI_a85077c9c8dcdcd64ca0f17d17b1e0626}
+Load a config file
+
+Loads a config file (XML) and returns it's values as an array. String-\/values are returned as strings and integer-\/values as integers.
+
+
+\begin{DoxyParams}[1]{Parameters}
+String & {\em \$path} & Location of the settings file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string()$|$integer() 
+\end{DoxyReturn}
+\begin{Desc}
+\item[\hyperlink{todo__todo000009}{Todo}]Make it work with more complex data types. \end{Desc}
+\hypertarget{classI_a5bd88356365e8488e6989745f3f0dae3}{
+\index{I@{I}!reformat\_\-role\_\-string@{reformat\_\-role\_\-string}}
+\index{reformat\_\-role\_\-string@{reformat\_\-role\_\-string}!I@{I}}
+\subsubsection[{reformat\_\-role\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}static reformat\_\-role\_\-string (
+\begin{DoxyParamCaption}
+\item[{\$}]{text}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classI_a5bd88356365e8488e6989745f3f0dae3}
+Add square brackets between list items.
+
+This method is used to make searching for key-\/values in an SQL database work. Eg. PC,Mobile,Facebook would become: \mbox{[}PC\mbox{]}, \mbox{[}Mobile\mbox{]},\mbox{[}Facebook\mbox{]}. You can then search for Like $\ast$\mbox{[}PC\mbox{]}$\ast$ and not find 'PC' in the middle of a word. Method will also get rid of double square-\/bracket notation '\mbox{[}\mbox{[}' used in \hyperlink{namespaceImpact}{Impact} plugins.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string | array & {\em \$text} & The string to parse. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Parsed text with square brackets. 
+\end{DoxyReturn}
+\hypertarget{classI_afdf75a0a80d03ecbc6660b61b3202933}{
+\index{I@{I}!require\_\-all\_\-once@{require\_\-all\_\-once}}
+\index{require\_\-all\_\-once@{require\_\-all\_\-once}!I@{I}}
+\subsubsection[{require\_\-all\_\-once}]{\setlength{\rightskip}{0pt plus 5cm}static require\_\-all\_\-once (
+\begin{DoxyParamCaption}
+\item[{\$}]{pattern}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classI_afdf75a0a80d03ecbc6660b61b3202933}
+Load all the files (via require\_\-once function) using supplied pattern.
+
+Allows the loading of all files within a particular folder or following a specified pattern. Eg: {\ttfamily  $<$?php require\_\-all\_\-once('includes/$\ast$.php'); ?$>$ } This will include all the php files in the includes folder.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pattern} & The file search pattern for requiring. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classI_ae81ca51a5d6a37d2466fd85123b98ea2}{
+\index{I@{I}!uncamelize@{uncamelize}}
+\index{uncamelize@{uncamelize}!I@{I}}
+\subsubsection[{uncamelize}]{\setlength{\rightskip}{0pt plus 5cm}static uncamelize (
+\begin{DoxyParamCaption}
+\item[{\$}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classI_ae81ca51a5d6a37d2466fd85123b98ea2}
+Convert a variable name into a function-\/name.
+
+According to the \hyperlink{namespaceImpact}{Impact} coding standards, functions/methods are named with words separated with underscores; variables/properties are named using camelCase. This function allows conversion so that the magic method \_\-\_\-set()/\_\-\_\-get() work as expected.
+
+
+\begin{DoxyParams}[1]{Parameters}
+String & {\em \$name} & Name of variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String The corresponding function name 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/\hyperlink{I_8php}{I.php}\end{DoxyCompactItemize}

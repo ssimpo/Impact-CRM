@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="namespaceCalendar" kind="namespace">
+    <compoundname>Calendar</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Calendar.Alarm class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.2  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+Calendar.Event class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.2  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+<simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.2  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+<ref refid="namespaceCalendar" kindref="compound">Calendar</ref> class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.4  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+<xrefsect id="todo_1_todo000006"><xreftitle>Todo</xreftitle><xrefdescription><para>Start using a generic factory class. </para></xrefdescription></xrefsect></para><para>The interface for <ref refid="namespaceCalendar" kindref="compound">Calendar</ref> objects</para><para><ref refid="namespaceCalendar" kindref="compound">Calendar</ref> objects interface, eg. Events, Journal entries, Todo items, ...etc.</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.2  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+Date Parser interface</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.2  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+Calendar.Event class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.3  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+<ref refid="namespaceCalendar" kindref="compound">Calendar</ref> date parser class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.3  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+<xrefsect id="todo_1_todo000008"><xreftitle>Todo</xreftitle><xrefdescription><para>derive Factory Method from base class </para></xrefdescription></xrefsect></para><para>iCal Interpreter, requires the SAVI parser for iCal/vCalendar/vCard</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.3  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+iCal Repeat Parser Class</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.2  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL</para></simplesect>
+Simple API for vCard/iCal/vCalendar, this is the iCal equivalent of SAX</para><para><simplesect kind="author"><para>Stephen Simpson &lt;<ulink url="mailto:me@simpo.org">me@simpo.org</ulink>&gt; </para></simplesect>
+<simplesect kind="version"><para>0.0.3  <ulink url="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</ulink> LGPL </para></simplesect>
+</para>    </detaileddescription>
+    <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Calendar/Alarm.php" line="8"/>
+  </compounddef>
+</doxygen>

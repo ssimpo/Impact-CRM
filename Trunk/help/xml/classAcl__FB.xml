@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="classAcl__FB" kind="class" prot="public">
+    <compoundname>Acl_FB</compoundname>
+    <basecompoundref refid="classAcl__TestBase" prot="public" virt="non-virtual">Acl_TestBase</basecompoundref>
+    <basecompoundref refid="interfaceAcl__Test" prot="public" virt="non-virtual">Acl_Test</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classAcl__FB_1a537fa9b460dddc2a67074faab810398a" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>$application</definition>
+        <argsstring></argsstring>
+        <name>$application</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" line="13" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAcl__FB_1a4b9bb5e9f7a5ea9381bdbe31c44e9339" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>$facebook</definition>
+        <argsstring></argsstring>
+        <name>$facebook</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" line="14" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAcl__FB_1a8093b0bcf6c990bf8b8383fdbbd8510b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>__construct</definition>
+        <argsstring>($application=null)</argsstring>
+        <name>__construct</name>
+        <reimplements refid="interfaceAcl__Test_1ad91b09dcf14858ad1397789c7dfca16c">__construct</reimplements>
+        <param>
+          <type>$</type>
+          <declname>application</declname>
+          <defval>null</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructor.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>object</parametertype>
+<parametername>$application</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The current (or other) application object. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>object <ref refid="classAcl__FB" kindref="compound">Acl_FB</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" line="23" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" bodystart="23" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classAcl__FB_1a255d6bd6a596a5f8d18efb597220a3e5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_test_user</definition>
+        <argsstring>($attributes)</argsstring>
+        <name>_test_user</name>
+        <param>
+          <type>$</type>
+          <declname>attributes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is the current user the one specified in the supplied attributes.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>array</parametertype>
+<parametername>$attributes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Facebook-ID of the user in form $attributes[0] = ID. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>boolean </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" line="44" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" bodystart="44" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classAcl__FB_1a16af862b62ae48134c5a3d027433eb58" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_test_friend</definition>
+        <argsstring>($attributes)</argsstring>
+        <name>_test_friend</name>
+        <param>
+          <type>$</type>
+          <declname>attributes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is the current user a fiend of the user supplied in the attributes.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>array</parametertype>
+<parametername>$attributes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Facebook-ID of the friend in the form $attributes[0] = ID. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>boolean </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" line="65" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" bodystart="65" bodyend="75"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="106">
+        <label>Acl_TestBase</label>
+        <link refid="classAcl__TestBase"/>
+      </node>
+      <node id="105">
+        <label>Acl_FB</label>
+        <link refid="classAcl__FB"/>
+        <childnode refid="106" relation="public-inheritance">
+        </childnode>
+        <childnode refid="107" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="107">
+        <label>Acl_Test</label>
+        <link refid="interfaceAcl__Test"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="109">
+        <label>Acl_TestBase</label>
+        <link refid="classAcl__TestBase"/>
+      </node>
+      <node id="108">
+        <label>Acl_FB</label>
+        <link refid="classAcl__FB"/>
+        <childnode refid="109" relation="public-inheritance">
+        </childnode>
+        <childnode refid="110" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>Acl_Test</label>
+        <link refid="interfaceAcl__Test"/>
+      </node>
+    </collaborationgraph>
+    <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" line="12" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/FB.php" bodystart="12" bodyend="76"/>
+    <listofallmembers>
+      <member refid="classAcl__FB_1a537fa9b460dddc2a67074faab810398a" prot="private" virt="non-virtual"><scope>Acl_FB</scope><name>$application</name></member>
+      <member refid="classAcl__FB_1a4b9bb5e9f7a5ea9381bdbe31c44e9339" prot="private" virt="non-virtual"><scope>Acl_FB</scope><name>$facebook</name></member>
+      <member refid="classAcl__FB_1a8093b0bcf6c990bf8b8383fdbbd8510b" prot="public" virt="non-virtual"><scope>Acl_FB</scope><name>__construct</name></member>
+      <member refid="classAcl__FB_1a16af862b62ae48134c5a3d027433eb58" prot="protected" virt="non-virtual"><scope>Acl_FB</scope><name>_test_friend</name></member>
+      <member refid="classAcl__FB_1a255d6bd6a596a5f8d18efb597220a3e5" prot="protected" virt="non-virtual"><scope>Acl_FB</scope><name>_test_user</name></member>
+      <member refid="classAcl__TestBase_1a238b40425f758262db6061255cdf2d50" prot="public" virt="non-virtual" ambiguityscope="Acl_TestBase::"><scope>Acl_FB</scope><name>test</name></member>
+      <member refid="interfaceAcl__Test_1a238b40425f758262db6061255cdf2d50" prot="public" virt="non-virtual" ambiguityscope="Acl_Test::"><scope>Acl_FB</scope><name>test</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

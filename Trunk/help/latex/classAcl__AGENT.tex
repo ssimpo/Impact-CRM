@@ -1,0 +1,193 @@
+\hypertarget{classAcl__AGENT}{
+\section{Acl\_\-AGENT Class Reference}
+\label{classAcl__AGENT}\index{Acl\_\-AGENT@{Acl\_\-AGENT}}
+}
+
+
+Inheritance diagram for Acl\_\-AGENT:
+
+
+Collaboration diagram for Acl\_\-AGENT:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classAcl__AGENT_a8093b0bcf6c990bf8b8383fdbbd8510b}{\_\-\_\-construct} (\$application=null)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classAcl__AGENT_a744cba93aa07450a5a1b740bb974eaae}{\_\-test\_\-browser} (\$attributes)
+\item 
+\hyperlink{classAcl__AGENT_a3de766b9265fc9ef070bc079cf234857}{\_\-test\_\-platform} (\$attributes)
+\item 
+\hyperlink{classAcl__AGENT_a8988f0d085007a7dec3371f76609193c}{\_\-test\_\-mobile} (\$attributes)
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classAcl__AGENT_a2256ee810dc78bda580badf1515b5cfa}{\_\-get\_\-browser\_\-info} (\$agent)
+\item 
+\hyperlink{classAcl__AGENT_a0be000c21c2b49adbc06a4e29bec6696}{\_\-media\_\-is\_\-set\_\-to\_\-mobile} ()
+\item 
+\hyperlink{classAcl__AGENT_a0eafe017ee439c1cb432024aabf14c69}{\_\-is\_\-using\_\-mobile\_\-subdomain} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classAcl__AGENT_abfbf677bba4b657eb5425cdc21cdfbbc}{\$lookup} = array()
+\item 
+\hyperlink{classAcl__AGENT_a0606e5b321c8c85527efdd1c17a9a569}{\$agent}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classAcl__AGENT_a8093b0bcf6c990bf8b8383fdbbd8510b}{
+\index{Acl\_\-AGENT@{Acl\_\-AGENT}!\_\-\_\-construct@{\_\-\_\-construct}}
+\index{\_\-\_\-construct@{\_\-\_\-construct}!Acl_AGENT@{Acl\_\-AGENT}}
+\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{\$}]{application = {\ttfamily null}}
+\end{DoxyParamCaption}
+)}}
+\label{classAcl__AGENT_a8093b0bcf6c990bf8b8383fdbbd8510b}
+Constructor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+object & {\em \$application} & The current (or other) application object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+object \hyperlink{classAcl__AGENT}{Acl\_\-AGENT} 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interfaceAcl__Test_ad91b09dcf14858ad1397789c7dfca16c}{Acl\_\-Test}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classAcl__AGENT_a2256ee810dc78bda580badf1515b5cfa}{
+\index{Acl\_\-AGENT@{Acl\_\-AGENT}!\_\-get\_\-browser\_\-info@{\_\-get\_\-browser\_\-info}}
+\index{\_\-get\_\-browser\_\-info@{\_\-get\_\-browser\_\-info}!Acl_AGENT@{Acl\_\-AGENT}}
+\subsubsection[{\_\-get\_\-browser\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}\_\-get\_\-browser\_\-info (
+\begin{DoxyParamCaption}
+\item[{\$}]{agent}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classAcl__AGENT_a2256ee810dc78bda580badf1515b5cfa}
+Get browser information.
+
+Will use get\_\-browser if available, otherwise will use the PEAR equivalent, which is slower but available to more people.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$agent} & The browser user-\/agent string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+object Returner from get\_\-growser. 
+\end{DoxyReturn}
+\hypertarget{classAcl__AGENT_a0eafe017ee439c1cb432024aabf14c69}{
+\index{Acl\_\-AGENT@{Acl\_\-AGENT}!\_\-is\_\-using\_\-mobile\_\-subdomain@{\_\-is\_\-using\_\-mobile\_\-subdomain}}
+\index{\_\-is\_\-using\_\-mobile\_\-subdomain@{\_\-is\_\-using\_\-mobile\_\-subdomain}!Acl_AGENT@{Acl\_\-AGENT}}
+\subsubsection[{\_\-is\_\-using\_\-mobile\_\-subdomain}]{\setlength{\rightskip}{0pt plus 5cm}\_\-is\_\-using\_\-mobile\_\-subdomain (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classAcl__AGENT_a0eafe017ee439c1cb432024aabf14c69}
+Is the user accessing the content via specified mobile subdomain?
+
+\begin{DoxyReturn}{Returns}
+boolean 
+\end{DoxyReturn}
+\hypertarget{classAcl__AGENT_a0be000c21c2b49adbc06a4e29bec6696}{
+\index{Acl\_\-AGENT@{Acl\_\-AGENT}!\_\-media\_\-is\_\-set\_\-to\_\-mobile@{\_\-media\_\-is\_\-set\_\-to\_\-mobile}}
+\index{\_\-media\_\-is\_\-set\_\-to\_\-mobile@{\_\-media\_\-is\_\-set\_\-to\_\-mobile}!Acl_AGENT@{Acl\_\-AGENT}}
+\subsubsection[{\_\-media\_\-is\_\-set\_\-to\_\-mobile}]{\setlength{\rightskip}{0pt plus 5cm}\_\-media\_\-is\_\-set\_\-to\_\-mobile (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classAcl__AGENT_a0be000c21c2b49adbc06a4e29bec6696}
+Has the user asked for a mobile version via the query-\/string.
+
+\begin{DoxyReturn}{Returns}
+boolean. 
+\end{DoxyReturn}
+\hypertarget{classAcl__AGENT_a744cba93aa07450a5a1b740bb974eaae}{
+\index{Acl\_\-AGENT@{Acl\_\-AGENT}!\_\-test\_\-browser@{\_\-test\_\-browser}}
+\index{\_\-test\_\-browser@{\_\-test\_\-browser}!Acl_AGENT@{Acl\_\-AGENT}}
+\subsubsection[{\_\-test\_\-browser}]{\setlength{\rightskip}{0pt plus 5cm}\_\-test\_\-browser (
+\begin{DoxyParamCaption}
+\item[{\$}]{attributes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classAcl__AGENT_a744cba93aa07450a5a1b740bb974eaae}
+Is the user, using a specified browser?
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$attributes} & The browser name to test against (expected \$attributes\mbox{[}0\mbox{]} = '$<$BROWSER$>$'). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean 
+\end{DoxyReturn}
+\hypertarget{classAcl__AGENT_a8988f0d085007a7dec3371f76609193c}{
+\index{Acl\_\-AGENT@{Acl\_\-AGENT}!\_\-test\_\-mobile@{\_\-test\_\-mobile}}
+\index{\_\-test\_\-mobile@{\_\-test\_\-mobile}!Acl_AGENT@{Acl\_\-AGENT}}
+\subsubsection[{\_\-test\_\-mobile}]{\setlength{\rightskip}{0pt plus 5cm}\_\-test\_\-mobile (
+\begin{DoxyParamCaption}
+\item[{\$}]{attributes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classAcl__AGENT_a8988f0d085007a7dec3371f76609193c}
+Is the user, on a mobile platform?
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$attributes} & This is expected to be blank \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean 
+\end{DoxyReturn}
+\hypertarget{classAcl__AGENT_a3de766b9265fc9ef070bc079cf234857}{
+\index{Acl\_\-AGENT@{Acl\_\-AGENT}!\_\-test\_\-platform@{\_\-test\_\-platform}}
+\index{\_\-test\_\-platform@{\_\-test\_\-platform}!Acl_AGENT@{Acl\_\-AGENT}}
+\subsubsection[{\_\-test\_\-platform}]{\setlength{\rightskip}{0pt plus 5cm}\_\-test\_\-platform (
+\begin{DoxyParamCaption}
+\item[{\$}]{attributes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classAcl__AGENT_a3de766b9265fc9ef070bc079cf234857}
+Is the user, using a specified platform?
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$attributes} & The platform name to test against (expected \$attributes\mbox{[}0\mbox{]} = '$<$PLATFROM$>$'). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean 
+\end{DoxyReturn}
+
+
+\subsection{Field Documentation}
+\hypertarget{classAcl__AGENT_a0606e5b321c8c85527efdd1c17a9a569}{
+\index{Acl\_\-AGENT@{Acl\_\-AGENT}!\$agent@{\$agent}}
+\index{\$agent@{\$agent}!Acl_AGENT@{Acl\_\-AGENT}}
+\subsubsection[{\$agent}]{\setlength{\rightskip}{0pt plus 5cm}\$agent\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classAcl__AGENT_a0606e5b321c8c85527efdd1c17a9a569}
+\hypertarget{classAcl__AGENT_abfbf677bba4b657eb5425cdc21cdfbbc}{
+\index{Acl\_\-AGENT@{Acl\_\-AGENT}!\$lookup@{\$lookup}}
+\index{\$lookup@{\$lookup}!Acl_AGENT@{Acl\_\-AGENT}}
+\subsubsection[{\$lookup}]{\setlength{\rightskip}{0pt plus 5cm}\$lookup = array()\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classAcl__AGENT_abfbf677bba4b657eb5425cdc21cdfbbc}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/\hyperlink{AGENT_8php}{AGENT.php}\end{DoxyCompactItemize}
