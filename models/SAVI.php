@@ -23,7 +23,7 @@ class Savi_Parser {
 	*	Constructor for class
 	*	@param Boolean $lineFixer Remove leading tabs from the start of lines
 	*	@param Boolean $uppercaseTags Uppercase all the tags before passing to supplied processing functions
-	*	@param Boolean $multiLinefixer Fix multiline content (not implemented yet)
+	*	@param Boolean $multiLinefixer Fix multilingual content (not implemented yet)
 	*	@return Object Reference to the object
 	*/
 	function __construct($lineFixer=true,$uppercaseTags=true,$multiLinefixer=true) {
@@ -132,7 +132,7 @@ class Savi_Parser {
 	/**
 	*	Fix for when a line is split with a newline in the actual feed.
 	*	
-	*	@param String $data The raw data to parse for messey lines
+	*	@param String $data The raw data to parse for messy lines
 	*	@return String() The lines as a series of array items, ready for parsing
 	*/
 	function _fix_multilines($data) {

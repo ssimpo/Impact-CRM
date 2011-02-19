@@ -18,16 +18,17 @@ abstract class Singleton extends ImpactBase {
 	 *
 	 * @param array
 	 */
-	private static $instances = array();
+	static private $instances = array();
 	
-	final private function __construct() {}
+	final private function __construct() {
+	}
 	
 	/**
 	 * Static method for instantiating a singleton object.
 	 *
 	 * @return object
 	 */
-	final public static function instance() {
+	final static public function instance() {
 		$className = get_called_class();
 
 		if (!isset(self::$instances[$className])) {
@@ -41,7 +42,8 @@ abstract class Singleton extends ImpactBase {
 	 *
 	 * @return void
 	 */
-	final private function __clone() {}
+	final private function __clone() {
+	}
 
 	/**
 	 * Similar to a get_called_class() for a child class to invoke.

@@ -20,7 +20,7 @@ class Database extends Singleton {
 	/**
 	 *	Test connection.
 	 *
-	 *	Test if connection is aleady made, if not, create it.
+	 *	Test if connection is already made, if not, create it.
 	 *	
 	 *	@private
 	 */
@@ -37,7 +37,7 @@ class Database extends Singleton {
 	 *
 	 *	@private
 	 *	@todo Test with other backends (other than MySQL/SQLite).
-	 *	@todo Make generic version so platform can connect to muliple database sources.
+	 *	@todo Make generic version so platform can connect to multiple database sources.
 	 */
 	private function _make_database_connection() {
 		require_once ROOT_BACK.'/includes/adodb/adodb.inc.php';
@@ -135,8 +135,8 @@ class Database extends Singleton {
 	 *	supplied user.
 	 *
 	 *	@public
-	 *	@param interger $FBID The Facebook ID of the user to query.
-	 *	@return interger Access level of the supplied user.
+	 *	@param integer $FBID The Facebook ID of the user to query.
+	 *	@return integer Access level of the supplied user.
 	 */
 	public function get_access($FBID=0) {
 		$access = $this->get_row(
@@ -149,7 +149,7 @@ class Database extends Singleton {
 	/**
 	 *	Generate SQL fragment for testing against certain roles.
 	 *
-	 *	Create a fagment of SQL, which can be used in a wider SQL statement
+	 *	Create a fragment of SQL, which can be used in a wider SQL statement
 	 *	to restrict results to items, which a certain user has access rights to.
 	 *
 	 *	@public

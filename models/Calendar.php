@@ -39,7 +39,7 @@ class Calendar Extends ImpactBase {
 	 *	Create a random generic string (UNID).
 	 *
 	 *	@protected
-	 *	@return string*32 Random, 32-digit hexidecimal string
+	 *	@return string*32 Random, 32-digit hexadecimal string
 	 */
 	protected function _rnd_string() {
 		return md5(chr(rand(1,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)));

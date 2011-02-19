@@ -3,14 +3,14 @@
  *	Main impact class
  *	
  *	Class containing a vast amount of functions and different concepts.
- *	Will need breaking down into seperate classes for different aspects of the
- *	platform. Eg. Seperate Database and Facebook classes?
+ *	Will need breaking down into separate classes for different aspects of the
+ *	platform. Eg. Separate Database and Facebook classes?
  *		
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.4
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  
- *	@todo Breakdown into seperate classes for different areas
+ *	@todo Breakdown into separate classes for different areas
  *	@package Impact
  *	@extends Impact_Base
  */
@@ -25,7 +25,7 @@ class Application extends Singleton {
 	public $pageErrorCheck;
 	
 	/**
-	 *	Intitization method.
+	 *	Initialization mmethod.
 	 *
 	 *	@public
 	 */
@@ -119,14 +119,14 @@ class Application extends Singleton {
 	 *	These are calculated from data stored in the database.
 	 *
 	 *	@private
-	 *	@todo Needs a bit of work to improve it but works well and dosen't have any major security flaws.
+	 *	@todo Needs a bit of work to improve it but works well and doesn't have any major security flaws.
 	 */
 	private function _user_access_detect() {
 		$database = Database::instance();
 		$this->roles = $database->get_roles($this->FBID);
 		$this->accessLevel = $database->get_access($this->FBID);
 		
-		//This needs a better implimentation but will do to get us going
+		//This needs a better implementation but will do to get us going
 		$this->Acl = $this->factory('Acl');
 		$this->Acl->FBID = $this->settings['FBID'];
 		$this->Acl->accesslevel = $this->settings['accessLevel'];
@@ -199,7 +199,7 @@ class Application extends Singleton {
 	}
 	
 	/**
-	 *	Dectect the language being used.
+	 *	Detect the language being used.
 	 *
 	 *	What is the native language of the current user?  Is detected from
 	 *	the browser request headers and query-string.  Data is returned to

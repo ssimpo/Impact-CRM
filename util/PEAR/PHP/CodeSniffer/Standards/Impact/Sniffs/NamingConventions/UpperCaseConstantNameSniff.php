@@ -1,6 +1,6 @@
 <?php
 /**
- * Generic_Sniffs_NamingConventions_UpperCaseConstantNameSniff.
+ * Impact_Sniffs_NamingConventions_UpperCaseConstantNameSniff.
  *
  * PHP version 5
  *

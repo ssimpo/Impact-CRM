@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Komodo Project File - DO NOT EDIT -->
+<project id="3aece6e4-1269-4324-b164-f0aa2d4eb654" kpf_version="4" name="Impact.kpf">
+<command cwd="%p/util" doNotOpenOutputWindow="0" env="" icon="chrome://openoffice/skin/icons/calc-accept.png" id="731df1db-1a06-4022-86ce-e6abcdd737eb" idref="005c6a64-f1d8-4e68-8415-4a5fd9186862" insertOutput="0" keyboard_shortcut="" name="Code Check (Impact)" operateOnSelection="0" parseOutput="0" parseRegex="" runIn="command-output-window" showParsedOutputList="0">
+Impact.bat CodeCheck "%(path:supportDir)/../../komodo.exe" impact</command>
+<command cwd="%p/util" doNotOpenOutputWindow="0" env="" icon="chrome://openoffice/skin/icons/calc-accept.png" id="803405b5-1999-4ff6-a839-3e10d95a336c" idref="005c6a64-f1d8-4e68-8415-4a5fd9186862" insertOutput="0" keyboard_shortcut="" name="Code Check (ALL)" operateOnSelection="0" parseOutput="0" parseRegex="" runIn="command-output-window" showParsedOutputList="0">
+Impact.bat CodeCheck "%(path:supportDir)/../../komodo.exe" all</command>
+<command cwd="%p/util" doNotOpenOutputWindow="0" env="" icon="chrome://openoffice/skin/icons/calc-accept.png" id="e10d458b-646d-4f18-ac5a-341f36dd4077" idref="005c6a64-f1d8-4e68-8415-4a5fd9186862" insertOutput="0" keyboard_shortcut="" name="Code Check (PEAR)" operateOnSelection="0" parseOutput="0" parseRegex="" runIn="command-output-window" showParsedOutputList="0">
+Impact.bat CodeCheck "%(path:supportDir)/../../komodo.exe" pear</command>
+<folder id="005c6a64-f1d8-4e68-8415-4a5fd9186862" idref="00b57f32-6d6f-4160-9d0e-3953a94737d4" name="Code Check">
+</folder>
+<folder id="16f4525a-a215-4250-bfa9-fca88fd47862" idref="00b57f32-6d6f-4160-9d0e-3953a94737d4" name="PHP Unit">
+</folder>
+<command cwd="%p/util" doNotOpenOutputWindow="0" env="" icon="chrome://openoffice/skin/icons/calc-accept.png" id="d47d0f2a-adea-49e4-be43-8f3303757067" idref="00b57f32-6d6f-4160-9d0e-3953a94737d4" insertOutput="0" keyboard_shortcut="" name="Check All" operateOnSelection="0" parseOutput="0" parseRegex="" runIn="command-output-window" showParsedOutputList="0">
+Impact.bat CheckAll "%(path:supportDir)/../../komodo.exe"</command>
+<macro async="0" icon="chrome://openoffice/skin/icons/calc-accept.png" id="46792b55-661a-47ed-a94b-e1af1637788a" idref="16f4525a-a215-4250-bfa9-fca88fd47862" keyboard_shortcut="" language="JavaScript" name="PHP Unit (Current File)" rank="100" trigger="trigger_postopen" trigger_enabled="0">
+// summary:
+//      Run a Unit Test against the current file.
+// description:
+//      Taking the current active file, look for it within the current projects
+//      and calculate the path to its Unit Test file.  Try to then run the
+//      Unit Test against the file using project Batch Files.  If file does not
+//      exist fire an error.
+
+var project = getProject();
+if (project) {
+    var projectPath = getProjectPath(project);
+    var testPath = getTestPath();
+    var testPathFull = projectPath+'\\util\\unit_tests\\'+testPath;
+
+    if (isInProject(testPathFull,project)) {
+        ko.run.runEncodedCommand(window, 'Impact.bat UnitTest \"%(path:supportDir)/../../komodo.exe\" '+testPath+' {\'cwd\': u\'%p/util\'}');
+    } else {
+        alert("There is no Unit Test for this project.");
+    }
+} else {
+    alert("Could not find current file in open projects.")
+}
+
+
+function getProject() {
+    //  summary:
+    //      Get the project, the current file is attached to (will assume first
+    //      which it find the current file in).
+    //  returns: Object KomodoProject
+
+    var url = ko.views.manager.currentView.document.file.URI;
+    var projects = ko.projects.manager.getAllProjects();
+    
+    for (i in projects) {
+        if (isInProject(url,projects[i])) {
+            return projects[i];
+        }
+    }
+    
+    return false;
+}
+
+function isInProject(path,project) {
+    // summary:
+    //      Test whether a give path+file is in contained within given project.
+    // path:
+    //      The file path to test (including the actual filename).
+    // project: object KomodoProject
+    //      The project to look in.
+    // returns: boolean
+
+    try {
+        var result = {};
+        project.getAllContainedURLs(result, {});
+        var urls = result.value;
+        var url = makeURL(path);
+        
+        return ((urls.indexOf(url) == -1) ? false:true);
+    } catch(e) {
+       return false;
+    } 
+}
+
+function makeURL(path) {
+    // summary:
+    //      Turn a given path into a URI.
+    // path: string
+    //      The path to convert.
+    // returns: string
+    
+    if (path.indexOf('file:///') == -1) {
+        return 'file:///'+path.replace(/\\/g,'/');
+    } else {
+        return path;
+    }
+}
+
+function getTestPath() {
+    // summary:
+    //      Get the test path for the current file.
+    // returns: string
+
+    var currentFile = ko.views.manager.currentView.document.file;
+    var fileName = removeFileExtention(currentFile);
+    
+    var testPath = currentFile.dirName.replace(projectPath,'');
+    testPath += '\\' + fileName + '.Test.php';
+    return testPath.substr(1);
+}
+
+function removeFileExtention(file) {
+    // summary:
+    //      Get the name of the file without a file extension.
+    // file: object MozillaFile
+    //      The file object.
+    // returns: string
+    
+    var fileName = file.baseName;
+    var ext = file.ext;
+    return fileName.substring(0,fileName.length-ext.length);
+}
+
+function getProjectPath(project) {
+    // summary:
+    //      Get the path of a project.
+    // project: object KomodoProject
+    //      The project to get the path of.
+    // returns: string
+    
+    var projectFile = project.getFile();
+    return projectFile.dirName;
+}
+</macro>
+<command cwd="%p/util" doNotOpenOutputWindow="0" env="" icon="chrome://openoffice/skin/icons/calc-accept.png" id="d8d7ef92-8b38-4b4f-bbd5-9f13320cc2c9" idref="16f4525a-a215-4250-bfa9-fca88fd47862" insertOutput="0" keyboard_shortcut="" name="PHP Unit (Models)" operateOnSelection="0" parseOutput="0" parseRegex="" runIn="command-output-window" showParsedOutputList="0">
+Impact.bat UnitTest "%(path:supportDir)/../../komodo.exe" models</command>
+<command cwd="%p/util" doNotOpenOutputWindow="0" env="" icon="chrome://openoffice/skin/icons/calc-accept.png" id="dc02acf1-0c09-4c4b-871b-51b3d555a70e" idref="16f4525a-a215-4250-bfa9-fca88fd47862" insertOutput="0" keyboard_shortcut="" name="PHP Unit (ALL)" operateOnSelection="0" parseOutput="0" parseRegex="" runIn="command-output-window" showParsedOutputList="0">
+Impact.bat UnitTest "%(path:supportDir)/../../komodo.exe" all</command>
+<folder id="00b57f32-6d6f-4160-9d0e-3953a94737d4" idref="3aece6e4-1269-4324-b164-f0aa2d4eb654" name="COMMANDS">
+</folder>
+<preference-set idref="3aece6e4-1269-4324-b164-f0aa2d4eb654">
+  <boolean id="import_live">1</boolean>
+  <string relative="path" id="phpExtraPaths"></string>
+</preference-set>
+</project>

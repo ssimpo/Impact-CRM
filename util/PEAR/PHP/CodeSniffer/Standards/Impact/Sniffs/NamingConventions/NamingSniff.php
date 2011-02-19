@@ -1,6 +1,6 @@
 <?php
 /**
- * Generic_Sniffs_NamingConventions_UpperCaseConstantNameSniff.
+ * Impact_Sniffs_NamingConventions_NamingSniff.
  *
  * PHP version 5
  *
@@ -30,6 +30,8 @@
  */
 class Impact_Sniffs_NamingConventions_NamingSniff implements PHP_CodeSniffer_Sniff
 {
+    private $className;
+    
     protected $magicMethods = array(
         '__construct','__destruct','__call','__callStatic',
         '__get','__set','__isset','__unset',
@@ -78,9 +80,23 @@ class Impact_Sniffs_NamingConventions_NamingSniff implements PHP_CodeSniffer_Sni
             
             $functionName = $tokens[$pointer]['content'];
             if (strtolower($functionName) != $functionName) {
-                $error = 'Function name '.$functionName.'() is not in lowercase';
-                $phpcsFile->addError($error, $stackPtr);
-                return; 
+                $caseError = false;
+                //Special case for Unit Test, which need the function setUp()
+                if (strlen($this->className) > 5) {
+                    if (substr($this->className,0,5) != 'Test_') {
+                        $caseError = true;
+                    } elseif ($functionName != 'setUp') {
+                        $caseError = true;
+                    }
+                } else {
+                    $caseError = true;
+                }
+                if ($caseError) {
+                    $error = 'Function name '.$functionName.'() is not in lowercase';
+                    $phpcsFile->addError($error, $stackPtr);
+                    return; 
+                }
+                
             }
             
             $scopeModifier = $phpcsFile->findPrevious(
@@ -125,10 +141,7 @@ class Impact_Sniffs_NamingConventions_NamingSniff implements PHP_CodeSniffer_Sni
             foreach ($parts as $part) {
                 if (strlen($part) > 1) {
                     $firstLetter = substr($part, 0, 1);
-                    $afterFirstLetter = substr($part, 1);
-                    if ((strtolower($firstLetter) == $firstLetter)
-                        || (strtolower($afterFirstLetter) != $afterFirstLetter)
-                    ) {
+                    if (strtolower($firstLetter) == $firstLetter) {
                         $classNameError = true;
                     }
                 } else {
@@ -139,11 +152,12 @@ class Impact_Sniffs_NamingConventions_NamingSniff implements PHP_CodeSniffer_Sni
             }
             if ($classNameError) {
                 $error = 'Class/Interface: '.$className.
-                    '{} name incorrectly, parts should be seperated by an underscore
-                    and each word should begin with a capital letter';
+                    '{} name incorrectly, parts should be seperated by an underscore'.
+                    ' and each word should begin with a capital letter';
                 $phpcsFile->addError($error, $stackPtr);
                 return;
             }
+            $this->className = $className;
         }
 
     }//end process()
