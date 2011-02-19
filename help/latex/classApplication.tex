@@ -1,0 +1,218 @@
+\hypertarget{classApplication}{
+\section{Application Class Reference}
+\label{classApplication}\index{Application@{Application}}
+}
+
+
+Inheritance diagram for Application:
+
+
+Collaboration diagram for Application:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classApplication_a1d04139db3a5ad5713ecbd14d97da879}{setup} ()
+\item 
+\hyperlink{classApplication_ab2e18c82d6909c852402b07aa48340bc}{\_\-make\_\-facebook\_\-connection} ()
+\item 
+\hyperlink{classApplication_a9b7f2b58fa3c9e81f142efb424433163}{\_\-\_\-set} (\$property, \$value)
+\item 
+\hyperlink{classApplication_a6481e8cfc93c80885b3d72a6e1f15a1f}{\_\-\_\-get} (\$property)
+\item 
+\hyperlink{classApplication_a00b869b4eabdea57875bbde42e283115}{\_\-get\_\-page\_\-request\_\-info} ()
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classApplication_ac7c3353107070daa85f641882931b358}{\$settings} = array()
+\item 
+\hyperlink{classApplication_aa06e64fd19a6d82d290ec197a8e65148}{\$Acl}
+\item 
+\hyperlink{classApplication_a4b9bb5e9f7a5ea9381bdbe31c44e9339}{\$facebook}
+\item 
+\hyperlink{classApplication_a92c4441a7b5fe8069992f5a4a29f24fe}{\$fbsession}
+\item 
+\hyperlink{classApplication_ad856a60cee1894f180e845f9b7b81458}{\$me}
+\item 
+\hyperlink{classApplication_a6ca08dfcc239ba6bbe209515c2d3aec7}{\$pageName}
+\item 
+\hyperlink{classApplication_ae82828f1344d1f882b81bb010cb9f17b}{\$pageErrorCheck}
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classApplication_a460579297e7ecc04cb6896ed1a9b4c70}{\_\-media\_\-detect} ()
+\item 
+\hyperlink{classApplication_a50272fd88e89d4f34d5b23e4b630ddfe}{\_\-language\_\-detect} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classApplication_a8dd8f2b40e326f70b9f413d76e0eafac}{\_\-user\_\-access\_\-detect} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classApplication_ad9d7ce33ebb142b70e58b68052ca0ea8}{\$instance}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classApplication_a6481e8cfc93c80885b3d72a6e1f15a1f}{
+\index{Application@{Application}!\_\-\_\-get@{\_\-\_\-get}}
+\index{\_\-\_\-get@{\_\-\_\-get}!Application@{Application}}
+\subsubsection[{\_\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-get (
+\begin{DoxyParamCaption}
+\item[{\$}]{property}
+\end{DoxyParamCaption}
+)}}
+\label{classApplication_a6481e8cfc93c80885b3d72a6e1f15a1f}
+Generic get property method.
+
+Get the value of an application property. Values are stored in the application array and accessed via the \_\-\_\-set and \_\-\_\-get methods. \hypertarget{classApplication_a9b7f2b58fa3c9e81f142efb424433163}{
+\index{Application@{Application}!\_\-\_\-set@{\_\-\_\-set}}
+\index{\_\-\_\-set@{\_\-\_\-set}!Application@{Application}}
+\subsubsection[{\_\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-set (
+\begin{DoxyParamCaption}
+\item[{\$}]{property, }
+\item[{\$}]{value}
+\end{DoxyParamCaption}
+)}}
+\label{classApplication_a9b7f2b58fa3c9e81f142efb424433163}
+Cloning method.
+
+This returns an error, since cloning of a singleton is not allowed. Generic set property method.
+
+Set the value of an application property. Values are stored in the application array and accessed via the \_\-\_\-set and \_\-\_\-get methods. \hypertarget{classApplication_a00b869b4eabdea57875bbde42e283115}{
+\index{Application@{Application}!\_\-get\_\-page\_\-request\_\-info@{\_\-get\_\-page\_\-request\_\-info}}
+\index{\_\-get\_\-page\_\-request\_\-info@{\_\-get\_\-page\_\-request\_\-info}!Application@{Application}}
+\subsubsection[{\_\-get\_\-page\_\-request\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}\_\-get\_\-page\_\-request\_\-info (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classApplication_a00b869b4eabdea57875bbde42e283115}
+Check if current page request is valid.
+
+Does the requested page exist? Does the current user have access.
+
+\begin{DoxyReturn}{Returns}
+boolean Is the request valid. 
+\end{DoxyReturn}
+\hypertarget{classApplication_a50272fd88e89d4f34d5b23e4b630ddfe}{
+\index{Application@{Application}!\_\-language\_\-detect@{\_\-language\_\-detect}}
+\index{\_\-language\_\-detect@{\_\-language\_\-detect}!Application@{Application}}
+\subsubsection[{\_\-language\_\-detect}]{\setlength{\rightskip}{0pt plus 5cm}\_\-language\_\-detect (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classApplication_a50272fd88e89d4f34d5b23e4b630ddfe}
+Detect the language being used.
+
+What is the native language of the current user? Is detected from the browser request headers and query-\/string. Data is returned to the language property.
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000005}{Todo}]Allow Facebook language detection and user database lookup (for stored setting). \end{Desc}
+\hypertarget{classApplication_ab2e18c82d6909c852402b07aa48340bc}{
+\index{Application@{Application}!\_\-make\_\-facebook\_\-connection@{\_\-make\_\-facebook\_\-connection}}
+\index{\_\-make\_\-facebook\_\-connection@{\_\-make\_\-facebook\_\-connection}!Application@{Application}}
+\subsubsection[{\_\-make\_\-facebook\_\-connection}]{\setlength{\rightskip}{0pt plus 5cm}\_\-make\_\-facebook\_\-connection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classApplication_ab2e18c82d6909c852402b07aa48340bc}
+Make a Facebook connection.
+
+Connect to Facebook and return the session and Facebook objects to \hyperlink{namespaceImpact}{Impact} properties (Facebook and fbsession).
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000002}{Todo}]Update to the newest Facebook API. \end{Desc}
+\hypertarget{classApplication_a460579297e7ecc04cb6896ed1a9b4c70}{
+\index{Application@{Application}!\_\-media\_\-detect@{\_\-media\_\-detect}}
+\index{\_\-media\_\-detect@{\_\-media\_\-detect}!Application@{Application}}
+\subsubsection[{\_\-media\_\-detect}]{\setlength{\rightskip}{0pt plus 5cm}\_\-media\_\-detect (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classApplication_a460579297e7ecc04cb6896ed1a9b4c70}
+Detect the media being used.
+
+Will detect the media being used (eg. Desktop PC, Mobile, iPad, Facebook, ...etc). Data is returned to the media property.
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000004}{Todo}]Add detection for wider range of media. \end{Desc}
+\hypertarget{classApplication_a8dd8f2b40e326f70b9f413d76e0eafac}{
+\index{Application@{Application}!\_\-user\_\-access\_\-detect@{\_\-user\_\-access\_\-detect}}
+\index{\_\-user\_\-access\_\-detect@{\_\-user\_\-access\_\-detect}!Application@{Application}}
+\subsubsection[{\_\-user\_\-access\_\-detect}]{\setlength{\rightskip}{0pt plus 5cm}\_\-user\_\-access\_\-detect (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classApplication_a8dd8f2b40e326f70b9f413d76e0eafac}
+Set the current users access levels.
+
+These are calculated from data stored in the database.
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000003}{Todo}]Needs a bit of work to improve it but works well and doesn't have any major security flaws. \end{Desc}
+\hypertarget{classApplication_a1d04139db3a5ad5713ecbd14d97da879}{
+\index{Application@{Application}!setup@{setup}}
+\index{setup@{setup}!Application@{Application}}
+\subsubsection[{setup}]{\setlength{\rightskip}{0pt plus 5cm}setup (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classApplication_a1d04139db3a5ad5713ecbd14d97da879}
+Initialization mmethod. 
+
+\subsection{Field Documentation}
+\hypertarget{classApplication_aa06e64fd19a6d82d290ec197a8e65148}{
+\index{Application@{Application}!\$Acl@{\$Acl}}
+\index{\$Acl@{\$Acl}!Application@{Application}}
+\subsubsection[{\$Acl}]{\setlength{\rightskip}{0pt plus 5cm}\${\bf Acl}}}
+\label{classApplication_aa06e64fd19a6d82d290ec197a8e65148}
+\hypertarget{classApplication_a4b9bb5e9f7a5ea9381bdbe31c44e9339}{
+\index{Application@{Application}!\$facebook@{\$facebook}}
+\index{\$facebook@{\$facebook}!Application@{Application}}
+\subsubsection[{\$facebook}]{\setlength{\rightskip}{0pt plus 5cm}\$facebook}}
+\label{classApplication_a4b9bb5e9f7a5ea9381bdbe31c44e9339}
+\hypertarget{classApplication_a92c4441a7b5fe8069992f5a4a29f24fe}{
+\index{Application@{Application}!\$fbsession@{\$fbsession}}
+\index{\$fbsession@{\$fbsession}!Application@{Application}}
+\subsubsection[{\$fbsession}]{\setlength{\rightskip}{0pt plus 5cm}\$fbsession}}
+\label{classApplication_a92c4441a7b5fe8069992f5a4a29f24fe}
+\hypertarget{classApplication_ad9d7ce33ebb142b70e58b68052ca0ea8}{
+\index{Application@{Application}!\$instance@{\$instance}}
+\index{\$instance@{\$instance}!Application@{Application}}
+\subsubsection[{\$instance}]{\setlength{\rightskip}{0pt plus 5cm}\$instance\hspace{0.3cm}{\ttfamily  \mbox{[}static, private\mbox{]}}}}
+\label{classApplication_ad9d7ce33ebb142b70e58b68052ca0ea8}
+\hypertarget{classApplication_ad856a60cee1894f180e845f9b7b81458}{
+\index{Application@{Application}!\$me@{\$me}}
+\index{\$me@{\$me}!Application@{Application}}
+\subsubsection[{\$me}]{\setlength{\rightskip}{0pt plus 5cm}\$me}}
+\label{classApplication_ad856a60cee1894f180e845f9b7b81458}
+\hypertarget{classApplication_ae82828f1344d1f882b81bb010cb9f17b}{
+\index{Application@{Application}!\$pageErrorCheck@{\$pageErrorCheck}}
+\index{\$pageErrorCheck@{\$pageErrorCheck}!Application@{Application}}
+\subsubsection[{\$pageErrorCheck}]{\setlength{\rightskip}{0pt plus 5cm}\$pageErrorCheck}}
+\label{classApplication_ae82828f1344d1f882b81bb010cb9f17b}
+\hypertarget{classApplication_a6ca08dfcc239ba6bbe209515c2d3aec7}{
+\index{Application@{Application}!\$pageName@{\$pageName}}
+\index{\$pageName@{\$pageName}!Application@{Application}}
+\subsubsection[{\$pageName}]{\setlength{\rightskip}{0pt plus 5cm}\$pageName}}
+\label{classApplication_a6ca08dfcc239ba6bbe209515c2d3aec7}
+\hypertarget{classApplication_ac7c3353107070daa85f641882931b358}{
+\index{Application@{Application}!\$settings@{\$settings}}
+\index{\$settings@{\$settings}!Application@{Application}}
+\subsubsection[{\$settings}]{\setlength{\rightskip}{0pt plus 5cm}\$settings = array()}}
+\label{classApplication_ac7c3353107070daa85f641882931b358}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/\hyperlink{Application_8php}{Application.php}\end{DoxyCompactItemize}

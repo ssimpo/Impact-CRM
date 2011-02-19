@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="classAcl__REF" kind="class" prot="public">
+    <compoundname>Acl_REF</compoundname>
+    <basecompoundref refid="classAcl__TestBase" prot="public" virt="non-virtual">Acl_TestBase</basecompoundref>
+    <basecompoundref refid="interfaceAcl__Test" prot="public" virt="non-virtual">Acl_Test</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classAcl__REF_1a872d93ddbbb879ab5c0eb29261a520a4" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>$referer</definition>
+        <argsstring></argsstring>
+        <name>$referer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/REF.php" line="12" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/REF.php" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAcl__REF_1a8093b0bcf6c990bf8b8383fdbbd8510b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>__construct</definition>
+        <argsstring>($application=null)</argsstring>
+        <name>__construct</name>
+        <reimplements refid="interfaceAcl__Test_1ad91b09dcf14858ad1397789c7dfca16c">__construct</reimplements>
+        <param>
+          <type>$</type>
+          <declname>application</declname>
+          <defval>null</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructor.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>object</parametertype>
+<parametername>$application</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The current (or other) application object. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>object <ref refid="classAcl__REF" kindref="compound">Acl_REF</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/REF.php" line="21" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/REF.php" bodystart="21" bodyend="26"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classAcl__REF_1a2628a841fbd224d547b0ef6103642f66" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_get_query</definition>
+        <argsstring>($url=null)</argsstring>
+        <name>_get_query</name>
+        <param>
+          <type>$</type>
+          <declname>url</declname>
+          <defval>null</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the search-keywords from a URL</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$url</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The URL to grab query from. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>array </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/REF.php" line="35" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/REF.php" bodystart="35" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classAcl__REF_1afb49b44b658456428cf97311aa49a276" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_test_keywords</definition>
+        <argsstring>($attributes)</argsstring>
+        <name>_test_keywords</name>
+        <param>
+          <type>$</type>
+          <declname>attributes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Test whether the user arrived at the page via a url with specified keywords in the query.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>array</parametertype>
+<parametername>$attributes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The keywords as a array-list. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>boolean </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/REF.php" line="55" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/REF.php" bodystart="55" bodyend="64"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="118">
+        <label>Acl_TestBase</label>
+        <link refid="classAcl__TestBase"/>
+      </node>
+      <node id="117">
+        <label>Acl_REF</label>
+        <link refid="classAcl__REF"/>
+        <childnode refid="118" relation="public-inheritance">
+        </childnode>
+        <childnode refid="119" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>Acl_Test</label>
+        <link refid="interfaceAcl__Test"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="121">
+        <label>Acl_TestBase</label>
+        <link refid="classAcl__TestBase"/>
+      </node>
+      <node id="120">
+        <label>Acl_REF</label>
+        <link refid="classAcl__REF"/>
+        <childnode refid="121" relation="public-inheritance">
+        </childnode>
+        <childnode refid="122" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="122">
+        <label>Acl_Test</label>
+        <link refid="interfaceAcl__Test"/>
+      </node>
+    </collaborationgraph>
+    <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/REF.php" line="11" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Acl/REF.php" bodystart="11" bodyend="65"/>
+    <listofallmembers>
+      <member refid="classAcl__REF_1a872d93ddbbb879ab5c0eb29261a520a4" prot="public" virt="non-virtual"><scope>Acl_REF</scope><name>$referer</name></member>
+      <member refid="classAcl__REF_1a8093b0bcf6c990bf8b8383fdbbd8510b" prot="public" virt="non-virtual"><scope>Acl_REF</scope><name>__construct</name></member>
+      <member refid="classAcl__REF_1a2628a841fbd224d547b0ef6103642f66" prot="private" virt="non-virtual"><scope>Acl_REF</scope><name>_get_query</name></member>
+      <member refid="classAcl__REF_1afb49b44b658456428cf97311aa49a276" prot="protected" virt="non-virtual"><scope>Acl_REF</scope><name>_test_keywords</name></member>
+      <member refid="classAcl__TestBase_1a238b40425f758262db6061255cdf2d50" prot="public" virt="non-virtual" ambiguityscope="Acl_TestBase::"><scope>Acl_REF</scope><name>test</name></member>
+      <member refid="interfaceAcl__Test_1a238b40425f758262db6061255cdf2d50" prot="public" virt="non-virtual" ambiguityscope="Acl_Test::"><scope>Acl_REF</scope><name>test</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

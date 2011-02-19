@@ -1,0 +1,510 @@
+\hypertarget{classSavi__Parser}{
+\section{Savi\_\-Parser Class Reference}
+\label{classSavi__Parser}\index{Savi\_\-Parser@{Savi\_\-Parser}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSavi__Parser_a242c7fe86fb7c62f11f9212afbfa6112}{\_\-\_\-construct} (\$lineFixer=true, \$uppercaseTags=true, \$multiLinefixer=true)
+\item 
+\hyperlink{classSavi__Parser_a26a305bbf09bf4742f1da2262f6c5ae2}{ical\_\-parse} (\$parser, \$data)
+\item 
+\hyperlink{classSavi__Parser_a866029e3a4a8f04843dc6735368ec3e7}{load\_\-data} (\$parser, \$filename)
+\item 
+\hyperlink{classSavi__Parser_aff34336fb5f79c52c0a06ac3c5a50291}{\_\-fix\_\-multilines} (\$data)
+\item 
+\hyperlink{classSavi__Parser_af5040d51f1be467234b13837eefc9d53}{ical\_\-set\_\-element\_\-handler} (\$parser, \$starter, \$ender)
+\item 
+\hyperlink{classSavi__Parser_a9167bc8a37cf9e9766b1f82f5784cdaf}{ical\_\-set\_\-character\_\-data\_\-handler} (\$parser, \$charHandle)
+\item 
+\hyperlink{classSavi__Parser_a0af36ab5229619c8c396d454c8c89116}{utf8\_\-decode} (\$data)
+\item 
+\hyperlink{classSavi__Parser_a9e9a4aca94f8a18a6fbc1dbc27ba594b}{utf8\_\-encode} (\$data)
+\item 
+\hyperlink{classSavi__Parser_abbb9a24b226831f7ebf5d27b9754b69e}{ical\_\-get\_\-error\_\-code} ()
+\item 
+\hyperlink{classSavi__Parser_a77d83b11f08a322cae57654f43ed0b22}{ical\_\-get\_\-error\_\-string} (\$errNo=0)
+\item 
+\hyperlink{classSavi__Parser_a099de2f0a6cf07f9433080fb3a38556d}{ical\_\-get\_\-current\_\-line\_\-number} ()
+\item 
+\hyperlink{classSavi__Parser_a7dd9766590f266ab55bd78d7e9ac2963}{ical\_\-get\_\-current\_\-byte\_\-index} ()
+\item 
+\hyperlink{classSavi__Parser_a88fdf5a60b67329b81255715822af3a5}{ical\_\-get\_\-current\_\-column\_\-number} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSavi__Parser_a67ad30f64dcdbd2dad8787ba3f5aeb5e}{\_\-value\_\-list\_\-parser} (\$valueList)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSavi__Parser_a9e2fcfa96c544bf4bd3c5a71a7bf2739}{\$lineNo} = -\/1
+\item 
+\hyperlink{classSavi__Parser_a63d046010fb22e14107bd3861e1d9dd5}{\$errNo} = 0
+\item 
+\hyperlink{classSavi__Parser_ad86c3fbc5672e1deeafc5229012b0b5d}{\$handle} = false
+\item 
+\hyperlink{classSavi__Parser_ac37a18f959e7a225e0a690852367523d}{\$lineFixer} = true
+\item 
+\hyperlink{classSavi__Parser_a87f087d55e041fbc48604cfe47019f6e}{\$multiLineFixer} = true
+\item 
+\hyperlink{classSavi__Parser_ab025198049ed7f6ff96c43aba8c4ad20}{\$uppercaseTags} = true
+\item 
+\hyperlink{classSavi__Parser_a0a6ff866cad56154d31e649d69ac8c0f}{\$starter} = ''
+\item 
+\hyperlink{classSavi__Parser_accbd2f26bb805e2a243cab5498237ac8}{\$ender} = ''
+\item 
+\hyperlink{classSavi__Parser_a5a878b1c34cc555349cbc4acbcdd54e7}{\$charHandle} = ''
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classSavi__Parser_af21b3b8a4d4bcfa682cd5f411e0eb566}{\$errorMsgs} = ''
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSavi__Parser_a9249bb71395565b7156613162682bd6a}{\_\-handle\_\-line} (\$parser, \$parsed)
+\item 
+\hyperlink{classSavi__Parser_ac79dff5d0807ccfa3717642732dd3989}{\_\-line\_\-parser} (\$line)
+\item 
+\hyperlink{classSavi__Parser_a01b434009c98e3b51b6b7970f27515a9}{\_\-delimit\_\-replace} (\$content)
+\item 
+\hyperlink{classSavi__Parser_a8276afb7bf6d48ce368a297f2847b462}{\_\-delimit\_\-unreplace} (\$content)
+\item 
+\hyperlink{classSavi__Parser_a9d1f0ed86b56c640a69784a385d65bf1}{\_\-fix\_\-line} (\$line)
+\item 
+\hyperlink{classSavi__Parser_a9a632e210730850956e1aefb27ce7d87}{\_\-define\_\-error\_\-messages} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classSavi__Parser_a242c7fe86fb7c62f11f9212afbfa6112}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\_\-\_\-construct@{\_\-\_\-construct}}
+\index{\_\-\_\-construct@{\_\-\_\-construct}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{\$}]{lineFixer = {\ttfamily true}, }
+\item[{\$}]{uppercaseTags = {\ttfamily true}, }
+\item[{\$}]{multiLinefixer = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_a242c7fe86fb7c62f11f9212afbfa6112}
+Constructor for class 
+\begin{DoxyParams}[1]{Parameters}
+Boolean & {\em \$lineFixer} & Remove leading tabs from the start of lines \\
+\hline
+Boolean & {\em \$uppercaseTags} & Uppercase all the tags before passing to supplied processing functions \\
+\hline
+Boolean & {\em \$multiLinefixer} & Fix multilingual content (not implemented yet) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Object Reference to the object 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classSavi__Parser_a9a632e210730850956e1aefb27ce7d87}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\_\-define\_\-error\_\-messages@{\_\-define\_\-error\_\-messages}}
+\index{\_\-define\_\-error\_\-messages@{\_\-define\_\-error\_\-messages}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\_\-define\_\-error\_\-messages}]{\setlength{\rightskip}{0pt plus 5cm}\_\-define\_\-error\_\-messages (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classSavi__Parser_a9a632e210730850956e1aefb27ce7d87}
+Function to define the parser errors/codes -\/ stores in a class static \hypertarget{classSavi__Parser_a01b434009c98e3b51b6b7970f27515a9}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\_\-delimit\_\-replace@{\_\-delimit\_\-replace}}
+\index{\_\-delimit\_\-replace@{\_\-delimit\_\-replace}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\_\-delimit\_\-replace}]{\setlength{\rightskip}{0pt plus 5cm}\_\-delimit\_\-replace (
+\begin{DoxyParamCaption}
+\item[{\$}]{content}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classSavi__Parser_a01b434009c98e3b51b6b7970f27515a9}
+\hypertarget{classSavi__Parser_a8276afb7bf6d48ce368a297f2847b462}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\_\-delimit\_\-unreplace@{\_\-delimit\_\-unreplace}}
+\index{\_\-delimit\_\-unreplace@{\_\-delimit\_\-unreplace}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\_\-delimit\_\-unreplace}]{\setlength{\rightskip}{0pt plus 5cm}\_\-delimit\_\-unreplace (
+\begin{DoxyParamCaption}
+\item[{\$}]{content}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classSavi__Parser_a8276afb7bf6d48ce368a297f2847b462}
+\hypertarget{classSavi__Parser_a9d1f0ed86b56c640a69784a385d65bf1}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\_\-fix\_\-line@{\_\-fix\_\-line}}
+\index{\_\-fix\_\-line@{\_\-fix\_\-line}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\_\-fix\_\-line}]{\setlength{\rightskip}{0pt plus 5cm}\_\-fix\_\-line (
+\begin{DoxyParamCaption}
+\item[{\$}]{line}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classSavi__Parser_a9d1f0ed86b56c640a69784a385d65bf1}
+This is line fixer, removes tabs that may have crept into the line. Just makes the parser more friendly, not strictly speaking conforming to the iCal standard. Also fixes the different newline methods
+
+
+\begin{DoxyParams}[1]{Parameters}
+String & {\em \$line} & The line to apply fixes to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String The fixed line 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_aff34336fb5f79c52c0a06ac3c5a50291}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\_\-fix\_\-multilines@{\_\-fix\_\-multilines}}
+\index{\_\-fix\_\-multilines@{\_\-fix\_\-multilines}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\_\-fix\_\-multilines}]{\setlength{\rightskip}{0pt plus 5cm}\_\-fix\_\-multilines (
+\begin{DoxyParamCaption}
+\item[{\$}]{data}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_aff34336fb5f79c52c0a06ac3c5a50291}
+Fix for when a line is split with a newline in the actual feed.
+
+
+\begin{DoxyParams}[1]{Parameters}
+String & {\em \$data} & The raw data to parse for messy lines \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String() The lines as a series of array items, ready for parsing 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_a9249bb71395565b7156613162682bd6a}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\_\-handle\_\-line@{\_\-handle\_\-line}}
+\index{\_\-handle\_\-line@{\_\-handle\_\-line}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\_\-handle\_\-line}]{\setlength{\rightskip}{0pt plus 5cm}\_\-handle\_\-line (
+\begin{DoxyParamCaption}
+\item[{\$}]{parser, }
+\item[{\$}]{parsed}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classSavi__Parser_a9249bb71395565b7156613162682bd6a}
+Handle parsed line and call any defined function for handling current line
+
+
+\begin{DoxyParams}[1]{Parameters}
+Object & {\em \$parser} & Reference to parser object to use \\
+\hline
+ & {\em Array()} & \$parsed The parsed contents of a line that needs handling \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSavi__Parser_ac79dff5d0807ccfa3717642732dd3989}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\_\-line\_\-parser@{\_\-line\_\-parser}}
+\index{\_\-line\_\-parser@{\_\-line\_\-parser}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\_\-line\_\-parser}]{\setlength{\rightskip}{0pt plus 5cm}\_\-line\_\-parser (
+\begin{DoxyParamCaption}
+\item[{\$}]{line}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classSavi__Parser_ac79dff5d0807ccfa3717642732dd3989}
+Parse one line of text into an array, which represents its content
+
+
+\begin{DoxyParams}{Parameters}
+{\em String} & Line of text to parse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array() Parsed content in the following format: array( 'tag' =$>$ The Tag name 'attributes' =$>$ An array of the attributes in format attribute\_\-name=$>$attribut\_\-value (attribute\_\-value can be a further array) 'content' =$>$ The content, either as plain-\/text or parsed into an array if content was parsable. Semicolon-\/seperated content is parsed as item\_\-name=$>$item\_\-value, like attributes (item\_\-value can be a further array). Comma -\/separated content is parsed as index=$>$item\_\-value. 'rawtextcontent' =$>$ The unparsed text content ) 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_a67ad30f64dcdbd2dad8787ba3f5aeb5e}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\_\-value\_\-list\_\-parser@{\_\-value\_\-list\_\-parser}}
+\index{\_\-value\_\-list\_\-parser@{\_\-value\_\-list\_\-parser}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\_\-value\_\-list\_\-parser}]{\setlength{\rightskip}{0pt plus 5cm}\_\-value\_\-list\_\-parser (
+\begin{DoxyParamCaption}
+\item[{\$}]{valueList}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classSavi__Parser_a67ad30f64dcdbd2dad8787ba3f5aeb5e}
+Take an input string and split it according to standard iCal rules, hence:
+\begin{DoxyItemize}
+\item split key1=\char`\"{}value2\char`\"{};key2=\char`\"{}value2\char`\"{} or key1=value2;key2=value2, into array
+\item split value1,value2,value3... into an array
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+String & {\em \$valueList} & The string to split \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String() An array containing the split values or the original string if nothing to split 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_a7dd9766590f266ab55bd78d7e9ac2963}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!ical\_\-get\_\-current\_\-byte\_\-index@{ical\_\-get\_\-current\_\-byte\_\-index}}
+\index{ical\_\-get\_\-current\_\-byte\_\-index@{ical\_\-get\_\-current\_\-byte\_\-index}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{ical\_\-get\_\-current\_\-byte\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}ical\_\-get\_\-current\_\-byte\_\-index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_a7dd9766590f266ab55bd78d7e9ac2963}
+Equivalent to xml\_\-get\_\-current\_\-byte\_\-index in the standard PHP SAX Parser. Will the current byte number the parser got to in the parsing process. Use to find out where an error happened.
+
+\begin{DoxyReturn}{Returns}
+Integer The byte number 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_a88fdf5a60b67329b81255715822af3a5}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!ical\_\-get\_\-current\_\-column\_\-number@{ical\_\-get\_\-current\_\-column\_\-number}}
+\index{ical\_\-get\_\-current\_\-column\_\-number@{ical\_\-get\_\-current\_\-column\_\-number}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{ical\_\-get\_\-current\_\-column\_\-number}]{\setlength{\rightskip}{0pt plus 5cm}ical\_\-get\_\-current\_\-column\_\-number (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_a88fdf5a60b67329b81255715822af3a5}
+Equivalent to xml\_\-get\_\-current\_\-column\_\-number in the standard PHP SAX Parser. Will the current column position the parser got to in the parsing process. Use to find out where an error happened.
+
+\begin{DoxyReturn}{Returns}
+Integer the column number 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_a099de2f0a6cf07f9433080fb3a38556d}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!ical\_\-get\_\-current\_\-line\_\-number@{ical\_\-get\_\-current\_\-line\_\-number}}
+\index{ical\_\-get\_\-current\_\-line\_\-number@{ical\_\-get\_\-current\_\-line\_\-number}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{ical\_\-get\_\-current\_\-line\_\-number}]{\setlength{\rightskip}{0pt plus 5cm}ical\_\-get\_\-current\_\-line\_\-number (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_a099de2f0a6cf07f9433080fb3a38556d}
+Equivalent to xml\_\-get\_\-current\_\-line\_\-number in the standard PHP SAX Parser. Will return the current line number the parser has got to in the parsing process. Use to find out where an error happened.
+
+\begin{DoxyReturn}{Returns}
+Integer The line number the parser is up to 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_abbb9a24b226831f7ebf5d27b9754b69e}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!ical\_\-get\_\-error\_\-code@{ical\_\-get\_\-error\_\-code}}
+\index{ical\_\-get\_\-error\_\-code@{ical\_\-get\_\-error\_\-code}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{ical\_\-get\_\-error\_\-code}]{\setlength{\rightskip}{0pt plus 5cm}ical\_\-get\_\-error\_\-code (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_abbb9a24b226831f7ebf5d27b9754b69e}
+Equivalent of xml\_\-get\_\-error\_\-code() in the standard PHP SAX Parser. Will return the current error number if one exists
+
+\begin{DoxyReturn}{Returns}
+Integer The current error number or -\/1 if no error has occurred 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_a77d83b11f08a322cae57654f43ed0b22}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!ical\_\-get\_\-error\_\-string@{ical\_\-get\_\-error\_\-string}}
+\index{ical\_\-get\_\-error\_\-string@{ical\_\-get\_\-error\_\-string}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{ical\_\-get\_\-error\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}ical\_\-get\_\-error\_\-string (
+\begin{DoxyParamCaption}
+\item[{\$}]{errNo = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_a77d83b11f08a322cae57654f43ed0b22}
+Equivalent to xml\_\-get\_\-error\_\-string in the standard PHP SAX Parser. Will return error message 0 if no number is passed or error code does not exist
+
+
+\begin{DoxyParams}[1]{Parameters}
+Integer & {\em \$errNo} & The error string you want to lookup \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String The error string for the given code 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_a26a305bbf09bf4742f1da2262f6c5ae2}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!ical\_\-parse@{ical\_\-parse}}
+\index{ical\_\-parse@{ical\_\-parse}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{ical\_\-parse}]{\setlength{\rightskip}{0pt plus 5cm}ical\_\-parse (
+\begin{DoxyParamCaption}
+\item[{\$}]{parser, }
+\item[{\$}]{data}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_a26a305bbf09bf4742f1da2262f6c5ae2}
+Start parsing
+
+
+\begin{DoxyParams}[1]{Parameters}
+Object & {\em \$parser} & Reference to the parser to use \\
+\hline
+String & {\em \$data} & The data to parse or a file/resource name to load as parsable data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Boolean TRUE 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_a9167bc8a37cf9e9766b1f82f5784cdaf}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!ical\_\-set\_\-character\_\-data\_\-handler@{ical\_\-set\_\-character\_\-data\_\-handler}}
+\index{ical\_\-set\_\-character\_\-data\_\-handler@{ical\_\-set\_\-character\_\-data\_\-handler}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{ical\_\-set\_\-character\_\-data\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}ical\_\-set\_\-character\_\-data\_\-handler (
+\begin{DoxyParamCaption}
+\item[{\$}]{parser, }
+\item[{\$}]{charHandle}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_a9167bc8a37cf9e9766b1f82f5784cdaf}
+Equivalent to xml\_\-set\_\-character\_\-data\_\-handler.
+
+
+\begin{DoxyParams}[1]{Parameters}
+Object & {\em \$parser} & Reference iCal to the parser to use \\
+\hline
+ & {\em Function()} & \$charHandle The function to call with text content. Expected arguments are:
+\begin{DoxyItemize}
+\item Object \$parser Reference to the parser object
+\item String \$content The raw text 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Boolean TRUE 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_af5040d51f1be467234b13837eefc9d53}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!ical\_\-set\_\-element\_\-handler@{ical\_\-set\_\-element\_\-handler}}
+\index{ical\_\-set\_\-element\_\-handler@{ical\_\-set\_\-element\_\-handler}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{ical\_\-set\_\-element\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}ical\_\-set\_\-element\_\-handler (
+\begin{DoxyParamCaption}
+\item[{\$}]{parser, }
+\item[{\$}]{starter, }
+\item[{\$}]{ender}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_af5040d51f1be467234b13837eefc9d53}
+Equivalent to xml\_\-set\_\-element\_\-handler, except the starter function will accept parsed content as well but can be ignored if required
+
+
+\begin{DoxyParams}[1]{Parameters}
+Object & {\em \$parser} & Reference iCal to the parser to use \\
+\hline
+ & {\em Function()} & \$starter The function to call with an opening tag. Expected arguments are:
+\begin{DoxyItemize}
+\item Object \$parser Reference to the parser object
+\item String \$tag Name of the tag
+\item String() \$attributes The attributes of the tag
+\item Content() \$content The tag content will return an array if it is array content 
+\end{DoxyItemize}\\
+\hline
+ & {\em Function()} & \$ender The function to call on closing tag. Expected arguments are:
+\begin{DoxyItemize}
+\item Object \$parser Reference to the parser object
+\item String \$tag Name of the closing tag 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Boolean TRUE 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_a866029e3a4a8f04843dc6735368ec3e7}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!load\_\-data@{load\_\-data}}
+\index{load\_\-data@{load\_\-data}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{load\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}load\_\-data (
+\begin{DoxyParamCaption}
+\item[{\$}]{parser, }
+\item[{\$}]{filename}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_a866029e3a4a8f04843dc6735368ec3e7}
+Load and parse the content
+
+
+\begin{DoxyParams}[1]{Parameters}
+Object & {\em \$parser} & Reference to parser to use \\
+\hline
+String & {\em \$filename} & The filename or resource to load \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Object Reference to the parser object or FALSE on failure 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_a0af36ab5229619c8c396d454c8c89116}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!utf8\_\-decode@{utf8\_\-decode}}
+\index{utf8\_\-decode@{utf8\_\-decode}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{utf8\_\-decode}]{\setlength{\rightskip}{0pt plus 5cm}utf8\_\-decode (
+\begin{DoxyParamCaption}
+\item[{\$}]{data}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_a0af36ab5229619c8c396d454c8c89116}
+Convert a text string from UTF-\/8 to ISO-\/8859-\/1. Exactly the same as the SAX parser equivalent
+
+
+\begin{DoxyParams}[1]{Parameters}
+String & {\em \$data} & The UTF-\/8 encoded string to convert \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String A ISO-\/8859-\/1 encoded string 
+\end{DoxyReturn}
+\hypertarget{classSavi__Parser_a9e9a4aca94f8a18a6fbc1dbc27ba594b}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!utf8\_\-encode@{utf8\_\-encode}}
+\index{utf8\_\-encode@{utf8\_\-encode}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{utf8\_\-encode}]{\setlength{\rightskip}{0pt plus 5cm}utf8\_\-encode (
+\begin{DoxyParamCaption}
+\item[{\$}]{data}
+\end{DoxyParamCaption}
+)}}
+\label{classSavi__Parser_a9e9a4aca94f8a18a6fbc1dbc27ba594b}
+Convert a text string from ISO-\/8859-\/1 to UTF-\/8. Exactly the same as the SAX parser equivalent
+
+
+\begin{DoxyParams}[1]{Parameters}
+String & {\em \$data} & The ISO-\/8859-\/1 encoded string to convert \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String A UTF-\/8 encoded string 
+\end{DoxyReturn}
+
+
+\subsection{Field Documentation}
+\hypertarget{classSavi__Parser_a5a878b1c34cc555349cbc4acbcdd54e7}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\$charHandle@{\$charHandle}}
+\index{\$charHandle@{\$charHandle}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\$charHandle}]{\setlength{\rightskip}{0pt plus 5cm}\$charHandle = ''\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classSavi__Parser_a5a878b1c34cc555349cbc4acbcdd54e7}
+\hypertarget{classSavi__Parser_accbd2f26bb805e2a243cab5498237ac8}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\$ender@{\$ender}}
+\index{\$ender@{\$ender}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\$ender}]{\setlength{\rightskip}{0pt plus 5cm}\$ender = ''\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classSavi__Parser_accbd2f26bb805e2a243cab5498237ac8}
+\hypertarget{classSavi__Parser_a63d046010fb22e14107bd3861e1d9dd5}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\$errNo@{\$errNo}}
+\index{\$errNo@{\$errNo}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\$errNo}]{\setlength{\rightskip}{0pt plus 5cm}\$errNo = 0\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classSavi__Parser_a63d046010fb22e14107bd3861e1d9dd5}
+\hypertarget{classSavi__Parser_af21b3b8a4d4bcfa682cd5f411e0eb566}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\$errorMsgs@{\$errorMsgs}}
+\index{\$errorMsgs@{\$errorMsgs}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\$errorMsgs}]{\setlength{\rightskip}{0pt plus 5cm}\$errorMsgs = ''\hspace{0.3cm}{\ttfamily  \mbox{[}static, protected\mbox{]}}}}
+\label{classSavi__Parser_af21b3b8a4d4bcfa682cd5f411e0eb566}
+\hypertarget{classSavi__Parser_ad86c3fbc5672e1deeafc5229012b0b5d}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\$handle@{\$handle}}
+\index{\$handle@{\$handle}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\$handle}]{\setlength{\rightskip}{0pt plus 5cm}\$handle = false\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classSavi__Parser_ad86c3fbc5672e1deeafc5229012b0b5d}
+\hypertarget{classSavi__Parser_ac37a18f959e7a225e0a690852367523d}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\$lineFixer@{\$lineFixer}}
+\index{\$lineFixer@{\$lineFixer}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\$lineFixer}]{\setlength{\rightskip}{0pt plus 5cm}\$lineFixer = true\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classSavi__Parser_ac37a18f959e7a225e0a690852367523d}
+\hypertarget{classSavi__Parser_a9e2fcfa96c544bf4bd3c5a71a7bf2739}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\$lineNo@{\$lineNo}}
+\index{\$lineNo@{\$lineNo}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\$lineNo}]{\setlength{\rightskip}{0pt plus 5cm}\$lineNo = -\/1\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classSavi__Parser_a9e2fcfa96c544bf4bd3c5a71a7bf2739}
+\hypertarget{classSavi__Parser_a87f087d55e041fbc48604cfe47019f6e}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\$multiLineFixer@{\$multiLineFixer}}
+\index{\$multiLineFixer@{\$multiLineFixer}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\$multiLineFixer}]{\setlength{\rightskip}{0pt plus 5cm}\$multiLineFixer = true\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classSavi__Parser_a87f087d55e041fbc48604cfe47019f6e}
+\hypertarget{classSavi__Parser_a0a6ff866cad56154d31e649d69ac8c0f}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\$starter@{\$starter}}
+\index{\$starter@{\$starter}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\$starter}]{\setlength{\rightskip}{0pt plus 5cm}\$starter = ''\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classSavi__Parser_a0a6ff866cad56154d31e649d69ac8c0f}
+\hypertarget{classSavi__Parser_ab025198049ed7f6ff96c43aba8c4ad20}{
+\index{Savi\_\-Parser@{Savi\_\-Parser}!\$uppercaseTags@{\$uppercaseTags}}
+\index{\$uppercaseTags@{\$uppercaseTags}!Savi_Parser@{Savi\_\-Parser}}
+\subsubsection[{\$uppercaseTags}]{\setlength{\rightskip}{0pt plus 5cm}\$uppercaseTags = true\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classSavi__Parser_ab025198049ed7f6ff96c43aba8c4ad20}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/\hyperlink{SAVI_8php}{SAVI.php}\end{DoxyCompactItemize}

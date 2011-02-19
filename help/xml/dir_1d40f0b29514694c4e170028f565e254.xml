@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="dir_1d40f0b29514694c4e170028f565e254" kind="dir">
+    <compoundname>H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Calendar/</compoundname>
+    <innerfile refid="Alarm_8php">Alarm.php</innerfile>
+    <innerfile refid="Event_8php">Event.php</innerfile>
+    <innerfile refid="Journal_8php">Journal.php</innerfile>
+    <innerfile refid="Todo_8php">Todo.php</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Calendar/"/>
+  </compounddef>
+</doxygen>

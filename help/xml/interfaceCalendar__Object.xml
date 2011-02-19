@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="interfaceCalendar__Object" kind="interface" prot="public">
+    <compoundname>Calendar_Object</compoundname>
+    <derivedcompoundref refid="classCalendarBase" prot="public" virt="non-virtual">CalendarBase</derivedcompoundref>
+    <derivedcompoundref refid="classCalendarBase" prot="public" virt="non-virtual">CalendarBase</derivedcompoundref>
+    <derivedcompoundref refid="classCalendarBase" prot="public" virt="non-virtual">CalendarBase</derivedcompoundref>
+    <derivedcompoundref refid="classCalendarBase" prot="public" virt="non-virtual">CalendarBase</derivedcompoundref>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="142">
+        <label>CalendarBase</label>
+        <link refid="classCalendarBase"/>
+        <childnode refid="141" relation="public-inheritance">
+        </childnode>
+        <childnode refid="141" relation="public-inheritance">
+        </childnode>
+        <childnode refid="141" relation="public-inheritance">
+        </childnode>
+        <childnode refid="141" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="141">
+        <label>Calendar_Object</label>
+        <link refid="interfaceCalendar__Object"/>
+      </node>
+    </inheritancegraph>
+    <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Calendar.php" line="60" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Calendar.php" bodystart="60" bodyend="62"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

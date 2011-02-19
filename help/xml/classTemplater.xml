@@ -1,0 +1,575 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="classTemplater" kind="class" prot="public">
+    <compoundname>Templater</compoundname>
+    <basecompoundref refid="classImpactBase" prot="public" virt="non-virtual">ImpactBase</basecompoundref>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classTemplater_1aa108d9d91e700ac530401dd363b0723b" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>$xml</definition>
+        <argsstring></argsstring>
+        <name>$xml</name>
+        <initializer> &apos;&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="13" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTemplater_1a537fa9b460dddc2a67074faab810398a" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>$application</definition>
+        <argsstring></argsstring>
+        <name>$application</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="14" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTemplater_1a211527c21ba56109545060b49b628e59" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>$component</definition>
+        <argsstring></argsstring>
+        <name>$component</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="15" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTemplater_1a83952ded4d59c57271c0cb128f7feb26" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>$mainApplication</definition>
+        <argsstring></argsstring>
+        <name>$mainApplication</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="16" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTemplater_1aa06e64fd19a6d82d290ec197a8e65148" prot="protected" static="no" mutable="no">
+        <type></type>
+        <definition>$Acl</definition>
+        <argsstring></argsstring>
+        <name>$Acl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="17" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTemplater_1a095c5d389db211932136b53f25f39685" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>__construct</definition>
+        <argsstring>()</argsstring>
+        <name>__construct</name>
+        <reimplements refid="classImpactBase_1a095c5d389db211932136b53f25f39685">__construct</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructor</para><para>No constructor code is required </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="26" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="26" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1a727658f81bc18c6c88995f8aba92c775" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>init</definition>
+        <argsstring>($application, $path=&apos;&apos;, $path2=&apos;&apos;)</argsstring>
+        <name>init</name>
+        <param>
+          <type>$</type>
+          <declname>application</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>path</declname>
+          <defval>&apos;&apos;</defval>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>path2</declname>
+          <defval>&apos;&apos;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Initialization method.</para><para>Initialize the main parser setting and parse any content supplied (optional).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>&amp;mixed()</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>$application The page array, containing data on the requested page (database record). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&amp;mixed()/string</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>$path If it is a string then parse as XML template or path to template. If it is an array then it is the application array context for the template (ie. user data and other global information). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$path2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional path/XML content to parse. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="40" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="40" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1a16cb512b453ef9d52c8632f9ffb2b70f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>parse</definition>
+        <argsstring>($path)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>$</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Parse XML template.</para><para>Parse the contents supplied or load the address supplied and parse that.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parse the contents or if a path, load the path and parse that. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>string The parsed content. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="77" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="77" bodyend="118"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classTemplater_1a00d40db64ad70c42338c9a59d1de1c35" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_get_xml</definition>
+        <argsstring>($path)</argsstring>
+        <name>_get_xml</name>
+        <param>
+          <type>$</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the XML content to parse.</para><para>Grab the XML from a file or if supplied as string then grab from that. Load XML into class XML property.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>filepath or XML string </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="130" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="130" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1af19477e936940a697d6cbb90b09de604" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_loop</definition>
+        <argsstring>($matches)</argsstring>
+        <name>_loop</name>
+        <param>
+          <type>$</type>
+          <declname>matches</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="145" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="145" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1a9b95e5ef05ebdb894b65e9f235498198" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_block</definition>
+        <argsstring>($matches)</argsstring>
+        <name>_block</name>
+        <param>
+          <type>$</type>
+          <declname>matches</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="173" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="173" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1a232105789c1a17628919135924522406" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_template</definition>
+        <argsstring>($matches)</argsstring>
+        <name>_template</name>
+        <param>
+          <type>$</type>
+          <declname>matches</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="185" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="185" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1afe09ec38c203a7906bfe4dc3de39229e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_data</definition>
+        <argsstring>($match)</argsstring>
+        <name>_data</name>
+        <param>
+          <type>$</type>
+          <declname>match</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="204" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="204" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1acb5dac6096e17eb7c7dc1aaab994d8f2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_include</definition>
+        <argsstring>($match)</argsstring>
+        <name>_include</name>
+        <param>
+          <type>$</type>
+          <declname>match</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="231" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="231" bodyend="252"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1a345b5176475e6002c36ddb34db9d3492" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_feature</definition>
+        <argsstring>($match)</argsstring>
+        <name>_feature</name>
+        <param>
+          <type>$</type>
+          <declname>match</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="254" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="254" bodyend="277"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1af7bc1d3618ff46e6a368a3a8a3eb47d7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_feature_loader</definition>
+        <argsstring>($ids, $showone)</argsstring>
+        <name>_feature_loader</name>
+        <param>
+          <type>$</type>
+          <declname>ids</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>showone</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="279" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="279" bodyend="311"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1a6ea00eab265dfcba5b44ffd1e2836215" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_plugin</definition>
+        <argsstring>($match)</argsstring>
+        <name>_plugin</name>
+        <param>
+          <type>$</type>
+          <declname>match</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="313" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="313" bodyend="326"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1a421ef5fd3409c14911b123dedb0d569c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_notblank</definition>
+        <argsstring>($testers)</argsstring>
+        <name>_notblank</name>
+        <param>
+          <type>$</type>
+          <declname>testers</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="328" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="328" bodyend="354"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1af385604071f515718b5a27bd33c7135e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_acl</definition>
+        <argsstring>(&amp;$attributes)</argsstring>
+        <name>_acl</name>
+        <param>
+          <type>&amp;$</type>
+          <declname>attributes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="356" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="356" bodyend="407"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1a03cce8ddd3c98e958ef5d0887f491085" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_ical</definition>
+        <argsstring>(&amp;$attributes)</argsstring>
+        <name>_ical</name>
+        <param>
+          <type>&amp;$</type>
+          <declname>attributes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="409" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="409" bodyend="439"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1a632a0e87c541dcf981f2cbb59cbd1f53" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_variable</definition>
+        <argsstring>(&amp;$matches)</argsstring>
+        <name>_variable</name>
+        <param>
+          <type>&amp;$</type>
+          <declname>matches</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="441" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="441" bodyend="456"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1ad6f6d3b39173ff8df14c98dff43b2c74" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_test_formatter</definition>
+        <argsstring>($test)</argsstring>
+        <name>_test_formatter</name>
+        <param>
+          <type>$</type>
+          <declname>test</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="458" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="458" bodyend="465"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1a28a2d10e85a5b75975e3e62e630c8634" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_get_attributes</definition>
+        <argsstring>($att)</argsstring>
+        <name>_get_attributes</name>
+        <param>
+          <type>$</type>
+          <declname>att</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get attributes from text string.</para><para>Parse a string and return the attribute values contained in it. Parser assumes the attributes are written like: att1=&quot;val1&quot; att2=&quot;val&quot; ...etc. Results are returned as an array in format (att1=&gt;val1,att2=&gt;val2).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$att</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The XML snippet containing the attributes to be parsed. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>string() Array of attributes stored as key/value pairs. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="478" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="478" bodyend="489"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1acc5cc0d5af8280d8fdb51187b5bb5e56" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_date_reformat</definition>
+        <argsstring>($date)</argsstring>
+        <name>_date_reformat</name>
+        <param>
+          <type>$</type>
+          <declname>date</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Reformat a date string.</para><para>Internal method to reformat a date string from yyyy-mm-dd hh:mm:ss to yyyymmddThhmmss format.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$date</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Date string to reformat. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>string Reformatted string. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="501" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="501" bodyend="503"/>
+      </memberdef>
+      <memberdef kind="function" id="classTemplater_1aa84917bddd2eaa401c9c606311452f84" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_contains</definition>
+        <argsstring>($txt1, $txt2)</argsstring>
+        <name>_contains</name>
+        <param>
+          <type>$</type>
+          <declname>txt1</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>txt2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Test for text snippet in another string.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>$txt1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The string to search. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>$txt2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The string to search for. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Boolean Was the text found? </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="513" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="513" bodyend="516"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="187">
+        <label>ImpactBase</label>
+        <link refid="classImpactBase"/>
+      </node>
+      <node id="186">
+        <label>Templater</label>
+        <link refid="classTemplater"/>
+        <childnode refid="187" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="189">
+        <label>ImpactBase</label>
+        <link refid="classImpactBase"/>
+      </node>
+      <node id="188">
+        <label>Templater</label>
+        <link refid="classTemplater"/>
+        <childnode refid="189" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" line="12" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/Templater.php" bodystart="12" bodyend="517"/>
+    <listofallmembers>
+      <member refid="classTemplater_1aa06e64fd19a6d82d290ec197a8e65148" prot="protected" virt="non-virtual"><scope>Templater</scope><name>$Acl</name></member>
+      <member refid="classTemplater_1a537fa9b460dddc2a67074faab810398a" prot="protected" virt="non-virtual"><scope>Templater</scope><name>$application</name></member>
+      <member refid="classTemplater_1a211527c21ba56109545060b49b628e59" prot="protected" virt="non-virtual"><scope>Templater</scope><name>$component</name></member>
+      <member refid="classTemplater_1a83952ded4d59c57271c0cb128f7feb26" prot="protected" virt="non-virtual"><scope>Templater</scope><name>$mainApplication</name></member>
+      <member refid="classImpactBase_1a255f6b6db4c45b1418e9c15cf4e2bcdd" prot="protected" virt="non-virtual"><scope>Templater</scope><name>$objects</name></member>
+      <member refid="classTemplater_1aa108d9d91e700ac530401dd363b0723b" prot="protected" virt="non-virtual"><scope>Templater</scope><name>$xml</name></member>
+      <member refid="classImpactBase_1a3815af62ed9d37b2dcaa175379bbfeca" prot="public" virt="non-virtual"><scope>Templater</scope><name>__call</name></member>
+      <member refid="classTemplater_1a095c5d389db211932136b53f25f39685" prot="public" virt="non-virtual"><scope>Templater</scope><name>__construct</name></member>
+      <member refid="classTemplater_1af385604071f515718b5a27bd33c7135e" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_acl</name></member>
+      <member refid="classTemplater_1a9b95e5ef05ebdb894b65e9f235498198" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_block</name></member>
+      <member refid="classTemplater_1aa84917bddd2eaa401c9c606311452f84" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_contains</name></member>
+      <member refid="classTemplater_1afe09ec38c203a7906bfe4dc3de39229e" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_data</name></member>
+      <member refid="classTemplater_1acc5cc0d5af8280d8fdb51187b5bb5e56" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_date_reformat</name></member>
+      <member refid="classImpactBase_1af3690b8603e5a936765d05c5c28c6a37" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_detect</name></member>
+      <member refid="classTemplater_1a345b5176475e6002c36ddb34db9d3492" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_feature</name></member>
+      <member refid="classTemplater_1af7bc1d3618ff46e6a368a3a8a3eb47d7" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_feature_loader</name></member>
+      <member refid="classTemplater_1a28a2d10e85a5b75975e3e62e630c8634" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_get_attributes</name></member>
+      <member refid="classTemplater_1a00d40db64ad70c42338c9a59d1de1c35" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_get_xml</name></member>
+      <member refid="classTemplater_1a03cce8ddd3c98e958ef5d0887f491085" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_ical</name></member>
+      <member refid="classTemplater_1acb5dac6096e17eb7c7dc1aaab994d8f2" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_include</name></member>
+      <member refid="classImpactBase_1ac3c8987c95826d5c587c1d4580a52767" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_load_config</name></member>
+      <member refid="classTemplater_1af19477e936940a697d6cbb90b09de604" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_loop</name></member>
+      <member refid="classTemplater_1a421ef5fd3409c14911b123dedb0d569c" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_notblank</name></member>
+      <member refid="classTemplater_1a6ea00eab265dfcba5b44ffd1e2836215" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_plugin</name></member>
+      <member refid="classImpactBase_1a1ff6b5b97cfc56fb8fde66a6a86e97b9" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_rnd_string</name></member>
+      <member refid="classTemplater_1a232105789c1a17628919135924522406" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_template</name></member>
+      <member refid="classTemplater_1ad6f6d3b39173ff8df14c98dff43b2c74" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_test_formatter</name></member>
+      <member refid="classTemplater_1a632a0e87c541dcf981f2cbb59cbd1f53" prot="protected" virt="non-virtual"><scope>Templater</scope><name>_variable</name></member>
+      <member refid="classImpactBase_1a1fbc5fa684cb87ef9cc0afeb96e50121" prot="public" virt="non-virtual"><scope>Templater</scope><name>convert_date</name></member>
+      <member refid="classImpactBase_1adf86e5676e8ec50965d7b3436a1f1d4f" prot="public" virt="non-virtual"><scope>Templater</scope><name>factory</name></member>
+      <member refid="classTemplater_1a727658f81bc18c6c88995f8aba92c775" prot="public" virt="non-virtual"><scope>Templater</scope><name>init</name></member>
+      <member refid="classTemplater_1a16cb512b453ef9d52c8632f9ffb2b70f" prot="public" virt="non-virtual"><scope>Templater</scope><name>parse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

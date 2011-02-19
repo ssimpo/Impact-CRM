@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="interfaceDate__Parser__Object" kind="interface" prot="public">
+    <compoundname>Date_Parser_Object</compoundname>
+    <derivedcompoundref refid="classDate__Parser__Iso8601date" prot="public" virt="non-virtual">Date_Parser_Iso8601date</derivedcompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="interfaceDate__Parser__Object_1aa2c152ddbb36b27757618710edd6e2a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>parse</definition>
+        <argsstring>($date, $timezone)</argsstring>
+        <name>parse</name>
+        <reimplementedby refid="classDate__Parser__Iso8601date_1a31ce14d4600edabcf51672a2c43c37c8">parse</reimplementedby>
+        <param>
+          <type>$</type>
+          <declname>date</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>timezone</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Method to parse the date.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$date</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A string representation of the date. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametertype>string</parametertype>
+<parametername>$timezone</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optional timezone string. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>date A PHP date object. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/dateParser/interface.dateParserObject.php" line="20"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="158">
+        <label>Date_Parser_Object</label>
+        <link refid="interfaceDate__Parser__Object"/>
+      </node>
+      <node id="159">
+        <label>Date_Parser_Iso8601date</label>
+        <link refid="classDate__Parser__Iso8601date"/>
+        <childnode refid="158" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/dateParser/interface.dateParserObject.php" line="10" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/dateParser/interface.dateParserObject.php" bodystart="10" bodyend="21"/>
+    <listofallmembers>
+      <member refid="interfaceDate__Parser__Object_1aa2c152ddbb36b27757618710edd6e2a0" prot="public" virt="non-virtual"><scope>Date_Parser_Object</scope><name>parse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

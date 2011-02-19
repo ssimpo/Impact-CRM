@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="classIcal__Interpreter" kind="class" prot="public">
+    <compoundname>Ical_Interpreter</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classIcal__Interpreter_1a6b1385559f5a7063aaf24688452c5d55" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>$SAVI</definition>
+        <argsstring></argsstring>
+        <name>$SAVI</name>
+        <initializer> &apos;&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" line="11" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classIcal__Interpreter_1a6efc15b5a2314dd4b5aaa556a375c6d6" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>$data</definition>
+        <argsstring></argsstring>
+        <name>$data</name>
+        <initializer> &apos;&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" line="12" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classIcal__Interpreter_1a7f8f86b37cd48a37bf0df573d8512d11" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>$block</definition>
+        <argsstring></argsstring>
+        <name>$block</name>
+        <initializer> &apos;&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" line="13" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classIcal__Interpreter_1a2d499c39518df37e2759becba8383526" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>$subblock</definition>
+        <argsstring></argsstring>
+        <name>$subblock</name>
+        <initializer> &apos;&apos;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" line="14" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classIcal__Interpreter_1a095c5d389db211932136b53f25f39685" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>__construct</definition>
+        <argsstring>()</argsstring>
+        <name>__construct</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" line="16" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" bodystart="16" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classIcal__Interpreter_1aec9a6d35c77c3e6b8b688d1c03fde5ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>parse</definition>
+        <argsstring>($filename)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>$</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" line="29" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" bodystart="29" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classIcal__Interpreter_1a398b34d360886dc8a5309792400e4781" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>start_tag</definition>
+        <argsstring>($parser, $name, $attributes, $content=&apos;&apos;)</argsstring>
+        <name>start_tag</name>
+        <param>
+          <type>$</type>
+          <declname>parser</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>attributes</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>content</declname>
+          <defval>&apos;&apos;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" line="38" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" bodystart="38" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classIcal__Interpreter_1a219ac46a3dfb140ba53144e4116e4134" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>end_tag</definition>
+        <argsstring>($parser, $name)</argsstring>
+        <name>end_tag</name>
+        <param>
+          <type>$</type>
+          <declname>parser</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" line="76" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" bodystart="76" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classIcal__Interpreter_1a32fc01da180b795fb309168e9f4bd3c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>text_content</definition>
+        <argsstring>($parser, $content)</argsstring>
+        <name>text_content</name>
+        <param>
+          <type>$</type>
+          <declname>parser</declname>
+        </param>
+        <param>
+          <type>$</type>
+          <declname>content</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" line="80" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" bodystart="80" bodyend="82"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classIcal__Interpreter_1a31f9ef9369186dce8b0978f587d37998" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>_add_element_get_ref</definition>
+        <argsstring>($key)</argsstring>
+        <name>_add_element_get_ref</name>
+        <param>
+          <type>$</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" line="84" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" bodystart="84" bodyend="95"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" line="10" bodyfile="H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/iCalInterpreter.php" bodystart="10" bodyend="97"/>
+    <listofallmembers>
+      <member refid="classIcal__Interpreter_1a7f8f86b37cd48a37bf0df573d8512d11" prot="private" virt="non-virtual"><scope>Ical_Interpreter</scope><name>$block</name></member>
+      <member refid="classIcal__Interpreter_1a6efc15b5a2314dd4b5aaa556a375c6d6" prot="private" virt="non-virtual"><scope>Ical_Interpreter</scope><name>$data</name></member>
+      <member refid="classIcal__Interpreter_1a6b1385559f5a7063aaf24688452c5d55" prot="private" virt="non-virtual"><scope>Ical_Interpreter</scope><name>$SAVI</name></member>
+      <member refid="classIcal__Interpreter_1a2d499c39518df37e2759becba8383526" prot="private" virt="non-virtual"><scope>Ical_Interpreter</scope><name>$subblock</name></member>
+      <member refid="classIcal__Interpreter_1a095c5d389db211932136b53f25f39685" prot="public" virt="non-virtual"><scope>Ical_Interpreter</scope><name>__construct</name></member>
+      <member refid="classIcal__Interpreter_1a31f9ef9369186dce8b0978f587d37998" prot="private" virt="non-virtual"><scope>Ical_Interpreter</scope><name>_add_element_get_ref</name></member>
+      <member refid="classIcal__Interpreter_1a219ac46a3dfb140ba53144e4116e4134" prot="public" virt="non-virtual"><scope>Ical_Interpreter</scope><name>end_tag</name></member>
+      <member refid="classIcal__Interpreter_1aec9a6d35c77c3e6b8b688d1c03fde5ee" prot="public" virt="non-virtual"><scope>Ical_Interpreter</scope><name>parse</name></member>
+      <member refid="classIcal__Interpreter_1a398b34d360886dc8a5309792400e4781" prot="public" virt="non-virtual"><scope>Ical_Interpreter</scope><name>start_tag</name></member>
+      <member refid="classIcal__Interpreter_1a32fc01da180b795fb309168e9f4bd3c5" prot="public" virt="non-virtual"><scope>Ical_Interpreter</scope><name>text_content</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

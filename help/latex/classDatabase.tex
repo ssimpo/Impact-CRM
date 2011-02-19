@@ -1,0 +1,198 @@
+\hypertarget{classDatabase}{
+\section{Database Class Reference}
+\label{classDatabase}\index{Database@{Database}}
+}
+
+
+Inheritance diagram for Database:
+
+
+Collaboration diagram for Database:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classDatabase_a857aae71234bb70e0e3ac595e54baae4}{get\_\-row} (\$timeout, \$SQL)
+\item 
+\hyperlink{classDatabase_afc44d9a028275d73923a374b80520774}{get\_\-page} (\$entityID='')
+\item 
+\hyperlink{classDatabase_a4adac88286bc35d852c989bc578a720e}{get\_\-roles} (\$FBID=0)
+\item 
+\hyperlink{classDatabase_a3b626ff2a6dbeccfcce8d317db1290b2}{get\_\-access} (\$FBID=0)
+\item 
+\hyperlink{classDatabase_a5604ce928425fbaae355c50fc9ade1e7}{create\_\-roles\_\-sql} (\$field, \$roles='')
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classDatabase_af11d58f55017b2f1954dce69ecc9072f}{\_\-test\_\-connection} ()
+\item 
+\hyperlink{classDatabase_a16870e7c667f514a099afacc1009252b}{\_\-make\_\-database\_\-connection} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classDatabase_a7691c0162d89de0b6ba47edcd8ba8878}{\$database} = null
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classDatabase_ad9d7ce33ebb142b70e58b68052ca0ea8}{\$instance}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classDatabase_a16870e7c667f514a099afacc1009252b}{
+\index{Database@{Database}!\_\-make\_\-database\_\-connection@{\_\-make\_\-database\_\-connection}}
+\index{\_\-make\_\-database\_\-connection@{\_\-make\_\-database\_\-connection}!Database@{Database}}
+\subsubsection[{\_\-make\_\-database\_\-connection}]{\setlength{\rightskip}{0pt plus 5cm}\_\-make\_\-database\_\-connection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_a16870e7c667f514a099afacc1009252b}
+Make a database connection.
+
+Connect to the database defined in the global constants.
+
+\begin{Desc}
+\item[\hyperlink{todo__todo000007}{Todo}]Test with other backends (other than MySQL/SQLite). 
+
+Make generic version so platform can connect to multiple database sources. \end{Desc}
+\hypertarget{classDatabase_af11d58f55017b2f1954dce69ecc9072f}{
+\index{Database@{Database}!\_\-test\_\-connection@{\_\-test\_\-connection}}
+\index{\_\-test\_\-connection@{\_\-test\_\-connection}!Database@{Database}}
+\subsubsection[{\_\-test\_\-connection}]{\setlength{\rightskip}{0pt plus 5cm}\_\-test\_\-connection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_af11d58f55017b2f1954dce69ecc9072f}
+Test connection.
+
+Test if connection is already made, if not, create it. \hypertarget{classDatabase_a5604ce928425fbaae355c50fc9ade1e7}{
+\index{Database@{Database}!create\_\-roles\_\-sql@{create\_\-roles\_\-sql}}
+\index{create\_\-roles\_\-sql@{create\_\-roles\_\-sql}!Database@{Database}}
+\subsubsection[{create\_\-roles\_\-sql}]{\setlength{\rightskip}{0pt plus 5cm}create\_\-roles\_\-sql (
+\begin{DoxyParamCaption}
+\item[{\$}]{field, }
+\item[{\$}]{roles = {\ttfamily ''}}
+\end{DoxyParamCaption}
+)}}
+\label{classDatabase_a5604ce928425fbaae355c50fc9ade1e7}
+Generate SQL fragment for testing against certain roles.
+
+Create a fragment of SQL, which can be used in a wider SQL statement to restrict results to items, which a certain user has access rights to.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$field} & The field to test against \\
+\hline
+ & {\em string()} & \$roles The roles to test against (default will grab the current users roles). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string SQL fragment based on field and roles 
+\end{DoxyReturn}
+\hypertarget{classDatabase_a3b626ff2a6dbeccfcce8d317db1290b2}{
+\index{Database@{Database}!get\_\-access@{get\_\-access}}
+\index{get\_\-access@{get\_\-access}!Database@{Database}}
+\subsubsection[{get\_\-access}]{\setlength{\rightskip}{0pt plus 5cm}get\_\-access (
+\begin{DoxyParamCaption}
+\item[{\$}]{FBID = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}
+\label{classDatabase_a3b626ff2a6dbeccfcce8d317db1290b2}
+Get the users access level.
+
+Specific \hyperlink{namespaceImpact}{Impact} method for returning the \hyperlink{classAcl}{Acl} access level of the supplied user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$FBID} & The Facebook ID of the user to query. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+integer Access level of the supplied user. 
+\end{DoxyReturn}
+\hypertarget{classDatabase_afc44d9a028275d73923a374b80520774}{
+\index{Database@{Database}!get\_\-page@{get\_\-page}}
+\index{get\_\-page@{get\_\-page}!Database@{Database}}
+\subsubsection[{get\_\-page}]{\setlength{\rightskip}{0pt plus 5cm}get\_\-page (
+\begin{DoxyParamCaption}
+\item[{\$}]{entityID = {\ttfamily ''}}
+\end{DoxyParamCaption}
+)}}
+\label{classDatabase_afc44d9a028275d73923a374b80520774}
+Get the specified page.
+
+Specific \hyperlink{namespaceImpact}{Impact} method for returning page data.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$entityID} & The ID of the page to return. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed()$|$boolean Either the result-\/row or false on failure. 
+\end{DoxyReturn}
+\hypertarget{classDatabase_a4adac88286bc35d852c989bc578a720e}{
+\index{Database@{Database}!get\_\-roles@{get\_\-roles}}
+\index{get\_\-roles@{get\_\-roles}!Database@{Database}}
+\subsubsection[{get\_\-roles}]{\setlength{\rightskip}{0pt plus 5cm}get\_\-roles (
+\begin{DoxyParamCaption}
+\item[{\$}]{FBID = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}
+\label{classDatabase_a4adac88286bc35d852c989bc578a720e}
+Get the users access roles.
+
+Specific \hyperlink{namespaceImpact}{Impact} method for returning the Acl-\/roles, which the supplied user is a member.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$FBID} & The Facebook ID of the user to query. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string() Array of all the rules that the user is in 
+\end{DoxyReturn}
+\hypertarget{classDatabase_a857aae71234bb70e0e3ac595e54baae4}{
+\index{Database@{Database}!get\_\-row@{get\_\-row}}
+\index{get\_\-row@{get\_\-row}!Database@{Database}}
+\subsubsection[{get\_\-row}]{\setlength{\rightskip}{0pt plus 5cm}get\_\-row (
+\begin{DoxyParamCaption}
+\item[{\$}]{timeout, }
+\item[{\$}]{SQL}
+\end{DoxyParamCaption}
+)}}
+\label{classDatabase_a857aae71234bb70e0e3ac595e54baae4}
+Get a database row.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$timeout} & How long to allow before returning false. \\
+\hline
+string & {\em \$SQL} & The SQL statement to execute. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed()$|$boolean Either the result-\/row or false on failure. 
+\end{DoxyReturn}
+
+
+\subsection{Field Documentation}
+\hypertarget{classDatabase_a7691c0162d89de0b6ba47edcd8ba8878}{
+\index{Database@{Database}!\$database@{\$database}}
+\index{\$database@{\$database}!Database@{Database}}
+\subsubsection[{\$database}]{\setlength{\rightskip}{0pt plus 5cm}\$database = null\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classDatabase_a7691c0162d89de0b6ba47edcd8ba8878}
+\hypertarget{classDatabase_ad9d7ce33ebb142b70e58b68052ca0ea8}{
+\index{Database@{Database}!\$instance@{\$instance}}
+\index{\$instance@{\$instance}!Database@{Database}}
+\subsubsection[{\$instance}]{\setlength{\rightskip}{0pt plus 5cm}\$instance\hspace{0.3cm}{\ttfamily  \mbox{[}static, private\mbox{]}}}}
+\label{classDatabase_ad9d7ce33ebb142b70e58b68052ca0ea8}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+H:/www/htdocs/Projects/ImpactCRM/ImpactCRM/models/\hyperlink{Database_8php}{Database.php}\end{DoxyCompactItemize}

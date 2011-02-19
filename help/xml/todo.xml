@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.3">
+  <compounddef id="todo" kind="page">
+    <compoundname>todo</compoundname>
+    <title>Todo List</title>
+    <detaileddescription>
+<para><anchor id="todo_1_todo000005"/> <variablelist>
+<varlistentry><term>Global <ref refid="classApplication_1a50272fd88e89d4f34d5b23e4b630ddfe" kindref="member">Application::_language_detect</ref> () </term></varlistentry>
+<listitem><para>Allow Facebook language detection and user database lookup (for stored setting). </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000002"/> <variablelist>
+<varlistentry><term>Global <ref refid="classApplication_1ab2e18c82d6909c852402b07aa48340bc" kindref="member">Application::_make_facebook_connection</ref> () </term></varlistentry>
+<listitem><para>Update to the newest Facebook API. </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000004"/> <variablelist>
+<varlistentry><term>Global <ref refid="classApplication_1a460579297e7ecc04cb6896ed1a9b4c70" kindref="member">Application::_media_detect</ref> () </term></varlistentry>
+<listitem><para>Add detection for wider range of media. </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000003"/> <variablelist>
+<varlistentry><term>Global <ref refid="classApplication_1a8dd8f2b40e326f70b9f413d76e0eafac" kindref="member">Application::_user_access_detect</ref> () </term></varlistentry>
+<listitem><para>Needs a bit of work to improve it but works well and doesn&apos;t have any major security flaws. </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000006"/> <variablelist>
+<varlistentry><term>Namespace <ref refid="namespaceCalendar" kindref="compound">Calendar</ref>  </term></varlistentry>
+<listitem><para>Start using a generic factory class. </para><para>derive Factory Method from base class </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000007"/> <variablelist>
+<varlistentry><term>Global <ref refid="classDatabase_1a16870e7c667f514a099afacc1009252b" kindref="member">Database::_make_database_connection</ref> () </term></varlistentry>
+<listitem><para>Test with other backends (other than MySQL/SQLite). </para><para>Make generic version so platform can connect to multiple database sources. </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000009"/> <variablelist>
+<varlistentry><term>Global <ref refid="classI_1a85077c9c8dcdcd64ca0f17d17b1e0626" kindref="member">I::load_config</ref> ($path) </term></varlistentry>
+<listitem><para>Make it work with more complex data types. </para></listitem>
+</variablelist>
+</para><para><anchor id="todo_1_todo000001"/> <variablelist>
+<varlistentry><term>Namespace <ref refid="namespaceImpact" kindref="compound">Impact</ref>  </term></varlistentry>
+<listitem><para>Breakdown into separate classes for different areas</para><para></para></listitem>
+</variablelist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>
