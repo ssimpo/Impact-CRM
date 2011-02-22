@@ -229,6 +229,86 @@ Impact.bat CodeCheck "%(path:supportDir)/../../komodo.exe" impact</command>
 </folder>
 <command cwd="%p/util" doNotOpenOutputWindow="0" env="" icon="chrome://openoffice/skin/icons/calc-accept.png" id="9540d8c5-8ffc-4e23-92be-adbc74c23a59" idref="6c8f702a-210e-4cdf-b0f5-3abf2054ca6d" insertOutput="0" keyboard_shortcut="" name="Unit &amp; Code Test All" operateOnSelection="0" parseOutput="0" parseRegex="" runIn="command-output-window" showParsedOutputList="0">
 Impact.bat CheckAll "%(path:supportDir)/../../komodo.exe"</command>
+<macro async="0" icon="chrome://openoffice/skin/icons/3d-light-on.png" id="7488a687-ec37-4cb9-ae38-6ce743fad454" idref="f4c07213-048a-4e25-8041-0d7a4212cd1c" keyboard_shortcut="" language="JavaScript" name="Create Source Nightly (Trunk)" rank="100" trigger="trigger_postopen" trigger_enabled="0">
+// summary:
+//      Open the repo-browser at the path specidied in the open project (linked to current file).
+
+var project = getProject();
+if (project) {
+    //var path = getProjectPath(project);
+    
+    ko.run.runEncodedCommand(window, 'TortoiseProc.exe /command:copy /path:\"svn+ssh://svn.code.sf.net/p/impactcrm/svn/Trunk\" /url:\"svn+ssh://svn.code.sf.net/p/impactcrm/svn/Nightly/source/%(date:%d%m20%y)\" /logmsg:\"Source Nightly For: %(date:%A %d %B 20%y)\" {\'cwd\': u\'%p\'}');
+    
+    
+} else {
+    alert("Could not find current file in open projects.")
+}
+
+
+function getProject() {
+    //  summary:
+    //      Get the project, the current file is attached to (will assume first
+    //      which it find the current file in).
+    //  returns: Object KomodoProject
+
+    var url = ko.views.manager.currentView.document.file.URI;
+    var projects = ko.projects.manager.getAllProjects();
+    
+    for (i in projects) {
+        if (isInProject(url,projects[i])) {
+            return projects[i];
+        }
+    }
+    
+    return false;
+}
+
+function isInProject(path,project) {
+    // summary:
+    //      Test whether a give path+file is in contained within given project.
+    // path:
+    //      The file path to test (including the actual filename).
+    // project: object KomodoProject
+    //      The project to look in.
+    // returns: boolean
+
+    try {
+        var result = {};
+        project.getAllContainedURLs(result, {});
+        var urls = result.value;
+        var url = makeURL(path);
+        
+        return ((urls.indexOf(url) == -1) ? false:true);
+    } catch(e) {
+       return false;
+    } 
+}
+
+function makeURL(path) {
+    // summary:
+    //      Turn a given path into a URI.
+    // path: string
+    //      The path to convert.
+    // returns: string
+    
+    if (path.indexOf('file:///') == -1) {
+        return 'file:///'+path.replace(/\\/g,'/');
+    } else {
+        return path;
+    }
+}
+
+function getProjectPath(project) {
+    // summary:
+    //      Get the path of a project.
+    // project: object KomodoProject
+    //      The project to get the path of.
+    // returns: string
+    
+    var projectFile = project.getFile();
+    return projectFile.dirName;
+}
+</macro>
 <macro async="0" icon="chrome://openoffice/skin/icons/insert_section.png" id="1a200796-41e4-4a73-b291-89e6d1fad670" idref="fdc3da6d-8038-47cd-afbb-3e051d3889ec" keyboard_shortcut="" language="JavaScript" name="Log (Current File)" rank="100" trigger="trigger_postopen" trigger_enabled="0">
 var path = ko.views.manager.currentView.document.file.path;
 ko.run.runEncodedCommand(window, 'TortoiseProc.exe /command:log /path:\"'+path+'\" {\'cwd\': u\'%p\'}');</macro>
@@ -391,6 +471,8 @@ function getProjectPath(project) {
     return projectFile.dirName;
 }
 </macro>
+<folder id="f4c07213-048a-4e25-8041-0d7a4212cd1c" idref="fdc3da6d-8038-47cd-afbb-3e051d3889ec" name="Manage">
+</folder>
 <macro async="0" icon="chrome://openoffice/skin/icons/copy.png" id="fdfaab46-568d-4aa7-8fa8-3094d358566e" idref="fdc3da6d-8038-47cd-afbb-3e051d3889ec" keyboard_shortcut="" language="JavaScript" name="Diff (Current File)" rank="100" trigger="trigger_postopen" trigger_enabled="0">
 var path = ko.views.manager.currentView.document.file.path;
 ko.run.runEncodedCommand(window, 'TortoiseProc.exe /command:diff /path:\"'+path+'\" {\'cwd\': u\'%p\'}');</macro>

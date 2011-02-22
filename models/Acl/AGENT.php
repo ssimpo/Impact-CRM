@@ -56,7 +56,7 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 	 *	@param array $attributes The browser name to test against (expected $attributes[0] = '<BROWSER>').
 	 *	@return boolean
 	 */
-	protected function _test_browser($attributes) {
+	public function test_browser($attributes) {
 		$browscap = $this->_get_browser_info($this->agent);
 		return (strtoupper($browscap->browser) == strtoupper($attributes[0]));
 	}
@@ -68,7 +68,7 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 	 *	@param array $attributes The platform name to test against (expected $attributes[0] = '<PLATFROM>').
 	 *	@return boolean
 	 */
-	protected function _test_platform($attributes) {
+	public function test_platform($attributes) {
 		$browscap = $this->_get_browser_info($this->agent);
 		return (strtoupper($browscap->platform) == strtoupper($attributes[0]));
 	}
@@ -80,7 +80,7 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 	 *	@param array $attributes This is expected to be blank
 	 *	@return boolean
 	 */
-	protected function _test_mobile($attributes) {
+	public function test_mobile($attributes) {
 		if ($this->_is_using_mobile_subdomain()) {
 			return true;
 		}

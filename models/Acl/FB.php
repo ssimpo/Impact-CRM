@@ -41,7 +41,7 @@ class Acl_FB extends Acl_TestBase implements Acl_Test {
 	 *	@param array $attributes The Facebook-ID of the user in form $attributes[0] = ID.
 	 *	@return boolean
 	 */
-	protected function _test_user($attributes) {
+	public function test_user($attributes) {
 		$fbid = (is_array($attributes) ? $attributes[0]:$attributes);
 		$fbid = (is_string($fbid) ? (int) $fbid:$fbid);
 
@@ -62,7 +62,7 @@ class Acl_FB extends Acl_TestBase implements Acl_Test {
 	 *	@param array $attributes The Facebook-ID of the friend in the form $attributes[0] = ID.
 	 *	@return boolean
 	 */
-	protected function _test_friend($attributes) {
+	public function test_friend($attributes) {
 		$friendID = $attributes[0];
 		if (is_numeric($friendID)) {
 			$friendID = (int) $fbid;
