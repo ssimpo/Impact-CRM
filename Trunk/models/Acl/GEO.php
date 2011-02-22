@@ -93,7 +93,7 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
          *      @param array $attributes Name of city to test against (expected format is $attributes[0] = '<CITY NAME>').
          *      @return boolean
          */
-        protected function _test_city($attributes) {
+        public function test_city($attributes) {
                 $data = $this->_city_lookup($this->ip);
                 return (strtoupper($data->city) == strtoupper($attributes[0]));
         }
@@ -105,7 +105,7 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
          *      @param array $attributes Name of region to test against (expected format is $attributes[0] = '<REGION NAME>').
          *      @return boolean
          */
-        protected function _test_region($attributes) {
+        public function test_region($attributes) {
                 $data = $this->_city_lookup($this->ip);
                 return (strtoupper($data->rigion) == strtoupper($attributes[0]));
         }
@@ -117,7 +117,7 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
          *      @param array $attributes Name of country to test against (expected format is $attributes[0] = '<COUNTRY NAME>').
          *      @return boolean
          */
-        protected function _test_country($attributes) {
+        public function test_country($attributes) {
                 $data = $this->_city_lookup($this->ip);
                 return (strtoupper($data->countryCode) == strtoupper($attributes[0]));
         }
@@ -129,7 +129,7 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
          *      @param array $attributes Data to test against. (Expected format $attributes[0] = '<Latitude>', $attributes[1] = '<Longitude>', $attributes[2] = '<RADIUS DISTANCE>', $attributes[3] = '<UNITSOF MEASUREMENT>').
          *      @return boolean
          */
-        protected function _test_radius($attributes) {
+        public function test_radius($attributes) {
                 $data = $this->_city_lookup($this->ip);
                 
                 $distance = $this->_lat_long_distance(

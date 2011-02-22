@@ -52,7 +52,7 @@ class Acl_REF extends Acl_TestBase implements Acl_Test {
          *      @param array $attributes The keywords as a array-list.
          *      @return boolean
          */
-	protected function _test_keywords($attributes) {
+	public function test_keywords($attributes) {
 		$found = true;
 		$keywords = $this->_get_query($this->referer);
 		foreach ($attributes as $keyword) {

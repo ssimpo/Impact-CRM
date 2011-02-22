@@ -74,7 +74,7 @@ class Test_Acl_FB extends PHPUnit_Framework_TestCase {
 	}
 	
 	public function test_test_user() {
-		$method = self::get_method('_test_user');
+		$method = self::get_method('test_user');
 		$session = self::$VALID_EXPIRED_SESSION;
 		$application = Application::instance();
 		$application->facebook->setSession($session);
