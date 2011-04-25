@@ -42,26 +42,28 @@ class Test_Acl_AGENT extends PHPUnit_Framework_TestCase {
 	public function test_test_browser() {
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3';
 		$this->assertTrue(
-			$this->Acl->test_browser('[AGENT:BROWSER:FIREFOX]')
+			$this->Acl->test_browser(array('FIREFOX'))
 		);
 	}
 	
 	public function test_test_platform() {
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3';
 		$this->assertTrue(
-			$this->Acl->test_platform('[AGENT:PLATFORM:MACOSX]')
+			$this->Acl->test_platform(array('MACOSX'))
 		);
 	}
 	
 	public function test_test_mobile() {
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3';
+		$this->Acl = new Acl_AGENT(Application::instance());
 		$this->assertFalse(
-			$this->Acl->test_mobile('[AGENT:MOBILE]')
+			$this->Acl->test_mobile(array())
 		);
 		
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3';
+		$this->Acl = new Acl_AGENT(Application::instance());
 		$this->assertTrue(
-			$this->Acl->test_mobile('[AGENT:MOBILE]')
+			$this->Acl->test_mobile(array())
 		);
 	}
 }
