@@ -23,8 +23,7 @@ class Test_Acl_AGENT extends PHPUnit_Framework_TestCase {
 		}
 		spl_autoload_register('self::__autoload');
 		
-		$application = Application::instance();
-		$this->Acl = new Acl_AGENT($application);
+		$this->Acl = new Acl_AGENT();
 	}
 	
 	private function __autoload($className) {
@@ -55,13 +54,11 @@ class Test_Acl_AGENT extends PHPUnit_Framework_TestCase {
 	
 	public function test_test_mobile() {
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3';
-		$this->Acl = new Acl_AGENT(Application::instance());
 		$this->assertFalse(
 			$this->Acl->test_mobile(array())
 		);
 		
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3';
-		$this->Acl = new Acl_AGENT(Application::instance());
 		$this->assertTrue(
 			$this->Acl->test_mobile(array())
 		);

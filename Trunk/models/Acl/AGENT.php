@@ -10,7 +10,7 @@
  */
 class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 	private $lookup = array();
-	private $agent = null;
+	private $application = null;
 	
 	/**
          *	Constructor.
@@ -23,8 +23,40 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 		if (!defined('DS')) {
 			define('DS',DIRECTORY_SEPARATOR);
 		}
-		if (isset($_SERVER['HTTP_USER_AGENT'])) {
-			$this->agent = $_SERVER['HTTP_USER_AGENT'];
+		if ($application != null) {
+			$this->application = $application;
+			if (!property_exists($this->application,'agent')) {
+				if (!$this->application->property_exists('agent')) {
+					if (isset($_SERVER['HTTP_USER_AGENT'])) {
+						$this->application->agent = $_SERVER['HTTP_USER_AGENT'];
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 *	Generic get property method.
+	 *
+	 *	Used to dynamically get a property based on live setup
+	 *
+	 *	@public
+	 */
+	public function __get($property) {
+		switch($property) {
+			case 'agent':
+				if ($this->application !== null) {
+					return $this->application->agent;
+				} else {
+					if (isset($_SERVER['HTTP_USER_AGENT'])) {
+						return $_SERVER['HTTP_USER_AGENT'];
+					} else {
+						return null;
+					}
+				}
+				break;
+			default:
+				return null;
 		}
 	}
 	

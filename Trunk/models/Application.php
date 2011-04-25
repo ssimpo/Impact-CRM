@@ -114,6 +114,17 @@ class Application extends Singleton {
 	}
 	
 	/**
+	 *	Test if a generic property is accessible
+	 *
+	 *	@public
+	 *	@param string $property The property to test for
+	 *	@return boolen
+	 */
+	public function property_exists($property) {
+		return isset($this->settings[$property]);
+	}
+	
+	/**
 	 *	Set the current users access levels.
 	 *
 	 *	These are calculated from data stored in the database.
