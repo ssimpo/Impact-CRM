@@ -41,11 +41,16 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 	private function _get_browser_info($agent) {
 		if (!isset($this->lookup[$agent])) {
 			try {
-				$this->lookup[$agent] = get_browser($agent);
+				$this->lookup[$agent] = get_browser($agent,true);
 			} catch (Exception $e) {
 				require_once ROOT_BACK.'includes'.DS.'browscap'.DS.'Browscap.php';
 				$browscap = new Browscap(ROOT_BACK.'database'.DS);
-				$this->lookup[$agent] = $browscap->getBrowser($agent);
+				$this->lookup[$agent] = $browscap->getBrowser($agent,true);
+				
+				foreach($this->lookup[$agent] as $key => $value) {
+				// Browscap returns keys in mixed case (ie. incorrect!)
+					$this->lookup[$agent][strtolower($key)] = $value;
+				}
 			}
 		}
 		return $this->lookup[$agent];
@@ -60,7 +65,7 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 	 */
 	public function test_browser($attributes) {
 		$browscap = $this->_get_browser_info($this->agent);
-		return (strtoupper($browscap->browser) == strtoupper($attributes[0]));
+		return (strtoupper($browscap['browser']) == strtoupper($attributes[0]));
 	}
 	
 	/**
@@ -72,7 +77,7 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 	 */
 	public function test_platform($attributes) {
 		$browscap = $this->_get_browser_info($this->agent);
-		return (strtoupper($browscap->platform) == strtoupper($attributes[0]));
+		return (strtoupper($browscap['platform']) == strtoupper($attributes[0]));
 	}
 	
 	/**
@@ -91,7 +96,7 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 		}
 		
 		$browscap = $this->_get_browser_info($this->agent);
-		return ($browscap->ismobiledevice == 1);
+		return ($browscap['ismobiledevice'] == 1);
 	}
 	
 	/**
