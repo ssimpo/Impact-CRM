@@ -180,20 +180,4 @@ class Acl extends ImpactBase {
 		return $handle->test($subtype,$attributes);
 	}
 }
-
-interface Acl_Test {
-	public function __construct($application);
-	public function test($type,$attributes);
-}
-
-class Acl_TestBase {
-	public function test($type,$attributes) {
-		$functionName = 'test_'.strtolower($type);
-		if (method_exists($this,$functionName)) {
-			return call_user_func(array($this,$functionName),$attributes);
-		} else {
-			return false;
-		}
-	}
-}
 ?>

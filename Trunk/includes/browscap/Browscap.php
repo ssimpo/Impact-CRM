@@ -576,6 +576,7 @@ class Browscap
 	{
 		ini_set('user_agent', $this->_getUserAgent());
 		
+		
 		switch ($this->_getUpdateMethod()) {
 			case self::UPDATE_LOCAL:
 				$file = file_get_contents($url);
