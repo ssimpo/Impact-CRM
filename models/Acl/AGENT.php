@@ -10,7 +10,7 @@
  */
 class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 	private $lookup = array();
-	private $agent;
+	private $agent = null;
 	
 	/**
          *	Constructor.
@@ -23,7 +23,9 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 		if (!defined('DS')) {
 			define('DS',DIRECTORY_SEPARATOR);
 		}
-		$this->agent = $_SERVER['HTTP_USER_AGENT'];
+		if (isset($_SERVER['HTTP_USER_AGENT'])) {
+			$this->agent = $_SERVER['HTTP_USER_AGENT'];
+		}
 	}
 	
 	/**
@@ -42,8 +44,8 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 				$this->lookup[$agent] = get_browser($agent);
 			} catch (Exception $e) {
 				require_once ROOT_BACK.'includes'.DS.'browscap'.DS.'Browscap.php';
-				$browscap = new Browscap(ROOT_BACK.'databases'.DS.'browscap.ini');
-				$this->lookup[$agent] = $browscap->get_browser($agent);
+				$browscap = new Browscap(ROOT_BACK.'database'.DS);
+				$this->lookup[$agent] = $browscap->getBrowser($agent);
 			}
 		}
 		return $this->lookup[$agent];

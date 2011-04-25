@@ -24,7 +24,7 @@ class Test_Acl_AGENT extends PHPUnit_Framework_TestCase {
 		spl_autoload_register('self::__autoload');
 		
 		$application = Application::instance();
-		$this->Acl = new Acl($application);
+		$this->Acl = new Acl_AGENT($application);
 	}
 	
 	private function __autoload($className) {
@@ -39,32 +39,29 @@ class Test_Acl_AGENT extends PHPUnit_Framework_TestCase {
 		return $method;
 	}
 	
-	public function test_test_role() {
-		$method = self::get_method('test_role');
-		
+	public function test_test_browser() {
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3';
 		$this->assertTrue(
-			$method->invokeArgs($this->Acl, array('[AGENT:BROWSER:FIREFOX]'))
+			$this->Acl->test_browser('[AGENT:BROWSER:FIREFOX]')
 		);
 	}
 	
-	public function test_test_special_role() {
-		$method = self::get_method('test_special_role');
-		
+	public function test_test_platform() {
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3';
 		$this->assertTrue(
-			$method->invokeArgs($this->Acl, array('[AGENT:BROWSER:FIREFOX]'))
+			$this->Acl->test_platform('[AGENT:PLATFORM:MACOSX]')
 		);
-		$this->assertTrue(
-			$method->invokeArgs($this->Acl, array('[AGENT:PLATFORM:MACOSX]'))
-		);
+	}
+	
+	public function test_test_mobile() {
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.5; en-US; rv:1.9.0.3) Gecko/2008092414 Firefox/3.0.3';
 		$this->assertFalse(
-			$method->invokeArgs($this->Acl, array('[AGENT:MOBILE]'))
+			$this->Acl->test_mobile('[AGENT:MOBILE]')
 		);
 		
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Linux; U; Android 0.5; en-us) AppleWebKit/522+ (KHTML, like Gecko) Safari/419.3';
 		$this->assertTrue(
-			$method->invokeArgs($this->Acl, array('[AGENT:MOBILE]'))
+			$this->Acl->test_mobile('[AGENT:MOBILE]')
 		);
 	}
 }
