@@ -45,7 +45,26 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
     public function test_get_xml() {
         $method = self::get_method('_get_xml');
         
-        // STUB
+        $xml = '<html><head><title>TEST</title></head><body><h1>TEST</h1></body></html>';
+        $method->invokeArgs($this->templater,array($xml));
+        $this->assertEquals($this->templater->xml,$xml);
+        
+        $xml = '
+        <html>
+            <head>
+                <title>TEST</title>
+            </head>
+            <body>
+                <h1>TEST</h1>
+            </body>
+        </html>';
+        $method->invokeArgs($this->templater,array($xml));
+        $this->assertEquals($this->templater->xml,$xml);
+        
+        $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'Template.1.Test.xml';
+        $xml=file_get_contents($path);
+        $method->invokeArgs($this->templater,array($xml));
+        $this->assertEquals($this->templater->xml,$xml);
     }
     
     public function test_loop() {
@@ -120,28 +139,72 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
         // STUB
     }
     
-    public function test_test_formatter() {
-        $method = self::get_method('_test_formatter');
-        
-        // STUB
-    }
-    
     public function test_get_attributes() {
         $method = self::get_method('_get_attributes');
         
-        // STUB
+        $this->assertEquals(
+            array('id'=>'test', 'class'=>'bluebox'),
+			$method->invokeArgs(
+                $this->templater,
+                array('<div id="test" class="bluebox">TEST TEXT</div>')
+            )
+		);
+        
+        $this->assertEquals(
+            array('id'=>'test', 'class'=>'bluebox'),
+			$method->invokeArgs(
+                $this->templater,
+                array('<div id=\'test\' class = "bluebox">TEST TEXT</div>')
+            )
+		);
+        
+        $this->assertEquals(
+            array('id'=>'test', 'class'=>'bluebox'),
+			$method->invokeArgs(
+                $this->templater,
+                array('<div id ="test" class ="bluebox">TEST TEXT</div>')
+            )
+		);
+        
+         $this->assertEquals(
+            array('id'=>'test', 'class'=>'bluebox'),
+			$method->invokeArgs(
+                $this->templater,
+                array('<div   id="test"   class="bluebox"  >TEST TEXT</div>')
+            )
+		);
     }
     
     public function test_date_reformat() {
         $method = self::get_method('_date_reformat');
         
-        // STUB
+        $this->assertEquals(
+            '20110427T211453Z',
+			$method->invokeArgs($this->templater,array('2011-04-27 21:14:53'))
+		);
     }
     
     public function test_contains() {
         $method = self::get_method('_contains');
         
-        // STUB
+        $this->assertTrue(
+			$method->invokeArgs(
+                $this->templater,
+                array('<template:test />','>')
+            )
+		);
+        $this->assertFalse(
+			$method->invokeArgs(
+                $this->templater,
+                array('<template:test />','_')
+            )
+		);
+        $this->assertTrue(
+			$method->invokeArgs(
+                $this->templater,
+                array('<template:test />','T')
+            )
+		);
     }
     
 }
