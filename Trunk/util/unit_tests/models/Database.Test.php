@@ -11,13 +11,13 @@
 class Test_Database extends PHPUnit_Framework_TestCase {
 	
     protected function setUp() {
-        if (!defined('DS')) {
+	if (!defined('DS')) {
 	    define('DS',DIRECTORY_SEPARATOR);
 	}
 	if (!defined('MODELS_DIRECTORY')) {
 	    define('MODELS_DIRECTORY','models');
 	}
-        if (!defined('ROOT_BACK')) {
+	if (!defined('ROOT_BACK')) {
 	    define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
 	}
 	if (!defined('DB_DRIVER')) {
@@ -39,30 +39,30 @@ class Test_Database extends PHPUnit_Framework_TestCase {
 	require_once ROOT_BACK.MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName;
     }
     
-    public function test_get_row(){
+    public function test_get_row() {
         /*$this->assertEquals(
 	    $this->database->get_row(0,'SELECT * FROM _titles WHERE ID=1'),
 	    array('ID'=>1,'title'=>'Mr')
 	);*/
     }
     
-    public function test_get_page(){
+    public function test_get_page() {
         // STUB
     }
     
-    public function test_get_roles(){
+    public function test_get_roles() {
         // STUB
     }
     
-    public function test_get_access(){
+    public function test_get_access() {
         // STUB
     }
     
-    public function test_create_roles_sql(){
+    public function test_create_roles_sql() {
         // STUB
     }
     
-    public function test_make_database_connection(){
+    public function test_make_database_connection() {
         // STUB
     }
 }

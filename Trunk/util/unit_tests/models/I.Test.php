@@ -69,7 +69,7 @@ class Test_I extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('fbid',I::camelize('FBID'));
 	}
 	
-	public function test_is_camelcase(){
+	public function test_is_camelcase() {
 		$this->assertTrue(I::is_camelcase('setDate'));
 		$this->assertFalse(I::is_camelcase('SETDATE'));
 		$this->assertFalse(I::is_camelcase('setdate'));

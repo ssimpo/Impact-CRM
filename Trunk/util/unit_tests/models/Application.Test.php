@@ -1,6 +1,6 @@
 <?php
 /**
- *	  Unit Test for the I class.
+ *	Unit Test for the I class.
  *
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1.1
@@ -12,13 +12,13 @@ class Test_Application extends PHPUnit_Framework_TestCase {
     private $application;
     
     protected function setUp() {
-        if (!defined('DS')) {
+	if (!defined('DS')) {
 	    define('DS',DIRECTORY_SEPARATOR);
 	}
 	if (!defined('MODELS_DIRECTORY')) {
 	    define('MODELS_DIRECTORY','models');
 	}
-        if (!defined('ROOT_BACK')) {
+	if (!defined('ROOT_BACK')) {
 	    define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
 	}
 	spl_autoload_register('self::__autoload');
@@ -53,16 +53,16 @@ class Test_Application extends PHPUnit_Framework_TestCase {
         $this->assertEquals($settings,array('blah'=>25));
     }
     
-    public function test_get_page_request_info(){
+    public function test_get_page_request_info() {
         // STUB
     }
     
-    public function test_user_access_detect(){
+    public function test_user_access_detect() {
         // STUB
     }
     
-    public function test_media_detect(){
-        if (!defined('DEFAULT_MEDIA')) {
+    public function test_media_detect() {
+	if (!defined('DEFAULT_MEDIA')) {
 	    define('DEFAULT_MEDIA','PC');
 	}
         $method = self::get_method('_media_detect');
@@ -70,7 +70,7 @@ class Test_Application extends PHPUnit_Framework_TestCase {
         $method->invoke($this->application);
         $this->assertEquals('[PC]',$this->application->media);
         
-        if (!defined('DOMAIN')) {
+	if (!defined('DOMAIN')) {
 	    define('DOMAIN','m.test.com');
 	}
         $method->invoke($this->application);
@@ -81,8 +81,8 @@ class Test_Application extends PHPUnit_Framework_TestCase {
         $this->assertEquals('[FB]',$this->application->media);
     }
     
-    public function test_language_detect(){
-        if (!defined('DEFAULT_LANG')) {
+    public function test_language_detect() {
+	if (!defined('DEFAULT_LANG')) {
 	    define('DEFAULT_LANG','en_GB');
 	}
         $method = self::get_method('_language_detect');
