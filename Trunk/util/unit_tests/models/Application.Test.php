@@ -18,8 +18,8 @@ class Test_Application extends PHPUnit_Framework_TestCase {
 	if (!defined('MODELS_DIRECTORY')) {
 	    define('MODELS_DIRECTORY','models');
 	}
-            if (!defined('ROOT_BACK')) {
-		define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
+        if (!defined('ROOT_BACK')) {
+	    define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
 	}
 	spl_autoload_register('self::__autoload');
         
@@ -30,6 +30,13 @@ class Test_Application extends PHPUnit_Framework_TestCase {
     private function __autoload($className) {
 	$classFileName = str_replace('_',DIRECTORY_SEPARATOR,$className).'.php';
 	require_once ROOT_BACK.MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName;
+    }
+    
+    protected static function get_method($name) {
+	$class = new ReflectionClass('Application');
+	$method = $class->getMethod($name);
+	$method->setAccessible(true);
+	return $method;
     }
     
     public function test_property_exists() {
@@ -55,10 +62,40 @@ class Test_Application extends PHPUnit_Framework_TestCase {
     }
     
     public function test_media_detect(){
-        // STUB
+        if (!defined('DEFAULT_MEDIA')) {
+	    define('DEFAULT_MEDIA','PC');
+	}
+        $method = self::get_method('_media_detect');
+        
+        $method->invoke($this->application);
+        $this->assertEquals('[PC]',$this->application->media);
+        
+        if (!defined('DOMAIN')) {
+	    define('DOMAIN','m.test.com');
+	}
+        $method->invoke($this->application);
+        $this->assertEquals('[MOBILE]',$this->application->media);
+        
+        $_GET['media'] = 'FB';
+        $method->invoke($this->application);
+        $this->assertEquals('[FB]',$this->application->media);
     }
     
     public function test_language_detect(){
-        // STUB
+        if (!defined('DEFAULT_LANG')) {
+	    define('DEFAULT_LANG','en_GB');
+	}
+        $method = self::get_method('_language_detect');
+        
+        $method->invoke($this->application);
+        $this->assertEquals('[EN_GB]',$this->application->language);
+        
+        $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'en-US';
+        $method->invoke($this->application);
+        $this->assertEquals('[EN_US]',$this->application->language);
+        
+        $_GET['lang'] = 'zh';
+        $method->invoke($this->application);
+        $this->assertEquals('[ZH]',$this->application->language);
     }
 }

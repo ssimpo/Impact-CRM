@@ -195,11 +195,13 @@ class Application extends Singleton {
 			$media = strtoupper(addslashes($_GET['media']));
 		} else {
 			//Auto-detection of Robots and FB needed :)
-			if (substr(DOMAIN,0,2) == 'm.') { //Accessed the mobile subdomain
-				$media = 'MOBILE';
-			} /*elseif ($this->browser->ismobiledevice) {
-				$media = 'MOBILE';
-			}*/
+			if (defined('DOMAIN')) {
+				if (substr(DOMAIN,0,2) == 'm.') { //Accessed the mobile subdomain
+					$media = 'MOBILE';
+				} /*elseif ($this->browser->ismobiledevice) {
+					$media = 'MOBILE';
+				}*/
+			}
 		}
 		
 		$this->media = I::reformat_role_string($media);
@@ -227,7 +229,7 @@ class Application extends Singleton {
 			}
 		}
 		
-		$this->language = I::reformat_role_string($lang);
+		$this->language = strtoupper(I::reformat_role_string($lang));
 	}
 }
 ?>
