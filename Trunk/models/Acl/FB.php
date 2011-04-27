@@ -46,7 +46,7 @@ class Acl_FB extends Acl_TestBase implements Acl_Test {
 		$fbid = (is_string($fbid) ? (int) $fbid:$fbid);
 
 		try {
-			return ($fbid == $this->application->FBID);
+			return ($fbid == $this->application->fbid);
 		} catch (Exception $e) {
 			if ($fbid == $this->facebook->getUser()) {
 				return true;

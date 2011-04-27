@@ -120,7 +120,7 @@ class I {
 	 *	@return	String The corresponding variable name
 	 */
 	static public function camelize($name) {
-		$variable = ucwords(str_replace('_',' ',$name));
+		$variable = ucwords(str_replace('_',' ',strtolower($name)));
 		$variable_length = strlen($variable);
 		$variable = lcfirst(ltrim($variable));
 		$variable = str_repeat('_',$variable_length-strlen($variable)).$variable;

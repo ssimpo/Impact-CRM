@@ -117,13 +117,13 @@ class Database extends Singleton {
 	 *	user is a member.
 	 *
 	 *	@public
-	 *	@param integer $FBID The Facebook ID of the user to query.
+	 *	@param integer $fbid The Facebook ID of the user to query.
 	 *	@return string() Array of all the rules that the user is in
 	 */
-	public function get_roles($FBID=0) {
+	public function get_roles($fbid=0) {
 		$roles = $this->get_row(
 			DEFAULT_CACHE_TIMEOUT,
-			'SELECT roles,access FROM users WHERE FBID='.$FBID
+			'SELECT roles,access FROM users WHERE fbid='.$fbid
 		);
 		return explode(',',I::reformat_role_string($roles['roles']));
 	}
@@ -135,13 +135,13 @@ class Database extends Singleton {
 	 *	supplied user.
 	 *
 	 *	@public
-	 *	@param integer $FBID The Facebook ID of the user to query.
+	 *	@param integer $fbid The Facebook ID of the user to query.
 	 *	@return integer Access level of the supplied user.
 	 */
-	public function get_access($FBID=0) {
+	public function get_access($fbid=0) {
 		$access = $this->get_row(
 			DEFAULT_CACHE_TIMEOUT,
-			'SELECT access FROM users WHERE FBID='.$FBID
+			'SELECT access FROM users WHERE fbid='.$fbid
 		);
 		return $access['access'];
 	}
