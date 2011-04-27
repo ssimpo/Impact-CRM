@@ -17,10 +17,21 @@ class Test_Database extends PHPUnit_Framework_TestCase {
 	if (!defined('MODELS_DIRECTORY')) {
 	    define('MODELS_DIRECTORY','models');
 	}
-            if (!defined('ROOT_BACK')) {
-		define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
+        if (!defined('ROOT_BACK')) {
+	    define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
+	}
+	if (!defined('DB_DRIVER')) {
+	    define('DB_DRIVER','SQLITE');
+	}
+	if (!defined('CACHE_DIRECTORY')) {
+	    define('CACHE_DIRECTORY','cache/');
+	}
+	if (!defined('DB_NAME')) {
+	    define('DB_NAME','database/impact.db#');
 	}
 	spl_autoload_register('self::__autoload');
+	
+	$this->database = Database::instance();
     }
     
     private function __autoload($className) {
@@ -29,7 +40,10 @@ class Test_Database extends PHPUnit_Framework_TestCase {
     }
     
     public function test_get_row(){
-        // STUB
+        /*$this->assertEquals(
+	    $this->database->get_row(30,'SELECT * FROM _titles WHERE ID=1'),
+	    array('ID'=>1,'title'=>'Mr')
+	);*/
     }
     
     public function test_get_page(){

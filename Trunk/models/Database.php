@@ -40,9 +40,10 @@ class Database extends Singleton {
 	 *	@todo Make generic version so platform can connect to multiple database sources.
 	 */
 	private function _make_database_connection() {
-		require_once ROOT_BACK.'/includes/adodb/adodb.inc.php';
-		$ADODB_CACHE_DIR = ROOT_BACK.'/'.CACHE_DIRECTORY;
+		require_once ROOT_BACK.'includes/adodb/adodb.inc.php';
+		$ADODB_CACHE_DIR = ROOT_BACK.CACHE_DIRECTORY;
 		
+		echo DB_DRIVER."\n".DB_NAME."\n".ROOT_BACK.'includes/adodb/adodb.inc.php'."\n";
 		switch (strtoupper(DB_DRIVER)) {
 			case 'SQLITE':
 				$this->database = ADONewConnection('pdo');
