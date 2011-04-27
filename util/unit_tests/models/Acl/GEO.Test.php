@@ -23,8 +23,7 @@ class Test_Acl_GEO extends PHPUnit_Framework_TestCase {
 		}
 		spl_autoload_register('self::__autoload');
 		
-		$application = Application::instance();
-		$this->Acl = new Acl($application);
+		$this->Acl = new Acl_GEO();
 	}
 	
 	private function __autoload($className) {
@@ -39,27 +38,34 @@ class Test_Acl_GEO extends PHPUnit_Framework_TestCase {
 		return $method;
 	}
 	
-	public function test_test_role() {
-		$method = self::get_method('test_role');
-	
-		$application = Application::instance();
-		$application->ip = '166.56.23.1';
+	public function test_test_city() {
+		$_SERVER['REMOTE_ADDR'] = '166.56.23.1';
 		$this->assertTrue(
-			$method->invokeArgs($this->Acl, array('[GEO:CITY:ASHBURN]'))
+			$this->Acl->test_city(array('ASHBURN'))
 		);
 	}
 	
-	public function test_test_special_role() {
-		$method = self::get_method('test_special_role');
-		
-		$application = Application::instance();
-		$application->ip = '166.56.23.1';
+	public function test_test_country() {
+		$_SERVER['REMOTE_ADDR'] = '166.56.23.1';
 		$this->assertTrue(
-			$method->invokeArgs($this->Acl, array('[GEO:CITY:ASHBURN]'))
+			$this->Acl->test_country(array('US'))
 		);
-		
+	}
+	
+	public function test_test_region() {
+		$_SERVER['REMOTE_ADDR'] = '166.56.23.1';
 		$this->assertTrue(
-			$method->invokeArgs($this->Acl, array('[GEO:RADIUS:39.0335:-78.4838:90:KM]'))
+			$this->Acl->test_region(array('VA'))
+		);
+	}
+	
+	public function test_test_radius() {
+		$_SERVER['REMOTE_ADDR'] = '166.56.23.1';
+		$this->assertTrue(
+			$this->Acl->test_radius(array('39.0335','-78.4838','90','KM'))
+		);
+		$this->assertTrue(
+			$this->Acl->test_radius(array('39.0335','-78.4838','56','M'))
 		);
 	}
 }
