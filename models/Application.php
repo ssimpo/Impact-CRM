@@ -16,8 +16,7 @@
  */
 class Application extends Singleton {
 	private static $instance;
-	public $settings = array();
-	public $Acl;
+	private $settings = array();
 	public $facebook;
 	public $fbsession;
 	public $me;
@@ -110,6 +109,9 @@ class Application extends Singleton {
 		if (isset($this->settings[$convertedProperty])) {
 			return $this->settings[$convertedProperty];
 		} else {
+			if ($property = 'settings') {
+				return $this->settings;
+			}
 			throw new Exception('Property: '.$convertedProperty.', does not exist');
 		}
 	}
@@ -137,14 +139,7 @@ class Application extends Singleton {
 		$database = Database::instance();
 		$this->roles = $database->get_roles($this->fbid);
 		$this->accessLevel = $database->get_access($this->fbid);
-		
-		//This needs a better implementation but will do to get us going
-		$this->Acl = $this->factory('Acl');
-		$this->Acl->fbid = $this->settings['fbid'];
-		$this->Acl->accessLevel = $this->accessLevel;
-		$this->Acl->facebook = $this->facebook;
-		$this->Acl->load_roles($this->settings['roles']);
-		$this->settings['Acl'] = $this->Acl;
+		$this->acl = $this->factory('Acl',array($this));
 	}
 	
 	/**

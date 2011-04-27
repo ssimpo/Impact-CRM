@@ -9,7 +9,8 @@
  *	@extends PHPUnit_Framework_TestCase
  */
 class Test_Application extends PHPUnit_Framework_TestCase {
-	
+    private $application;
+    
     protected function setUp() {
         if (!defined('DS')) {
 	    define('DS',DIRECTORY_SEPARATOR);
@@ -21,6 +22,9 @@ class Test_Application extends PHPUnit_Framework_TestCase {
 		define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
 	}
 	spl_autoload_register('self::__autoload');
+        
+        $this->application = Application::instance();
+	$this->Acl = new Acl($this->application);
     }
     
     private function __autoload($className) {
@@ -28,8 +32,18 @@ class Test_Application extends PHPUnit_Framework_TestCase {
 	require_once ROOT_BACK.MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName;
     }
     
-    public function test_property_exists(){
-        // STUB
+    public function test_property_exists() {
+        $this->application->blah = 25;
+        $this->assertTrue($this->application->property_exists('blah'));
+        $this->assertFalse($this->application->property_exists('blahblah'));
+    }
+    
+    public function test_set_get() {
+        $this->application->blah = 25;
+        $this->assertEquals($this->application->blah,25);
+        
+        $settings = $this->application->settings;
+        $this->assertEquals($settings,array('blah'=>25));
     }
     
     public function test_get_page_request_info(){
