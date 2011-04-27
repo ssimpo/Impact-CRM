@@ -40,7 +40,7 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
 	 *	@public
 	 */
 	public function __get($property) {
-		switch($property) {
+		switch ($property) {
 			case 'ip':
 				return $this->_get_ip();
 				break;

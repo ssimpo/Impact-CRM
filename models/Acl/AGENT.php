@@ -37,7 +37,7 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 	 *	@public
 	 */
 	public function __get($property) {
-		switch($property) {
+		switch ($property) {
 			case 'agent':
 				return $this->_get_agent();
 				break;
@@ -115,7 +115,7 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 				$browscap = new Browscap(ROOT_BACK.'database'.DS);
 				$this->lookup[$agent] = $browscap->getBrowser($agent,true);
 				
-				foreach($this->lookup[$agent] as $key => $value) {
+				foreach ($this->lookup[$agent] as $key => $value) {
 				// Browscap returns keys in mixed case (ie. incorrect!)
 					$this->lookup[$agent][strtolower($key)] = $value;
 				}
