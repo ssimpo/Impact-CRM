@@ -14,7 +14,7 @@ class Templater extends ImpactBase {
 	protected $application;
 	protected $component;
 	protected $mainApplication;
-	protected $Acl;
+	protected $acl;
 	
 	/**
 	 *	Constructor
@@ -48,7 +48,7 @@ class Templater extends ImpactBase {
 				$this->parse($path);
 			}
 			$this->component = $this->application['component'];
-			$this->Acl = $this->application['Acl'];
+			$this->acl = $this->application['acl'];
 		} else {
 			$this->mainApplication = $path;
 			if (isset($this->mainApplication['component'])) {
@@ -57,7 +57,7 @@ class Templater extends ImpactBase {
 				$this->component = '';
 			}
 			
-			$this->Acl = $this->mainApplication['Acl'];
+			$this->acl = $this->mainApplication['acl'];
 			//$this->application[Acl] = $this->mainApplication['Acl'];
 			if ($path2 !='') {
 				$this->parse($path2);
@@ -403,7 +403,7 @@ class Templater extends ImpactBase {
 		}
 		
 		
-		return $this->Acl->allowed($attributes['include'],$attributes['exclude']);
+		return $this->acl->allowed($attributes['include'],$attributes['exclude']);
 	}
 	
 	protected function _ical(&$attributes) {
