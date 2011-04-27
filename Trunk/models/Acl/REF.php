@@ -25,7 +25,7 @@ class Acl_REF extends Acl_TestBase implements Acl_Test {
 		if (!is_null($application)) {
 			$this->application = $application;
             $this->_set_referer();
-        }
+		}
     }
 	
 	/**
@@ -36,7 +36,7 @@ class Acl_REF extends Acl_TestBase implements Acl_Test {
 	 *	@public
 	 */
 	public function __get($property) {
-		switch($property) {
+		switch ($property) {
 			case 'referer':
 				return $this->_get_referer();
 				break;
