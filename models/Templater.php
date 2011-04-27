@@ -10,11 +10,11 @@
 *	@package Templater	
 */
 class Templater extends ImpactBase {
-	protected $xml = '';
 	protected $application;
 	protected $component;
 	protected $mainApplication;
 	protected $acl;
+	private $xmlstring;
 	
 	/**
 	 *	Constructor
@@ -24,6 +24,42 @@ class Templater extends ImpactBase {
 	 *	@public
 	 */
 	public function __construct() {
+	}
+	
+	/**
+	 *	Generic get property method.
+	 *
+	 *	Used to dynamically get a property based on live setup.
+	 *
+	 *	@public
+	 *	@param string $property The property to get
+	 */
+	public function __get($property) {
+		switch ($property) {
+			case 'xml':
+				return $this->xmlstring;
+				break;
+			default:
+				return null;
+		}
+	}
+	
+	/**
+	 *	Generic get property method.
+	 *
+	 *	Used to dynamically set a property based on live setup.
+	 *
+	 *	@public
+	 *	@param string $property The property to set
+	 */
+	public function __set($property,$value) {
+		switch ($property) {
+			case 'xml':
+				$this->parse($value);
+				break;
+			default:
+				return null;
+		}
 	}
 	
 	/**
@@ -131,11 +167,10 @@ class Templater extends ImpactBase {
 	//Grab the XML from a file or if supplied as XMLString then grab from that
 		
 		if ($path != '') {
-			//if (($this->_contains($path,'<')) || ($this->_contains($path,'[[')) || ($this->_contains($path,':'))) {
 			if (($this->_contains($path,'<')) || ($this->_contains($path,'[['))) {
-				$this->xml = $path;
+				$this->xmlstring = $path;
 			} else {
-				@$this->xml = file_get_contents($path);
+				@$this->xmlstring = file_get_contents($path);
 			}
 		} else {
 			return '';
