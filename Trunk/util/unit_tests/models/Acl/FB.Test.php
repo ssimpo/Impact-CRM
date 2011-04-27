@@ -22,6 +22,7 @@ class Test_Acl_FB extends PHPUnit_Framework_TestCase {
 	);
   
 	private $Acl;
+	private $application = null;
 	
 	protected function setUp() {
 		if (!defined('DS')) {
@@ -35,25 +36,22 @@ class Test_Acl_FB extends PHPUnit_Framework_TestCase {
 		}
 		spl_autoload_register('self::__autoload');
 		
-		$application = Application::instance();
-		//$application->facebook =  $this->getMock('Facebook');
-		$this->Acl = new Acl($application);
-		$application->facebook = new Facebook(array(
+		$this->application = Application::instance();
+		$this->Acl = new Acl_FB($this->application);
+		$this->application->facebook = new Facebook(array(
 			'appId'  => self::APP_ID,
 			'secret' => self::SECRET,
 		));
-		$this->Acl->facebook = $application->facebook;
-		/*$this->Acl->facebook->expects($this->any())
-			->method('getUser')
-			->will($this->returnValue(1));*/
-		
-		$this->Acl_FB = new Acl_FB($application);
-	   
+		$this->Acl->facebook = $this->application->facebook;
 	}
 	
 	private function __autoload($className) {
 		$classFileName = str_replace('_',DIRECTORY_SEPARATOR,$className).'.php';
-		require_once ROOT_BACK.MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName;
+		if ($className == 'Facebook') {
+			require_once ROOT_BACK.'includes'.DS.'facebook'.DS.strtolower($classFileName);
+		} else {
+			require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
+		}
 	}
 	
 	protected static function get_method($name) {
@@ -63,37 +61,27 @@ class Test_Acl_FB extends PHPUnit_Framework_TestCase {
 		return $method;
 	}
 	
-	public function test_test() {
+	public function test_test_user() {
 		$session = self::$VALID_EXPIRED_SESSION;
-		$application = Application::instance();
-		$application->facebook->setSession($session);
-	
+		$this->application->facebook->setSession($session);
 		$this->assertTrue(
-			$this->Acl_FB->test('USER','1677846385')
+			$this->Acl->test_user(array('1677846385'))
+		);
+	
+		$this->application->FBID = 2;
+		$this->assertTrue(
+			$this->Acl->test_user(array('2'))
+		);
+		$this->assertFalse(
+			$this->Acl->test_user(array('3'))
+		);
+		$this->assertTrue(
+			$this->Acl->test_user(array(2))
 		);
 	}
 	
-	public function test_test_user() {
-		$method = self::get_method('test_user');
-		$session = self::$VALID_EXPIRED_SESSION;
-		$application = Application::instance();
-		$application->facebook->setSession($session);
-	
-		$this->assertTrue(
-			$method->invokeArgs($this->Acl_FB, array('1677846385'))
-		);
-	
-		$application = Application::instance();
-		$application->FBID = 2;
-		$this->assertTrue(
-			$method->invokeArgs($this->Acl_FB, array('2'))
-		);
-		$this->assertFalse(
-			$method->invokeArgs($this->Acl_FB, array('3'))
-		);
-		$this->assertTrue(
-			$method->invokeArgs($this->Acl_FB, array(2))
-		);
+	public function test_test_friend() {
+		// STUB
 	}
 }
 ?>
