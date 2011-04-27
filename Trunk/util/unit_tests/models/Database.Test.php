@@ -41,7 +41,7 @@ class Test_Database extends PHPUnit_Framework_TestCase {
     
     public function test_get_row(){
         /*$this->assertEquals(
-	    $this->database->get_row(30,'SELECT * FROM _titles WHERE ID=1'),
+	    $this->database->get_row(0,'SELECT * FROM _titles WHERE ID=1'),
 	    array('ID'=>1,'title'=>'Mr')
 	);*/
     }
