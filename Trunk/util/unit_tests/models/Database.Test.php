@@ -9,7 +9,8 @@
  *	@extends PHPUnit_Framework_TestCase
  */
 class Test_Database extends PHPUnit_Framework_TestCase {
-	
+    private $database = null;
+    
     protected function setUp() {
 	if (!defined('DS')) {
 	    define('DS',DIRECTORY_SEPARATOR);
