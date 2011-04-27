@@ -120,13 +120,28 @@ class I {
 	 *	@return	String The corresponding variable name
 	 */
 	static public function camelize($name) {
-		$variable = ucwords(str_replace('_',' ',strtolower($name)));
+		if (!I::is_camelcase($name)) {
+			$name = strtolower($name);
+		}
+		$variable = ucwords(str_replace('_',' ',$name));
 		$variable_length = strlen($variable);
 		$variable = lcfirst(ltrim($variable));
 		$variable = str_repeat('_',$variable_length-strlen($variable)).$variable;
 		$variable = rtrim($variable);
 		$variable = $variable.str_repeat('_',$variable_length-strlen($variable));
 		return str_replace(' ','',$variable);
+	}
+	
+	/**
+	 *	Check if a string is in camelcase or not.
+	 *
+	 *	@static
+	 *	@public
+	 *	@param String $text The string to test
+	 *	@return Boolean
+	 */
+	static public function is_camelcase($text) {
+		return ((strtolower($text) != $text)&&(strtoupper($text) != $text));	
 	}
 	
 	/**
