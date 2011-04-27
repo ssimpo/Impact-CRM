@@ -4,7 +4,7 @@
  *	database.
  *		
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.1
+ *	@version 0.0.2
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
@@ -23,40 +23,76 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 		if (!defined('DS')) {
 			define('DS',DIRECTORY_SEPARATOR);
 		}
-		if ($application != null) {
+		if (!is_null($application)) {
 			$this->application = $application;
-			if (!property_exists($this->application,'agent')) {
-				if (!$this->application->property_exists('agent')) {
-					if (isset($_SERVER['HTTP_USER_AGENT'])) {
-						$this->application->agent = $_SERVER['HTTP_USER_AGENT'];
-					}
-				}
-			}
+			$this->_set_agent();
 		}
 	}
 	
 	/**
 	 *	Generic get property method.
 	 *
-	 *	Used to dynamically get a property based on live setup
+	 *	Used to dynamically get a property based on live setup.
 	 *
 	 *	@public
 	 */
 	public function __get($property) {
 		switch($property) {
 			case 'agent':
-				if ($this->application !== null) {
-					return $this->application->agent;
-				} else {
-					if (isset($_SERVER['HTTP_USER_AGENT'])) {
-						return $_SERVER['HTTP_USER_AGENT'];
-					} else {
-						return null;
-					}
-				}
+				return $this->_get_agent();
 				break;
 			default:
 				return null;
+		}
+	}
+	
+	/**
+	 *	Get the agent property.
+	 *
+	 *	@private
+	 *	@return string User-agent value.
+	 */
+	private function _get_agent() {
+		if (!is_null($this->application)) {
+			return $this->application->agent;
+		} else {
+			if (isset($_SERVER['HTTP_USER_AGENT'])) {
+				return $_SERVER['HTTP_USER_AGENT'];
+			} else {
+				return null;
+			}
+		}
+	}
+	
+	/**
+	 *	Set the agent property of the application object.
+	 *	
+	 *	@private
+	 */
+	private function _set_agent() {
+		if (!property_exists($this->application,'agent')) {
+			if (!$this->application->property_exists('agent')) {
+				if (isset($_SERVER['HTTP_USER_AGENT'])) {
+					$this->application->agent = $_SERVER['HTTP_USER_AGENT'];
+				}
+			} else {
+				$this->_set_agent_null_check();
+			}
+		} else {
+			$this->_set_agent_null_check();
+		}
+	}
+	
+	/**
+	 *	Check if the agent property is null/blank and populate if so.
+	 *
+	 *	@private
+	 */
+	private function _set_agent_null_check() {
+		if ((is_null($this->application->agent)) || ($this->application->agent == '')) {
+			if (isset($_SERVER['HTTP_USER_AGENT'])) {
+				$this->application->agent = $_SERVER['HTTP_USER_AGENT'];
+			}
 		}
 	}
 	
