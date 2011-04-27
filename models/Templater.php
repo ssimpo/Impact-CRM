@@ -366,7 +366,7 @@ class Templater extends ImpactBase {
 		
 		//Restrictions based on media - eg. [PC],[FACEBOOK],[MOBILE] ...etc
 		if (array_key_exists('media',$attributes)) {
-			$test = $this->_test_formatter($attributes['media']);
+			$test = I::reformat_role_string($attributes['media']);
 			if (!$this->_contains($test,'['.$this->application['media'].']')) {
 				return false;
 			}
@@ -374,7 +374,7 @@ class Templater extends ImpactBase {
 		
 		//Restrictions based on language - eg. en_gb, es, de, jp ...etc
 		if (array_key_exists('lang',$attributes)) {
-			$test = $this->_test_formatter($attributes['lang']);
+			$test = I::reformat_role_string($attributes['lang']);
 			if (!$this->_contains($test,'['.$this->applications['lang'].']')) {
 				return false;
 			}
@@ -455,15 +455,6 @@ class Templater extends ImpactBase {
 		}
 	}
 	
-	protected function _test_formatter($test) {
-	
-		$test = '['.str_replace(',','],[',$test).']';
-		$test = str_replace('[[','[',$test);
-		$test = str_replace(']]',']',$test);
-	
-		return $test;
-	}
-	
 	/**
 	 *	Get attributes from text string.
 	 *
@@ -512,7 +503,7 @@ class Templater extends ImpactBase {
 	 */
 	protected function _contains($txt1,$txt2) {
 		$pos = stripos($txt1, $txt2);
-		return ($pos !== false) ? 1:0;
+		return ($pos !== false) ? true:false;
 	}
 }
 
