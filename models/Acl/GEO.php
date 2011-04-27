@@ -173,7 +173,7 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
      */
     public function test_region($attributes) {
         $data = $this->_city_lookup($this->ip);
-        return (strtoupper($data->rigion) == strtoupper($attributes[0]));
+        return (strtoupper($data->region) == strtoupper($attributes[0]));
     }
 
     /**
