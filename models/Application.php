@@ -30,7 +30,7 @@ class Application extends Singleton {
 	 *	@public
 	 */
 	public function setup() {
-		$this->settings['FBID'] = 0;
+		$this->settings['fbid'] = 0;
 		$this->_make_facebook_connection();
 		$this->_language_detect();
 		$this->_media_detect();
@@ -93,7 +93,8 @@ class Application extends Singleton {
 	 *	@public
 	 */
 	public function __set($property,$value) {
-		$this->settings[$property] = $value;
+		$convertedProperty = I::camelize($property);
+		$this->settings[$convertedProperty] = $value;
 	}
 	
 	/**
@@ -105,11 +106,11 @@ class Application extends Singleton {
 	 *	@public
 	 */
 	public function __get($property) {
-		//$convertedProperty = I::camelize($property);
-		if (isset($this->settings[$property])) {
-			return $this->settings[$property];
+		$convertedProperty = I::camelize($property);
+		if (isset($this->settings[$convertedProperty])) {
+			return $this->settings[$convertedProperty];
 		} else {
-			throw new Exception('Property: '.$property.', does not exist');
+			throw new Exception('Property: '.$convertedProperty.', does not exist');
 		}
 	}
 	
@@ -134,13 +135,13 @@ class Application extends Singleton {
 	 */
 	private function _user_access_detect() {
 		$database = Database::instance();
-		$this->roles = $database->get_roles($this->FBID);
-		$this->accessLevel = $database->get_access($this->FBID);
+		$this->roles = $database->get_roles($this->fbid);
+		$this->accessLevel = $database->get_access($this->fbid);
 		
 		//This needs a better implementation but will do to get us going
 		$this->Acl = $this->factory('Acl');
-		$this->Acl->FBID = $this->settings['FBID'];
-		$this->Acl->accesslevel = $this->settings['accessLevel'];
+		$this->Acl->fbid = $this->settings['fbid'];
+		$this->Acl->accessLevel = $this->accessLevel;
 		$this->Acl->facebook = $this->facebook;
 		$this->Acl->load_roles($this->settings['roles']);
 		$this->settings['Acl'] = $this->Acl;

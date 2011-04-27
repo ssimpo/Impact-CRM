@@ -66,6 +66,7 @@ class Test_I extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('_setDate',I::camelize('_set_date'));
 		$this->assertEquals('__setDate',I::camelize('__set_date'));
 		$this->assertEquals('__setDate_',I::camelize('__set_date_'));
+		$this->assertEquals('fbid',I::camelize('FBID'));
 	}
 	
 	public function test_variable_to_function() {

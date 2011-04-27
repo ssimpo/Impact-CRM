@@ -12,7 +12,7 @@
 class Acl extends ImpactBase {
 	private $roles = array();
 	private $application;
-	public $accesslevel = 0;
+	public $accessLevel = 0;
 	
 	
 	/**
