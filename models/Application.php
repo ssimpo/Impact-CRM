@@ -7,7 +7,7 @@
  *	platform. Eg. Separate Database and Facebook classes?
  *		
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.4
+ *	@version 0.0.5
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  
  *	@todo Breakdown into separate classes for different areas

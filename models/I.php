@@ -7,7 +7,7 @@
  *	an application class like Impact at some point to avoid use of globals.
  *
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.1.1
+ *	@version 0.1.2
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
