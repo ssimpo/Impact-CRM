@@ -20,7 +20,6 @@ class Application extends Singleton {
 	public $facebook;
 	public $fbsession;
 	public $me;
-	public $pageName;
 	public $pageErrorCheck;
 	
 	/**
