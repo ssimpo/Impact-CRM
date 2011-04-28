@@ -114,43 +114,43 @@ class Templater extends ImpactBase {
 	
 		$this->_get_xml($path);
 		
-		if ($this->_contains($this->xml,'[[')) {
+		if ($this->_contains($this->xmlstring,'[[')) {
 			$this->xmlstring = preg_replace(
 				'/\[\[(plugin|feature) (.*?)\]\]/mie',
 				'"<template:".strtolower("\1")." \2"." />"',
-				$this->xml
+				$this->xmlstring
 			);
 		}
 		
-		while ($this->_contains($this->xml,'<template:block')) {
+		while ($this->_contains($this->xmlstring,'<template:block')) {
 			$this->xmlstring = preg_replace_callback(
 				'/<template\:block(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:block\b[^>]*>))+|(?R))*)<\/template\:block>/m',
 				array($this, '_block'),
-				$this->xml
+				$this->xmlstring
 			);
 		}
 		
-		while ($this->_contains($this->xml,'<template:loop')) {
+		while ($this->_contains($this->xmlstring,'<template:loop')) {
 			$this->xmlstring = preg_replace_callback(
 				'/<template\:loop(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:loop\b[^>]*>))+|(?R))*)<\/template\:loop>/m',
 				array($this, '_loop'),
-				$this->xml
+				$this->xmlstring
 			);
 		}
 		
 		$this->xmlstring = preg_replace_callback(
 			'/template\:(constant|variable)\[(.*?)\]/m',
 			array($this, '_variable'),
-			$this->xml
+			$this->xmlstring
 		);
 		
 		$this->xmlstring = preg_replace_callback(
 			'/\<template\:(.*?) (.*?)\/>/m',
 			array($this, '_template'),
-			$this->xml
+			$this->xmlstring
 		);
 		
-		return $this->xml;
+		return $this->xmlstring;
 	}
 	
 	/**
