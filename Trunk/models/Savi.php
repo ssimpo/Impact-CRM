@@ -10,7 +10,12 @@
 class Savi {
 	protected $lineNo = -1;
 	protected $errNo = 0;
-	protected $errorMsgs = '';
+	protected static $errorMsgs = array(
+		-1,'No error',
+		0,'Error code does not exist',
+		1,'Could not open file or parse data content'
+	);
+	
 	protected $handle = false;
 	protected $lineFixer = true;
 	protected $multiLineFixer = true;
@@ -18,6 +23,7 @@ class Savi {
 	protected $starter = '';
 	protected $ender = '';
 	protected $charHandle = '';
+	
 	
 	/**
 	*	Constructor for class
@@ -27,13 +33,6 @@ class Savi {
 	*	@return Object Reference to the object
 	*/
 	function __construct($lineFixer=true,$uppercaseTags=true,$multiLinefixer=true) {
-		if (empty($this->errorMsgs)) {
-			$this->_define_error_messages();
-		}
-		//$this->lineFixer = $linefixer;
-		//$this->uppercaseTags = $uppercaseTags;
-		//$this->multiLineFixer = $multiLineFixer;
-		
 		return $this;
 	}
 	
@@ -277,17 +276,6 @@ class Savi {
 		return $line;
 	}
 	
-	/**
-	*	Function to define the parser errors/codes - stores in a class static
-	*/
-	private function _define_error_messages() {
-		$this->errorMsgs = array(
-			-1,'No error',
-			0,'Error code does not exist',
-			1,'Could not open file or parse data content'
-		);
-	}
-	
 	/** 
 	*	Equivalent to xml_set_element_handler, except the starter function will accept parsed content as well but can be ignored if required
 	*	
@@ -358,10 +346,10 @@ class Savi {
 	*	@return String The error string for the given code
 	*/
 	public function ical_get_error_string($errNo=0) {
-		if (array_key_exists($errNo,$this->errorMsgs)) {
-			return $this->errorMsgs($errNo);
+		if (array_key_exists($errNo,self::errorMsgs)) {
+			return self::errorMsgs[$errNo];
 		} else {
-			return $this->errorMsgs(0);
+			return self::errorMsgs[0];
 		}
 	}
 	
