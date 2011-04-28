@@ -129,7 +129,11 @@ class Templater extends ImpactBase {
 	 *	brackets instead of XML.  This allows commands to issued inside a
 	 *	rich-text editor without interferring with XHTML.  This method will
 	 *	convert that text to XML so it can be parsed by this parser.
-	 *	Eg. [[PLUGIN name="date"]] will become <template:plugin name="date" />
+	 *
+	 *	@example [[PLUGIN name="date"]] will become <template:plugin name="date" />
+	 *	@note single quotes will be relaced with \' this is a by-product of the
+	 *	PHP works and cannot be avoided.
+	 *	@todo Find a work-around for single-quote escaping.
 	 *
 	 *	@protected
 	 *	@param string $text The string to parse
@@ -137,13 +141,12 @@ class Templater extends ImpactBase {
 	 */
 	protected function _convert_brackets_to_xml($text) {
 		if ($this->_contains($text,'[[')) {
-			$this->xmlstring = preg_replace(
+			$text = preg_replace(
 				'/\[\[(plugin|feature) (.*?)\]\]/mie',
 				'"<template:".strtolower("\1")." \2"." />"',
 				$text
 			);
 		}
-		
 		return $text;
 	}
 	
@@ -156,7 +159,7 @@ class Templater extends ImpactBase {
 	 */
 	protected function _parse_blocks($xml) {
 		while ($this->_contains($xml,'<template:block')) {
-			$this->xmlstring = preg_replace_callback(
+			$xml = preg_replace_callback(
 				'/<template\:block(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:block\b[^>]*>))+|(?R))*)<\/template\:block>/m',
 				array($this, '_block'),
 				$xml
@@ -175,7 +178,7 @@ class Templater extends ImpactBase {
 	 */
 	protected function _parse_loops($xml) {
 		while ($this->_contains($xml,'<template:loop')) {
-			$this->xmlstring = preg_replace_callback(
+			$xml = preg_replace_callback(
 				'/<template\:loop(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:loop\b[^>]*>))+|(?R))*)<\/template\:loop>/m',
 				array($this, '_loop'),
 				$xml
