@@ -7,10 +7,10 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar	
  */
-class Savi_Parser {
+class Savi {
 	protected $lineNo = -1;
 	protected $errNo = 0;
-	protected static $errorMsgs = '';
+	protected $errorMsgs = '';
 	protected $handle = false;
 	protected $lineFixer = true;
 	protected $multiLineFixer = true;
