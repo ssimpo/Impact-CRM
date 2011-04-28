@@ -111,46 +111,112 @@ class Templater extends ImpactBase {
 	 *	@return string The parsed content.
 	 */
 	public function parse($path) {
-	
 		$this->_get_xml($path);
 		
-		if ($this->_contains($this->xmlstring,'[[')) {
+		$this->xmlstring = $this->_convert_brackets_to_xml($this->xmlstring);
+		$this->xmlstring = $this->_parse_blocks($this->xmlstring);
+		$this->xmlstring = $this->_parse_loops($this->xmlstring);
+		$this->xmlstring = $this->_parse_variables_and_constants($this->xmlstring);
+		$this->xmlstring = $this->_parse_templates($this->xmlstring);
+		
+		return $this->xmlstring;
+	}
+	
+	/**
+	 *	Convert bracketed instructions to xml equivilants
+	 *
+	 *	The templating system allows commands to be given using double-square
+	 *	brackets instead of XML.  This allows commands to issued inside a
+	 *	rich-text editor without interferring with XHTML.  This method will
+	 *	convert that text to XML so it can be parsed by this parser.
+	 *	Eg. [[PLUGIN name="date"]] will become <template:plugin name="date" />
+	 *
+	 *	@protected
+	 *	@param string $text The string to parse
+	 *	@return string Converted XML-string
+	 */
+	protected function _convert_brackets_to_xml($text) {
+		if ($this->_contains($text,'[[')) {
 			$this->xmlstring = preg_replace(
 				'/\[\[(plugin|feature) (.*?)\]\]/mie',
 				'"<template:".strtolower("\1")." \2"." />"',
-				$this->xmlstring
+				$text
 			);
 		}
 		
-		while ($this->_contains($this->xmlstring,'<template:block')) {
+		return $text;
+	}
+	
+	/**
+	 *	Parse for <template:block /> and return the results
+	 *
+	 *	@protected
+	 *	@param string $xml XML-string to parse.
+	 *	@return string The parsed content.
+	 */
+	protected function _parse_blocks($xml) {
+		while ($this->_contains($xml,'<template:block')) {
 			$this->xmlstring = preg_replace_callback(
 				'/<template\:block(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:block\b[^>]*>))+|(?R))*)<\/template\:block>/m',
 				array($this, '_block'),
-				$this->xmlstring
+				$xml
 			);
 		}
 		
-		while ($this->_contains($this->xmlstring,'<template:loop')) {
+		return $xml;
+	}
+	
+	/**
+	 *	Parse for <template:loop /> and return the results.
+	 *
+	 *	@protected
+	 *	@param string $xml XML-string to parse.
+	 *	@return string The parsed content.
+	 */
+	protected function _parse_loops($xml) {
+		while ($this->_contains($xml,'<template:loop')) {
 			$this->xmlstring = preg_replace_callback(
 				'/<template\:loop(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:loop\b[^>]*>))+|(?R))*)<\/template\:loop>/m',
 				array($this, '_loop'),
-				$this->xmlstring
+				$xml
 			);
 		}
 		
-		$this->xmlstring = preg_replace_callback(
+		return $xml;
+	}
+	
+	/**
+	 *	Parse for template:variable and template:constant and return the results.
+	 *
+	 *	@protected
+	 *	@param string $xml XML-string to parse.
+	 *	@return string The parsed content.
+	 */
+	protected function _parse_variables_and_constants($xml) {
+		$xml = preg_replace_callback(
 			'/template\:(constant|variable)\[(.*?)\]/m',
 			array($this, '_variable'),
-			$this->xmlstring
+			$xml
 		);
 		
-		$this->xmlstring = preg_replace_callback(
+		return $xml;
+	}
+	
+	/**
+	 *	Parse for <template:??? /> and return the results
+	 *
+	 *	@protected
+	 *	@param string $xml XML-string to parse.
+	 *	@return string The parsed content.
+	 */
+	protected function _parse_templates($xml) {
+		$xml = preg_replace_callback(
 			'/\<template\:(.*?) (.*?)\/>/m',
 			array($this, '_template'),
-			$this->xmlstring
+			$xml
 		);
 		
-		return $this->xmlstring;
+		return $xml;
 	}
 	
 	/**
@@ -160,7 +226,6 @@ class Templater extends ImpactBase {
 	 *	XML into class XML property.
 	 *
 	 *	@protected
-	 *
 	 *	@param string $path filepath or XML string
 	 */
 	protected function _get_xml($path) {
