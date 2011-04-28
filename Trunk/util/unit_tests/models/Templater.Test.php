@@ -91,7 +91,55 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
     public function test_parse_variables_and_constants() {
         $method = self::get_method('_parse_variables_and_constants');
         
-        // STUB
+        $application = array(
+            'acl' => '',
+            'component' => 'main',
+            'testvar1' => 1,
+            'testvar2' => 'HELLO WORLD',
+            'testvar3' => 'HELLO AGAIN!'
+        );
+        $application2 = array(
+            'acl' => '',
+            'component' => 'main',
+            'testvar4' => 'ONE MORE TIME'
+        );
+        
+        $this->templater->init($application,'');
+        
+        $xml = '<table><tr><th>Total:</th><td>template:variable[testvar1]</td></tr></table>';
+        $this->assertEquals(
+            '<table><tr><th>Total:</th><td>1</td></tr></table>',
+            $method->invokeArgs($this->templater,array($xml))
+        );
+        
+        $xml = '<table><tr><th>Greeting:</th><td>template:variable[testvar2]</td></tr></table>';
+        $this->assertEquals(
+            '<table><tr><th>Greeting:</th><td>HELLO WORLD</td></tr></table>',
+            $method->invokeArgs($this->templater,array($xml))
+        );
+        
+        $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'Template.2.Test.xml';
+        $xml1=file_get_contents($path);
+        $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'Template.3.Test.xml';
+        $xml2=file_get_contents($path);
+        $this->assertEquals(
+            $xml2,
+            $method->invokeArgs($this->templater,array($xml1))
+        );
+        
+        define('DOMAIN','www.test.com');
+        $xml = '<table><tr><th>Greeting:</th><td>template:constant[DOMAIN]</td></tr></table>';
+        $this->assertEquals(
+            '<table><tr><th>Greeting:</th><td>www.test.com</td></tr></table>',
+            $method->invokeArgs($this->templater,array($xml))
+        );
+        
+        $this->templater->init($application,$application2,'');
+        $xml = '<table><tr><th>Greeting:</th><td>template:variable[testvar4]</td></tr></table>';
+        $this->assertEquals(
+            '<table><tr><th>Greeting:</th><td>ONE MORE TIME</td></tr></table>',
+            $method->invokeArgs($this->templater,array($xml))
+        );
     }
     
     public function test_parse_templates() {

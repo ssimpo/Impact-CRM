@@ -1,0 +1,7 @@
+<table>
+<tr>
+    <th>Greeting 1:</th><td>template:variable[testvar2]</td>
+</tr><tr>
+    <th>Greeting 1:</th><td>template:variable[testvar3]</td>
+</tr>
+</table>
