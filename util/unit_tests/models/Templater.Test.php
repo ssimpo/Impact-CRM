@@ -42,6 +42,36 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
         // STUB
     }
     
+    public function test_convert_brackets_to_xml() {
+        $method = self::get_method('_convert_brackets_to_xml');
+        
+        // STUB
+    }
+    
+    public function test_parse_blocks() {
+        $method = self::get_method('_parse_blocks');
+        
+        // STUB
+    }
+    
+    public function test_parse_loops() {
+        $method = self::get_method('_parse_loops');
+        
+        // STUB
+    }
+    
+    public function test_parse_variables_and_constants() {
+        $method = self::get_method('_parse_variables_and_constants');
+        
+        // STUB
+    }
+    
+    public function test_parse_templates() {
+        $method = self::get_method('_parse_templates');
+        
+        // STUB
+    }
+    
     public function test_get_xml() {
         $method = self::get_method('_get_xml');
         
