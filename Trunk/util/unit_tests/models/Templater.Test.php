@@ -45,7 +45,35 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
     public function test_convert_brackets_to_xml() {
         $method = self::get_method('_convert_brackets_to_xml');
         
-        // STUB
+        $text = '[[PLUGIN name="date"]]';
+        $this->assertEquals(
+            '<template:plugin name="date" />',
+            $method->invokeArgs($this->templater,array($text))
+        );
+        
+        $text = '[[plugin name="date" format="Y-m-d\TH:i:s\Z"]]';
+        $this->assertEquals(
+            '<template:plugin name="date" format="Y-m-d\TH:i:s\Z" />',
+            $method->invokeArgs($this->templater,array($text))
+        );
+        
+        $text = '[[FEATURE name="christmas"]]';
+        $this->assertEquals(
+            '<template:feature name="christmas" />',
+            $method->invokeArgs($this->templater,array($text))
+        );
+        
+        $text = '[[TEMPLATE name="main"]]';
+        $this->assertEquals(
+            $text,
+            $method->invokeArgs($this->templater,array($text))
+        );
+        
+        $text = '[[FEATURE name="christmas"]]'."\n".'[[PLUGIN name="date"]]';
+        $this->assertEquals(
+            '<template:feature name="christmas" />'."\n".'<template:plugin name="date" />',
+            $method->invokeArgs($this->templater,array($text))
+        );
     }
     
     public function test_parse_blocks() {
