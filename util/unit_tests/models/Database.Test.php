@@ -1,6 +1,6 @@
 <?php
 /**
- *	  Unit Test for the I class.
+ *	Unit Test for the Database class.
  *
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1.1

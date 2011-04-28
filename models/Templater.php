@@ -5,7 +5,7 @@
 *	can determine which page features to display to each user
 *	
 *	@author Stephen Simpson <me@simpo.org>
-*	@version 0.1
+*	@version 0.1.1
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
 *	@package Templater	
 */
