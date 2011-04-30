@@ -8,6 +8,10 @@
  *	@package Calendar	
  */
 class Savi {
+	public $lineFixer = true;
+	public $multiLineFixer = true;
+	public $uppercaseTags = true;
+	
 	protected $lineNo = -1;
 	protected $errNo = -1;
 	protected static $errorMsgs = array(
@@ -15,11 +19,9 @@ class Savi {
 		0=>'Error code does not exist',
 		1=>'Could not open file or parse data content'
 	);
+	protected static $delimters = array(',' => '', ':' => '', ';' => '');
 	
 	protected $handle = false;
-	public $lineFixer = true;
-	public $multiLineFixer = true;
-	public $uppercaseTags = true;
 	protected $starter = '';
 	protected $ender = '';
 	protected $charHandle = '';
@@ -38,6 +40,12 @@ class Savi {
 		$this->lineFixer = $lineFixer;
 		$this->uppercaseTags = $uppercaseTags;
 		$this->multiLineFixer = $multiLinefixer;
+		
+		foreach (self::$delimters as $key => $value) {
+			if ($value == '') {
+				self::$delimters[$key] = md5(microtime());
+			}
+		}
 		
 		return $this;
 	}
@@ -269,9 +277,12 @@ class Savi {
 	 *	@param string $content String to delimit.
 	 */
 	private function _delimit_replace($content) {
-		$content = str_replace('\,','~~//~@COMMA@~//~~',$content);
-		$content = str_replace('\:','~~//~@COLON@~//~~',$content);
-		$content = str_replace('\;','~~//~@SEMICOLON@~//~~',$content);
+		str_replace(
+			array_keys(self::$delimters),
+			array_values(self::$delimters),
+			$content
+		);
+		
 		return $content;
 	}
 	
@@ -284,9 +295,12 @@ class Savi {
 	 *	@param string $content String to undelimit.
 	 */
 	private function _delimit_unreplace($content) {
-		$content = str_replace('~~//~@COMMA@~//~~',',',$content);
-		$content = str_replace('~~//~@COLON@~//~~',':',$content);
-		$content = str_replace('~~//~@SEMICOLON@~//~~',';',$content);
+		str_replace(
+			array_values(self::$delimters),
+			array_keys(self::$delimters),
+			$content
+		);
+		
 		$content = str_replace('\n',"\n",$content);
 		$content = str_replace('\t',"\t",$content);
 		return $content;
