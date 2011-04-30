@@ -51,11 +51,21 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
     }
     
     public function test_utf8_decode() {
-        // STUB
+        $test = 'ĦÉLŁO WÖЯLÐ';
+        $test = mb_convert_encoding($test,'UTF8');
+        
+        $this->assertTrue(
+            mb_check_encoding($this->parser->utf8_encode($test),'ISO-8859-1')
+        );
     }
     
     public function test_utf8_encode() {
-        // STUB
+        $test = 'ĦÉLŁO WÖЯLÐ';
+        $test = mb_convert_encoding($test,'ISO-8859-1');
+        
+        $this->assertTrue(
+            mb_check_encoding($this->parser->utf8_encode($test),'UTF8')
+        );
     }
     
     public function test_ical_get_error_code() {

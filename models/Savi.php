@@ -311,23 +311,27 @@ class Savi {
 	}
 	
 	/** 
-	*	Convert a text string from UTF-8 to ISO-8859-1.  Exactly the same as the SAX parser equivalent
+	*	Convert a text string to ISO-8859-1.
+	*
+	*	@note Exactly the same as the SAX parser equivalent
 	*	
 	*	@param String $data The UTF-8 encoded string to convert
 	*	@return String A ISO-8859-1 encoded string
 	*/
 	public function utf8_decode($data) {
-		return mb_convert_encoding($data,'UTF8','ISO-8859-1');
+		return mb_convert_encoding($data,'ISO-8859-1');
 	}
 	
 	/** 
-	*	Convert a text string from ISO-8859-1 to UTF-8. Exactly the same as the SAX parser equivalent
+	*	Convert a text string to UTF-8.
+	*
+	*	@note Exactly the same as the SAX parser equivalent
 	*	
 	*	@param String $data The ISO-8859-1 encoded string to convert
 	*	@return String A UTF-8 encoded string
 	*/
 	public function utf8_encode($data) {
-		return mb_convert_encoding($data,'ISO-8859-1','UTF8');
+		return mb_convert_encoding($data,'UTF8');
 	}
 	
 	/**
@@ -347,9 +351,9 @@ class Savi {
 	*/
 	public function ical_get_error_string($errNo=0) {
 		if (array_key_exists($errNo,self::errorMsgs)) {
-			return self::errorMsgs[$errNo];
+			return self::errorMsgs($errNo);
 		} else {
-			return self::errorMsgs[0];
+			return self::errorMsgs(0);
 		}
 	}
 	
