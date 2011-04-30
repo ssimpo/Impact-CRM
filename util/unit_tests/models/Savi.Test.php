@@ -92,5 +92,29 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
     
     public function test_get_current_column_number() {
         // STUB
-    } 
+    }
+	
+	public function test_fix_line() {
+		$method = self::get_method('_fix_line');
+		$text = "\t\tHELLO WORLD";
+		
+		$this->assertEquals(
+			"HELLO WORLD",
+			$method->invokeArgs($this->parser,array($text))
+		);
+	}
+	
+	public function test_delimiting() {
+		$delimiter = self::get_method('_delimit_replace');
+		$undelimiter = self::get_method('_delimit_unreplace');
+		
+		$text = "HELLO: ;WORLD.";
+		$newtext = $delimiter->invokeArgs($this->parser, array($text));
+		$this->assertNotEquals($text,$newtext);
+		
+		$this->assertEquals(
+			$text,
+			$undelimiter->invokeArgs($this->parser,array($newtext))
+		);
+	}
 }

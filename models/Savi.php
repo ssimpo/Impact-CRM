@@ -277,7 +277,7 @@ class Savi {
 	 *	@param string $content String to delimit.
 	 */
 	private function _delimit_replace($content) {
-		str_replace(
+		$content = str_replace(
 			array_keys(self::$delimters),
 			array_values(self::$delimters),
 			$content
@@ -295,7 +295,7 @@ class Savi {
 	 *	@param string $content String to undelimit.
 	 */
 	private function _delimit_unreplace($content) {
-		str_replace(
+		$content = str_replace(
 			array_values(self::$delimters),
 			array_keys(self::$delimters),
 			$content
@@ -309,15 +309,14 @@ class Savi {
 	/**
 	*	Removes extra tabs from a line of text.
 	*
-	*	This is line fixer, removes tabs that may have crept into the line.  Just makes the parser more friendly, not strictly speaking conforming to the iCal standard.  Also fixes the different newline methods
+	*	This is line fixer, removes tabs that may have crept into the line.  Just makes the parser more friendly, not strictly speaking conforming to the iCal standard.
 	*
 	*	@private
 	*	@param String $line The line to apply fixes to
 	*	@return String The fixed line
 	*/
 	private function _fix_line($line) {
-		preg_replace('/\A\t*/','',$line);
-		//preg_replace('/[\r\f\n]/',"\n",$line);
+		$line = preg_replace('/\A\t*/','',$line);
 		return $line;
 	}
 	
