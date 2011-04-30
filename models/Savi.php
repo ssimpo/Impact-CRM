@@ -17,9 +17,9 @@ class Savi {
 	);
 	
 	protected $handle = false;
-	protected $lineFixer = true;
-	protected $multiLineFixer = true;
-	protected $uppercaseTags = true;
+	public $lineFixer = true;
+	public $multiLineFixer = true;
+	public $uppercaseTags = true;
 	protected $starter = '';
 	protected $ender = '';
 	protected $charHandle = '';
@@ -27,18 +27,25 @@ class Savi {
 	
 	/**
 	*	Constructor for class
+	*
+	*	@public
 	*	@param Boolean $lineFixer Remove leading tabs from the start of lines
 	*	@param Boolean $uppercaseTags Uppercase all the tags before passing to supplied processing functions
 	*	@param Boolean $multiLinefixer Fix multilingual content (not implemented yet)
 	*	@return Object Reference to the object
 	*/
-	function __construct($lineFixer=true,$uppercaseTags=true,$multiLinefixer=true) {
+	public function __construct($lineFixer=true,$uppercaseTags=true,$multiLinefixer=true) {
+		$this->lineFixer = $lineFixer;
+		$this->uppercaseTags = $uppercaseTags;
+		$this->multiLineFixer = $multiLinefixer;
+		
 		return $this;
 	}
 	
 	/**
 	*	Start parsing
-	*	
+	*
+	*	@public
 	*	@param Object $parser Reference to the parser to use
 	*	@param String $data The data to parse or a file/resource name to load as parsable data
 	*	@return Boolean TRUE
@@ -50,7 +57,8 @@ class Savi {
 	
 	/**
 	*	Load and parse the content
-	*	
+	*
+	*	@public
 	*	@param Object $parser Reference to parser to use
 	*	@param String $filename The filename or resource to load
 	*	@return Object Reference to the parser object or FALSE on failure
@@ -100,7 +108,8 @@ class Savi {
 	
 	/**
 	*	Handle parsed line and call any defined function for handling current line
-	*	
+	*
+	*	@private
 	*	@param Object $parser Reference to parser object to use
 	*	@param Array() $parsed The parsed contents of a line that needs handling
 	*/
@@ -130,11 +139,12 @@ class Savi {
 	
 	/**
 	*	Fix for when a line is split with a newline in the actual feed.
-	*	
+	*
+	*	@private
 	*	@param String $data The raw data to parse for messy lines
 	*	@return String() The lines as a series of array items, ready for parsing
 	*/
-	function _fix_multilines($data) {
+	private function _fix_multilines($data) {
 		$olines = array();
 		$lineNo = -1;
 		
@@ -152,7 +162,8 @@ class Savi {
 	
 	/**
 	*	Parse one line of text into an array, which represents its content
-	*	
+	*
+	*	@private
 	*	@param String Line of text to parse
 	*	@return Array() Parsed content in the following format:
 	*		array(
@@ -199,10 +210,13 @@ class Savi {
 	}
 	
 	/**
+	*	Parse a string into it's value pairs.
+	*
 	*	Take an input string and split it according to standard iCal rules, hence:
-	*		- split key1="value2";key2="value2" or key1=value2;key2=value2, into array
-	*		- split value1,value2,value3... into an array
-	*	
+	*		- split key1="value2";key2="value2" or key1=value2;key2=value2, into array.
+	*		- split value1,value2,value3... into an array.
+	*
+	*	@protected
 	*	@param String $valueList The string to split
 	*	@return String() An array containing the split values or the original string if nothing to split
 	*/
@@ -248,6 +262,12 @@ class Savi {
 		}
 	}
 	
+	/**
+	 *	Delimit certain characters to avoid parsing issues.
+	 *
+	 *	@private
+	 *	@param string $content String to delimit.
+	 */
 	private function _delimit_replace($content) {
 		$content = str_replace('\,','~~//~@COMMA@~//~~',$content);
 		$content = str_replace('\:','~~//~@COLON@~//~~',$content);
@@ -255,6 +275,14 @@ class Savi {
 		return $content;
 	}
 	
+	/**
+	 *	Undelimit certain characters to avoid parsing issues.
+	 *
+	 *	@note This reverses the action of _delimit_replace().
+	 *
+	 *	@private
+	 *	@param string $content String to undelimit.
+	 */
 	private function _delimit_unreplace($content) {
 		$content = str_replace('~~//~@COMMA@~//~~',',',$content);
 		$content = str_replace('~~//~@COLON@~//~~',':',$content);
@@ -265,8 +293,11 @@ class Savi {
 	}
 	
 	/**
+	*	Removes extra tabs from a line of text.
+	*
 	*	This is line fixer, removes tabs that may have crept into the line.  Just makes the parser more friendly, not strictly speaking conforming to the iCal standard.  Also fixes the different newline methods
-	*	
+	*
+	*	@private
 	*	@param String $line The line to apply fixes to
 	*	@return String The fixed line
 	*/
@@ -278,7 +309,8 @@ class Savi {
 	
 	/** 
 	*	Equivalent to xml_set_element_handler, except the starter function will accept parsed content as well but can be ignored if required
-	*	
+	*
+	*	@public
 	*	@param Object $parser Reference iCal to the parser to use
 	*	@param Function() $starter The function to call with an opening tag.  Expected arguments are:
 	*		- Object $parser Reference to the parser object
@@ -297,8 +329,9 @@ class Savi {
 	}
 	
 	/** 
-	*	Equivalent to xml_set_character_data_handler.
-	*	
+	*	Equivalent to xml_set_character_data_handler in SAX parser.
+	*
+	*	@public
 	*	@param Object $parser Reference iCal to the parser to use
 	*	@param Function() $charHandle The function to call with text content.  Expected arguments are:
 	*		- Object $parser Reference to the parser object
@@ -314,7 +347,8 @@ class Savi {
 	*	Convert a text string to ISO-8859-1.
 	*
 	*	@note Exactly the same as the SAX parser equivalent
-	*	
+	*
+	*	@public
 	*	@param String $data The UTF-8 encoded string to convert
 	*	@return String A ISO-8859-1 encoded string
 	*/
@@ -326,7 +360,8 @@ class Savi {
 	*	Convert a text string to UTF-8.
 	*
 	*	@note Exactly the same as the SAX parser equivalent
-	*	
+	*
+	*	@public
 	*	@param String $data The ISO-8859-1 encoded string to convert
 	*	@return String A UTF-8 encoded string
 	*/
@@ -335,8 +370,11 @@ class Savi {
 	}
 	
 	/**
+	*	Get the current error code.
+	*
 	*	Equivalent of xml_get_error_code() in the standard PHP SAX Parser.  Will return the current error number if one exists
-	*	
+	*
+	*	@public
 	*	@return Integer The current error number or -1 if no error has occurred
 	*/
 	public function ical_get_error_code() {
@@ -344,8 +382,11 @@ class Savi {
 	}
 	
 	/**
+	*	Get the error string for a given error code.
+	*	
 	*	Equivalent to xml_get_error_string in the standard PHP SAX Parser. Will return error message 0 if no number is passed or error code does not exist
 	*
+	*	@public
 	*	@param Integer $errNo The error string you want to lookup
 	*	@return String The error string for the given code
 	*/
@@ -358,8 +399,11 @@ class Savi {
 	}
 	
 	/**
+	*	Get the current line number of the text being parsed
+	*
 	*	Equivalent to xml_get_current_line_number in the standard PHP SAX Parser. Will return the current line number the parser has got to in the parsing process.  Use to find out where an error happened.
 	*
+	*	@public
 	*	@return Integer The line number the parser is up to
 	*/
 	public function ical_get_current_line_number() {
@@ -367,8 +411,11 @@ class Savi {
 	}
 	
 	/**
+	*	Get the current byte position of the text being parsed.
+	*
 	*	Equivalent to xml_get_current_byte_index in the standard PHP SAX Parser. Will the current byte number the parser got to in the parsing process. Use to find out where an error happened.
 	*
+	*	@public
 	*	@return Integer The byte number
 	*/
 	public function ical_get_current_byte_index() {
@@ -380,8 +427,11 @@ class Savi {
 	}
 	
 	/**
+	*	Get the current column number of the text being parsed.
+	*	
 	*	Equivalent to xml_get_current_column_number in the standard PHP SAX Parser. Will the current column position the parser got to in the parsing process. Use to find out where an error happened.
 	*
+	*	@public
 	*	@return Integer the column number
 	*/
 	public function ical_get_current_column_number() {
