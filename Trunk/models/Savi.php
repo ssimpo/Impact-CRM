@@ -9,11 +9,11 @@
  */
 class Savi {
 	protected $lineNo = -1;
-	protected $errNo = 0;
+	protected $errNo = -1;
 	protected static $errorMsgs = array(
-		-1,'No error',
-		0,'Error code does not exist',
-		1,'Could not open file or parse data content'
+		-1=>'No error',
+		0=>'Error code does not exist',
+		1=>'Could not open file or parse data content'
 	);
 	
 	protected $handle = false;
@@ -350,10 +350,10 @@ class Savi {
 	*	@return String The error string for the given code
 	*/
 	public function ical_get_error_string($errNo=0) {
-		if (array_key_exists($errNo,self::errorMsgs)) {
-			return self::errorMsgs($errNo);
+		if (array_key_exists($errNo,self::$errorMsgs)) {
+			return self::$errorMsgs[$errNo];
 		} else {
-			return self::errorMsgs(0);
+			return self::$errorMsgs[0];
 		}
 	}
 	

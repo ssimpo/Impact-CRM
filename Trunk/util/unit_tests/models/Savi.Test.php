@@ -69,15 +69,21 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
     }
     
     public function test_ical_get_error_code() {
-        // STUB
+        $this->assertEquals(
+            -1,$this->parser->ical_get_error_code()
+        );
     }
     
     public function test_ical_get_error_string() {
-        // STUB
+        $this->assertEquals(
+            'No error',$this->parser->ical_get_error_string(-1)
+        );
     }
     
-    public function test_get_current_line_number() {
-        // STUB
+    public function test_ical_get_current_line_number() {
+        $this->assertEquals(
+            -1,$this->parser->ical_get_current_line_number()
+        );
     }
     
     public function test_get_current_byte_index() {
