@@ -21,7 +21,6 @@ class Savi {
 	);
 	protected static $delimters = array(',' => '', ':' => '', ';' => '');
 	
-	protected $handle = false;
 	protected $starter = '';
 	protected $ender = '';
 	protected $charHandle = '';
@@ -72,46 +71,67 @@ class Savi {
 	*	@return Object Reference to the parser object or FALSE on failure
 	*/
 	public function load_data($parser,$filename) {
-		$parser->handle = @fopen($filename,'r');
-		if ($parser->handle) {
+		$handle = @fopen($filename,'r');
+		if ($handle) {
 			$filename = '';
-			
-			if ($parser->multiLineFixer) {
-				while (!feof($parser->handle)) {
-					$filename .= fgets($parser->handle);
-				}
-			} else {
-				while (!feof($parser->handle)) {
-					$line = fgets($parser->handle);
-					$parser->lineNo++;
-					$parsed = $parser->_line_parser($line);
-					$parser->_handle_line($parser,$parsed);	
-				}
-				fclose($parser->handle);
-			}
-		
-			$parser->handle = false;
+			$data = $this->_parse_file_handle($handle);
+			fclose($handle);
+			$lines = $this->_split_ical_lines($parser,$data);
+			$this->_parse_ical_lines($parser,$lines);
 		} elseif ($filename == '') {
 			$parser->errNo = 1;
-				return false;
+			return false;
 		}
 		
-		if ( (!$parser->handle) && ($filename != '') ) {
-			$lines = array();
-			if ($parser->multiLineFixer) {
-				$lines = $this->_fix_multilines($filename);
-			} else {
-				$lines = explode("\n",$filename);
-			}
-		
-			foreach ($lines as $line) {
-				$parser->lineNo++;
-				$parsed = $parser->_line_parser($line);
-				$parser->_handle_line($parser,$parsed);
-			}
-		} 
-		
 		return $this;
+	}
+	
+	/**
+	 *	Parse a filehandle, loading the data into a string.
+	 *
+	 *	@private
+	 *	@param filehandle $handle The filehandle to parse.
+	 *	@return string The data returned from the file.
+	 */
+	private function _parse_file_handle($handle) {
+		$data = '';
+		while (!feof($handle)) {
+			$data .= fgets($handle);
+		}
+		return $data;
+	}
+	
+	/**
+	 *	Split a string containing ical data into separate lines
+	 *
+	 *	@private
+	 *	@param object $parser The parser object to use.
+	 *	@param string $data Data to be split.
+	 *	@return array The separate lines.
+	 */
+	private function _split_ical_lines($parser,$data) {
+		$lines = array();
+		if ($parser->multiLineFixer) {
+			$lines = $this->_fix_multilines($data);
+		} else {
+			$lines = explode("\n",$data);
+		}
+		return $lines;
+	}
+	
+	/**
+	 *	Parse a series of ical lines (supplied as an array).
+	 *
+	 *	@private
+	 *	@param object $parser The parser object to use.
+	 *	@param array $lines Lines to be parsed.
+	 */
+	private function _parse_ical_lines($parser,$lines) {
+		foreach ($lines as $line) {
+			$parser->lineNo++;
+			$parsed = $parser->_line_parser($line);
+			$parser->_handle_line($parser,$parsed);
+		}
 	}
 	
 	/**
@@ -224,11 +244,11 @@ class Savi {
 	*		- split key1="value2";key2="value2" or key1=value2;key2=value2, into array.
 	*		- split value1,value2,value3... into an array.
 	*
-	*	@protected
+	*	@private
 	*	@param String $valueList The string to split
 	*	@return String() An array containing the split values or the original string if nothing to split
 	*/
-	protected function _value_list_parser($valueList) {
+	private function _value_list_parser($valueList) {
 		$attributes = array();
 		$semiPos = strpos($valueList,';');
 		
