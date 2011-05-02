@@ -3,7 +3,7 @@
  *	Calendar date parser class
  *		
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.3
+ *	@version 0.0.4
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar
  *
@@ -20,8 +20,8 @@ class DateParser Extends ImpactBase {
 	 *	@return self
 	 */
 	function __construct() {
-		if (!is_array($this->config)) {
-			$this->_load_config('Date_Parser/settings.xml');
+		if (!is_array(self::$config)) {
+			$this->_load_config('DateParser/settings.xml');
 		}
 	}
 	
@@ -61,8 +61,8 @@ class DateParser Extends ImpactBase {
 	 *	@return date Date in PHP date format.
 	 */
 	protected function _detect($date,$timezone='') {
-		foreach ($this->config as $tester) {
-			if (preg_match($tester[REGEX],$date)) {
+		foreach (self::$config as $tester) {
+			if (preg_match($tester['REGEX'],$date)) {
 				$parser = $this->factory($tester['CLASS']);
 				return $parser->parse($date,$timezone);
 			}
@@ -77,15 +77,15 @@ class DateParser Extends ImpactBase {
 	 *	@param string $path Path to the settings file.
 	 */
 	protected function _load_config($path) {
-		$xml = simplexml_load_file($this->_get_include_directory().'/'.$path);
-		$this->config = array();
+		$xml = simplexml_load_file(I::get_include_directory().'/'.$path);
+		self::$config = array();
 		
 		foreach ($xml->param as $param) {
 			switch ($param['type']) {
 				case 'regx':
 					$value = (string) $param['value'];
-					$class = (string) 'Date_Parser_'.$param['name'];
-					array_push($this->config,array('REGEX'=>$value,'CLASS'=>$class));
+					$class = (string) 'DateParser_'.$param['name'];
+					array_push(self::$config,array('REGEX'=>$value,'CLASS'=>$class));
 					break;
 			}
 		}
