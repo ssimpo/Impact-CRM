@@ -61,7 +61,7 @@ interface Calendar_Object {
    
 }
 
-class CalendarBase {
+class CalendarBase Extends ImpactBase {
 	protected $data = array();
 
 	function __construct() {
