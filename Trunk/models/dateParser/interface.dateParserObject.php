@@ -7,7 +7,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar
  */
-interface Date_Parser_Object {
+interface DateParser_Object {
     
     /**
      *      Method to parse the date.
