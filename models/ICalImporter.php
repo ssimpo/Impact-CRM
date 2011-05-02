@@ -7,7 +7,7 @@
  *	and interpreters of content.
  *
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.1
+ *	@version 0.0.2
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar
  */
@@ -69,6 +69,7 @@ class ICalImporter extends ImpactBase {
 	foreach ($blocks as $vevent) {
 	    $event = $this->calendar->add_event();
 	    $event->set_id(md5($vevent['UID']['CONTENT']));
+	    $event->set_start_date($vevent['DTSTART']['CONTENT']);
 	}
     }
     
