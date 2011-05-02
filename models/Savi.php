@@ -241,7 +241,7 @@ class Savi {
 			
 			$semiPos = strpos($tag,';');
 			if ($semiPos !== false) {
-				$attributes = $this->_value_list_parser(substr($line,$semiPos+1));
+				$attributes = $this->_value_list_parser(substr($tag,$semiPos+1));
 				$tag = substr($line,0,$semiPos);
 			}
 			

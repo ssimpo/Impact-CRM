@@ -108,6 +108,70 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
 		);
 		
 	}
+	
+	public function test_line_parser() {
+		$method = self::get_method('_line_parser');
+		
+		$this->assertEquals(
+			array(
+				'tag' => 'DTSTART',
+				'attributes' => array(),
+				'content' => '19700329T010000',
+				'rawtextcontent' => '19700329T010000'
+			),
+			$method->invokeArgs($this->parser,array('DTSTART:19700329T010000'))
+		);
+		
+		$this->assertEquals(
+			array(
+				'tag' => 'X-WR-CALNAME',
+				'attributes' => array(),
+				'content' => 'The Christian Centre, Middlesbrough',
+				'rawtextcontent' => 'The Christian Centre, Middlesbrough'
+			),
+			$method->invokeArgs($this->parser,array('X-WR-CALNAME:The Christian Centre\, Middlesbrough'))
+		);
+		
+		$this->assertEquals(
+			array(
+				'tag' => 'RRULE',
+				'attributes' => array(),
+				'content' => array('FREQ'=>'YEARLY','BYMONTH'=>'3','BYDAY'=>'-1SU'),
+				'rawtextcontent' => 'FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU'
+			),
+			$method->invokeArgs($this->parser,array('RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU'))
+		);
+		
+		$this->assertEquals(
+			array(
+				'tag' => 'DTSTART',
+				'attributes' => array('TZID'=>'Europe/London'),
+				'content' => '20110417T103000',
+				'rawtextcontent' => '20110417T103000'
+			),
+			$method->invokeArgs($this->parser,array('DTSTART;TZID=Europe/London:20110417T103000'))
+		);
+		
+		$this->assertEquals(
+			array(
+				'tag' => 'DTSTART',
+				'attributes' => array('TZID'=>'Europe/London'),
+				'content' => '20110417T103000',
+				'rawtextcontent' => '20110417T103000'
+			),
+			$method->invokeArgs($this->parser,array('DTSTART;TZID="Europe/London":20110417T103000'))
+		);
+		
+		$this->assertEquals(
+			array(
+				'tag' => 'CATEGORIES',
+				'attributes' => array(),
+				'content' => array('Cat1','Cat2','Cat3'),
+				'rawtextcontent' => 'Cat1,Cat2,Cat3'
+			),
+			$method->invokeArgs($this->parser,array('CATEGORIES:Cat1,Cat2,Cat3'))
+		);
+	}
     
     public function test_ical_set_element_handler() {
         // STUB
