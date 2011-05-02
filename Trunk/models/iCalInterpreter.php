@@ -9,7 +9,7 @@
  *
  *	@todo Test with xCal using SAX and make it work for this.
  */
-class iCalInterpreter {
+class iCalInterpreter extends ImpactBase {
 	private $savi = '';
 	private $data = array();
 	private $block = '';
@@ -17,7 +17,7 @@ class iCalInterpreter {
 	private $treePos;
 	
 	public function __construct() {
-		$this->savi = new Savi();
+		$this->savi = $this->factory("Savi");
 		
 		$this->savi->ical_set_element_handler(
 			$this->savi,
