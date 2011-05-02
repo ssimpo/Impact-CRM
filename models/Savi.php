@@ -191,8 +191,8 @@ class Savi {
 	*	Fix for when a line is split with a newline in the actual feed.
 	*
 	*	@private
-	*	@param String $data The raw data to parse for messy lines
-	*	@return String() The lines as a series of array items, ready for parsing
+	*	@param string $data The raw data to parse for messy lines
+	*	@return array The lines as a series of array items, ready for parsing
 	*/
 	private function _fix_multilines($data) {
 		$olines = array();
@@ -233,6 +233,7 @@ class Savi {
 		$content='';
 		$contentText = '';
 		$attributes=array();
+		
 		$colonPos = strpos($line, ':');
 		if ($colonPos !== false) {
 			$tag = substr($line,0,$colonPos);
@@ -319,9 +320,14 @@ class Savi {
 	 *	@param string $content String to delimit.
 	 */
 	private function _delimit_replace($content) {
+		$find = array();
+		foreach(array_keys(self::$delimters) as $character) {
+			$find['\\'.$character] = self::$delimters[$character];
+		}
+		
 		$content = str_replace(
-			array_keys(self::$delimters),
-			array_values(self::$delimters),
+			array_keys($find),
+			array_values($find),
 			$content
 		);
 		
