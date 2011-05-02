@@ -25,6 +25,10 @@ class Test_Acl_FB extends PHPUnit_Framework_TestCase {
 	private $application = null;
 	
 	protected function setUp() {
+		if (!defined('__DIR__')) {
+			$iPos = strrpos(__FILE__, "/");
+			define('__DIR__', substr(__FILE__, 0, $iPos) . '/');
+		}
 		if (!defined('DS')) {
 			define('DS',DIRECTORY_SEPARATOR);
 		}

@@ -12,31 +12,35 @@ class Test_Application extends PHPUnit_Framework_TestCase {
     private $application;
     
     protected function setUp() {
-	if (!defined('DS')) {
-	    define('DS',DIRECTORY_SEPARATOR);
-	}
-	if (!defined('MODELS_DIRECTORY')) {
-	    define('MODELS_DIRECTORY','models');
-	}
-	if (!defined('ROOT_BACK')) {
-	    define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
-	}
-	spl_autoload_register('self::__autoload');
+		if (!defined('__DIR__')) {
+			$iPos = strrpos(__FILE__, "/");
+			define('__DIR__', substr(__FILE__, 0, $iPos) . '/');
+		}
+		if (!defined('DS')) {
+			define('DS',DIRECTORY_SEPARATOR);
+		}
+		if (!defined('MODELS_DIRECTORY')) {
+			define('MODELS_DIRECTORY','models');
+		}
+		if (!defined('ROOT_BACK')) {
+			define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
+		}
+		spl_autoload_register('self::__autoload');
         
         $this->application = Application::instance();
-	$this->Acl = new Acl($this->application);
+		$this->Acl = new Acl($this->application);
     }
     
     private function __autoload($className) {
-	$classFileName = str_replace('_',DIRECTORY_SEPARATOR,$className).'.php';
-	require_once ROOT_BACK.MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName;
+		$classFileName = str_replace('_',DIRECTORY_SEPARATOR,$className).'.php';
+		require_once ROOT_BACK.MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName;
     }
     
     protected static function get_method($name) {
-	$class = new ReflectionClass('Application');
-	$method = $class->getMethod($name);
-	$method->setAccessible(true);
-	return $method;
+		$class = new ReflectionClass('Application');
+		$method = $class->getMethod($name);
+		$method->setAccessible(true);
+		return $method;
     }
     
     public function test_property_exists() {
@@ -62,17 +66,17 @@ class Test_Application extends PHPUnit_Framework_TestCase {
     }
     
     public function test_media_detect() {
-	if (!defined('DEFAULT_MEDIA')) {
-	    define('DEFAULT_MEDIA','PC');
-	}
+		if (!defined('DEFAULT_MEDIA')) {
+			define('DEFAULT_MEDIA','PC');
+		}
         $method = self::get_method('_media_detect');
         
         $method->invoke($this->application);
         $this->assertEquals('[PC]',$this->application->media);
         
-	if (!defined('DOMAIN')) {
-	    define('DOMAIN','m.test.com');
-	}
+		if (!defined('DOMAIN')) {
+			define('DOMAIN','m.test.com');
+		}
         $method->invoke($this->application);
         $this->assertEquals('[MOBILE]',$this->application->media);
         
@@ -82,9 +86,9 @@ class Test_Application extends PHPUnit_Framework_TestCase {
     }
     
     public function test_language_detect() {
-	if (!defined('DEFAULT_LANG')) {
-	    define('DEFAULT_LANG','en_GB');
-	}
+		if (!defined('DEFAULT_LANG')) {
+			define('DEFAULT_LANG','en_GB');
+		}
         $method = self::get_method('_language_detect');
         
         $method->invoke($this->application);

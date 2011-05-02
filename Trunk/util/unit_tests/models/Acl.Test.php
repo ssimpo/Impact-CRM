@@ -12,6 +12,13 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
 	private $Acl;
 	
 	protected function setUp() {
+		if (!defined('__DIR__')) {
+			$iPos = strrpos(__FILE__, "/");
+			define('__DIR__', substr(__FILE__, 0, $iPos) . '/');
+		}
+		if (!defined('DS')) {
+			define('DS',DIRECTORY_SEPARATOR);
+		}
 		if (!defined('DS')) {
 			define('DS',DIRECTORY_SEPARATOR);
 		}
