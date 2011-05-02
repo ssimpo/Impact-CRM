@@ -60,6 +60,9 @@ class ImpactBase {
 	 */
 	private function _is_singleton($className) {
 		$methods = get_class_methods($className);
+		if (!is_array($methods)) {
+			return false;
+		}
 		return ((!in_array('__construct',$methods)) && (in_array('instance',$methods)));
 	}
 	
