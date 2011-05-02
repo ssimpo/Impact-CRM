@@ -5,7 +5,13 @@
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.3
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
- *	@package Calendar	
+ *	@package Calendar
+ *
+ *	@todo This needs robust testing by throwing all sorts of random ical/vcard
+ *	data at it.  Also, try with different types of badly formatted data and
+ *	see what happens.
+ *	@todo Make it work where there is space(s) surrounding the equals sign in
+ *	an attribute list, eg key = value as well as key=value.
  */
 class Savi {
 	public $lineFixer = true;
