@@ -7,7 +7,7 @@
  *	and interpreters of content.
  *
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.2
+ *	@version 0.0.3
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar
  */
@@ -15,6 +15,11 @@ class ICalImporter extends ImpactBase {
     private $parser = '';
     private $data = '';
     private $calendar = '';
+    private static $icalToImpactDates = array(
+	'DTSTART' => 'startDate', 'DTEND' => 'endDate',
+	'DTSTAMP'=>'dateStamp', 'CREATED' => 'createdDate',
+	'LAST-MODIFIED' => 'lastModifiedDate'
+    );
     
     /**
      *	Public construction class
@@ -68,8 +73,22 @@ class ICalImporter extends ImpactBase {
 	
 	foreach ($blocks as $vevent) {
 	    $event = $this->calendar->add_event();
-	    $event->set_id(md5($vevent['UID']['CONTENT']));
-	    $event->set_start_date($vevent['DTSTART']['CONTENT']);
+	    
+	    foreach ($vevent as $tagname => $content) {
+		if (array_key_exists('CONTENT',$content)) {
+		    if (array_key_exists($tagname,self::$icalToImpactDates)) {
+			$event->set_date(
+			    self::$icalToImpactDates[$tagname],
+			    $content['CONTENT']
+			);
+		    } elseif ($tagname == 'UID') {
+			$event->set_id(md5($content['CONTENT']));
+		    } else {
+			$functionName = 'set_'.strtolower($tagname);
+			$event->{$functionName}($content['CONTENT']);
+		    }
+		}
+	    }
 	}
     }
     
