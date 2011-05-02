@@ -15,8 +15,8 @@ class Calendar_Event Extends CalendarBase implements Calendar_Object {
 	}
 
 	public function set_start_date($date,$timezone='') {
-		$Date_Parser = $this->factory('Date_Parser');
-		$utc_date = $Date_Parser->convert_date($date,'',$timezone);
+		$DateParser = $this->factory('DateParser');
+		$utc_date = $DateParser->convert_date($date,'',$timezone);
 		$this->data['startDate'] = $utc_date;
 	}
 
