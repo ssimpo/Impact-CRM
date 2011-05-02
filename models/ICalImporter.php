@@ -64,6 +64,26 @@ class ICalImporter extends ImpactBase {
     }
     
     /**
+     *	Handle for the VTIMEZONE blocks.
+     *
+     *	@private
+     *	@param array $block Array containing a series of VTIMEZONE blocks.
+     */
+    private function _handle_vtimezone($blocks) {
+	foreach ($blocks as $vtimezone) {
+	    $timezone = $this->calendar->add_timezone();
+	    
+	    foreach ($vtimezone as $tagname => $content) {
+		if (array_key_exists('CONTENT',$content)) {
+		    if ($tagname == 'TZID') {
+			$timezone->set_id($content['CONTENT']);
+		    }
+		}
+	    }
+	}
+    }
+    
+    /**
      *	Handle for the VEVENT blocks.
      *
      *	@private
