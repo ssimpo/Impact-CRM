@@ -31,8 +31,8 @@ class Test_Acl_REF extends PHPUnit_Framework_TestCase {
 	}
 	
 	private function __autoload($className) {
-		$classFileName = str_replace('_',DIRECTORY_SEPARATOR,$className).'.php';
-		require_once ROOT_BACK.MODELS_DIRECTORY.DIRECTORY_SEPARATOR.$classFileName;
+		$classFileName = str_replace('_',DS,$className).'.php';
+		require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
 	}
 	
 	protected static function get_method($name) {
