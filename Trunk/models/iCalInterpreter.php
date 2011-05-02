@@ -3,9 +3,11 @@
  *	iCal Interpreter, requires the SAVI parser for iCal/vCalendar/vCard
  *		
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.4
+ *	@version 0.0.5
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
- *	@package Calendar	
+ *	@package Calendar
+ *
+ *	@todo Test with xCal using SAX and make it work for this.
  */
 class iCalInterpreter {
 	private $savi = '';
@@ -34,13 +36,11 @@ class iCalInterpreter {
 	}
 	
 	public function start_tag($parser,$name,$attributes,$content='') {
-		$carray = array('CONTENT'=>$content, 'ATTRIBUTES'=>$attributes);
-		
 		$handler = array($this,'_handle_'.strtolower($name));
 		if (is_callable($handler)) {
 			call_user_func($handler,$this,$name,$attributes,$content);
 		} else {
-			
+			$this->_new_data($name,$attributes,$content);
 		}
 	}
 	
@@ -170,17 +170,34 @@ class iCalInterpreter {
 		$end = array_push($this->treePos,array());
 		$this->treePos =& $this->treePos[$end-1];
 	}
-
-	public function end_tag($parser,$name) {
-		//$this->treePos = &$this->treePos['PARENT'];
-	}
-
-	public function text_content($parser,$content) {
-		//echo '<p>RAWTEXT: '.$content.'</p>';
-	}
 	
-	private function _add_element_get_ref($key) {
+	/**
+	 *	Generate a new data element at current tree position.
+	 *
+	 *	@private
+	 *	@param string $name The name of the block element to create.
+	 */
+	private function _new_data($name,$attributes,$content) {
+		if (!is_array($attributes)) {
+			$attributes = array();
+		}
+		$attributes['CONTENT'] = $content;
 		
+		if (!array_key_exists($name,$this->treePos)) {
+			// Standard and usual method
+			$this->treePos[$name] = $attributes;
+		} else {
+			// Rare situation where tag already exist in given block (ie. multiple occurrences of tag)
+			if (array_key_exists(0,$this->treePos[$name])) {
+				$end = count($this->treePos[$name]);
+				$this->treePos[$name][$end] = $attributes;
+			} else {
+				$this->treePos[$name] = array(
+					0 => $this->treePos[$name],
+					1 => $attributes
+				);
+			}
+		}
 	}
 
 }
