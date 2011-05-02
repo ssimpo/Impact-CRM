@@ -54,6 +54,42 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
 		// STUB
 	}
 	
+	public function test_normalize_line_endings() {
+		$method = self::get_method('_normalize_line_endings');
+		$result = "HELLO\nWORLD";
+		
+		$this->assertEquals(
+			$result,
+			$method->invokeArgs($this->parser,array("HELLO\r\nWORLD"))
+		);
+		$this->assertEquals(
+			$result,
+			$method->invokeArgs($this->parser,array("HELLO\rWORLD"))
+		);
+		$this->assertEquals(
+			$result,
+			$method->invokeArgs($this->parser,array("HELLO\n\rWORLD"))
+		);
+		$this->assertEquals(
+			$result,
+			$method->invokeArgs($this->parser,array("HELLO\x1EWORLD"))
+		);
+		$this->assertEquals(
+			$result,
+			$method->invokeArgs($this->parser,array("HELLO\x15WORLD"))
+		);
+		
+		$result = "HELLO\n\nWORLD";
+		$this->assertEquals(
+			$result,
+			$method->invokeArgs($this->parser,array("HELLO\r\rWORLD"))
+		);
+		$this->assertEquals(
+			$result,
+			$method->invokeArgs($this->parser,array("HELLO\r\n\r\nWORLD"))
+		);
+	}
+	
 	public function test_parse_ical_lines() {
 		// STUB
 	}

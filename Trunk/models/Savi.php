@@ -111,12 +111,34 @@ class Savi {
 	 */
 	private function _split_ical_lines($parser,$data) {
 		$lines = array();
+		$data = $this->_normalize_line_endings($data);
 		if ($parser->multiLineFixer) {
 			$lines = $this->_fix_multilines($data);
 		} else {
 			$lines = explode("\n",$data);
 		}
 		return $lines;
+	}
+	
+	/**
+	 *	Convert text content to UNIX format.
+	 *
+	 *	Different systems uses different line-enders.  This method
+	 *	will attempt to convert all line-endings to the standard UNIX type,
+	 *	which is: newline character.
+	 *
+	 *	@private
+	 *	@param string $text Text to convert.
+	 *	@return string Converted text.
+	 */
+	private function _normalize_line_endings($text) {
+		$text = str_replace(
+			array("\r\n","\n\r","\x1E","\x15"),
+			array("\n","\n","\n","\n"),
+			$text
+		);
+		$text = str_replace("\r", "\n", $text);
+		return $text;
 	}
 	
 	/**
