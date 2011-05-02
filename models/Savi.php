@@ -3,7 +3,7 @@
  *	Simple API for vCard/iCal/vCalendar, this is the iCal equivalent of SAX
  *		
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.3
+ *	@version 0.0.4
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar
  *
