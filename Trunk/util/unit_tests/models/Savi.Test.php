@@ -45,6 +45,18 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
     public function test_ical_parse() {
         // STUB
     }
+	
+	public function test_parse_file_handle() {
+		//STUB
+	}
+	
+	public function test_split_ical_lines() {
+		// STUB
+	}
+	
+	public function test_parse_ical_lines() {
+		// STUB
+	}
     
     public function test_ical_set_element_handler() {
         // STUB
