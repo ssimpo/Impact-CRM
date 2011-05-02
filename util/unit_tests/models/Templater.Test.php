@@ -118,9 +118,9 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
             $method->invokeArgs($this->templater,array($xml))
         );
         
-        $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'Template.2.Test.xml';
+        $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'_data'.DS.'xml'.DS.'Template.2.Test.xml';
         $xml1=file_get_contents($path);
-        $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'Template.3.Test.xml';
+        $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'_data'.DS.'xml'.DS.'Template.3.Test.xml';
         $xml2=file_get_contents($path);
         $this->assertEquals(
             $xml2,
@@ -167,7 +167,7 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
         $method->invokeArgs($this->templater,array($xml));
         $this->assertEquals($this->templater->xml,$xml);
         
-        $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'Template.1.Test.xml';
+        $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'_data'.DS.'xml'.DS.'Template.1.Test.xml';
         $xml=file_get_contents($path);
         $method->invokeArgs($this->templater,array($xml));
         $this->assertEquals($this->templater->xml,$xml);
