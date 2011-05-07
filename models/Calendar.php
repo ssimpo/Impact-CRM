@@ -96,6 +96,12 @@ class CalendarBase Extends ImpactBase {
 			}
 		}
 	}
+	
+	public function set_date($name, $date, $timezone='') {
+		$DateParser = $this->factory('DateParser');
+		$utc_date = $DateParser->convert_date($date,'',$timezone);
+		$this->data[$name] = $utc_date;
+	}
 
 	public function expand_repeats($start,$end) {
 		$Repeat_Parser = $this->factory('Repeat_Parser');
