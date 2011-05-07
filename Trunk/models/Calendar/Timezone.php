@@ -15,11 +15,6 @@ class Calendar_Timezone Extends Calendar_Base implements Calendar_Object {
 		$this->data['standard'] = array();
 		$this->data['daylight'] = array();
     }
-	
-	public function set_tzid($value) {
-		$this->set_id(md5($value));
-		$this->data['tzid'] = $value;
-	}
     
     /**
      *	Create a timezone block (Standard|Daylight).
