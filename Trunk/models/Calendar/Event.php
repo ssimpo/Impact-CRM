@@ -13,12 +13,6 @@ class Calendar_Event Extends CalendarBase implements Calendar_Object {
 	function __construct() {
 		parent::__construct();
 	}
-	
-	public function set_date($name, $date, $timezone='') {
-		$DateParser = $this->factory('DateParser');
-		$utc_date = $DateParser->convert_date($date,'',$timezone);
-		$this->data[$name] = $utc_date;
-	}
 
 	public function set_start_date($date,$timezone='') {
 		$this->set_date('startDate',$date,$timezone);
