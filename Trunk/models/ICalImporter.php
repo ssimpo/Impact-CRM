@@ -20,6 +20,9 @@ class ICalImporter extends ImpactBase {
 	'DTSTAMP'=>'dateStamp', 'CREATED' => 'createdDate',
 	'LAST-MODIFIED' => 'lastModifiedDate'
     );
+    private static $icalTimeZoneBlocks = array(
+	'STANDARD' => true, 'DAYLIGHT' => true
+    );
     
     /**
      *	Public construction class
@@ -77,9 +80,30 @@ class ICalImporter extends ImpactBase {
 		if (array_key_exists('CONTENT',$content)) {
 		    if ($tagname == 'TZID') {
 			$timezone->set_id($content['CONTENT']);
+		    } else {
+			$functionName = 'set_'.strtolower($tagname);
+			$timezone->{$functionName}($content['CONTENT']);
 		    }
+		} elseif (array_key_exists($tagname,self::$icalTimeZoneBlocks)) {
+			
+			$timeblock = $timezone->create_block($tagname);
+			
+			for ($i = 0; $i < count($content); $i++) {
+			    $timeblock = $timezone->create_block($tagname);
+			    foreach ($content[$i] as $subtagname => $subcontent) {
+				
+				$functionName = 'set_'.strtolower($subtagname);
+				$timeblock->{$functionName}($subcontent['CONTENT']);
+				
+			    }
+			}
+			
+		} else {
+		    // STUB
 		}
 	    }
+	    
+	    print_r($timezone);
 	}
     }
     
@@ -109,6 +133,7 @@ class ICalImporter extends ImpactBase {
 		    }
 		}
 	    }
+    
 	}
     }
     
