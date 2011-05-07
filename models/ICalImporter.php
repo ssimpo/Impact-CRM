@@ -50,8 +50,8 @@ class ICalImporter extends ImpactBase {
     /**
      *	Parse the data returned by the iCalInterpreter class.
      *
-     *	Paresed data is looped-through and various private functions called,
-     *	which handle specfic data-types (eg. VEVENT or VTODO).
+     *	Parsed data is looped-through and various private functions called,
+     *	which handle specific data-types (eg. VEVENT or VTODO).
      *	
      *	@private
      */
@@ -67,6 +67,27 @@ class ICalImporter extends ImpactBase {
     }
     
     /**
+     *	Store content within a Calendar-object against a specified tag.
+     *
+     *	@private
+     *	@param object $object The Calendar-object to store data in.
+     *	@param array $content The content to store (usually in the format [CONTENT] => content).
+     *	@param string $tagname The tag to store it against.
+     *	@return boolean Did the storage command execute?
+     */
+    private function _store_tag_data($object, $content, $tagname) {
+	if (array_key_exists('CONTENT',$content)) {
+	    if (array_key_exists($tagname,self::$tagTranslation)) {
+		$tagname = self::$tagTranslation[$tagname];
+	    }
+	    $functionName = 'set_'.strtolower($tagname);
+	    return $object->{$functionName}($content['CONTENT']);
+	}
+	
+	return false;
+    }
+    
+    /**
      *	Handle for the VTIMEZONE blocks.
      *
      *	@private
@@ -77,37 +98,24 @@ class ICalImporter extends ImpactBase {
 	    $timezone = $this->calendar->add_timezone();
 	    
 	    foreach ($vtimezone as $tagname => $content) {
-		if (array_key_exists('CONTENT',$content)) {
-		    if ($tagname == 'TZID') {
-			$timezone->set_id($content['CONTENT']);
-		    } else {
-			$functionName = 'set_'.strtolower($tagname);
-			$timezone->{$functionName}($content['CONTENT']);
-		    }
+		
+		if ($tagname == 'TZID') {
+		    $timezone->set_id($content['CONTENT']);
 		} elseif (array_key_exists($tagname,self::$icalTimeZoneBlocks)) {
-			
+		    
+		    for ($i = 0; $i < count($content); $i++) {
 			$timeblock = $timezone->create_block($tagname);
-			
-			for ($i = 0; $i < count($content); $i++) {
-			    $timeblock = $timezone->create_block($tagname);
-			    foreach ($content[$i] as $subtagname => $subcontent) {
-				
-				if (array_key_exists('CONTENT',$subcontent)) {
-				    if (array_key_exists($subtagname,self::$tagTranslation)) {
-					$subtagname = self::$tagTranslation[$subtagname];
-				    }
-				    $functionName = 'set_'.strtolower($subtagname);
-				    $timeblock->{$functionName}($subcontent['CONTENT']);
-				}
-				
-			    }
+			foreach ($content[$i] as $subtagname => $subcontent) {
+			    $this->_store_tag_data($timeblock, $subcontent, $subtagname);
 			}
-			
+		    }
+		    
 		} else {
-		    // STUB
+		    $this->_store_tag_data($timezone, $content, $tagname);
 		}
 		
 	    }
+	    
 	}
     }
     
@@ -123,19 +131,13 @@ class ICalImporter extends ImpactBase {
 	    $event = $this->calendar->add_event();
 	    
 	    foreach ($vevent as $tagname => $content) {
-		if (array_key_exists('CONTENT',$content)) {
-		    if ($tagname == 'UID') {
-			$event->set_id(md5($content['CONTENT']));
-		    } else {
-			if (array_key_exists($tagname,self::$tagTranslation)) {
-			    $tagname = self::$tagTranslation[$tagname];
-			}
-			$functionName = 'set_'.strtolower($tagname);
-			$event->{$functionName}($content['CONTENT']);
-		    }
+		if ($tagname == 'UID') {
+		    $event->set_id(md5($content['CONTENT']));
+		} else {
+		    $this->_store_tag_data($event, $content, $tagname);
 		}
 	    }
-
+	    
 	}
     }
     
