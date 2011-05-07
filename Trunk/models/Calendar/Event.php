@@ -14,24 +14,4 @@ class Calendar_Event Extends CalendarBase implements Calendar_Object {
 		parent::__construct();
 	}
 
-	public function set_start_date($date,$timezone='') {
-		$this->set_date('startDate',$date,$timezone);
-	}
-	
-	public function set_end_date($date,$timezone='') {
-		$this->set_date('dateStamp',$date,$timezone);
-	}
-	
-	public function set_date_stamp($date,$timezone='') {
-		$this->set_date('endDate',$date,$timezone);
-	}
-	
-	public function set_created_date($date,$timezone='') {
-		$this->set_date('createdDate',$date,$timezone);
-	}
-	
-	public function set_last_modified_date($date,$timezone='') {
-		$this->set_date('lastModifiedDate',$date,$timezone);
-	}
-
 }

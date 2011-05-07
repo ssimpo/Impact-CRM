@@ -15,10 +15,10 @@ class ICalImporter extends ImpactBase {
     private $parser = '';
     private $data = '';
     private $calendar = '';
-    private static $icalToImpactDates = array(
-	'DTSTART' => 'startDate', 'DTEND' => 'endDate',
-	'DTSTAMP'=>'dateStamp', 'CREATED' => 'createdDate',
-	'LAST-MODIFIED' => 'lastModifiedDate'
+    private static $tagTranslation = array(
+	'DTSTART' => 'start_date', 'DTEND' => 'end_date',
+	'DTSTAMP'=>'date_stamp', 'CREATED' => 'created_date',
+	'LAST-MODIFIED' => 'last_modified_date'
     );
     private static $icalTimeZoneBlocks = array(
 	'STANDARD' => true, 'DAYLIGHT' => true
@@ -92,8 +92,13 @@ class ICalImporter extends ImpactBase {
 			    $timeblock = $timezone->create_block($tagname);
 			    foreach ($content[$i] as $subtagname => $subcontent) {
 				
-				$functionName = 'set_'.strtolower($subtagname);
-				$timeblock->{$functionName}($subcontent['CONTENT']);
+				if (array_key_exists('CONTENT',$subcontent)) {
+				    if (array_key_exists($subtagname,self::$tagTranslation)) {
+					$subtagname = self::$tagTranslation[$subtagname];
+				    }
+				    $functionName = 'set_'.strtolower($subtagname);
+				    $timeblock->{$functionName}($subcontent['CONTENT']);
+				}
 				
 			    }
 			}
@@ -101,9 +106,8 @@ class ICalImporter extends ImpactBase {
 		} else {
 		    // STUB
 		}
+		
 	    }
-	    
-	    print_r($timezone);
 	}
     }
     
@@ -120,20 +124,18 @@ class ICalImporter extends ImpactBase {
 	    
 	    foreach ($vevent as $tagname => $content) {
 		if (array_key_exists('CONTENT',$content)) {
-		    if (array_key_exists($tagname,self::$icalToImpactDates)) {
-			$event->set_date(
-			    self::$icalToImpactDates[$tagname],
-			    $content['CONTENT']
-			);
-		    } elseif ($tagname == 'UID') {
+		    if ($tagname == 'UID') {
 			$event->set_id(md5($content['CONTENT']));
 		    } else {
+			if (array_key_exists($tagname,self::$tagTranslation)) {
+			    $tagname = self::$tagTranslation[$tagname];
+			}
 			$functionName = 'set_'.strtolower($tagname);
 			$event->{$functionName}($content['CONTENT']);
 		    }
 		}
 	    }
-    
+
 	}
     }
     
