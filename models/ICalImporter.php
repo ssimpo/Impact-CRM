@@ -16,12 +16,14 @@ class ICalImporter extends ImpactBase {
     private $data = '';
     private $calendar = '';
     private static $tagTranslation = array(
-	'DTSTART' => 'start_date', 'DTEND' => 'end_date',
-	'DTSTAMP'=>'date_stamp', 'CREATED' => 'created_date',
-	'LAST-MODIFIED' => 'last_modified_date'
+		'DTSTART' => 'start_date', 'DTEND' => 'end_date',
+		'DTSTAMP'=>'date_stamp', 'CREATED' => 'created_date',
+		'LAST-MODIFIED' => 'last_modified_date'
     );
-    private static $icalTimeZoneBlocks = array(
-	'STANDARD' => true, 'DAYLIGHT' => true
+	 private static $objectTranslation = array(
+		'VEVENT' => 'event', 'VTIMEZONE' => 'timezone',
+		'VTODO'=>'todo', 'VJOURNAL' => 'journal',
+		'VALARM' => 'alarm', 'VFREEBUSY' => 'freebusy'
     );
     
     /**
@@ -30,8 +32,8 @@ class ICalImporter extends ImpactBase {
      *	@public
      */
     public function __construct() {
-	$this->parser = $this->factory('iCalInterpreter');
-	$this->calendar = $this->factory('Calendar');
+		$this->parser = $this->factory('iCalInterpreter');
+		$this->calendar = $this->factory('Calendar');
     }
     
     /**
@@ -43,8 +45,8 @@ class ICalImporter extends ImpactBase {
      *	@todo Ensure that it works for urls as well as standard file paths.
      */
     public function import($path) {
-	$this->data = $this->parser->parse($path);
-	$this->_data_parser();
+		$this->data = $this->parser->parse($path);
+		$this->_data_parser();
     }
     
     /**
@@ -56,14 +58,13 @@ class ICalImporter extends ImpactBase {
      *	@private
      */
     private function _data_parser() {
-	foreach ($this->data as $blockname => $block) {
-	    $handler = array($this,'_handle_'.strtolower($blockname));
-	    if (is_callable($handler)) {
-		call_user_func($handler,$block);
-	    } else {
-		// STUB
-	    }
-	}
+		foreach ($this->data as $blockname => $block) {
+			if (array_key_exists($blockname,self::$objectTranslation)) {
+				$this->_store_objects($block,self::$objectTranslation[$blockname]);
+			} else {
+				// STUB
+			}
+		}
     }
     
     /**
@@ -76,72 +77,64 @@ class ICalImporter extends ImpactBase {
      *	@return boolean Did the storage command execute?
      */
     private function _store_tag_data($object, $content, $tagname) {
-	if (array_key_exists('CONTENT',$content)) {
-	    if (array_key_exists($tagname,self::$tagTranslation)) {
-		$tagname = self::$tagTranslation[$tagname];
-	    }
-	    $functionName = 'set_'.strtolower($tagname);
-	    return $object->{$functionName}($content['CONTENT']);
-	}
-	
-	return false;
-    }
-    
-    /**
-     *	Handle for the VTIMEZONE blocks.
-     *
-     *	@private
-     *	@param array $block Array containing a series of VTIMEZONE blocks.
-     */
-    private function _handle_vtimezone($blocks) {
-	foreach ($blocks as $vtimezone) {
-	    $timezone = $this->calendar->add_timezone();
-	    
-	    foreach ($vtimezone as $tagname => $content) {
-		
-		if ($tagname == 'TZID') {
-		    $timezone->set_id($content['CONTENT']);
-		} elseif (array_key_exists($tagname,self::$icalTimeZoneBlocks)) {
-		    
-		    for ($i = 0; $i < count($content); $i++) {
-			$timeblock = $timezone->create_block($tagname);
-			foreach ($content[$i] as $subtagname => $subcontent) {
-			    $this->_store_tag_data($timeblock, $subcontent, $subtagname);
+		if (is_array($content)) {
+			if (array_key_exists('CONTENT',$content)) {
+				if (array_key_exists($tagname,self::$tagTranslation)) {
+					$tagname = self::$tagTranslation[$tagname];
+				}
+				$functionName = 'set_'.strtolower($tagname);
+				return $object->{$functionName}($content['CONTENT']);
 			}
-		    }
-		    
-		} else {
-		    $this->_store_tag_data($timezone, $content, $tagname);
 		}
-		
-	    }
-	    
-	}
+	
+		return false;
     }
     
     /**
-     *	Handle for the VEVENT blocks.
+     *	Store a block within a Calendar-object against a specified block name.
      *
      *	@private
-     *	@param array $block Array containing a series of VEVENT blocks.
+     *	@param object $object The Calendar-object to store block data in.
+     *	@param array $content The content to store (usually in the format [0] => array() ...etc).
+     *	@param string $blockname The block name to store it against.
+     *	@return boolean Did it execute?
      */
-    private function _handle_vevent($blocks) {
-	
-	foreach ($blocks as $vevent) {
-	    $event = $this->calendar->add_event();
-	    
-	    foreach ($vevent as $tagname => $content) {
-		if ($tagname == 'UID') {
-		    $event->set_id(md5($content['CONTENT']));
-		} else {
-		    $this->_store_tag_data($event, $content, $tagname);
+    private function _store_block($object, $content, $blockname) {
+		if (is_array($content)) {
+			foreach ($content as $i => $data) {
+				if (is_array($data)) {
+					$block = $object->create_block($blockname);
+					foreach ($data as $tagname => $content) {
+						$this->_store_tag_data($block, $content, $tagname);
+					}
+				}
+			}
+			return true;
 		}
-	    }
-	    
-	}
+		return false;
     }
-    
-    
-    
+	
+	/**
+     *	Store a Calendar object in a Calendar
+     *
+     *	@private
+     *	@param array $block Array containing a series of object blocks.
+     *	@param string $type The object types to store.
+     */
+    private function _store_objects($blocks,$type) {
+	
+		foreach ($blocks as $block) {
+			$functionName = 'add_'.$type;
+			$object = $this->calendar->{$functionName}();
+	    
+			foreach ($block as $tagname => $content) {
+				$stored = $this->_store_tag_data($object, $content, $tagname);
+				if (!$stored) {
+					$stored = $this->_store_block($object, $content, $tagname);
+				};	
+			}
+			
+		}
+    }
     
 }

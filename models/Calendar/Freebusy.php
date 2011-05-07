@@ -1,6 +1,6 @@
 <?php
 /**
- *	Calendar.Alarm class
+ *	Calendar.Freebusy class
  *		
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.4
@@ -8,10 +8,10 @@
  *	@package Calendar
  *	@extends Calendar_Base
  */
-class Calendar_Alarm Extends Calendar_Base implements Calendar_Object {
+class Calendar_Freebusy Extends Calendar_Base implements Calendar_Object {
 	
-	public function __construct() {
+    public function __construct() {
 		parent::__construct();
-	}
+    }
 
 }

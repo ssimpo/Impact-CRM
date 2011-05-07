@@ -18,14 +18,8 @@ class Calendar_Base Extends ImpactBase {
 		'lastModifiedDate' => true
 	);
 
-	function __construct() {
-		$this->data['repeatIncludeRules'] = array();
-		$this->data['repeatExcludeRules'] = array();
-		$this->data['repeatInclude'] = array();
-		$this->data['repeatExclude'] = array();
-		$this->data['startDate'] = '';
-		$this->data['endDate'] = '';
-		$this->data['duration'] = 0;
+	public function __construct() {
+		
 	}
 
 	public function __call($name,$arguments) {
