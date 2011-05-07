@@ -83,7 +83,9 @@ class ICalImporter extends ImpactBase {
 					$tagname = self::$tagTranslation[$tagname];
 				}
 				$functionName = 'set_'.strtolower($tagname);
-				return $object->{$functionName}($content['CONTENT']);
+				$data = $content['CONTENT'];
+				unset($content['CONTENT']);
+				return $object->{$functionName}($data,$content);
 			}
 		}
 	
