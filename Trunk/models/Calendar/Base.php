@@ -30,9 +30,9 @@ class Calendar_Base Extends ImpactBase {
 			
 			switch ($action) {
 				case 'set':
-					if (count($arguments)>0) {
+					if (count($arguments) > 0) {
 						if (array_key_exists($tag,self::$dateTagLookup)) {
-							$this->set_date($tag, $arguments[0], $timezone='');
+							$this->set_date($tag, $arguments);
 						} else {
 							$this->data[$tag] = $arguments[0];	
 						}
@@ -51,7 +51,21 @@ class Calendar_Base Extends ImpactBase {
 		}
 	}
 	
-	public function set_date($name, $date, $timezone='') {
+	private function _get_timezone($date) {
+		$timezone = '';
+		if (count($date) == 2) {
+			if (is_array($date[1])) {
+				if (array_key_exists('TZID',$date[1])) {
+					$timezone = $date[1]['TZID'];
+				}
+			}
+		}
+		return $timezone;
+	}
+	
+	public function set_date($name, $date) {
+		$timezone = $this->_get_timezone($date);
+		$date = $date[0];
 		$DateParser = $this->factory('DateParser');
 		$utc_date = $DateParser->convert_date($date,'',$timezone);
 		$this->data[$name] = $utc_date;
