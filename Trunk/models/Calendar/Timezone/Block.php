@@ -11,7 +11,5 @@
 class Calendar_Timezone_Block Extends CalendarBase implements Calendar_Object {
     public function __construct() {
 	parent::__construct();
-	$this->data['standard'] = array();
-	$this->data['daylight'] = array();
     }
 }
