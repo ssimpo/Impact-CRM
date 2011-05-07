@@ -63,6 +63,11 @@ interface Calendar_Object {
 
 class CalendarBase Extends ImpactBase {
 	protected $data = array();
+	protected static $dateTagLookup = array(
+		'startDate' => true, 'endDate' => true,
+		'dateStamp' => true, 'createdDate' => true,
+		'lastModifiedDate' => true
+	);
 
 	function __construct() {
 		$this->data['repeatIncludeRules'] = array();
@@ -76,21 +81,27 @@ class CalendarBase Extends ImpactBase {
 
 	public function __call($name,$arguments) {
 		$parts = explode('_',$name);
-		if (count($parts) == 2) {
-			switch ($parts[0]) {
+		if (count($parts) > 1) {
+			$action = array_shift($parts);
+			$tag = I::camelize(implode('_',$parts));
+			
+			switch ($action) {
 				case 'set':
 					if (count($arguments)>0) {
-						$this->data[$parts[1]] = $arguments[0];
+						if (array_key_exists($tag,self::$dateTagLookup)) {
+							$this->set_date($tag, $arguments[0], $timezone='');
+						} else {
+							$this->data[$tag] = $arguments[0];	
+						}
 						return true;
 					} else {
 						return false;
 					}
 					break;
 				case 'get':
-					if (array_key_exists($parts[1],$this->data)) {
-						return $this->data[$parts[1]];
+					if (array_key_exists($tag,$this->data)) {
+						return $this->data[$tag];
 					} else {
-						print_r($this->data);
 						return false;
 					}
 			}
