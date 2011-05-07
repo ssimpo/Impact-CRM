@@ -327,7 +327,7 @@ class Savi {
 	 */
 	private function _delimit_replace($content) {
 		$find = array();
-		foreach(array_keys(self::$delimters) as $character) {
+		foreach (array_keys(self::$delimters) as $character) {
 			$find['\\'.$character] = self::$delimters[$character];
 		}
 		
