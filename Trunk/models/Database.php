@@ -46,7 +46,7 @@ class Database extends Singleton {
 		switch (strtoupper(DB_DRIVER)) {
 			case 'SQLITE':
 				$this->database = ADONewConnection('pdo');
-				$this->database->PConnect(strtolower(DB_DRIVER).':'.DB_NAME);
+				$this->database->PConnect(strtolower(DB_DRIVER).':'.ROOT_BACK.DB_NAME);
 				break;
 			case 'MYSQL':
 			default:
@@ -55,7 +55,7 @@ class Database extends Singleton {
 				break;
 		}
 		
-		$this->database->debug = false; 
+		$this->database->debug = false;
 	}
 	
 	/**
