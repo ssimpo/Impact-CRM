@@ -114,8 +114,8 @@ class Templater extends ImpactBase {
 		$this->_get_xml($path);
 		
 		$this->xmlstring = $this->_convert_brackets_to_xml($this->xmlstring);
-		$this->xmlstring = $this->_parse_blocks($this->xmlstring);
 		$this->xmlstring = $this->_parse_loops($this->xmlstring);
+		$this->xmlstring = $this->_parse_blocks($this->xmlstring);
 		$this->xmlstring = $this->_parse_variables_and_constants($this->xmlstring);
 		$this->xmlstring = $this->_parse_templates($this->xmlstring);
 		
