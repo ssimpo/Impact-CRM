@@ -72,16 +72,16 @@
 <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 </div>
 <div id="main">
-	<ul>
+	<template:block notblank="mainMenu"><ul></template:block>
 	<template:loop name="mainMenu">
 		<li><a href="template:variable[path]"><template:data name="title" /></a></li>
-		<ul>
+		<template:block notblank="children"><ul></template:block>
 		<template:loop name="children">
 			<li><a href="template:variable[path]"><template:data name="title" /></a></li>
 		</template:loop>
-		</ul>
+		<template:block notblank="children"></ul></template:block>
 	</template:loop>
-	</ul>
+	<template:block notblank="mainMenu"></ul></template:block>
 	<template:data name="HTML" parsedata="true" />
 </div>
 <div class="clear">&nbsp;</div>

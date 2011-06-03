@@ -138,7 +138,7 @@ class Database extends Singleton {
 	 *	@param string $menu The name of the menu to return
 	 *	@return mixed()|boolean Either the result-rows or false on failure.
 	 */
-	public function get_menu($menu,$startLevel=0,$endLevel=1000) {
+	public function get_menu($menu,$startLevel=0,$endLevel=10000) {
 		$application = Application::instance();
 		$reader_roles = $this->create_roles_sql('readers');
 		
