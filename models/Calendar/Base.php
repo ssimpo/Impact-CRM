@@ -17,6 +17,7 @@ class Calendar_Base Extends ImpactBase {
 		'dateStamp' => true, 'createdDate' => true,
 		'lastModifiedDate' => true
 	);
+	public $calendar = null;
 
 	public function __construct() {
 		
@@ -60,6 +61,10 @@ class Calendar_Base Extends ImpactBase {
 				}
 			}
 		}
+		
+		$timezone = md5($timezone.'@'.$this->get_cal_id());
+		$timezone = $this->calendar->get($timezone);
+		
 		return $timezone;
 	}
 	
