@@ -106,6 +106,55 @@ class I {
 	
 	/**
 	 *
+	 *	Trim the contents of an array.
+	 *
+	 *	Array elements are trimmed and blank entries removed.
+	 *	
+	 *	@static
+	 *	@public
+	 *	@param Array() $array The array to trim
+	 *	@return	Array()
+	 */
+	static public function array_trim($array) {
+		$trimmed = array();
+		$is_numeric_indexed = I::_is_numeric_indexed_array($array);
+		
+		foreach($array as $key => $value) {
+			$item = trim($item);
+			if ($item != '') {
+				if ($is_numeric_indexed) {
+					array_push($trimmed,$item);
+				} else {
+					$trimmed[$key] = $value;
+				}
+			}
+		}
+		
+	}
+	
+	/**
+	 *
+	 *	Test if an array is indexed numerically.
+	 *	
+	 *	@static
+	 *	@private
+	 *	@param Array() $array The array to test.
+	 *	@return	Boolean
+	 */
+	static private function _is_numeric_indexed_array($array) {
+		$is_numeric_indexed = true;
+		
+		foreach($array as $key => $value) {
+			if (!is_numeric($key)) {
+				$is_numeric_indexed = false;
+			}
+		}
+		
+		return $is_numeric_indexed;
+	}
+	
+	/**
+	 *
 	 *	Convert a function-name into a variable name.
 	 *
 	 *	According to the Impact coding standards, functions/methods
