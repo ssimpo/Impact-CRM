@@ -78,6 +78,25 @@ class Database extends Singleton {
 	}
 	
 	/**
+	 *	Get a database rows.
+	 *
+	 *	@public
+	 *	@param integer $timeout How long to allow before returning false.
+	 *	@param string $SQL The SQL statement to execute.
+	 *	@return mixed()|boolean Either the result-rows or false on failure.
+	 */
+	public function get_rows($timeout,$SQL) {
+		$this->_test_connection();
+		$rs = $this->database->CacheSelectLimit($timeout,$SQL,1);
+		if ($rs) {
+			$rs = $rs->GetAll();
+			return $rs;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
 	 *	Get the specified page.
 	 *
 	 *	Specific Impact method for returning page data.
@@ -108,6 +127,32 @@ class Database extends Singleton {
 		}
 
 		return $rs;
+	}
+	
+	/**
+	 *	Get the specified menu.
+	 *
+	 *	Specific Impact method for returning menu data.
+	 *
+	 *	@public
+	 *	@param string $menu The name of the menu to return
+	 *	@return mixed()|boolean Either the result-rows or false on failure.
+	 */
+	public function get_menu($menu) {
+		$application = Application::instance();
+		$reader_roles = $this->create_roles_sql('readers');
+		
+		$SQL = '
+			SELECT structure.path AS path,structure.title AS title
+			FROM structure
+			INNER JOIN entities ON structure.entityID = entities.ID
+			WHERE menu="'.$menu.'"
+			AND include="YES"
+			AND lang LIKE "%'.strtolower($application->language).'%"
+			ORDER BY sequence
+		';
+		
+		return $this->get_row(120,$SQL);
 	}
 	
 	/**
