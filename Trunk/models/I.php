@@ -120,10 +120,10 @@ class I {
 		$is_numeric_indexed = I::_is_numeric_indexed_array($array);
 		
 		foreach($array as $key => $value) {
-			$item = trim($item);
-			if ($item != '') {
+			$value = trim($value);
+			if ($value != '') {
 				if ($is_numeric_indexed) {
-					array_push($trimmed,$item);
+					array_push($trimmed,$value);
 				} else {
 					$trimmed[$key] = $value;
 				}
