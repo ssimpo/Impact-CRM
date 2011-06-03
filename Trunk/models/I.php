@@ -176,6 +176,4 @@ class I {
 		return ((stristr($text1,$text2) !== false) ? true:false);
 	}
 }
-
-I::load_config(ROOT_BACK.'config'.DIRECTORY_SEPARATOR.'settings.xml');
 ?>
