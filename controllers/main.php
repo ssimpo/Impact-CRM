@@ -34,10 +34,12 @@ $database = Database::instance();
  *	then load page, pass through the template parser and pass to the selected view
  */
 if ($application->pageErrorCheck) {
-	$tparser = $application->factory('Templater');
-	$tparser->init($database->get_page(),$application->settings);
+    
+    $application->mainMenu = $database->get_menu('MAIN');
+    $tparser = $application->factory('Templater');
+    $tparser->init($database->get_page(),$application->settings);
 
-	echo $tparser->parse(VIEWS_DIRECTORY.DS.USE_THEME.DS.'main.xml');
+    echo $tparser->parse(VIEWS_DIRECTORY.DS.USE_THEME.DS.'main.xml');
 }
 
 ?>
