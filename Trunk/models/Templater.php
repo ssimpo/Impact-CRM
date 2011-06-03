@@ -435,20 +435,12 @@ class Templater extends ImpactBase {
 		foreach ($testers as $test) {
 			$test = trim($test);
 			if (array_key_exists($test,$this->application)) {
-				if ($this->application[$test] == '') {
+				if (empty($this->application[$test])) {
 					return false;
-				} elseif (is_numeric($this->application[$test])) {
-					if ($this->application[$test] == 0) {
-						return false;
-					}
 				}
 			} elseif (array_key_exists($test,$this->mainApplication)) {
-				if ($this->mainApplication[$test] == '') {
+				if (empty($this->mainApplication[$test])) {
 					return false;
-				} elseif (is_numeric($this->mainApplication[$test])) {
-					if ($this->mainApplication[$test] == 0) {
-						return false;
-					}
 				}
 			} else {
 				return false;
