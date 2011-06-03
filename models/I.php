@@ -130,6 +130,7 @@ class I {
 			}
 		}
 		
+		return $trimmed;
 	}
 	
 	/**
