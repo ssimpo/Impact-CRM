@@ -9,5 +9,6 @@ define('ROOT_BACK', __DIR__.DS);
 define('DOMAIN', $_SERVER['HTTP_HOST']);
 
 require_once ROOT_BACK.'models'.DS.'I.php';
+I::load_config(ROOT_BACK.'config'.DS.'settings.xml');
 require_once ROOT_BACK.CONTROLLERS_DIRECTORY.DS.'main.php';
 ?>
