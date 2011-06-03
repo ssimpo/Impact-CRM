@@ -13,5 +13,10 @@ class Calendar_Event Extends Calendar_Base implements Calendar_Object {
 	public function __construct() {
 		parent::__construct();
 	}
+	
+	public function set_uid($id) {
+		$this->data['uid'] = $id;
+		$this->calendar->set_id_lookup($this,$id);
+	}
 
 }

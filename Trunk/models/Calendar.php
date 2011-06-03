@@ -10,6 +10,9 @@
 
 class Calendar Extends ImpactBase {
 	protected $objects = array();
+	protected $objectToImpactIds = array();
+	protected $impactToObjectIds = array();
+	protected $timezones = array();
 	
 	/**
 	 *	Method factory.
@@ -27,10 +30,62 @@ class Calendar Extends ImpactBase {
 					$id = $this->_rnd_string();
 					$this->objects[$id] = $this->factory('Calendar_'.$parts[1]);
 					$this->objects[$id]->set_id($id);
+					$this->objects[$id]->calendar = $this;
 					return $this->objects[$id];
 					break;
 			}
 		}
+		
+		parent::__call($name,$arguments);
+	}
+	
+	public function set_timezone($object,$tzid,$calId) {
+		$id = md5($tzid.'@'.$calId);
+		$this->timezones[$id] = $object->get_id();
+	}
+	
+	/**
+	 *	Get a Calendar object via it's ID.
+	 *
+	 *	@public
+	 *	@param string $id The ID of the object to get.
+	 *	@return object|boolean The object returned or false on not found.
+	 */
+	public function get($id) {
+		
+		if (!$this->_is_md5($id)) {
+			$id = md5($id);
+			if (array_key_exists($id,$this->objectToImpactIds)) {
+				$id = $this->objectToImpactIds[$id];
+			}
+		}
+		if (array_key_exists($id,$this->timezones)) {
+			$id = $this->timezones[$id];
+		}
+		
+		if (array_key_exists($id,$this->objects)) {
+			return $this->objects[$id];
+		}
+		
+		return false;
+	}
+
+	/**
+	 *	Set-up a lookup ID from a Calendar Object's own ID
+	 *
+	 *	Impact assigns every Calendar Object an ID on creation. Sometimes
+	 *	objects have their own ID internally.  This will allow cross-referencing
+	 *	of one ID against the other.
+	 *
+	 *	@public
+	 *	@param object $object The Calendar Object.
+	 *	@param string $id The Object's own internal ID.
+	 *	
+	*/
+	public function set_id_lookup($object,$id) {
+		$objectID = md5($id);
+		$this->impactToObjectIds[$object->get_id()] = $objectID;
+		$this->objectToImpactIds[$objectID] = $object->get_id();
 	}
 	
 	/**
@@ -41,5 +96,25 @@ class Calendar Extends ImpactBase {
 	 */
 	protected function _rnd_string() {
 		return md5(chr(rand(1,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)).chr(rand(97,122)));
+	}
+	
+	/**
+	 *	Test whether a string could be a valid MD5 hash or not.
+	 *
+	 *	@private
+	 *	@param string $hash The string to test.
+	 *	@return boolean
+	 */
+	private function _is_md5($hash) {
+		if (strlen($hash) == 32) {
+			try {
+				$test = hexdec($hash);
+				return true;
+			} catch (Exception $e) {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 }

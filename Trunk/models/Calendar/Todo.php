@@ -14,4 +14,9 @@ class Calendar_Todo Extends Calendar_Base implements Calendar_Object {
 		parent::__construct();
     }
 	
+	public function set_uid($id) {
+		$this->data['uid'] = $id;
+		$this->calendar->set_id_lookup($this,$id);
+	}
+	
 }

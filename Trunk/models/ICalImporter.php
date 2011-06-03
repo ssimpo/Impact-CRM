@@ -25,6 +25,7 @@ class ICalImporter extends ImpactBase {
 		'VTODO'=>'todo', 'VJOURNAL' => 'journal',
 		'VALARM' => 'alarm', 'VFREEBUSY' => 'freebusy'
     );
+	private $calId = '';
     
     /**
      *	Public construction class
@@ -47,6 +48,8 @@ class ICalImporter extends ImpactBase {
     public function import($path) {
 		$this->data = $this->parser->parse($path);
 		$this->_data_parser();
+		
+		return $this->calendar;
     }
     
     /**
@@ -58,14 +61,31 @@ class ICalImporter extends ImpactBase {
      *	@private
      */
     private function _data_parser() {
+		$this->_set_cal_id();
+		
 		foreach ($this->data as $blockname => $block) {
 			if (array_key_exists($blockname,self::$objectTranslation)) {
 				$this->_store_objects($block,self::$objectTranslation[$blockname]);
 			} else {
-				// STUB
+				//STUB
 			}
 		}
     }
+	
+	/**
+	 *	Get or create the ID for the current Calendar being parsed.
+	 *
+	 *	@private
+	 */
+	private function _set_cal_id() {
+		if (array_key_exists('PRODID',$this->data)) {
+			if (array_key_exists('CONTENT',$this->data['PRODID'])) {
+				$this->calId = md5($this->data['PRODID']['CONTENT']);
+			}
+		} else {
+			$this->calId = md5(microtime());
+		}
+	}
     
     /**
      *	Store content within a Calendar-object against a specified tag.
@@ -128,6 +148,7 @@ class ICalImporter extends ImpactBase {
 		foreach ($blocks as $block) {
 			$functionName = 'add_'.$type;
 			$object = $this->calendar->{$functionName}();
+			$object->set_cal_id($this->calId);
 	    
 			foreach ($block as $tagname => $content) {
 				$stored = $this->_store_tag_data($object, $content, $tagname);
