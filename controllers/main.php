@@ -36,7 +36,6 @@ $database = Database::instance();
 if ($application->pageErrorCheck) {
     
     $application->mainMenu = $database->get_menu('MAIN',1);
-    
     $tparser = $application->factory('Templater');
     $tparser->init($database->get_page(),$application->settings);
 

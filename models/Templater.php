@@ -254,9 +254,9 @@ class Templater extends ImpactBase {
 			$array = '';
 			if (array_key_exists('name',$attributes)) {
 				if (array_key_exists($attributes['name'],$this->application)) {
-					$array =  $attributes['name'];
+					$array = $this->application[$attributes['name']];
 				} elseif (array_key_exists($attributes['name'],$this->mainApplication)) {
-					$array =  $attributes['name'];
+					$array = $this->mainApplication[$attributes['name']];
 				} else {
 					return '';
 				}
@@ -265,7 +265,8 @@ class Templater extends ImpactBase {
 			}
 			
 			foreach ($array as $item) {
-				$parser = new Templater($item,$this->mainApplication);
+				$parser = new Templater();
+				$parser->init($item,$this->mainApplication);
 				$template .= $parser->parse($matches[2]);
 			}
 		}
@@ -505,8 +506,8 @@ class Templater extends ImpactBase {
 			$attributes['exclude']='';
 		}
 		
-		
-		return $this->acl->allowed($attributes['include'],$attributes['exclude']);
+		$acl = new Acl(Application::instance());
+		return $acl->allowed($attributes['include'],$attributes['exclude']);
 	}
 	
 	protected function _ical(&$attributes) {

@@ -72,6 +72,9 @@
 <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 </div>
 <div id="main">
+	<template:loop name="mainMenu">
+		<a href="template:variable[path]"><template:data name="title" /></a>
+	</template:loop>
 	<template:data name="HTML" parsedata="true" />
 </div>
 <div class="clear">&nbsp;</div>

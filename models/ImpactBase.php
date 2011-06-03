@@ -27,7 +27,6 @@ class ImpactBase {
 	*/
 	public function factory($className,$args=array()) {
 		
-		
 		if (!(isset($this) && get_class($this) == __CLASS__)) {
 			$this->_dynamic_class_include($className);
 		} else {
