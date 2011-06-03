@@ -87,7 +87,7 @@ class Database extends Singleton {
 	 */
 	public function get_rows($timeout,$SQL) {
 		$this->_test_connection();
-		$rs = $this->database->CacheSelectLimit($timeout,$SQL,1);
+		$rs = $this->database->CacheSelectLimit($timeout,$SQL);
 		if ($rs) {
 			$rs = $rs->GetAll();
 			return $rs;
@@ -138,12 +138,12 @@ class Database extends Singleton {
 	 *	@param string $menu The name of the menu to return
 	 *	@return mixed()|boolean Either the result-rows or false on failure.
 	 */
-	public function get_menu($menu) {
+	public function get_menu($menu,$startLevel=0,$endLevel=1000) {
 		$application = Application::instance();
 		$reader_roles = $this->create_roles_sql('readers');
 		
 		$SQL = '
-			SELECT structure.path AS path,structure.title AS title
+			SELECT entities.title AS path,structure.title AS title,sequence
 			FROM structure
 			INNER JOIN entities ON structure.entityID = entities.ID
 			WHERE menu="'.$menu.'"
@@ -152,7 +152,19 @@ class Database extends Singleton {
 			ORDER BY sequence
 		';
 		
-		return $this->get_row(120,$SQL);
+		$menu = array();
+		$rows = $this->get_rows(120,$SQL);
+		if ($rows) {
+			foreach ($rows as $row) {
+				$level = strlen($row['sequence'])-1;
+				if (($level >= $startLevel) && ($level <= $endLevel)) {
+					array_push($menu,$row);
+				}
+			}
+			return $menu;
+		} else {
+			return $rows;
+		}
 	}
 	
 	/**
