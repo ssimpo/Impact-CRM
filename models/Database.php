@@ -143,7 +143,9 @@ class Database extends Singleton {
 		$reader_roles = $this->create_roles_sql('readers');
 		
 		$SQL = '
-			SELECT entities.title AS path,structure.title AS title,sequence
+			SELECT
+				entities.title AS path,structure.title AS title,
+				structure.path as structure, structure.sequence as sequence
 			FROM structure
 			INNER JOIN entities ON structure.entityID = entities.ID
 			WHERE menu="'.$menu.'"
@@ -153,14 +155,30 @@ class Database extends Singleton {
 		';
 		
 		$menu = array();
+		$lookup = array();
 		$rows = $this->get_rows(120,$SQL);
 		if ($rows) {
 			foreach ($rows as $row) {
-				$level = strlen($row['sequence'])-1;
+				$row['children'] = array();
+				$pathParts = I::array_trim(explode('/',$row['structure']));
+				array_pop($pathParts);
+				$level = count($pathParts);
+				$parentPath = implode('/',$pathParts);
+				
 				if (($level >= $startLevel) && ($level <= $endLevel)) {
-					array_push($menu,$row);
+					$cmenu = &$menu;
+					
+					if ($parentPath != '') {
+						if (array_key_exists($parentPath,$lookup)) {
+							$cmenu = &$lookup[$parentPath]['children'];
+						}
+					}
+					$count = array_push($cmenu,$row);
+					$lookup[$row['structure']] = &$cmenu[$count-1];
+					
 				}
 			}
+			
 			return $menu;
 		} else {
 			return $rows;
