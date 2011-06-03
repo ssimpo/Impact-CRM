@@ -74,8 +74,7 @@
 	<param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="0"
 		label="Cache timeout (seconds)" description="" />
 
-
-	<param name="USE_THEME" type="string" value="ImpactProject"
+	<param name="USE_THEME" type="string" value="ImpactProject2"
 		label="Theme" description="The theme to apply across the website" />
 
 	<!-- <param name="" type="" value="" label="" description="" /> <param name="" 
