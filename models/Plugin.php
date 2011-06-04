@@ -25,7 +25,7 @@ class Plugin {
     *		@return object/boolean The plugin class or false if it couldn't be found.
     */
     public static function factory($type) {
-	if (include_once 'plugins/content/'.strtolower($type).'.php') {
+	if (include_once ROOT_BACK.PLUGINS_DIRECTORY.DS.'content'.DS.strtolower($type).'.php') {
 	    $classname = 'Plugin_' . $type;
 	    return new $classname;
 	} else {
