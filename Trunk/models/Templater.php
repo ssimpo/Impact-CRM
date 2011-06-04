@@ -10,6 +10,7 @@
 *	@package Templater
 *
 *	@todo Tags that open and close at same time <img /> have to be on one line this needs fixing.
+*	@todo When bad dadta is passed it often results in infinite loops
 */
 class Templater extends ImpactBase {
 	protected $application;
@@ -17,6 +18,9 @@ class Templater extends ImpactBase {
 	protected $mainApplication;
 	protected $acl;
 	private $xmlstring;
+	private $_standard_html_attributes = array(
+		'style','class','rev','rel','href','src'
+	);
 	
 	/**
 	 *	Constructor
@@ -142,8 +146,6 @@ class Templater extends ImpactBase {
 			return '';
 		}
 		
-		echo "\n\n".'<!--'.$this->xmlstring.'-->';
-		
 		$this->xmlstring = $this->_convert_brackets_to_xml($this->xmlstring);
 		$this->xmlstring = $this->_parse_loops($this->xmlstring);
 		$this->xmlstring = $this->_parse_blocks($this->xmlstring);
@@ -222,7 +224,7 @@ class Templater extends ImpactBase {
 	protected function _parse_loops($xml) {
 		while ($this->_contains($xml,'<template:loop')) {
 			$xml = preg_replace_callback(
-				'/<template\:loop(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:loop\b[^>]*>))+|(?R))*)<\/template\:loop>/m',
+				'/<template\:loop(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:loop\b[^>]*>))+|(?R))*)<\/template\:loop.*?>/m',
 				array($this, '_loop'),
 				$xml
 			);
@@ -292,7 +294,7 @@ class Templater extends ImpactBase {
 	//Allows looping through an array, repeating the inner block against each item
 		$attributes = $this->_get_attributes($matches[1]);
 		$template = '';
-		
+
 		if ($this->_acl($attributes)) {
 			$array = '';
 			if (array_key_exists('name',$attributes)) {
@@ -352,15 +354,25 @@ class Templater extends ImpactBase {
 	//Include data content, according to Acl
 	
 		$attributes = $this->_get_attributes($match);
-	
+		
 		$template = '';
 		if ($this->_acl($attributes)) {
-			if (array_key_exists($attributes['name'],$this->application)) {
-				$template =  $this->application[$attributes['name']];
-			} elseif (array_key_exists($attributes['name'],$this->mainApplication)) {
-				$template =  $this->mainApplication[$attributes['name']];
-			} else {
-				$template =  '';
+			if (array_key_exists('name',$attributes)) {
+				if (array_key_exists($attributes['name'],$this->application)) {
+					$template =  $this->application[$attributes['name']];
+				} elseif (array_key_exists($attributes['name'],$this->mainApplication)) {
+					$template =  $this->mainApplication[$attributes['name']];
+				}
+			} elseif (array_key_exists('opentag',$attributes)) {
+				$htmlAttributes = '';
+				foreach($this->_standard_html_attributes as $attr) {
+					if (array_key_exists($attr,$attributes)) {
+						$htmlAttributes .= ' '.$attr.'="'.$attributes[$attr].'"';
+					}
+				}
+				$template = '<'.$attributes['opentag'].$htmlAttributes.'>';
+			} elseif (array_key_exists('closetag',$attributes)) {
+				$template = '</'.$attributes['closetag'].'>';
 			}
 		}
 		
@@ -371,7 +383,7 @@ class Templater extends ImpactBase {
 				$template = $parser->parse($template);
 			}
 		}
-	
+
 		return $template;
 	}
 	
