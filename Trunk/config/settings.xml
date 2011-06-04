@@ -69,6 +69,8 @@
 		label="Controllers directory" description="" />
 	<param name="VIEWS_DIRECTORY" type="string" value="views"
 		label="Views directory" description="" />
+	<param name="PLUGINS_DIRECTORY" type="string" value="plugins"
+		label="Plugins directory" description="" />
 	<!--param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="3600" label="Cache 
 		timeout (seconds)" description="" / -->
 	<param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="0"
