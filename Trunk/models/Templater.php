@@ -7,7 +7,9 @@
 *	@author Stephen Simpson <me@simpo.org>
 *	@version 0.1.1
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@package Templater	
+*	@package Templater
+*
+*	@todo Tags that open and close at same time <img /> have to be on one line this needs fixing.
 */
 class Templater extends ImpactBase {
 	protected $application;
@@ -75,34 +77,53 @@ class Templater extends ImpactBase {
 	 */
 	public function init($application,$path='',$path2='') {
 		
-		$this->application = array();
-		$this->mainApplication = array();
+		$this->application = $this->_get_application($application);
 		
-		$this->application = $application;
 		if (is_string($path)) {
 			if ($path !='') {
 				$this->parse($path);
 			}
-			$this->component = $this->application['component'];
+			
+			$this->mainApplication = array();
+			$this->_set_componant($this->application);
 			$this->acl = $this->application['acl'];
 		} else {
-			if (is_object($path)) {
-				$this->mainApplication = $path->settings;
-			} else {
-				$this->mainApplication = $path;
-			}
-			
-			if (isset($this->mainApplication['component'])) {
-				$this->component = $this->mainApplication['component'];
-			} else {
-				$this->component = '';
-			}
-			
+			$this->mainApplication = $this->_get_application($path);
+			$this->_set_componant($this->mainApplication);
 			$this->acl = $this->mainApplication['acl'];
-			//$this->application[Acl] = $this->mainApplication['Acl'];
+			
 			if ($path2 !='') {
 				$this->parse($path2);
 			}
+		}
+	}
+	
+	/**
+	 *	Connect the application to this class.
+	 *	
+	 *	@private
+	 *	@param array|object The application object|array.
+	 *	@return array The application settings
+	 */
+	private function _get_application($application) {
+		if (is_object($application)) {
+			return $application->settings;
+		} else {
+			return $application;
+		}
+	}
+	
+	/**
+	 *	Set the componant from the supplied settings-array.
+	 *	
+	 *	@private
+	 *	@param array The application settings-array.
+	 */
+	private function _set_componant($application) {
+		if (is_object($application)) {
+			return $application->settings;
+		} else {
+			return $application;
 		}
 	}
 	
@@ -120,6 +141,8 @@ class Templater extends ImpactBase {
 		if ($this->xmlstring == '') {
 			return '';
 		}
+		
+		echo "\n\n".'<!--'.$this->xmlstring.'-->';
 		
 		$this->xmlstring = $this->_convert_brackets_to_xml($this->xmlstring);
 		$this->xmlstring = $this->_parse_loops($this->xmlstring);
