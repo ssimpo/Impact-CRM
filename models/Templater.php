@@ -290,8 +290,17 @@ class Templater extends ImpactBase {
 		}
 	}
 	
+	/**
+	 *	Parse <template:loop />
+	 *
+	 *	Loop through an array repeating enclosed XML against each
+	 *	item the array.
+	 *
+	 *	@protected
+	 *	@param array $matches text containing the attributes.
+	 *	@return string The parsed loop content.
+	 */
 	protected function _loop($matches) {
-	//Allows looping through an array, repeating the inner block against each item
 		$attributes = $this->_get_attributes($matches[1]);
 		$template = '';
 
@@ -319,6 +328,17 @@ class Templater extends ImpactBase {
 		return $template;
 	}
 	
+	/**
+	 *	Parse <template:block />
+	 *
+	 *	Hide or show the content according to its ACL attributes.  Tag offers
+	 *	a good way to restrict content to particular users or to display data
+	 *	on particular days/times.
+	 *
+	 *	@protected
+	 *	@param array $matches text containing the attributes.
+	 *	@return string The block parsing results.
+	 */
 	protected function _block($matches) {
 	//If the Acl allows then include block, otherwise return a blank
 	
@@ -350,8 +370,17 @@ class Templater extends ImpactBase {
 		}
 	}
 	
+	/**
+	 *	Parse <template:data />
+	 *
+	 *	Include some data either from the supplied application settings,
+	 *	supplied array, or supplied attributes.  Include against ACL.
+	 *
+	 *	@protected
+	 *	@param array $matches text containing the attributes.
+	 *	@return string The data results.
+	 */
 	protected function _data($match) {
-	//Include data content, according to Acl
 	
 		$attributes = $this->_get_attributes($match);
 		
@@ -469,6 +498,15 @@ class Templater extends ImpactBase {
 		return $template;
 	}
 	
+	/**
+	 *	Parse <template:plugin />
+	 *
+	 *	Run a specified plugin with the supplied attributes.
+	 *
+	 *	@protected
+	 *	@param array $matches text containing the attributes.
+	 *	@return string The plugin results.
+	 */
 	protected function _plugin($match) {
 	//Load a plugin
 		$attributes = $this->_get_attributes($match);
