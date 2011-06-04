@@ -86,7 +86,12 @@ class Templater extends ImpactBase {
 			$this->component = $this->application['component'];
 			$this->acl = $this->application['acl'];
 		} else {
-			$this->mainApplication = $path;
+			if (is_object($path)) {
+				$this->mainApplication = $path->settings;
+			} else {
+				$this->mainApplication = $path;
+			}
+			
 			if (isset($this->mainApplication['component'])) {
 				$this->component = $this->mainApplication['component'];
 			} else {
@@ -112,6 +117,9 @@ class Templater extends ImpactBase {
 	 */
 	public function parse($path) {
 		$this->_get_xml($path);
+		if ($this->xmlstring == '') {
+			return '';
+		}
 		
 		$this->xmlstring = $this->_convert_brackets_to_xml($this->xmlstring);
 		$this->xmlstring = $this->_parse_loops($this->xmlstring);
@@ -120,6 +128,18 @@ class Templater extends ImpactBase {
 		$this->xmlstring = $this->_parse_templates($this->xmlstring);
 		
 		return $this->xmlstring;
+	}
+	
+	/**
+	 *	Test whether two strings are the same after trimming and case matching.
+	 *
+	 *	@private
+	 *	@param string $text1 The first item to compare.
+	 *	@param string $text2 The second item to compare.
+	 *	@return boolean
+	 */
+	private function _is_equal($text1,$text2) {
+		return (strtolower(trim($text1)) == strtolower(trim($text2)));
 	}
 	
 	/**
@@ -363,13 +383,13 @@ class Templater extends ImpactBase {
 		if ($this->_acl($attributes)) { //Can be defined directly or in the database
 			$showone = false;
 			if (array_key_exists('showone',$attributes)) {
-				$showone = (isEqual($attributes['showone'],'true') ? true:false);
+				$showone = ($this->_is_equal($attributes['showone'],'true') ? true:false);
 			}
 			
 			if (array_key_exists('name',$attributes)) {
 				$template = $this->_feature_loader($attributes['name'],$showone);
 			}
-			if (isEqual($template,'')) {
+			if ($this->_is_equal($template,'')) {
 				if (array_key_exists('default',$attributes)) {
 					$template = $this->_feature_loader($attributes['default'],$showone);
 				}
@@ -405,7 +425,7 @@ class Templater extends ImpactBase {
 			}
 			
 			if ($showone) {
-				if (!isEqual($template,'')) {
+				if (!$this->_is_equal($template,'')) {
 					break;
 				}
 			}
