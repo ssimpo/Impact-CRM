@@ -32,7 +32,11 @@ class Test_Acl_AGENT extends PHPUnit_Framework_TestCase {
 	
 	private function __autoload($className) {
 		$classFileName = str_replace('_',DS,$className).'.php';
-	require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
+		if ($className == 'Facebook') {
+			require_once ROOT_BACK.'includes'.DS.'facebook'.DS.strtolower($classFileName);
+		} else {
+			require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
+		}
 	}
 	
 	protected static function get_method($name) {
