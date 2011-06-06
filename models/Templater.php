@@ -82,14 +82,14 @@ class Templater extends ImpactBase {
 	public function init($application,$path='',$path2='') {
 		
 		$this->application = $this->_get_application($application);
-		
-		if (is_string($path)) {
+		if ((is_string($path)) || ($path=='')) {
 			if ($path !='') {
 				$this->parse($path);
 			}
 			
 			$this->mainApplication = array();
 			$this->_set_componant($this->application);
+			print_r($this->application);
 			$this->acl = $this->application['acl'];
 		} else {
 			$this->mainApplication = $this->_get_application($path);
@@ -277,8 +277,6 @@ class Templater extends ImpactBase {
 	 *	@param string $path filepath or XML string
 	 */
 	protected function _get_xml($path) {
-	//Grab the XML from a file or if supplied as XMLString then grab from that
-		
 		if ($path != '') {
 			if (($this->_contains($path,'<')) || ($this->_contains($path,'[['))) {
 				$this->xmlstring = $path;
@@ -340,8 +338,6 @@ class Templater extends ImpactBase {
 	 *	@return string The block parsing results.
 	 */
 	protected function _block($matches) {
-	//If the Acl allows then include block, otherwise return a blank
-	
 		$attributes = $this->_get_attributes($matches[1]);
 		
 		if ($this->_acl($attributes)) {
@@ -381,7 +377,6 @@ class Templater extends ImpactBase {
 	 *	@return string The data results.
 	 */
 	protected function _data($match) {
-	
 		$attributes = $this->_get_attributes($match);
 		
 		$template = '';
@@ -508,7 +503,6 @@ class Templater extends ImpactBase {
 	 *	@return string The plugin results.
 	 */
 	protected function _plugin($match) {
-	//Load a plugin
 		$attributes = $this->_get_attributes($match);
 		$template = '';
 		
