@@ -32,7 +32,7 @@ class Test_I extends PHPUnit_Framework_TestCase {
 		require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
 	}
 	
-	public function test_add_square_brakets() {
+	public function test_reformat_role_string() {
 		$this->assertEquals(
 			'[WEB],[ADMIN],[DEV]',
 			I::reformat_role_string('WEB,ADMIN,DEV')
@@ -93,6 +93,30 @@ class Test_I extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(I::contains('Impact Project','act'));
 		$this->assertTrue(I::contains('IMPACT Project','act'));
 		$this->assertFalse(I::contains('IMPACT Project','actt'));
+	}
+	
+	public function test_array_trim() {
+		$this->assertEquals(
+			array(),
+			I::array_trim(array('','',''))
+		);
+		$this->assertEquals(
+			array('1','2'),
+			I::array_trim(array('1','','2'))
+		);
+		$this->assertEquals(
+			array('1','2','3'),
+			I::array_trim(array('1 ','2 ',' 3','  '))
+		);
+		
+		$this->assertEquals(
+			array('one'=>'1','two'=>'2','three'=>'3'),
+			I::array_trim(array('one'=>'1','two'=>'2','three'=>'3','four'=>''))
+		);
+		$this->assertEquals(
+			array('one'=>'1','two'=>'2','three'=>'3'),
+			I::array_trim(array('one'=>'1 ','two'=>' 2','three'=>' 3 '))
+		);
 	}
 }
 ?>
