@@ -10,6 +10,8 @@
  */
 class Test_Templater extends PHPUnit_Framework_TestCase {
     private $templater = null;
+    private $acl;
+    private $application;
     
     protected function setUp() {
         if (!defined('__DIR__')) {
@@ -28,6 +30,8 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
         spl_autoload_register('self::__autoload');
         
         $this->templater = new Templater;
+        $this->acl = $this->getMock('Acl',array('allowed'));
+        $this->acl->expects($this->any())->method('allowed')->will($this->returnValue(true));
     }
     
     private function __autoload($className) {
@@ -179,8 +183,17 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
     
     public function test_loop() {
         $method = self::get_method('_loop');
+        $array = array(
+            'settings'=>array(1,2,3,4),'acl'=>$this->acl
+        );
+        $this->templater->init($array,'');
         
-        // STUB
+        $matches = array(' name="items"','<p>TEST</p>');
+        $result = '<p>TEST</p><p>TEST</p><p>TEST</p><p>TEST</p>';
+        $this->assertEquals(
+            $result,
+            $method->invokeArgs($this->templater,array($matches))
+        );
     }
     
     public function test_block() {
