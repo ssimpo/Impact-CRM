@@ -32,6 +32,7 @@ class Test_Template extends PHPUnit_Framework_TestCase {
         $this->templater = new Template;
         $this->acl = $this->getMock('Acl',array('allowed'));
         $this->acl->expects($this->any())->method('allowed')->will($this->returnValue(true));
+        $this->templater->init(array('acl'=>$this->acl));
     }
     
     private function __autoload($className) {
@@ -109,12 +110,81 @@ class Test_Template extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->templater->xml,$xml);
     }
     
+    public function test_create_match_array() {
+        $method = self::get_method('_create_match_array');
+        
+        $this->assertEquals(
+            array(
+                'block' => '<template:loop name="children"><p>TEST</p></template:loop>',
+                'tagname' => 'loop',
+                'attributes' => array('name'=>'children'),
+                'content' => '<p>TEST</p>'
+            ),
+            $method->invokeArgs(
+                $this->templater,
+                array(array(
+                    '<template:loop name="children"><p>TEST</p></template:loop>',
+                    'loop',
+                    ' name="children"',
+                    '<p>TEST</p>'
+                ))
+            )
+	    );
+        
+        $this->assertEquals(
+            array(
+                'block' => '<template:data name="node" notblank="parent" />',
+                'tagname' => 'data',
+                'attributes' => array('name'=>'node','notblank'=>'parent'),
+                'content' => ''
+            ),
+            $method->invokeArgs(
+                $this->templater,
+                array(array(
+                    '<template:data name="node" notblank="parent" />',
+                    'data',
+                    ' name="node" notblank="parent"',
+                    ''
+                ))
+            )
+	    );
+        
+        $this->assertEquals(
+            array(
+                'block' => 'template:variable[node]',
+                'tagname' => 'variable',
+                'attributes' => array(),
+                'content' => 'node'
+            ),
+            $method->invokeArgs(
+                $this->templater,
+                array(array(
+                    'template:variable[node]',
+                    'variable',
+                    'node',
+                    ''
+                ))
+            )
+	    );
+    }
+    
+    public function test_get_parser() {
+        $method = self::get_method('_get_parser');
+        
+        $this->assertEquals(
+            'Template_Loop',
+            get_class(
+                $method->invokeArgs($this->templater,array('Template_Loop'))
+            )
+	    );
+    }
+    
     public function test_get_attributes() {
         $method = self::get_method('_get_attributes');
         
         $this->assertEquals(
             array('id'=>'test', 'class'=>'bluebox'),
-			$method->invokeArgs(
+            $method->invokeArgs(
                 $this->templater,
                 array('<div id="test" class="bluebox">TEST TEXT</div>')
             )
@@ -122,7 +192,7 @@ class Test_Template extends PHPUnit_Framework_TestCase {
         
         $this->assertEquals(
             array('id'=>'test', 'class'=>'bluebox'),
-			$method->invokeArgs(
+            $method->invokeArgs(
                 $this->templater,
                 array('<div id=\'test\' class = "bluebox">TEST TEXT</div>')
             )
@@ -130,11 +200,11 @@ class Test_Template extends PHPUnit_Framework_TestCase {
         
         $this->assertEquals(
             array('id'=>'test', 'class'=>'bluebox'),
-			$method->invokeArgs(
+            $method->invokeArgs(
                 $this->templater,
                 array('<div id ="test" class ="bluebox">TEST TEXT</div>')
             )
-		);
+	    );
         
          $this->assertEquals(
             array('id'=>'test', 'class'=>'bluebox'),
