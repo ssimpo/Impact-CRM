@@ -5,7 +5,7 @@
 *	can determine which page features to display to each user
 *	
 *	@author Stephen Simpson <me@simpo.org>
-*	@version 0.1.1
+*	@version 0.1.2
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
 *	@package Templater
 *
@@ -20,6 +20,12 @@ class Templater extends ImpactBase {
 	private $xmlstring;
 	private $_standard_html_attributes = array(
 		'style','class','rev','rel','href','src'
+	);
+	private $parser_regX = array(
+		'/<template\:(block)(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:block\b[^>]*>))+|(?R))*)<\/template\:block>/m',
+		'/<template\:(loop)(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:loop\b[^>]*>))+|(?R))*)<\/template\:loop.*?>/m',
+		'/template\:(constant|variable)\[(.*?)\]/m',
+		'/\<template\:(.*?) (.*?)\/>/m'
 	);
 	
 	/**
@@ -146,24 +152,30 @@ class Templater extends ImpactBase {
 		}
 		
 		$this->xmlstring = $this->_convert_brackets_to_xml($this->xmlstring);
-		$this->xmlstring = $this->_parse_loops($this->xmlstring);
-		$this->xmlstring = $this->_parse_blocks($this->xmlstring);
-		$this->xmlstring = $this->_parse_variables_and_constants($this->xmlstring);
-		$this->xmlstring = $this->_parse_templates($this->xmlstring);
+		
+		while ($this->_contains($this->xmlstring,'<template:')) {
+			foreach($this->parser_regX as $regX) {
+				$this->xmlstring = preg_replace_callback(
+					$regX,
+					array($this, '_parse_handle'),
+					$this->xmlstring
+				);
+			}
+		}
 		
 		return $this->xmlstring;
 	}
 	
-	/**
-	 *	Test whether two strings are the same after trimming and case matching.
-	 *
-	 *	@private
-	 *	@param string $text1 The first item to compare.
-	 *	@param string $text2 The second item to compare.
-	 *	@return boolean
-	 */
-	private function _is_equal($text1,$text2) {
-		return (strtolower(trim($text1)) == strtolower(trim($text2)));
+	protected function _parse_handle($matches) {
+		$match = array(
+			'block' => $matches[0],
+			'tagname' => $matches[1],
+			'attributes' => $this->_get_attributes($matches[2]),
+			'content' => ((count($matches)==4)?$matches[3]:'')
+		);
+		$functionName = '_'.$match['tagname'];
+		
+		return call_user_func(array($this,$functionName),$match);
 	}
 	
 	/**
@@ -195,78 +207,6 @@ class Templater extends ImpactBase {
 	}
 	
 	/**
-	 *	Parse for <template:block /> and return the results
-	 *
-	 *	@protected
-	 *	@param string $xml XML-string to parse.
-	 *	@return string The parsed content.
-	 */
-	protected function _parse_blocks($xml) {
-		while ($this->_contains($xml,'<template:block')) {
-			$xml = preg_replace_callback(
-				'/<template\:block(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:block\b[^>]*>))+|(?R))*)<\/template\:block>/m',
-				array($this, '_block'),
-				$xml
-			);
-		}
-		
-		return $xml;
-	}
-	
-	/**
-	 *	Parse for <template:loop /> and return the results.
-	 *
-	 *	@protected
-	 *	@param string $xml XML-string to parse.
-	 *	@return string The parsed content.
-	 */
-	protected function _parse_loops($xml) {
-		while ($this->_contains($xml,'<template:loop')) {
-			$xml = preg_replace_callback(
-				'/<template\:loop(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:loop\b[^>]*>))+|(?R))*)<\/template\:loop.*?>/m',
-				array($this, '_loop'),
-				$xml
-			);
-		}
-		
-		return $xml;
-	}
-	
-	/**
-	 *	Parse for template:variable and template:constant and return the results.
-	 *
-	 *	@protected
-	 *	@param string $xml XML-string to parse.
-	 *	@return string The parsed content.
-	 */
-	protected function _parse_variables_and_constants($xml) {
-		$xml = preg_replace_callback(
-			'/template\:(constant|variable)\[(.*?)\]/m',
-			array($this, '_variable'),
-			$xml
-		);
-		
-		return $xml;
-	}
-	
-	/**
-	 *	Parse for <template:??? /> and return the results
-	 *
-	 *	@protected
-	 *	@param string $xml XML-string to parse.
-	 *	@return string The parsed content.
-	 */
-	protected function _parse_templates($xml) {
-		$xml = preg_replace_callback(
-			'/\<template\:(.*?) (.*?)\/>/m',
-			array($this, '_template'),
-			$xml
-		);
-		
-		return $xml;
-	}
-	
-	/**
 	 *	Get the XML content to parse.
 	 *
 	 *	Grab the XML from a file or if supplied as string then grab from that. Load
@@ -294,14 +234,14 @@ class Templater extends ImpactBase {
 	 *	item the array.
 	 *
 	 *	@protected
-	 *	@param array $matches text containing the attributes.
+	 *	@param array $match text containing the attributes.
 	 *	@return string The parsed loop content.
 	 */
-	protected function _loop($matches) {
-		$attributes = $this->_get_attributes($matches[1]);
+	protected function _loop($match) {
+		$attributes = $match['attributes'];
 		$template = '';
 		
-		if ($this->_acl($attributes)) {
+		if ($this->_acl($match['attributes'])) {
 			$array = '';
 			if (array_key_exists('name',$attributes)) {
 				$array = $this->_get_application_item($attributes['name']);
@@ -315,7 +255,7 @@ class Templater extends ImpactBase {
 			foreach ($array as $item) {
 				$parser = new Templater();
 				$parser->init($item,$this->mainApplication);
-				$template .= $parser->parse($matches[2]);
+				$template .= $parser->parse($match['content']);
 			}
 		}
 		
@@ -330,35 +270,14 @@ class Templater extends ImpactBase {
 	 *	on particular days/times.
 	 *
 	 *	@protected
-	 *	@param array $matches text containing the attributes.
+	 *	@param array $match text containing the attributes.
 	 *	@return string The block parsing results.
 	 */
-	protected function _block($matches) {
-		$attributes = $this->_get_attributes($matches[1]);
-		
-		if ($this->_acl($attributes)) {
-			return $matches[2];
+	protected function _block($match) {
+		if ($this->_acl($match['attributes'])) {
+			return $match['content'];
 		} else {
 			return '';
-		}
-	}
-	
-	protected function _template($matches) {
-	//Match data/include tags and deal with them accordingly
-		
-		switch ($matches[1]) {
-			case 'data':
-				return $this->_data($matches[2]);
-				break;
-			case 'include':
-				return $this->_include($matches[2]);
-				break;
-			case 'feature':
-				return $this->_feature($matches[2]);
-				break;
-			case 'plugin':
-				return $this->_plugin($matches[2]);
-				break;
 		}
 	}
 	
@@ -369,11 +288,11 @@ class Templater extends ImpactBase {
 	 *	supplied array, or supplied attributes.  Include against ACL.
 	 *
 	 *	@protected
-	 *	@param array $matches text containing the attributes.
+	 *	@param array $match text containing the attributes.
 	 *	@return string The data results.
 	 */
 	protected function _data($match) {
-		$attributes = $this->_get_attributes($match);
+		$attributes = $match['attributes'];
 		
 		$template = '';
 		if ($this->_acl($attributes)) {
@@ -406,7 +325,7 @@ class Templater extends ImpactBase {
 	protected function _include($match) {
 	//Load include content, according to Acl
 		
-		$attributes = $this->_get_attributes($match);
+		$attributes = $match['attributes'];
 		$comtem = $this->component.'.xml';
 
 		$template = '';
@@ -428,7 +347,7 @@ class Templater extends ImpactBase {
 	
 	protected function _feature($match) {
 	//Load a HTML snippet
-		$attributes = $this->_get_attributes($match);
+		$attributes = $match['attributes'];
 		$template = '';
 		
 		if ($this->_acl($attributes)) { //Can be defined directly or in the database
@@ -495,7 +414,7 @@ class Templater extends ImpactBase {
 	 *	@return string The plugin results.
 	 */
 	protected function _plugin($match) {
-		$attributes = $this->_get_attributes($match);
+		$attributes = $match['attributes'];
 		$template = '';
 		
 		if ((array_key_exists('name',$attributes)) && ($this->_acl($attributes))) {
@@ -528,10 +447,10 @@ class Templater extends ImpactBase {
 		return true;
 	}
 	
-	protected function _acl(&$attributes) {
+	protected function _acl($attributes) {
 	//Handle the Acl - Loose meaning of Acl as it includes access-rights according to language,
 	// media-type and date/time as well as user-roles
-		
+	
 		//Restrictions based on a value not being blank/null/zero
 		if (array_key_exists('notblank',$attributes)) {
 			if (!$this->_notblank($attributes['notblank'])) {
@@ -613,14 +532,11 @@ class Templater extends ImpactBase {
 	}
 	
 	protected function _variable(&$matches) {
-		switch ($matches[1]) {
-			case 'variable':
-				return $this->_get_application_item($matches[2]);
-				break;
-			case 'constant':
-				return constant($matches[2]);
-				break;
-		}
+		return $this->_get_application_item($matches[2]);
+	}
+	
+	protected function _constant(&$matches) {
+		return constant($matches[2]);
 	}
 	
 	/**
@@ -635,12 +551,14 @@ class Templater extends ImpactBase {
 	 *	@return string() Array of attributes stored as key/value pairs.
 	 */
 	protected function _get_attributes($att) {
-
 		$attributes = array();
-		$count = preg_match_all('/([a-zA-Z0-9_]+)[= ]+[\"\'](.*?)[\"\']/',$att,$matches);
-		if ($count !== false) {
-			for ($i = 0; $i < $count; $i++) {
-				$attributes[$matches[1][$i]] = $matches[2][$i];
+		
+		if (!empty($att)) {
+			$count = preg_match_all('/([a-zA-Z0-9_]+)[= ]+[\"\'](.*?)[\"\']/',$att,$matches);
+			if ($count !== false) {
+				for ($i = 0; $i < $count; $i++) {
+					$attributes[$matches[1][$i]] = $matches[2][$i];
+				}
 			}
 		}
 	
@@ -672,6 +590,18 @@ class Templater extends ImpactBase {
 	protected function _contains($txt1,$txt2) {
 		$pos = stripos($txt1, $txt2);
 		return ($pos !== false) ? true:false;
+	}
+	
+	/**
+	 *	Test whether two strings are the same after trimming and case matching.
+	 *
+	 *	@private
+	 *	@param string $text1 The first item to compare.
+	 *	@param string $text2 The second item to compare.
+	 *	@return boolean
+	 */
+	private function _is_equal($text1,$text2) {
+		return (strtolower(trim($text1)) == strtolower(trim($text2)));
 	}
 	
 	/**

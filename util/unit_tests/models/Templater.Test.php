@@ -84,78 +84,6 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
         );
     }
     
-    public function test_parse_blocks() {
-        $method = self::get_method('_parse_blocks');
-        
-        // STUB
-    }
-    
-    public function test_parse_loops() {
-        $method = self::get_method('_parse_loops');
-        
-        // STUB
-    }
-    
-    public function test_parse_variables_and_constants() {
-        $method = self::get_method('_parse_variables_and_constants');
-        
-        $application = array(
-            'acl' => '',
-            'component' => 'main',
-            'testvar1' => 1,
-            'testvar2' => 'HELLO WORLD',
-            'testvar3' => 'HELLO AGAIN!'
-        );
-        $application2 = array(
-            'acl' => '',
-            'component' => 'main',
-            'testvar4' => 'ONE MORE TIME'
-        );
-        
-        $this->templater->init($application,'');
-        
-        $xml = '<table><tr><th>Total:</th><td>template:variable[testvar1]</td></tr></table>';
-        $this->assertEquals(
-            '<table><tr><th>Total:</th><td>1</td></tr></table>',
-            $method->invokeArgs($this->templater,array($xml))
-        );
-        
-        $xml = '<table><tr><th>Greeting:</th><td>template:variable[testvar2]</td></tr></table>';
-        $this->assertEquals(
-            '<table><tr><th>Greeting:</th><td>HELLO WORLD</td></tr></table>',
-            $method->invokeArgs($this->templater,array($xml))
-        );
-        
-        $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'_data'.DS.'xml'.DS.'Template.2.Test.xml';
-        $xml1=file_get_contents($path);
-        $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'_data'.DS.'xml'.DS.'Template.3.Test.xml';
-        $xml2=file_get_contents($path);
-        $this->assertEquals(
-            $xml2,
-            $method->invokeArgs($this->templater,array($xml1))
-        );
-        
-        define('DOMAIN','www.test.com');
-        $xml = '<table><tr><th>Greeting:</th><td>template:constant[DOMAIN]</td></tr></table>';
-        $this->assertEquals(
-            '<table><tr><th>Greeting:</th><td>www.test.com</td></tr></table>',
-            $method->invokeArgs($this->templater,array($xml))
-        );
-        
-        $this->templater->init($application,$application2,'');
-        $xml = '<table><tr><th>Greeting:</th><td>template:variable[testvar4]</td></tr></table>';
-        $this->assertEquals(
-            '<table><tr><th>Greeting:</th><td>ONE MORE TIME</td></tr></table>',
-            $method->invokeArgs($this->templater,array($xml))
-        );
-    }
-    
-    public function test_parse_templates() {
-        $method = self::get_method('_parse_templates');
-        
-        // STUB
-    }
-    
     public function test_get_xml() {
         $method = self::get_method('_get_xml');
         
@@ -186,13 +114,18 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
         $result1 = '<p>TEST</p><p>TEST</p><p>TEST</p><p>TEST</p>';
         $result2 = '<ul><li>TEST</li><li>TEST</li></ul><ul><li>TEST</li><li>TEST</li></ul>';
         $result3 = '<p>TEST one</p><p>TEST two</p>';
-        $matches1 = array('','','<p>TEST</p>');
+        $matches1 = array(
+            'block'=>'',
+            'tagname'=>'loop',
+            'attributes'=>array(),
+            'content'=>'<p>TEST</p>'
+        );
         
         // Test against an item within the application array
         $this->templater->init(
             array('items'=>array(1,2,3,4), 'acl'=>$this->acl)
         );
-        $matches1[1] = ' name="items"';
+        $matches1['attributes'] = array('name'=>'items');
         $this->assertEquals(
             $result1,
             $method->invokeArgs($this->templater,array($matches1))
@@ -202,7 +135,7 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
         $this->templater->init(
             array(1,2,3,4), array('acl'=>$this->acl)
         );
-        $matches1[1] = '';
+        $matches1['attributes'] = array();
         $this->assertEquals(
             $result1,
             $method->invokeArgs($this->templater,array($matches1))
@@ -216,7 +149,7 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
             ),
             array('acl'=>$this->acl)
         );
-        $matches1[2] = '<ul><template:loop name="children"><li>TEST</li></template:loop></ul>';
+        $matches1['content'] = '<ul><template:loop name="children"><li>TEST</li></template:loop></ul>';
         $this->assertEquals(
             $result2,
             $method->invokeArgs($this->templater,array($matches1))
@@ -227,7 +160,7 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
             array(array('name'=>'one'),array('name'=>'two')),
             array('acl'=>$this->acl)
         );
-        $matches1[2] = '<p>TEST <template:data name="name" /></p>';
+        $matches1['content'] = '<p>TEST <template:data name="name" /></p>';
         $this->assertEquals(
             $result3,
             $method->invokeArgs($this->templater,array($matches1))
@@ -240,12 +173,6 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
         // STUB
     }
     
-    public function test_template() {
-        $method = self::get_method('_template');
-        
-        // STUB
-    }
-    
     public function test_data() {
         $method = self::get_method('_data');
         $result1 = 'HELLO WORLD';
@@ -254,9 +181,13 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
             array('data'=>'HELLO WORLD', 'acl'=>$this->acl)
         );
         
+        $data = array(
+            'block'=>'','tagname'=>'block','content'=>'',
+            'attributes'=>array('name'=>'data')
+        );
         $this->assertEquals(
             $result1,
-            $method->invokeArgs($this->templater,array(' name="data"'))
+            $method->invokeArgs($this->templater,array($data))
         );
     }
     
@@ -304,6 +235,12 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
     
     public function test_variable() {
         $method = self::get_method('_variable');
+        
+        // STUB
+    }
+    
+    public function test_constant() {
+        $method = self::get_method('_constant');
         
         // STUB
     }
