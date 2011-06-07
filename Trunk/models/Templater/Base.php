@@ -15,8 +15,11 @@ class Templater_Base Extends ImpactBase {
     public function __construct() {	
 	}
     
-    public function init($application,$mainApplication) {
+    public function init($application,$mainApplication='') {
         $this->application = $application;
+		if (empty($mainApplication)) {
+			$this->mainApplication = $application;
+		}
         $this->mainApplication = $mainApplication;
         $this->acl = $this->_get_application_item('acl');
     }
