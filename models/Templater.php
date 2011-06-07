@@ -14,7 +14,6 @@
 */
 class Templater extends ImpactBase {
 	protected $application;
-	protected $component;
 	protected $mainApplication;
 	protected $acl;
 	
@@ -94,45 +93,14 @@ class Templater extends ImpactBase {
 			}
 			
 			$this->mainApplication = $this->application;
-			$this->_set_componant($this->application);
 			$this->acl = $this->application['acl'];
 		} else {
 			$this->mainApplication = $this->_get_application($path);
-			$this->_set_componant($this->mainApplication);
 			$this->acl = $this->mainApplication['acl'];
 			
 			if ($path2 !='') {
 				$this->parse($path2);
 			}
-		}
-	}
-	
-	/**
-	 *	Connect the application to this class.
-	 *	
-	 *	@private
-	 *	@param array|object The application object|array.
-	 *	@return array The application settings
-	 */
-	private function _get_application($application) {
-		if (is_object($application)) {
-			return $application->settings;
-		} else {
-			return $application;
-		}
-	}
-	
-	/**
-	 *	Set the componant from the supplied settings-array.
-	 *	
-	 *	@private
-	 *	@param array The application settings-array.
-	 */
-	private function _set_componant($application) {
-		if (is_object($application)) {
-			return $application->settings;
-		} else {
-			return $application;
 		}
 	}
 	
@@ -153,7 +121,7 @@ class Templater extends ImpactBase {
 		
 		$this->xmlstring = $this->_convert_brackets_to_xml($this->xmlstring);
 		
-		while ($this->_contains($this->xmlstring,'<template:')) {
+		while (I::contains($this->xmlstring,'<template:')) {
 			foreach($this->parser_regX as $regX) {
 				$this->xmlstring = preg_replace_callback(
 					$regX,
@@ -166,7 +134,7 @@ class Templater extends ImpactBase {
 		return $this->xmlstring;
 	}
 	
-	protected function _parse_handle($matches) {
+	private function _parse_handle($matches) {
 		$match = array(
 			'block' => $matches[0],
 			'tagname' => $matches[1],
@@ -196,12 +164,12 @@ class Templater extends ImpactBase {
 	 *	PHP works and cannot be avoided.
 	 *	@todo Find a work-around for single-quote escaping.
 	 *
-	 *	@protected
+	 *	@private
 	 *	@param string $text The string to parse
 	 *	@return string Converted XML-string
 	 */
-	protected function _convert_brackets_to_xml($text) {
-		if ($this->_contains($text,'[[')) {
+	private function _convert_brackets_to_xml($text) {
+		if (I::contains($text,'[[')) {
 			$text = preg_replace(
 				'/\[\[(plugin|feature) (.*?)\]\]/mie',
 				'"<template:".strtolower("\1")." \2"." />"',
@@ -217,12 +185,12 @@ class Templater extends ImpactBase {
 	 *	Grab the XML from a file or if supplied as string then grab from that. Load
 	 *	XML into class XML property.
 	 *
-	 *	@protected
+	 *	@private
 	 *	@param string $path filepath or XML string
 	 */
-	protected function _get_xml($path) {
+	private function _get_xml($path) {
 		if ($path != '') {
-			if (($this->_contains($path,'<')) || ($this->_contains($path,'[['))) {
+			if ((I::contains($path,'<')) || (I::contains($path,'[['))) {
 				$this->xmlstring = $path;
 			} else {
 				@$this->xmlstring = file_get_contents($path);
@@ -239,11 +207,11 @@ class Templater extends ImpactBase {
 	 *	assumes the attributes are written like: att1="val1" att2="val" ...etc.
 	 *	Results are returned as an array in format (att1=>val1,att2=>val2).
 	 *
-	 *	@protected
+	 *	@private
 	 *	@param string $att The XML snippet containing the attributes to be parsed.
 	 *	@return string() Array of attributes stored as key/value pairs.
 	 */
-	protected function _get_attributes($att) {
+	private function _get_attributes($att) {
 		$attributes = array();
 		
 		if (!empty($att)) {
@@ -261,42 +229,18 @@ class Templater extends ImpactBase {
 	}
 	
 	/**
-	 *	Reformat a date string.
-	 *
-	 *	Internal method to reformat a date string from yyyy-mm-dd hh:mm:ss
-	 *	to yyyymmddThhmmss format.
-	 *
-	 *	@protected
-	 *	@param string $date Date string to reformat.
-	 *	@return string Reformatted string.
-	 */
-	protected function _date_reformat($date) {
-		return str_replace(':','',str_replace('-','',str_replace(' ','T',$date))).'Z';
-	}
-	
-	/**
-	 *	Test for text snippet in another string.
-	 *
-	 *	@protected
-	 *	@param string $txt1 The string to search.
-	 *	@param string $txt2 The string to search for.
-	 *	@return boolean Was the text found?
-	 */
-	protected function _contains($txt1,$txt2) {
-		$pos = stripos($txt1, $txt2);
-		return ($pos !== false) ? true:false;
-	}
-	
-	/**
-	 *	Test whether two strings are the same after trimming and case matching.
-	 *
+	 *	Connect the application to this class.
+	 *	
 	 *	@private
-	 *	@param string $text1 The first item to compare.
-	 *	@param string $text2 The second item to compare.
-	 *	@return boolean
+	 *	@param array|object The application object|array.
+	 *	@return array The application settings
 	 */
-	private function _is_equal($text1,$text2) {
-		return (strtolower(trim($text1)) == strtolower(trim($text2)));
+	private function _get_application($application) {
+		if (is_object($application)) {
+			return $application->settings;
+		} else {
+			return $application;
+		}
 	}
 	
 	/**
@@ -306,11 +250,11 @@ class Templater extends ImpactBase {
 	 *	specified key and returns its value if it exists.  If nothing is found
 	 *	return a blank string.
 	 *	
-	 *	@protected
+	 *	@private
 	 *	@param string $key The key to search for.
 	 *	@return string
 	 */
-	protected function _get_application_item($key) {
+	private function _get_application_item($key) {
 		if (array_key_exists($key,$this->application)) {
 			return $this->application[$key];
 		} elseif (array_key_exists($key,$this->mainApplication)) {
