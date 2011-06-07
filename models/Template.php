@@ -7,12 +7,12 @@
 *	@author Stephen Simpson <me@simpo.org>
 *	@version 0.1.3
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@package Templater
+*	@package Template
 *
 *	@todo Tags that open and close at same time <img /> have to be on one line this needs fixing.
 *	@todo When bad dadta is passed it often results in infinite loops
 */
-class Templater extends ImpactBase {
+class Template extends ImpactBase {
 	protected $application;
 	protected $mainApplication;
 	protected $acl;
@@ -136,7 +136,7 @@ class Templater extends ImpactBase {
 	
 	private function _parse_handle($matches) {
 		$match = $this->_create_match_array($matches);
-		$className = 'Templater_'.$match['tagname'];
+		$className = 'Template_'.$match['tagname'];
 		$parser = $this->_get_parser($className);
 		
 		return $parser->parse($match);

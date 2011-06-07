@@ -1,13 +1,13 @@
 <?php
 /**
-*	Templater.Base class
+*	Template.Base class
 *		
 *	@author Stephen Simpson <me@simpo.org>
 *	@version 0.0.1
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@package Templater
+*	@package Template
 */
-class Templater_Base Extends ImpactBase {
+class Template_Base Extends ImpactBase {
     protected $application;
 	protected $mainApplication;
 	protected $acl;
