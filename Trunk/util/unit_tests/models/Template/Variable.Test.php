@@ -8,7 +8,7 @@
  *	@package UnitTests.Impact
  *	@extends PHPUnit_Framework_TestCase
  */
-class Test_Templater_Constant extends PHPUnit_Framework_TestCase {
+class Test_Template_Variable extends PHPUnit_Framework_TestCase {
     private $parser;
 	private $acl;
 	
@@ -31,7 +31,7 @@ class Test_Templater_Constant extends PHPUnit_Framework_TestCase {
 		}
 		spl_autoload_register('self::__autoload');
 		
-		$this->parser = new Templater_Constant;
+		$this->parser = new Template_Variable;
 		$this->acl = $this->getMock('Acl',array('allowed'));
         $this->acl->expects($this->any())->method('allowed')->will($this->returnValue(true));
 	}
@@ -42,7 +42,7 @@ class Test_Templater_Constant extends PHPUnit_Framework_TestCase {
 	}
 	
 	protected static function get_method($name) {
-		$class = new ReflectionClass('Template_Constant');
+		$class = new ReflectionClass('Template_Variable');
 		$method = $class->getMethod($name);
 		$method->setAccessible(true);
 		return $method;
@@ -50,12 +50,13 @@ class Test_Templater_Constant extends PHPUnit_Framework_TestCase {
 	
 	public function test_parse() {
 		$result1 = 'Impact';
-		define('CLASSNAME','Impact');
         
-        $this->parser->init(array('acl'=>$this->acl));
+        $this->parser->init(
+            array('classname'=>'Impact', 'acl'=>$this->acl)
+        );
         
         $data = array(
-            'block'=>'','tagname'=>'variable','content'=>'CLASSNAME',
+            'block'=>'','tagname'=>'variable','content'=>'classname',
             'attributes'=>array()
         );
         $this->assertEquals(

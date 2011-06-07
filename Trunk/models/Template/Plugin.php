@@ -5,9 +5,9 @@
 *	@author Stephen Simpson <me@simpo.org>
 *	@version 0.0.1
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@package Templater
+*	@package Template
 */
-class Templater_Plugin Extends Templater_Base implements Templater_Object {
+class Template_Plugin Extends Template_Base implements Template_Object {
     
 	/**
 	 *	Parse <template:plugin />

@@ -1,6 +1,6 @@
 <?php
 /**
- *	Unit Test for the Templater class.
+ *	Unit Test for the Template class.
  *
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1.1
@@ -8,7 +8,7 @@
  *	@package UnitTests.Impact
  *	@extends PHPUnit_Framework_TestCase
  */
-class Test_Templater extends PHPUnit_Framework_TestCase {
+class Test_Template extends PHPUnit_Framework_TestCase {
     private $templater = null;
     private $acl;
     private $application;
@@ -29,7 +29,7 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
         }
         spl_autoload_register('self::__autoload');
         
-        $this->templater = new Templater;
+        $this->templater = new Template;
         $this->acl = $this->getMock('Acl',array('allowed'));
         $this->acl->expects($this->any())->method('allowed')->will($this->returnValue(true));
     }
@@ -40,7 +40,7 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
     }
     
     protected static function get_method($name) {
-        $class = new ReflectionClass('Templater');
+        $class = new ReflectionClass('Template');
         $method = $class->getMethod($name);
         $method->setAccessible(true);
         return $method;

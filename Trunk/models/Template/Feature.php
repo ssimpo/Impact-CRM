@@ -5,9 +5,9 @@
 *	@author Stephen Simpson <me@simpo.org>
 *	@version 0.0.1
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@package Templater
+*	@package Template
 */
-class Templater_Feature Extends Templater_Base implements Templater_Object {
+class Template_Feature Extends Template_Base implements Template_Object {
     
 	public function parse($match) {
 	//Load a HTML snippet
@@ -53,7 +53,7 @@ class Templater_Feature Extends Templater_Base implements Templater_Object {
 				$feature['end'] = $this->_date_reformat($feature['end']);
 					
 				if ($this->_show($feature)) { //If defined in database - double-lock system
-					$parser = new Templater($this->application);
+					$parser = new Template($this->application);
 					$template .= $parser->parse(stripslashes($feature['HTML']));
 				}
 			}

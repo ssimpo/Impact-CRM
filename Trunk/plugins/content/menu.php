@@ -29,7 +29,7 @@ class Plugin_Menu implements Impact_Plugin {
 	    $menu = $this->_get_menu();
 	    $template = $this->_build_template();
 	    
-	    $parser = new Templater();
+	    $parser = new Template();
 	    $parser->init($menu,Application::instance());
 		
 	    return $parser->parse($template);

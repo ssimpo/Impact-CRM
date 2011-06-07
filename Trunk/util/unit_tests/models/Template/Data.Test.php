@@ -8,7 +8,7 @@
  *	@package UnitTests.Impact
  *	@extends PHPUnit_Framework_TestCase
  */
-class Test_Templater_Data extends PHPUnit_Framework_TestCase {
+class Test_Template_Data extends PHPUnit_Framework_TestCase {
     private $parser;
     private $acl;
 	
@@ -31,7 +31,7 @@ class Test_Templater_Data extends PHPUnit_Framework_TestCase {
 		}
 		spl_autoload_register('self::__autoload');
 		
-		$this->parser = new Templater_Data;
+		$this->parser = new Template_Data;
 		$this->acl = $this->getMock('Acl',array('allowed'));
         $this->acl->expects($this->any())->method('allowed')->will($this->returnValue(true));
 	}

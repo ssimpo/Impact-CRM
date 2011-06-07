@@ -5,9 +5,9 @@
 *	@author Stephen Simpson <me@simpo.org>
 *	@version 0.0.1
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@package Templater
+*	@package Template
 */
-class Templater_Data Extends Templater_Base implements Templater_Object {
+class Template_Data Extends Template_Base implements Template_Object {
 	private $_standard_html_attributes = array(
 		'style','class','rev','rel','href','src'
 	);
@@ -45,7 +45,7 @@ class Templater_Data Extends Templater_Base implements Templater_Object {
 		//Here you need to parse the content for more template data (allows for plugins...etc)
 		if (array_key_exists('parsedata',$attributes)) {
 			if ($attributes['parsedata'] = 'true') {
-				$parser = new Templater($this->application);
+				$parser = new Template($this->application);
 				$template = $parser->parse($template);
 			}
 		}
