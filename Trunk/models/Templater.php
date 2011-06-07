@@ -17,16 +17,16 @@ class Templater extends ImpactBase {
 	protected $component;
 	protected $mainApplication;
 	protected $acl;
+	
 	private $xmlstring;
-	private $_standard_html_attributes = array(
-		'style','class','rev','rel','href','src'
-	);
 	private $parser_regX = array(
-		'/<template\:(block)(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:block\b[^>]*>))+|(?R))*)<\/template\:block>/m',
-		'/<template\:(loop)(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:loop\b[^>]*>))+|(?R))*)<\/template\:loop.*?>/m',
+		'/<template\:(loop)(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:loop\b[^>]*>))+|(?R))*)<\/template\:\1.*?>/m',
+		'/<template\:(block)(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:block\b[^>]*>))+|(?R))*)<\/template\:\1>/m',
+		'/<template\:(.*?)(\b[^>]*)>((?>(?:[^<]++|<(?!\/?template\:block\b[^>]*>))+|(?R))*)<\/template\:\1>/m',
 		'/template\:(constant|variable)\[(.*?)\]/m',
 		'/\<template\:(.*?) (.*?)\/>/m'
 	);
+	private $parsers = array();
 	
 	/**
 	 *	Constructor
@@ -175,9 +175,12 @@ class Templater extends ImpactBase {
 		);
 		$className = 'Templater_'.$match['tagname'];
 		
-		$parser = $this->factory($className);
-		$parser->init($this->application,$this->mainApplication);
-		return $parser->parse($match);
+		if (!array_key_exists($className,$this->parsers)) {
+			$this->parsers[$className] = $this->factory($className);
+			$this->parsers[$className]->init($this->application,$this->mainApplication);
+		}
+		
+		return $this->parsers[$className]->parse($match);
 	}
 	
 	/**
@@ -249,6 +252,8 @@ class Templater extends ImpactBase {
 				for ($i = 0; $i < $count; $i++) {
 					$attributes[$matches[1][$i]] = $matches[2][$i];
 				}
+			} else {
+				$attributes = $att;
 			}
 		}
 	

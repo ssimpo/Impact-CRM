@@ -9,8 +9,8 @@
 */
 class Templater_Constant Extends Templater_Base implements Templater_Object {
     
-	public function parse($matches) {
-		return constant($matches[2]);
+	public function parse($match) {
+		return constant($match['attributes']);
 	}
 	
 }

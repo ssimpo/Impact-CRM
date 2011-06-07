@@ -8,6 +8,9 @@
 *	@package Templater
 */
 class Templater_Data Extends Templater_Base implements Templater_Object {
+	private $_standard_html_attributes = array(
+		'style','class','rev','rel','href','src'
+	);
     
 	/**
 	 *	Parse <template:data />

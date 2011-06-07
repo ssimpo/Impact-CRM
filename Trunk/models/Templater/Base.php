@@ -150,10 +150,12 @@ class Templater_Base Extends ImpactBase {
 	 *	@return string
 	 */
 	protected function _get_application_item($key) {
-		if (array_key_exists($key,$this->application)) {
-			return $this->application[$key];
-		} elseif (array_key_exists($key,$this->mainApplication)) {
-			return $this->mainApplication[$key];
+		if ((is_string($key)) || (is_numeric($key))) {
+			if (array_key_exists($key,$this->application)) {
+				return $this->application[$key];
+			} elseif (array_key_exists($key,$this->mainApplication)) {
+				return $this->mainApplication[$key];
+			}
 		}
 		
 		return '';

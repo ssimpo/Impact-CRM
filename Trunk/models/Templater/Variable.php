@@ -9,7 +9,7 @@
 */
 class Templater_Variable Extends Templater_Base implements Templater_Object {
     
-	public function parse($matches) {
-		return $this->_get_application_item($matches[2]);
+	public function parse($match) {
+		return $this->_get_application_item($match['attributes']);
 	}
 }
