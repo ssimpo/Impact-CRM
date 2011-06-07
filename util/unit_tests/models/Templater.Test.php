@@ -183,16 +183,40 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
     
     public function test_loop() {
         $method = self::get_method('_loop');
-        $array = array(
-            'settings'=>array(1,2,3,4),'acl'=>$this->acl
-        );
-        $this->templater->init($array,'');
+        $result1 = '<p>TEST</p><p>TEST</p><p>TEST</p><p>TEST</p>';
+        $result2 = '<p>TEST one</p><p>TEST two</p>';
+        $matches1 = array('','','<p>TEST</p>');
         
-        $matches = array(' name="items"','<p>TEST</p>');
-        $result = '<p>TEST</p><p>TEST</p><p>TEST</p><p>TEST</p>';
+        // Test against an item within the application array
+        $this->templater->init(
+            array('items'=>array(1,2,3,4), 'acl'=>$this->acl)
+        );
+        $matches1[1] = ' name="items"';
         $this->assertEquals(
-            $result,
-            $method->invokeArgs($this->templater,array($matches))
+            $result1,
+            $method->invokeArgs($this->templater,array($matches1))
+        );
+        
+        
+        // Test against an array
+        $this->templater->init(
+            array(1,2,3,4), array('acl'=>$this->acl)
+        );
+        $matches1[1] = '';
+        $this->assertEquals(
+            $result1,
+            $method->invokeArgs($this->templater,array($matches1))
+        );
+        
+        // Test that data is transfered to the loop
+        $this->templater->init(
+            array(array('name'=>'one'),array('name'=>'two')),
+            array('acl'=>$this->acl)
+        );
+        $matches1[2] = '<p>TEST <template:data name="name" /></p>';
+        $this->assertEquals(
+            $result2,
+            $method->invokeArgs($this->templater,array($matches1))
         );
     }
     
