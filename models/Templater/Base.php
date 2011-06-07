@@ -21,7 +21,7 @@ class Templater_Base Extends ImpactBase {
         $this->acl = $this->_get_application_item('acl');
     }
     
-    protected function _acl($attributes) {
+    protected function _show($attributes) {
 	//Handle the Acl - Loose meaning of Acl as it includes access-rights according to language,
 	// media-type and date/time as well as user-roles
 	

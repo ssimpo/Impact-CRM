@@ -23,7 +23,7 @@ class Templater_Loop Extends Templater_Base implements Templater_Object {
 		$attributes = $match['attributes'];
 		$template = '';
 		
-		if ($this->_acl($match['attributes'])) {
+		if ($this->_show($match['attributes'])) {
 			$array = '';
 			if (array_key_exists('name',$attributes)) {
 				$array = $this->_get_application_item($attributes['name']);

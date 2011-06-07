@@ -16,7 +16,7 @@ class Templater_Include Extends Templater_Base implements Templater_Object {
 		$comtem = $this->component.'.xml';
 
 		$template = '';
-		if ($this->_acl($attributes)) {
+		if ($this->_show($attributes)) {
 			if ($attributes['type'] == 'component') {
 				if ($attributes['name'] == 'main') {
 					$parser = new Templater($this->application);
