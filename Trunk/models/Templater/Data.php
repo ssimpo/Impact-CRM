@@ -26,7 +26,7 @@ class Templater_Data Extends Templater_Base implements Templater_Object {
 		$attributes = $match['attributes'];
 		
 		$template = '';
-		if ($this->_acl($attributes)) {
+		if ($this->_show($attributes)) {
 			if (array_key_exists('name',$attributes)) {
 				$template = $this->_get_application_item($attributes['name']);
 			} elseif (array_key_exists('opentag',$attributes)) {

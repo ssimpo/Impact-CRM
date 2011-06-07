@@ -22,7 +22,7 @@ class Templater_Plugin Extends Templater_Base implements Templater_Object {
 		$attributes = $match['attributes'];
 		$template = '';
 		
-		if ((array_key_exists('name',$attributes)) && ($this->_acl($attributes))) {
+		if ((array_key_exists('name',$attributes)) && ($this->_show($attributes))) {
 			$plugin = Plugin::factory($attributes['name']);
 			if ($plugin !== false) {
 				$template = $plugin->run($attributes);

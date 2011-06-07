@@ -21,7 +21,7 @@ class Templater_Block Extends Templater_Base implements Templater_Object {
 	 *	@return string The block parsing results.
 	 */
 	public function parse($match) {
-		if ($this->_acl($match['attributes'])) {
+		if ($this->_show($match['attributes'])) {
 			return $match['content'];
 		} else {
 			return '';

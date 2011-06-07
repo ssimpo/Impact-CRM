@@ -38,6 +38,37 @@ class Templater extends ImpactBase {
 	}
 	
 	/**
+	 *	Initialization method.
+	 *
+	 *	Initialize the main parser setting and parse any content
+	 *	supplied (optional).
+	 *
+	 *	@public
+	 *	@param &mixed() $application The page array, containing data on the requested page (database record).
+	 *	@param &mixed()/string $path If it is a string then parse as XML template or path to template.  If it is an array then it is the application array context for the template (ie. user data and other global information).
+	 *	@param string $path2 Optional path/XML content to parse.
+	 */
+	public function init($application,$path='',$path2='') {
+		
+		$this->application = $this->_get_application($application);
+		if (is_string($path)) {
+			if ($path !='') {
+				$this->parse($path);
+			}
+			
+			$this->mainApplication = $this->application;
+			$this->acl = $this->application['acl'];
+		} else {
+			$this->mainApplication = $this->_get_application($path);
+			$this->acl = $this->mainApplication['acl'];
+			
+			if ($path2 !='') {
+				$this->parse($path2);
+			}
+		}
+	}
+	
+	/**
 	 *	Generic get property method.
 	 *
 	 *	Used to dynamically get a property based on live setup.
@@ -74,37 +105,6 @@ class Templater extends ImpactBase {
 	}
 	
 	/**
-	 *	Initialization method.
-	 *
-	 *	Initialize the main parser setting and parse any content
-	 *	supplied (optional).
-	 *
-	 *	@public
-	 *	@param &mixed() $application The page array, containing data on the requested page (database record).
-	 *	@param &mixed()/string $path If it is a string then parse as XML template or path to template.  If it is an array then it is the application array context for the template (ie. user data and other global information).
-	 *	@param string $path2 Optional path/XML content to parse.
-	 */
-	public function init($application,$path='',$path2='') {
-		
-		$this->application = $this->_get_application($application);
-		if (is_string($path)) {
-			if ($path !='') {
-				$this->parse($path);
-			}
-			
-			$this->mainApplication = $this->application;
-			$this->acl = $this->application['acl'];
-		} else {
-			$this->mainApplication = $this->_get_application($path);
-			$this->acl = $this->mainApplication['acl'];
-			
-			if ($path2 !='') {
-				$this->parse($path2);
-			}
-		}
-	}
-	
-	/**
 	 *	Parse XML template.
 	 *
 	 *	Parse the contents supplied or load the address supplied and parse that.
@@ -135,20 +135,56 @@ class Templater extends ImpactBase {
 	}
 	
 	private function _parse_handle($matches) {
+		$match = $this->_create_match_array($matches);
+		$className = 'Templater_'.$match['tagname'];
+		$parser = $this->_get_parser($className);
+		
+		return $parser->parse($match);
+	}
+	
+	private function _create_match_array($matches) {
 		$match = array(
 			'block' => $matches[0],
 			'tagname' => $matches[1],
 			'attributes' => $this->_get_attributes($matches[2]),
 			'content' => ((count($matches)==4)?$matches[3]:'')
 		);
-		$className = 'Templater_'.$match['tagname'];
 		
+		if ((empty($match['attributes'])) && (empty($match['content'])) && (!empty($matches[2]))) {
+			$match['content'] = $matches[2];
+		}
+		
+		return $match;
+	}
+	
+	private function _get_parser($className) {
 		if (!array_key_exists($className,$this->parsers)) {
 			$this->parsers[$className] = $this->factory($className);
 			$this->parsers[$className]->init($this->application,$this->mainApplication);
 		}
 		
-		return $this->parsers[$className]->parse($match);
+		return $this->parsers[$className];
+	}
+	
+	/**
+	 *	Get the XML content to parse.
+	 *
+	 *	Grab the XML from a file or if supplied as string then grab from that. Load
+	 *	XML into class XML property.
+	 *
+	 *	@private
+	 *	@param string $path filepath or XML string
+	 */
+	private function _get_xml($path) {
+		if ($path != '') {
+			if ((I::contains($path,'<')) || (I::contains($path,'[['))) {
+				$this->xmlstring = $path;
+			} else {
+				@$this->xmlstring = file_get_contents($path);
+			}
+		} else {
+			return '';
+		}
 	}
 	
 	/**
@@ -180,27 +216,6 @@ class Templater extends ImpactBase {
 	}
 	
 	/**
-	 *	Get the XML content to parse.
-	 *
-	 *	Grab the XML from a file or if supplied as string then grab from that. Load
-	 *	XML into class XML property.
-	 *
-	 *	@private
-	 *	@param string $path filepath or XML string
-	 */
-	private function _get_xml($path) {
-		if ($path != '') {
-			if ((I::contains($path,'<')) || (I::contains($path,'[['))) {
-				$this->xmlstring = $path;
-			} else {
-				@$this->xmlstring = file_get_contents($path);
-			}
-		} else {
-			return '';
-		}
-	}
-	
-	/**
 	 *	Get attributes from text string.
 	 *
 	 *	Parse a string and return the attribute values contained in it. Parser
@@ -220,8 +235,6 @@ class Templater extends ImpactBase {
 				for ($i = 0; $i < $count; $i++) {
 					$attributes[$matches[1][$i]] = $matches[2][$i];
 				}
-			} else {
-				$attributes = $att;
 			}
 		}
 	

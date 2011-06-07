@@ -14,7 +14,7 @@ class Templater_Feature Extends Templater_Base implements Templater_Object {
 		$attributes = $match['attributes'];
 		$template = '';
 		
-		if ($this->_acl($attributes)) { //Can be defined directly or in the database
+		if ($this->_show($attributes)) { //Can be defined directly or in the database
 			$showone = false;
 			if (array_key_exists('showone',$attributes)) {
 				$showone = ($this->_is_equal($attributes['showone'],'true') ? true:false);
@@ -52,7 +52,7 @@ class Templater_Feature Extends Templater_Base implements Templater_Object {
 				$feature['start'] = $this->_date_reformat($feature['start']);
 				$feature['end'] = $this->_date_reformat($feature['end']);
 					
-				if ($this->_acl($feature)) { //If defined in database - double-lock system
+				if ($this->_show($feature)) { //If defined in database - double-lock system
 					$parser = new Templater($this->application);
 					$template .= $parser->parse(stripslashes($feature['HTML']));
 				}
