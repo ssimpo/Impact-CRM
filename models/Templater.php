@@ -304,11 +304,8 @@ class Templater extends ImpactBase {
 		if ($this->_acl($attributes)) {
 			$array = '';
 			if (array_key_exists('name',$attributes)) {
-				if (array_key_exists($attributes['name'],$this->application)) {
-					$array = $this->application[$attributes['name']];
-				} elseif (array_key_exists($attributes['name'],$this->mainApplication)) {
-					$array = $this->mainApplication[$attributes['name']];
-				} else {
+				$array = $this->_get_application_item($attributes['name']);
+				if ($array == '') {
 					return '';
 				}
 			} else {
@@ -381,11 +378,7 @@ class Templater extends ImpactBase {
 		$template = '';
 		if ($this->_acl($attributes)) {
 			if (array_key_exists('name',$attributes)) {
-				if (array_key_exists($attributes['name'],$this->application)) {
-					$template =  $this->application[$attributes['name']];
-				} elseif (array_key_exists($attributes['name'],$this->mainApplication)) {
-					$template =  $this->mainApplication[$attributes['name']];
-				}
+				$template = $this->_get_application_item($attributes['name']);
 			} elseif (array_key_exists('opentag',$attributes)) {
 				$htmlAttributes = '';
 				foreach($this->_standard_html_attributes as $attr) {
@@ -622,13 +615,7 @@ class Templater extends ImpactBase {
 	protected function _variable(&$matches) {
 		switch ($matches[1]) {
 			case 'variable':
-				if (array_key_exists($matches[2],$this->application)) {
-					return $this->application[$matches[2]];
-				} elseif (array_key_exists($matches[2],$this->mainApplication)) {
-					return $this->mainApplication[$matches[2]];
-				} else {
-					return '';
-				}
+				return $this->_get_application_item($matches[2]);
 				break;
 			case 'constant':
 				return constant($matches[2]);
@@ -678,13 +665,34 @@ class Templater extends ImpactBase {
 	 *	Test for text snippet in another string.
 	 *
 	 *	@protected
-	 *	@param $txt1 The string to search.
-	 *	@param $txt2 The string to search for.
-	 *	@return Boolean Was the text found?
+	 *	@param string $txt1 The string to search.
+	 *	@param string $txt2 The string to search for.
+	 *	@return boolean Was the text found?
 	 */
 	protected function _contains($txt1,$txt2) {
 		$pos = stripos($txt1, $txt2);
 		return ($pos !== false) ? true:false;
+	}
+	
+	/**
+	 *	Get an application array item.
+	 *
+	 *	Searches in $this->application and $this->mainApplication for the
+	 *	specified key and returns its value if it exists.  If nothing is found
+	 *	return a blank string.
+	 *	
+	 *	@protected
+	 *	@param string $key The key to search for.
+	 *	@return string
+	 */
+	protected function _get_application_item($key) {
+		if (array_key_exists($key,$this->application)) {
+			return $this->application[$key];
+		} elseif (array_key_exists($key,$this->mainApplication)) {
+			return $this->mainApplication[$key];
+		}
+		
+		return '';
 	}
 }
 

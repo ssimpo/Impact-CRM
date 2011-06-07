@@ -208,7 +208,7 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
             $method->invokeArgs($this->templater,array($matches1))
         );
         
-        // Test against loops of loops
+        // Test against nested loops
         $this->templater->init(
             array(
                 array('children'=>array(1,2)),
