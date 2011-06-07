@@ -35,7 +35,7 @@ class Templater_Base Extends ImpactBase {
 		//Restrictions based on media - eg. [PC],[FACEBOOK],[MOBILE] ...etc
 		if (array_key_exists('media',$attributes)) {
 			$test = I::reformat_role_string($attributes['media']);
-			if (!$this->_contains($test,'['.$this->application['media'].']')) {
+			if (!I::contains($test,'['.$this->application['media'].']')) {
 				return false;
 			}
 		}
@@ -43,7 +43,7 @@ class Templater_Base Extends ImpactBase {
 		//Restrictions based on language - eg. en_gb, es, de, jp ...etc
 		if (array_key_exists('lang',$attributes)) {
 			$test = I::reformat_role_string($attributes['lang']);
-			if (!$this->_contains($test,'['.$this->applications['lang'].']')) {
+			if (!I::contains($test,'['.$this->applications['lang'].']')) {
 				return false;
 			}
 		}
@@ -123,19 +123,6 @@ class Templater_Base Extends ImpactBase {
 		
 		return $iParser->isLive();
 		
-	}
-    
-    /**
-	 *	Test for text snippet in another string.
-	 *
-	 *	@private
-	 *	@param string $txt1 The string to search.
-	 *	@param string $txt2 The string to search for.
-	 *	@return boolean Was the text found?
-	 */
-	private function _contains($txt1,$txt2) {
-		$pos = stripos($txt1, $txt2);
-		return ($pos !== false) ? true:false;
 	}
     
     /**
