@@ -12,7 +12,6 @@ class Test_Templater_Loop extends PHPUnit_Framework_TestCase {
     private $parser;
 	private $acl;
 	
-	
     protected function setUp() {
 		if (!defined('__DIR__')) {
 			$iPos = strrpos(__FILE__, "/");
