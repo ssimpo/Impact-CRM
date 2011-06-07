@@ -82,14 +82,13 @@ class Templater extends ImpactBase {
 	public function init($application,$path='',$path2='') {
 		
 		$this->application = $this->_get_application($application);
-		if ((is_string($path)) || ($path=='')) {
+		if (is_string($path)) {
 			if ($path !='') {
 				$this->parse($path);
 			}
 			
-			$this->mainApplication = array();
+			$this->mainApplication = $this->application;
 			$this->_set_componant($this->application);
-			print_r($this->application);
 			$this->acl = $this->application['acl'];
 		} else {
 			$this->mainApplication = $this->_get_application($path);
@@ -301,7 +300,7 @@ class Templater extends ImpactBase {
 	protected function _loop($matches) {
 		$attributes = $this->_get_attributes($matches[1]);
 		$template = '';
-
+		
 		if ($this->_acl($attributes)) {
 			$array = '';
 			if (array_key_exists('name',$attributes)) {
@@ -585,8 +584,7 @@ class Templater extends ImpactBase {
 			$attributes['exclude']='';
 		}
 		
-		$acl = new Acl(Application::instance());
-		return $acl->allowed($attributes['include'],$attributes['exclude']);
+		return $this->acl->allowed($attributes['include'],$attributes['exclude']);
 	}
 	
 	protected function _ical(&$attributes) {
