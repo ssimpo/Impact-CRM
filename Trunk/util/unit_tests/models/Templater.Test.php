@@ -184,7 +184,8 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
     public function test_loop() {
         $method = self::get_method('_loop');
         $result1 = '<p>TEST</p><p>TEST</p><p>TEST</p><p>TEST</p>';
-        $result2 = '<p>TEST one</p><p>TEST two</p>';
+        $result2 = '<ul><li>TEST</li><li>TEST</li></ul><ul><li>TEST</li><li>TEST</li></ul>';
+        $result3 = '<p>TEST one</p><p>TEST two</p>';
         $matches1 = array('','','<p>TEST</p>');
         
         // Test against an item within the application array
@@ -197,7 +198,6 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
             $method->invokeArgs($this->templater,array($matches1))
         );
         
-        
         // Test against an array
         $this->templater->init(
             array(1,2,3,4), array('acl'=>$this->acl)
@@ -208,6 +208,20 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
             $method->invokeArgs($this->templater,array($matches1))
         );
         
+        // Test against loops of loops
+        $this->templater->init(
+            array(
+                array('children'=>array(1,2)),
+                array('children'=>array(1,2))
+            ),
+            array('acl'=>$this->acl)
+        );
+        $matches1[2] = '<ul><template:loop name="children"><li>TEST</li></template:loop></ul>';
+        $this->assertEquals(
+            $result2,
+            $method->invokeArgs($this->templater,array($matches1))
+        );
+        
         // Test that data is transfered to the loop
         $this->templater->init(
             array(array('name'=>'one'),array('name'=>'two')),
@@ -215,7 +229,7 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
         );
         $matches1[2] = '<p>TEST <template:data name="name" /></p>';
         $this->assertEquals(
-            $result2,
+            $result3,
             $method->invokeArgs($this->templater,array($matches1))
         );
     }
@@ -234,8 +248,16 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
     
     public function test_data() {
         $method = self::get_method('_data');
+        $result1 = 'HELLO WORLD';
         
-        // STUB
+        $this->templater->init(
+            array('data'=>'HELLO WORLD', 'acl'=>$this->acl)
+        );
+        
+        $this->assertEquals(
+            $result1,
+            $method->invokeArgs($this->templater,array(' name="data"'))
+        );
     }
     
     public function test_include() {
