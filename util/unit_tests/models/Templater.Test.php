@@ -109,78 +109,6 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
         $this->assertEquals($this->templater->xml,$xml);
     }
     
-    public function test_loop() {
-        /*$array = array(
-            'settings'=>array('items'=>array(1,2,3,4)),'acl'=>$this->acl
-=======
-        /*$method = self::get_method('_loop');
-        $result1 = '<p>TEST</p><p>TEST</p><p>TEST</p><p>TEST</p>';
-        $result2 = '<ul><li>TEST</li><li>TEST</li></ul><ul><li>TEST</li><li>TEST</li></ul>';
-        $result3 = '<p>TEST one</p><p>TEST two</p>';
-        $matches1 = array(
-            'block'=>'',
-            'tagname'=>'loop',
-            'attributes'=>array(),
-            'content'=>'<p>TEST</p>'
->>>>>>> .r157
-        );
-<<<<<<< .mine
-        $this->templater->init($array);
-        $method = self::get_method('_loop');
-=======
->>>>>>> .r157
-        
-<<<<<<< .mine
-        $matches = array('',' name="items"','<p>TEST</p>');
-        $result = '<p>TEST</p><p>TEST</p><p>TEST</p><p>TEST</p>';
-=======
-        // Test against an item within the application array
-        $this->templater->init(
-            array('items'=>array(1,2,3,4), 'acl'=>$this->acl)
-        );
-        $matches1['attributes'] = array('name'=>'items');
->>>>>>> .r157
-        $this->assertEquals(
-            $result1,
-            $method->invokeArgs($this->templater,array($matches1))
-        );
-        
-        // Test against an array
-        $this->templater->init(
-            array(1,2,3,4), array('acl'=>$this->acl)
-        );
-        $matches1['attributes'] = array();
-        $this->assertEquals(
-            $result1,
-            $method->invokeArgs($this->templater,array($matches1))
-        );
-        
-        // Test against nested loops
-        $this->templater->init(
-            array(
-                array('children'=>array(1,2)),
-                array('children'=>array(1,2))
-            ),
-            array('acl'=>$this->acl)
-        );
-        $matches1['content'] = '<ul><template:loop name="children"><li>TEST</li></template:loop></ul>';
-        $this->assertEquals(
-            $result2,
-            $method->invokeArgs($this->templater,array($matches1))
-        );
-        
-        // Test that data is transfered to the loop
-        $this->templater->init(
-            array(array('name'=>'one'),array('name'=>'two')),
-            array('acl'=>$this->acl)
-        );
-        $matches1['content'] = '<p>TEST <template:data name="name" /></p>';
-        $this->assertEquals(
-            $result3,
-            $method->invokeArgs($this->templater,array($matches1))
-        );*/
-    }
-    
     public function test_block() {
         //$method = self::get_method('_block');
         
@@ -291,38 +219,6 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
 			$method->invokeArgs(
                 $this->templater,
                 array('<div   id="test"   class="bluebox"  >TEST TEXT</div>')
-            )
-		);
-    }
-    
-    public function test_date_reformat() {
-        $method = self::get_method('_date_reformat');
-        
-        $this->assertEquals(
-            '20110427T211453Z',
-			$method->invokeArgs($this->templater,array('2011-04-27 21:14:53'))
-		);
-    }
-    
-    public function test_contains() {
-        $method = self::get_method('_contains');
-        
-        $this->assertTrue(
-			$method->invokeArgs(
-                $this->templater,
-                array('<template:test />','>')
-            )
-		);
-        $this->assertFalse(
-			$method->invokeArgs(
-                $this->templater,
-                array('<template:test />','_')
-            )
-		);
-        $this->assertTrue(
-			$method->invokeArgs(
-                $this->templater,
-                array('<template:test />','T')
             )
 		);
     }
