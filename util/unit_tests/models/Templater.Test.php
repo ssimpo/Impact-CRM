@@ -110,6 +110,9 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
     }
     
     public function test_loop() {
+        /*$array = array(
+            'settings'=>array('items'=>array(1,2,3,4)),'acl'=>$this->acl
+=======
         /*$method = self::get_method('_loop');
         $result1 = '<p>TEST</p><p>TEST</p><p>TEST</p><p>TEST</p>';
         $result2 = '<ul><li>TEST</li><li>TEST</li></ul><ul><li>TEST</li><li>TEST</li></ul>';
@@ -119,13 +122,24 @@ class Test_Templater extends PHPUnit_Framework_TestCase {
             'tagname'=>'loop',
             'attributes'=>array(),
             'content'=>'<p>TEST</p>'
+>>>>>>> .r157
         );
+<<<<<<< .mine
+        $this->templater->init($array);
+        $method = self::get_method('_loop');
+=======
+>>>>>>> .r157
         
+<<<<<<< .mine
+        $matches = array('',' name="items"','<p>TEST</p>');
+        $result = '<p>TEST</p><p>TEST</p><p>TEST</p><p>TEST</p>';
+=======
         // Test against an item within the application array
         $this->templater->init(
             array('items'=>array(1,2,3,4), 'acl'=>$this->acl)
         );
         $matches1['attributes'] = array('name'=>'items');
+>>>>>>> .r157
         $this->assertEquals(
             $result1,
             $method->invokeArgs($this->templater,array($matches1))
