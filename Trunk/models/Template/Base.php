@@ -141,13 +141,20 @@ class Template_Base Extends ImpactBase {
 	 */
 	protected function _get_application_item($key) {
 		if ((is_string($key)) || (is_numeric($key))) {
-			if (array_key_exists($key,$this->application)) {
-				return $this->application[$key];
-			} elseif (array_key_exists($key,$this->mainApplication)) {
-				return $this->mainApplication[$key];
+			if ((!empty($this->application)) && (is_array($this->application))) {
+				if (array_key_exists($key,$this->application)) {
+					return $this->application[$key];
+				}
+			}
+			
+			if ((!empty($this->mainApplication)) && (is_array($this->mainApplication))) {
+				if (array_key_exists($key,$this->mainApplication)) {
+					return $this->mainApplication[$key];
+				}
 			}
 		}
 		
 		return '';
 	}
+	
 }

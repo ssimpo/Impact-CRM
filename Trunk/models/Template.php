@@ -136,10 +136,13 @@ class Template extends ImpactBase {
 	
 	private function _parse_handle($matches) {
 		$match = $this->_create_match_array($matches);
-		$className = 'Template_'.$match['tagname'];
+		$className = $this->_get_template_classname($match['tagname']);
 		$parser = $this->_get_parser($className);
-		
 		return $parser->parse($match);
+	}
+	
+	private function _get_template_classname($tagname) {
+		return 'Template_'.ucfirst(strtolower($tagname));
 	}
 	
 	private function _create_match_array($matches) {
@@ -268,11 +271,21 @@ class Template extends ImpactBase {
 	 *	@return string
 	 */
 	private function _get_application_item($key) {
-		if (array_key_exists($key,$this->application)) {
-			return $this->application[$key];
-		} elseif (array_key_exists($key,$this->mainApplication)) {
-			return $this->mainApplication[$key];
+		if ((is_string($key)) || (is_numeric($key))) {
+			if (!empty($this->application)) {
+				if (array_key_exists($key,$this->application)) {
+					return $this->application[$key];
+				}
+			}
+		
+			if (!empty($this->mainApplication)) {
+				if (array_key_exists($key,$this->mainApplication)) {
+					return $this->mainApplication[$key];
+				}
+			}
 		}
+
+		return '';
 		
 		return '';
 	}
