@@ -43,6 +43,13 @@ class Test_Database extends PHPUnit_Framework_TestCase {
 		$classFileName = str_replace('_',DS,$className).'.php';
 		require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
     }
+	
+	protected static function get_method($name) {
+		$class = new ReflectionClass('Database');
+		$method = $class->getMethod($name);
+		$method->setAccessible(true);
+		return $method;
+    }
     
     public function test_get_row() {
         /*$this->assertEquals(
