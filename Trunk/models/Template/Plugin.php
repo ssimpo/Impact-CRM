@@ -24,6 +24,7 @@ class Template_Plugin Extends Template_Base implements Template_Object {
 		
 		if ((array_key_exists('name',$attributes)) && ($this->_show($attributes))) {
 			$plugin = Plugin::factory($attributes['name']);
+			
 			if ($plugin !== false) {
 				$template = $plugin->run($attributes);
 			}
