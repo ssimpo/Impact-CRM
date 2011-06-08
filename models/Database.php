@@ -68,13 +68,13 @@ class Database extends Singleton {
 	 */
 	public function get_row($timeout,$SQL) {
 		$this->_test_connection();
-		$rs = $this->database->CacheSelectLimit($timeout,$SQL,1);
-		if ($rs) {
-			$rs = $rs->GetAll();
-			return $rs[0];
-		} else {
-			return false;
+		$rs = $this->get_rows($timeout,$SQL);
+		
+		if (!empty($rs)) {
+			return array_shift($rs);
 		}
+		
+		return false;
 	}
 	
 	/**
@@ -89,8 +89,7 @@ class Database extends Singleton {
 		$this->_test_connection();
 		$rs = $this->database->CacheSelectLimit($timeout,$SQL);
 		if ($rs) {
-			$rs = $rs->GetAll();
-			return $rs;
+			return $rs->GetAll();
 		} else {
 			return false;
 		}
@@ -123,9 +122,9 @@ class Database extends Singleton {
 		$rs = $this->get_row(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower($application->language).'%")');
 		if ($rs === false) {
 			$SQL_p2 = '"'.strtolower(DEFAULT_LANG).'"';
-			$rc = $this->get_row(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower(DEFAULT_LANG).'%")');
+			$rs = $this->get_row(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower(DEFAULT_LANG).'%")');
 		}
-
+	
 		return $rs;
 	}
 	
