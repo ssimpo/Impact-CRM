@@ -20,9 +20,6 @@ class Test_Template_Constant extends PHPUnit_Framework_TestCase {
 		if (!defined('DS')) {
 			define('DS',DIRECTORY_SEPARATOR);
 		}
-		if (!defined('DS')) {
-			define('DS',DIRECTORY_SEPARATOR);
-		}
 		if (!defined('MODELS_DIRECTORY')) {
 			define('MODELS_DIRECTORY','models');
 		}
