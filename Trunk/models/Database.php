@@ -58,6 +58,30 @@ class Database extends Singleton {
 		$this->database->debug = false;
 	}
 	
+	public function try_rows($timeout,$SQL,$entities,$values) {
+		$sequencer = new Database_SqlSequencer;
+		$SQLs = $sequencer->exec($SQL,$entities,$values);
+		
+		foreach ($SQLs as $SQL) {
+			$rs = $this->get_rows($timeout,$SQL);
+			if (!empty($rs)) {
+				return $rs;
+			}
+		}
+	}
+	
+	public function try_row($timeout,$SQL,$entities,$values) {
+		$sequencer = new Database_SqlSequencer;
+		$SQLs = $sequencer->exec($SQL,$entities,$values);
+		
+		foreach ($SQLs as $SQL) {
+			$rs = $this->get_row($timeout,$SQL);
+			if (!empty($rs)) {
+				return $rs;
+			}
+		}
+	}
+	
 	/**
 	 *	Get a database row.
 	 *
@@ -116,15 +140,15 @@ class Database extends Singleton {
 			SELECT entities.application as application, content.* FROM content
 			INNER JOIN entities ON entities.ID = content.entityID
 			WHERE (entities.ID='.$entityID.') AND (current="YES") 
-				AND (media LIKE "%'.$application->media.'%") AND (content.lang 
+				AND (media LIKE "%'.$application->media.'%")
+				AND (content.lang LIKE "%<LANG>%")
 		';
 		
-		$rs = $this->get_row(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower($application->language).'%")');
-		if ($rs === false) {
-			$SQL_p2 = '"'.strtolower(DEFAULT_LANG).'"';
-			$rs = $this->get_row(DEFAULT_CACHE_TIMEOUT,$SQL.'LIKE "%'.strtolower(DEFAULT_LANG).'%")');
-		}
-	
+		$rs = $this->try_row(
+			120,$SQL,array('<LANG>'),
+			array(array(strtolower($application->language),strtolower(DEFAULT_LANG)))
+		);
+		
 		return $rs;
 	}
 	
@@ -147,15 +171,18 @@ class Database extends Singleton {
 				structure.path as structure, structure.sequence as sequence
 			FROM structure
 			INNER JOIN entities ON structure.entityID = entities.ID
-			WHERE menu="'.$menu.'"
-			AND include="YES"
-			AND lang LIKE "%'.strtolower($application->language).'%"
+			WHERE menu="'.$menu.'" AND include="YES"
+			AND lang LIKE "%<LANG>%"
 			ORDER BY sequence
 		';
 		
+		$rows = $this->try_rows(
+			120,$SQL,array('<LANG>'),
+			array(array(strtolower($application->language),strtolower(DEFAULT_LANG)))
+		);
+		
 		$menu = array();
 		$lookup = array();
-		$rows = $this->get_rows(120,$SQL);
 		if ($rows) {
 			foreach ($rows as $row) {
 				$row['children'] = array();
