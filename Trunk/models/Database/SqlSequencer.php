@@ -7,7 +7,7 @@
  *  executed in-turn until a result is found.
  *   
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.1
+ *	@version 0.0.2
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Database
  *
@@ -37,6 +37,8 @@ class Database_SqlSequencer extends ImpactBase {
         if (!empty($sql)) {
             $this->sql = $sql;
         }
+        
+        $application = Application::instance();
     }
     
     /**
@@ -257,19 +259,35 @@ class Database_SqlSequencer extends ImpactBase {
      */
     private function _make_array_of_array($data) {
 		if (!is_array($data)) {
-			$data = array($data);
+			return array(array($data));
 		}
-		$newArray = $data;
-		
-		foreach ($data as $key => $value) {
-			if (is_array($value)) {
-				$newArray[$key] = $value;
-			} else {
-				$newArray[$key] = array($value);
-			}
-		}
-		
-		return $newArray;
+        
+        $hasArrays = false;
+        $hasNoneArrays = false;
+        foreach ($data as $value) {
+            if (is_array($value)) {
+                $hasArrays = true;
+            } else {
+                $hasNoneArrays = true;
+            }
+        }
+        
+        if (($hasArrays) && (!$hasNoneArrays)) {
+            return $data;
+        } elseif (!$hasArrays) {
+            return array($data);
+        } else {
+            $array = array();
+            foreach ($data as $value) {
+                if (is_array($value)) {
+                    array_push($array,$value);
+                } else {
+                    array_push($array,array($value));
+                }
+            }
+            
+            return $array;
+        }
 	}
     
     /**
