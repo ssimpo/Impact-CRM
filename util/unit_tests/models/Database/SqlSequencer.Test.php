@@ -80,7 +80,7 @@ class Test_Database_SqlSequencer extends PHPUnit_Framework_TestCase {
         );
 		
 		$this->assertEquals(
-            array(array('item1'),array('item2')),
+            array(array('item1','item2')),
             $method->invokeArgs(
 				$this->database,
 				array(array('item1','item2'))

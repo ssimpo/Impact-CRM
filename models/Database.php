@@ -134,7 +134,8 @@ class Database extends Singleton {
 		}
 		
 		$SQL = '
-			SELECT entities.application as application, content.* FROM content
+			SELECT entities.application as application, content.*
+			FROM content
 			INNER JOIN entities ON entities.ID = content.entityID
 			WHERE (entities.ID='.$entityID.') AND (current="YES") 
 				AND (media LIKE "%'.$application->media.'%")
@@ -142,7 +143,7 @@ class Database extends Singleton {
 		';
 		
 		$rs = $this->try_row(
-			120,$SQL,array('<LANG>'),
+			120,$SQL,'<LANG>',
 			array(array(strtolower($application->language),strtolower(DEFAULT_LANG)))
 		);
 		
@@ -174,8 +175,8 @@ class Database extends Singleton {
 		';
 		
 		$rows = $this->try_rows(
-			120,$SQL,array('<LANG>'),
-			array(array(strtolower($application->language),strtolower(DEFAULT_LANG)))
+			120,$SQL,'<LANG>',
+			array(strtolower($application->language),strtolower(DEFAULT_LANG))
 		);
 		
 		$menu = array();
