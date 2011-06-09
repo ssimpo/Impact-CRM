@@ -43,7 +43,7 @@
 		description="" />
 	<param name="DB_PASSWORD" type="string" value="" label="Database password"
 		description="" />
-	<param name="DB_NAME" type="string" value="database/impact.db#"
+	<param name="DB_NAME" type="string" value="database/impact.sqlite"
 		label="Database name" description="" />
 
 	<!--param name="DB_DRIVER" type="string" value="MYSQL" label="Datebase type" 
