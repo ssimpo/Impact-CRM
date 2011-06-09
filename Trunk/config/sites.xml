@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<param
+	    name="Impact1"
+	    type="regx"
+	    value="/localhost/"
+	    src="impact1.xml"
+	    description="Impact 1 Website" />
+	<param
+	    name="Impact2"
+	    type="regx"
+	    value="/127\.0\.0\.1/"
+	    src="impact2.xml"
+	    description="Impact2 website" />
+</config>
