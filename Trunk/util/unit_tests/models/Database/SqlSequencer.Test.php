@@ -174,8 +174,8 @@ class Test_Database_SqlSequencer extends PHPUnit_Framework_TestCase {
 		
 	}
 	
-	public function test_get_matrix() {
-		$method = self::get_method('_get_matrix');
+	public function test_create_matrix() {
+		$method = self::get_method('_create_matrix');
 		
 		$this->database->entities = array('<LANG>');
 		$this->database->values = array(array('en_gb','en_us'));
