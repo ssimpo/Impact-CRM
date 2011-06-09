@@ -67,7 +67,7 @@
 		label="Models directory" description="" />
 	<param name="CONTROLLERS_DIRECTORY" type="string" value="controllers"
 		label="Controllers directory" description="" />
-	<param name="VIEWS_DIRECTORY" type="string" value="views"
+	<param name="VIEWS_DIRECTORY" type="string" value="sites/impact1/views"
 		label="Views directory" description="" />
 	<param name="PLUGINS_DIRECTORY" type="string" value="plugins"
 		label="Plugins directory" description="" />
