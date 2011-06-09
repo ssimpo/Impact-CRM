@@ -7,26 +7,59 @@
 *
 */
 class Database_SqlSequencer extends ImpactBase {
-    private $enities;
-    private $values;
-    private $template;
+    private $settings = array();
+    private $matrix;
     private $sql = array();
     
-    public function __construct() {
+    public function __construct($entities='',$values='') {
+        if (!empty($entities)) {
+            $this->entities = $entities;
+        }
+        if (!empty($entities)) {
+            $this->values = $values;
+        }
     }
     
-    public function exec($SQL,$entities,$values) {
-        $this->template = $SQL;
-        $this->entities = $this->_make_array($entities);
-		$this->values = $this->_make_array_of_array($values);
+    public function __set($property,$value) {
+		$convertedProperty = I::camelize($property);
         
-        $total = $this->_array_matrix_size($this->entities);
-        $matrix = $this->_get_matrix($this->entities,$this->values);
+        switch ($convertedProperty) {
+            case 'values':
+                $this->settings[$convertedProperty] = $this->_make_array($value);
+                $this->settings['size'] = $this->_matrix_size();
+                break;
+            case 'enities':
+                $this->settings[$convertedProperty] = $this->_make_array_of_array($value);
+                break;
+            case 'size':
+                throw new Exception('Cannot set the matrix size');
+                break;
+            default:
+                $this->settings[$convertedProperty] = $value;
+                break;
+        }
+	}
+    
+    public function __get($property) {
+		$convertedProperty = I::camelize($property);
+        
+        if (isset($this->settings[$convertedProperty])) {
+			return $this->settings[$convertedProperty];
+		} else {
+			if ($property = 'settings') {
+				return $this->settings;
+			}
+			throw new Exception('Property: '.$convertedProperty.', does not exist');
+		}
+	}
+    
+    public function exec($SQL) {
+        $matrix = $this->_get_matrix();
         
         $sql = array();
-        for ($i = 0; $i < count($matrix); $i++) {
+        for ($i = 0; $i < count($this->matrix); $i++) {
             $sql[$i] = $SQL;
-            foreach($matrix[$i] as $enity => $value) {
+            foreach($this->matrix[$i] as $enity => $value) {
                 $sql[$i] = str_replace($enity,$value,$sql[$i]);
             }
         }
@@ -34,20 +67,19 @@ class Database_SqlSequencer extends ImpactBase {
         return $sql;
     }
     
-    private function _get_matrix($entities,$values) {
-        $total = $this->_array_matrix_size($values);
-        $matrix = $this->_create_blank_matrix($entities,$total);
+    private function _get_matrix() {
+        $this->_create_blank_matrix();
         
-        for ($entityNo = 0; $entityNo < count($entities); $entityNo++) {
-            $entity = $entities[$entityNo];
+        for ($entityNo = 0; $entityNo < count($this->entities); $entityNo++) {
+            $entity = $this->entities[$entityNo];
             
-            $repeatNo = $this->_calc_repeat_number($values,$entityNo);
+            $repeatNo = $this->_calc_repeat_number($entityNo);
             $counter = 0;
-            while ($counter < $total) {
+            while ($counter < $this->size) {
                 
-                for ($valueNo = 0; $valueNo < count($values[$entityNo]); $valueNo++) {
+                for ($valueNo = 0; $valueNo < count($this->values[$entityNo]); $valueNo++) {
                     for ($ii = 0; $ii < $repeatNo; $ii++) {
-                        $matrix[$counter][$entity] = $values[$entityNo][$valueNo];
+                        $this->matrix[$counter][$entity] = $this->values[$entityNo][$valueNo];
                         $counter++;
                     }
                 }
@@ -55,33 +87,33 @@ class Database_SqlSequencer extends ImpactBase {
             }
         }
         
-        return $matrix;
+        return $this->matrix;
     }
     
-    private function _calc_repeat_number($values,$entityNo) {
+    private function _calc_repeat_number($entityNo) {
         $repeatNo = 1;
         
         for ($i = 1; $i <= $entityNo; $i++) {
-            $repeatNo *= count($values[$i-1]);
+            $repeatNo *= count($this->values[$i-1]);
         }
         
         return $repeatNo;
     }
     
-    private function _create_blank_matrix($entities,$total) {
-        $array = array();
+    private function _create_blank_matrix() {
+        $this->matrix = array();
         
-        for ($i = 0; $i < $total; $i++) {
-           $array[$i] =  $this->_create_blank_row($entities);
+        for ($i = 0; $i < $this->size; $i++) {
+            $this->matrix[$i] = $this->_create_blank_row();
         }
         
-        return $array;
+        return $this->matrix;
     }
     
-    private function _create_blank_row($entities) {
+    private function _create_blank_row() {
         $row = array();
         
-        foreach($entities as $entity) {
+        foreach($this->entities as $entity) {
             $row[$entity] = '';
         }
         
@@ -112,11 +144,11 @@ class Database_SqlSequencer extends ImpactBase {
 		return $data;
 	}
     
-    private function _array_matrix_size($array) {
+    private function _matrix_size() {
         $total = 1;
         
-        for ($i = 0; $i < count($array); $i++) {
-            $total *= count($array[$i]);
+        for ($i = 0; $i < count($this->values); $i++) {
+            $total *= count($this->values[$i]);
         }
         
         return $total;
