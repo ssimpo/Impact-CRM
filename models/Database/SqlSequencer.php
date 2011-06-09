@@ -15,7 +15,7 @@
 class Database_SqlSequencer extends ImpactBase {
     private $settings = array();
     private $matrix;
-    private $sql = array();
+    private $sql_array;
     
      /**
      *  Constructor
@@ -24,12 +24,18 @@ class Database_SqlSequencer extends ImpactBase {
      *  @param string|array The entities (values to search for in the SQL).
      *  @param string|array The values (what to replace the entities with).
      */
-    public function __construct($entities='',$values='') {
+    public function __construct($entities='',$values='',$database='',$sql='') {
         if (!empty($entities)) {
             $this->entities = $entities;
         }
         if (!empty($entities)) {
             $this->values = $values;
+        }
+        if (!empty($database)) {
+            $this->database = $database;
+        }
+        if (!empty($sql)) {
+            $this->sql = $sql;
         }
     }
     
@@ -37,8 +43,8 @@ class Database_SqlSequencer extends ImpactBase {
      *  Set class properties.
      *
      *  Properties are stored in the private settings array and can be
-     *  changed here.  values, entities and size are treated differently, with
-     *  conversion methods used on the first two and error thrown for the
+     *  changed here.  values, entities, sql and size are treated differently, with
+     *  conversion methods used on the first three and error thrown for the
      *  later.  Size cannot be set as it is a reflection of the matrix size.
      *
      *  @public
@@ -59,6 +65,10 @@ class Database_SqlSequencer extends ImpactBase {
             case 'size':
                 throw new Exception('Cannot set the matrix size');
                 break;
+            case 'sql':
+                $this->settings['template'] = $value;
+                $this->_get_sql();
+                break;
             default:
                 $this->settings[$convertedProperty] = $value;
                 break;
@@ -78,40 +88,71 @@ class Database_SqlSequencer extends ImpactBase {
     public function __get($property) {
 		$convertedProperty = I::camelize($property);
         
-        if (isset($this->settings[$convertedProperty])) {
+        if ($convertedProperty == 'sql') {
+            return $this->sql_array;
+        } elseif (isset($this->settings[$convertedProperty])) {
 			return $this->settings[$convertedProperty];
 		} else {
-			if ($property = 'settings') {
+			if ($convertedProperty == 'settings') {
 				return $this->settings;
-			}
+			} elseif ($convertedProperty == 'database') {
+                $this->settings[$convertedProperty] = Database::instance();
+                return $this->settings[$convertedProperty];
+            }
 			throw new Exception('Property: '.$convertedProperty.', does not exist');
 		}
 	}
     
     /**
-     *  Calculate a series of SQL statements from class settings.
-     *
-     *  Take the supplied SQL statement and run a series of search and replace
-     *  operations against it, according to the values stored in $this->entities
-     *  and $this->values.  Results are returned in an array of SQL statements,
-     *  which can be run in sequence.
+     *  Execute the current settings against the database.
      *  
      *  @public
      *  @param string $SQL The SQL, which needs converting.
-     *  @return array An array of SQL statements.
+     *  @return ADODBRecorset
      */
-    public function exec($SQL) {
+    public function exec($SQL='') {
+        if (!empty($SQL)) {
+            $this->template = $SQL;
+        }
+        
+        return $this->_get_sql(true);
+    }
+    
+    /**
+     *  Calculate a series of SQL statements from class settings.
+     *
+     *  Take the class SQL statement and run a series of search and replace
+     *  operations against it, according to the values stored in $this->entities
+     *  and $this->values.  Results are returned in an array of SQL statements,
+     *  which can be run in sequence. If execute is set then the SQL is run
+     *  until a result is found and then the recordset is returned instead;
+     *  doing this is quicker since search and replace is only done until a
+     *  result is found.
+     *  
+     *  @public
+     *  @param boolean $execute Execute the statements or not?
+     *  @return array|ADODBRecordset An array of SQL statements or the recordset result.
+     */
+    private function _get_sql($execute=false) {
         $this->_create_matrix();
         
-        $sql = array();
+        $this->sql_array = array();
         for ($i = 0; $i < count($this->matrix); $i++) {
-            $sql[$i] = $SQL;
+            $this->sql_array[$i] = $this->template;
             foreach($this->matrix[$i] as $enity => $value) {
-                $sql[$i] = str_replace($enity,$value,$sql[$i]);
+                $this->sql_array[$i] = str_replace($enity,$value,$this->sql_array[$i]);
+                
+                if ($execute) {
+                    $rs = $this->database->get_rows(120,$this->sql_array[$i]);
+                    if (!empty($rs)) {
+                        return $rs;
+                    }
+                }
+                
             }
         }
         
-        return $sql;
+        return $this->sql_array;
     }
     
     /**
