@@ -112,66 +112,64 @@ class Test_Database_SqlSequencer extends PHPUnit_Framework_TestCase {
         );
 	}
 	
-	public function test_array_matrix_size() {
-		$method = self::get_method('_array_matrix_size');
+	public function test_matrix_size() {
+		$method = self::get_method('_matrix_size');
 		
-		$tester = array( array(1,2,3,4,5,6), array(1,2,3), array(1,2) );
-		$this->assertEquals(
-            36,
-            $method->invokeArgs($this->database,array($tester))
-        );
+		$this->database->values = array(
+			array(1,2,3,4,5,6), array(1,2,3), array(1,2)
+		);
+		$this->assertEquals(36,$method->invokeArgs($this->database,array()));
 		
-		$tester = array( array(1,2), array(1,2,3,4), array(1,2,3), array(1,2) );
-		$this->assertEquals(
-            48,
-            $method->invokeArgs($this->database,array($tester))
-        );
+		$this->database->values = array(
+			array(1,2), array(1,2,3,4), array(1,2,3), array(1,2)
+		);
+		$this->assertEquals(48,$method->invokeArgs($this->database,array()));
 	}
 	
 	public function test_create_blank_matrix() {
 		$method = self::get_method('_create_blank_matrix');
-		$enities = array('enitity1','enitity2','enitity3');
-		$total = 3;
+		$this->database->entities = array('entity1','entity2','entity3');
+		$this->database->values = array(array(1,2,3));
 		
 		$this->assertEquals(
 			array(
-				array('enitity1'=>'','enitity2'=>'','enitity3'=>''),
-				array('enitity1'=>'','enitity2'=>'','enitity3'=>''),
-				array('enitity1'=>'','enitity2'=>'','enitity3'=>'')
+				array('entity1'=>'','entity2'=>'','entity3'=>''),
+				array('entity1'=>'','entity2'=>'','entity3'=>''),
+				array('entity1'=>'','entity2'=>'','entity3'=>'')
 			),
-            $method->invokeArgs($this->database,array($enities,$total))
+            $method->invokeArgs($this->database,array())
         );
 	}
 	
 	public function test_create_blank_row() {
 		$method = self::get_method('_create_blank_row');
 		
-		$enities = array('enitity1','enitity2','enitity3');
+		$this->database->entities = array('entity1','entity2','entity3');
 		$this->assertEquals(
-            array('enitity1'=>'','enitity2'=>'','enitity3'=>''),
-            $method->invokeArgs($this->database,array($enities))
+            array('entity1'=>'','entity2'=>'','entity3'=>''),
+            $method->invokeArgs($this->database,array())
         );
 	}
 	
 	public function test_calc_repeat_number() {
 		$method = self::get_method('_calc_repeat_number');
 		
-		$values = array(
+		$this->database->values = array(
 			array('en_gb','en_us'),
 			array('PC','FACEBOOK','MOBILE'),
 			array('ADMIN','WEB','SUPERUSER')
 		);
 		
 		$this->assertEquals(
-            1, $method->invokeArgs($this->database,array($values,0))
+            1, $method->invokeArgs($this->database,array(0))
         );
 		
 		$this->assertEquals(
-            2, $method->invokeArgs($this->database,array($values,1))
+            2, $method->invokeArgs($this->database,array(1))
         );
 		
 		$this->assertEquals(
-            6, $method->invokeArgs($this->database,array($values,2))
+            6, $method->invokeArgs($this->database,array(2))
         );
 		
 	}
@@ -179,25 +177,16 @@ class Test_Database_SqlSequencer extends PHPUnit_Framework_TestCase {
 	public function test_get_matrix() {
 		$method = self::get_method('_get_matrix');
 		
-		$entities = array('<LANG>');
-		$values = array(
-			array('en_gb','en_us'),
-		);
+		$this->database->entities = array('<LANG>');
+		$this->database->values = array(array('en_gb','en_us'));
 		$this->assertEquals(
-            array(
-				array('<LANG>'=>'en_gb'),
-				array('<LANG>'=>'en_us')
-			),
-            $method->invokeArgs(
-				$this->database,
-				array($entities,$values)
-			)
+            array(array('<LANG>'=>'en_gb'), array('<LANG>'=>'en_us')),
+            $method->invokeArgs($this->database,array())
         );
 		
-		$entities = array('<LANG>','<MEDIA>');
-		$values = array(
-			array('en_gb','en_us'),
-			array('PC','FACEBOOK','MOBILE')
+		$this->database->entities = array('<LANG>','<MEDIA>');
+		$this->database->values = array(
+			array('en_gb','en_us'), array('PC','FACEBOOK','MOBILE')
 		);
 		$this->assertEquals(
             array(
@@ -208,14 +197,11 @@ class Test_Database_SqlSequencer extends PHPUnit_Framework_TestCase {
 				array('<LANG>'=>'en_gb','<MEDIA>'=>'MOBILE'),
 				array('<LANG>'=>'en_us','<MEDIA>'=>'MOBILE')
 			),
-            $method->invokeArgs(
-				$this->database,
-				array($entities,$values)
-			)
+            $method->invokeArgs($this->database,array())
         );
 		
-		$entities = array('<LANG>','<MEDIA>','<ACCESS>');
-		$values = array(
+		$this->database->entities = array('<LANG>','<MEDIA>','<ACCESS>');
+		$this->database->values = array(
 			array('en_gb','en_us'),
 			array('PC','FACEBOOK','MOBILE'),
 			array('ADMIN','WEB')
@@ -235,10 +221,7 @@ class Test_Database_SqlSequencer extends PHPUnit_Framework_TestCase {
 				array('<LANG>'=>'en_gb','<MEDIA>'=>'MOBILE','<ACCESS>'=>'WEB'),
 				array('<LANG>'=>'en_us','<MEDIA>'=>'MOBILE','<ACCESS>'=>'WEB'),
 			),
-            $method->invokeArgs(
-				$this->database,
-				array($entities,$values)
-			)
+            $method->invokeArgs($this->database,array())
         );
 	}
 }

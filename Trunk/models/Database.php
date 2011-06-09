@@ -60,7 +60,9 @@ class Database extends Singleton {
 	
 	public function try_rows($timeout,$SQL,$entities,$values) {
 		$sequencer = new Database_SqlSequencer;
-		$SQLs = $sequencer->exec($SQL,$entities,$values);
+		$sequencer->entities = $entities;
+		$sequencer->values = $values;
+		$SQLs = $sequencer->exec($SQL);
 		
 		foreach ($SQLs as $SQL) {
 			$rs = $this->get_rows($timeout,$SQL);
@@ -72,7 +74,9 @@ class Database extends Singleton {
 	
 	public function try_row($timeout,$SQL,$entities,$values) {
 		$sequencer = new Database_SqlSequencer;
-		$SQLs = $sequencer->exec($SQL,$entities,$values);
+		$sequencer->entities = $entities;
+		$sequencer->values = $values;
+		$SQLs = $sequencer->exec($SQL);
 		
 		foreach ($SQLs as $SQL) {
 			$rs = $this->get_row($timeout,$SQL);
