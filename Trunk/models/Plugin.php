@@ -28,6 +28,9 @@ class Plugin {
 	if (include_once ROOT_BACK.PLUGINS_DIRECTORY.DS.strtolower($type).'.php') {
 	    $classname = 'Plugin_' . $type;
 	    return new $classname;
+	} elseif (include_once ROOT_BACK.PLUGINS_DIRECTORY.DS.strtolower($type).DS.'controllers'.DS.'controller.php') {
+		$classname = 'Plugin_' . $type;
+	    return new $classname;
 	} else {
 	    return false;
 	}
