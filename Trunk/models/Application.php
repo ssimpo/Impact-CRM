@@ -72,17 +72,6 @@ class Application extends Singleton {
 	}
 	
 	/**
-	 *	Cloning method.
-	 *
-	 *	This returns an error, since cloning of a singleton is not allowed.
-	 *
-	 *	@public
-	 */
-	//public function __clone() {
-		//trigger_error('Clone is not allowed.', E_USER_ERROR);
-	//}
-	
-	/**
 	 *	Generic set property method.
 	 *
 	 *	Set the value of an application property.  Values are stored in
@@ -108,7 +97,7 @@ class Application extends Singleton {
 		if (isset($this->settings[$convertedProperty])) {
 			return $this->settings[$convertedProperty];
 		} else {
-			if ($property = 'settings') {
+			if ($property == 'settings') {
 				return $this->settings;
 			}
 			throw new Exception('Property: '.$convertedProperty.', does not exist');
