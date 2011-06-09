@@ -13,20 +13,8 @@ class Template_Include Extends Template_Base implements Template_Object {
 	//Load include content, according to Acl
 		
 		$attributes = $match['attributes'];
-		$comtem = $this->component.'.xml';
-
-		$template = '';
 		if ($this->_show($attributes)) {
-			if ($attributes['type'] == 'component') {
-				if ($attributes['name'] == 'main') {
-					$parser = new Template($this->application);
-					$template = $parser->parse(ROOT_BACK.'/views/'.USE_TEMPLATE.'/'.$comtem);
-				}
-				if ($attributes['name'] == 'meta') {
-					$parser = new Template($this->application);
-					$template = $parser->parse(ROOT_BACK.'/views/'.USE_TEMPLATE.'/meta/'.$comtem);
-				}
-			}
+			$template = $parser->parse(__DIR__.$attributes['src']);
 		}
 	
 		return $template;
