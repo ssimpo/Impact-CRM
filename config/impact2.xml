@@ -43,7 +43,7 @@
 		description="" />
 	<param name="DB_PASSWORD" type="string" value="" label="Database password"
 		description="" />
-	<param name="DB_NAME" type="string" value="database/impact.sqlite"
+	<param name="DB_NAME" type="string" value="database/local.sqlite"
 		label="Database name" description="" />
 
 	<!--param name="DB_DRIVER" type="string" value="MYSQL" label="Datebase type" 
@@ -76,7 +76,7 @@
 	<param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="0"
 		label="Cache timeout (seconds)" description="" />
 
-	<param name="USE_THEME" type="string" value="ImpactProject2"
+	<param name="USE_THEME" type="string" value="ImpactProject1"
 		label="Theme" description="The theme to apply across the website" />
 
 	<!-- <param name="" type="" value="" label="" description="" /> <param name="" 
