@@ -6,7 +6,7 @@ RewriteRule ^(.*)$ sites/%{HTTP_HOST}/$1
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule ^([a-zA-Z0-9_?&+%]+)$ index.php?page=$1 [QSA]
+RewriteRule ^([a-zA-Z0-9_?&+%]+)$ index.php?page=$1 [QSA]
 RewriteRule ^([a-zA-Z0-9_?&+%]+)$ %{DOCUMENT_ROOT}/index.php?page=$1 [QSA]
 RewriteRule ^([a-zA-Z0-9_?&+%]+)\/$ %{DOCUMENT_ROOT}/index.php?page=$1 [QSA]
 
