@@ -55,7 +55,19 @@ function load_config($path) {
 					define($param['name'],(int) $param['value']);
 					break;
 				case 'boolean':
-					define($param['name'],(bool) $param['value']);
+					$value = strtolower(trim($param['value']));
+					switch ($value) {
+						case 'true':
+						case 'yes':
+						case 'on':
+							define($param['name'],true);
+							break;
+						case 'false':
+						case 'no':
+						case 'off':
+							define($param['name'],false);
+							break;
+					}
 					break;
 			}
 		}

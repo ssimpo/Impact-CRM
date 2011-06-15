@@ -18,4 +18,13 @@ define('DOMAIN', $_SERVER['HTTP_HOST']);
 define('CONTROLLERS_DIRECTORY', 'controllers');
 define('CONFIG_DIRECTORY', 'config');
 define('SITES_FILE', 'sites.xml');
+
+if (is_dir(ROOT_BACK.'sites'.DS.strtolower(str_replace('www.','',$_SERVER['HTTP_HOST'])))) {
+    define(
+        'SITE_FOLDER',
+        ROOT_BACK.'sites'.DS.strtolower(str_replace('www.','',$_SERVER['HTTP_HOST'])).DS
+    );
+} else {
+    define('SITE_FOLDER',ROOT_BACK.'sites'.DS.'default'.DS);
+}
 ?>

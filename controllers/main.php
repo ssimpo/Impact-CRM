@@ -10,7 +10,7 @@ function __autoload($className) {
     
 	$paths = array(ROOT_BACK.MODELS_DIRECTORY.DS);
 	if (USE_LOCAL_MODELS) {
-		array_unshift($paths,MODELS_DIRECTORY.DS);
+		array_unshift($paths,SITE_FOLDER.MODELS_DIRECTORY.DS);
 	}
 	
 	foreach ($paths as $path) {
@@ -18,7 +18,7 @@ function __autoload($className) {
 		
 		if (!@include_once $path.$classFileName) {
 			$classFileName = str_replace(DS.'Base.php','.php',$classFileName);
-			if (include_once $path.$classFileName) {
+			if (@include_once $path.$classFileName) {
 				return true;
 			}
 		} else {

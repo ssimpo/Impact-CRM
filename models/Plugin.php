@@ -32,11 +32,11 @@ class Plugin {
 		if (USE_LOCAL_PLUGINS) {
 			array_unshift(
 				$paths,
-				PLUGINS_DIRECTORY.DS.strtolower($type).'.php'
+				SITE_FOLDER.PLUGINS_DIRECTORY.DS.strtolower($type).'.php'
 			);
 			array_unshift(
 				$paths,
-				PLUGINS_DIRECTORY.DS.strtolower($type).DS.'controllers'.DS.'controller.php'
+				SITE_FOLDER.PLUGINS_DIRECTORY.DS.strtolower($type).DS.'controllers'.DS.'controller.php'
 			);
 		}
 		
