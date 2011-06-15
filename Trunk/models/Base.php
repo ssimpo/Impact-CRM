@@ -74,7 +74,7 @@ class Base {
 	private function _dynamic_class_include($className) {
 		$paths = array(ROOT_BACK.MODELS_DIRECTORY.DS);
 		if (USE_LOCAL_MODELS) {
-			array_unshift($paths,MODELS_DIRECTORY.DS);
+			array_unshift($paths,SITE_FOLDER.MODELS_DIRECTORY.DS);
 		}
 		
 		foreach ($paths as $path) {
