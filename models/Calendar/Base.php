@@ -10,7 +10,7 @@
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
 *	@package Calendar
 */
-class Calendar_Base Extends ImpactBase {
+class Calendar_Base Extends Base {
 	protected $data = array();
 	protected static $dateTagLookup = array(
 		'startDate' => true, 'endDate' => true,

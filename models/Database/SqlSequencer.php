@@ -12,7 +12,7 @@
  *	@package Database
  *
  */
-class Database_SqlSequencer extends ImpactBase {
+class Database_SqlSequencer extends Base {
     private $settings = array();
     private $matrix;
     private $sql_array;
