@@ -7,19 +7,26 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  */
 function __autoload($className) {
-    $classFileName = str_replace('_',DS,$className).'.php';
-    if (!include_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName) {
-		if (I::contains($classFileName,'Base.php')) {
-			$classFileName = str_replace(
-				DS.'Base.php',
-				'.php',
-				$classFileName
-			);
-			if (!include_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName) {
-				throw new Exception($className.' Class not found');
+    
+	$paths = array(ROOT_BACK.MODELS_DIRECTORY.DS);
+	if (USE_LOCAL_MODELS) {
+		array_unshift($paths,MODELS_DIRECTORY.DS);
+	}
+	
+	foreach ($paths as $path) {
+		$classFileName = str_replace('_',DS,$className).'.php';
+		
+		if (!@include_once $path.$classFileName) {
+			$classFileName = str_replace(DS.'Base.php','.php',$classFileName);
+			if (include_once $path.$classFileName) {
+				return true;
 			}
+		} else {
+			return true;
 		}
-    }
+	}
+	
+	throw new Exception($className.' Class not found');
 }
 
 

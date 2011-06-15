@@ -25,15 +25,30 @@ class Plugin {
     *		@return object/boolean The plugin class or false if it couldn't be found.
     */
     public static function factory($type) {
-	if (include_once ROOT_BACK.PLUGINS_DIRECTORY.DS.strtolower($type).'.php') {
-	    $classname = 'Plugin_' . $type;
-	    return new $classname;
-	} elseif (include_once ROOT_BACK.PLUGINS_DIRECTORY.DS.strtolower($type).DS.'controllers'.DS.'controller.php') {
-		$classname = 'Plugin_' . $type;
-	    return new $classname;
-	} else {
-	    return false;
-	}
+		$paths = array(
+			ROOT_BACK.PLUGINS_DIRECTORY.DS.strtolower($type).'.php',
+			ROOT_BACK.PLUGINS_DIRECTORY.DS.strtolower($type).DS.'controllers'.DS.'controller.php'
+		);
+		if (USE_LOCAL_PLUGINS) {
+			array_unshift(
+				$paths,
+				PLUGINS_DIRECTORY.DS.strtolower($type).'.php'
+			);
+			array_unshift(
+				$paths,
+				PLUGINS_DIRECTORY.DS.strtolower($type).DS.'controllers'.DS.'controller.php'
+			);
+		}
+		
+		foreach ($paths as $path) {
+			$classname = 'Plugin_' . $type;
+			
+			if (@include_once $path) {
+				return new $classname;
+			}
+		}
+		
+		return false;
     }
 }
 

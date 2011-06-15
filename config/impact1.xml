@@ -65,12 +65,16 @@
 		label="Cache directory" description="" />
 	<param name="MODELS_DIRECTORY" type="string" value="models"
 		label="Models directory" description="" />
+	<param name="USE_LOCAL_MODELS" type="boolean" value="false"
+		label="Use Local site models" description="" />
 	<param name="CONTROLLERS_DIRECTORY" type="string" value="controllers"
 		label="Controllers directory" description="" />
 	<param name="VIEWS_DIRECTORY" type="string" value="sites/localhost/views"
 		label="Views directory" description="" />
 	<param name="PLUGINS_DIRECTORY" type="string" value="plugins"
 		label="Plugins directory" description="" />
+	<param name="USE_LOCAL_PLUGINS" type="boolean" value="true"
+		label="Use Local site plugins" description="" />
 	<!--param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="3600" label="Cache 
 		timeout (seconds)" description="" / -->
 	<param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="0"
