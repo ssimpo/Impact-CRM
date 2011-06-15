@@ -54,6 +54,9 @@ function load_config($path) {
 				case 'integer':
 					define($param['name'],(int) $param['value']);
 					break;
+				case 'boolean':
+					define($param['name'],(bool) $param['value']);
+					break;
 			}
 		}
 	}
