@@ -11,7 +11,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
-class ImpactBase {
+class Base {
 	
 	/**
 	 *	Factory method

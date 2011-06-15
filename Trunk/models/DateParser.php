@@ -9,7 +9,7 @@
  *
  *	@todo derive Factory Method from base class
  */
-class DateParser Extends ImpactBase {
+class DateParser Extends Base {
 	private static $config=false;
 	
 	/**

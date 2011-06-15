@@ -11,7 +11,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar
  */
-class ICalImporter extends ImpactBase {
+class ICalImporter extends Base {
     private $parser = '';
     private $data = '';
     private $calendar = '';

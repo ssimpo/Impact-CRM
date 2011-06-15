@@ -7,7 +7,7 @@
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
 *	@package Template
 */
-class Template_Base Extends ImpactBase {
+class Template_Base Extends Base {
     protected $application;
 	protected $mainApplication;
 	protected $acl;

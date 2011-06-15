@@ -8,7 +8,7 @@
 *	@package Calendar
 */
 
-class Calendar Extends ImpactBase {
+class Calendar Extends Base {
 	protected $objects = array();
 	protected $objectToImpactIds = array();
 	protected $impactToObjectIds = array();

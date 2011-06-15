@@ -12,7 +12,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
-abstract class Singleton extends ImpactBase {
+abstract class Singleton extends Base {
 	/**
 	 * Array of cached singleton objects.
 	 *

@@ -9,7 +9,7 @@
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
-class Acl extends ImpactBase {
+class Acl extends Base {
 	private $roles = array();
 	private $application;
 	public $accessLevel = 0;

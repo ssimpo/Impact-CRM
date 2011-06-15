@@ -9,7 +9,7 @@
  *
  *	@todo Test with xCal using SAX and make it work for this.
  */
-class iCalInterpreter extends ImpactBase {
+class iCalInterpreter extends Base {
 	private $savi = '';
 	private $data = array();
 	private $block = '';

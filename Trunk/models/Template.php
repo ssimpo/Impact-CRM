@@ -12,7 +12,7 @@
 *	@todo Tags that open and close at same time <img /> have to be on one line this needs fixing.
 *	@todo When bad dadta is passed it often results in infinite loops
 */
-class Template extends ImpactBase {
+class Template extends Base {
 	protected $application;
 	protected $mainApplication;
 	protected $acl;
