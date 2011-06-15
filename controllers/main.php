@@ -40,7 +40,7 @@ if ($application->pageErrorCheck) {
 		$database->get_page(),
 		$application->settings
 	);
-
+    
     echo $tparser->parse(VIEWS_DIRECTORY.DS.USE_THEME.DS.'main.xml');
 }
 
