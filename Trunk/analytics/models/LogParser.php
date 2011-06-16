@@ -47,38 +47,9 @@ class LogParser extends Base {
      */
     private function _get_profile($profile) {
         if (!array_key_exists($profile,$this->profiles)) {
-            $this->_load_profile($profile);
+            $this->profiles[$profile] = new LogProfile($profile);
         }
         return $this->profiles[$profile];
-    }
-    
-    /**
-     *  Load a profile into memory
-     *
-     *  @private
-     *  @param string $profile The name of filter-profile to load.
-     */
-    private function _load_profile($profile) {
-        $profileFilename = SITE_FOLDER.CONFIG_DIRECTORY.DS.'profiles'.DS.$profile.'.xml';
-        
-        if (is_file($profileFilename)) {
-            $config = simplexml_load_file($profileFilename);
-            $data = array();
-        
-            foreach ($config->param as $param) {
-                $data[trim($param['name'])] = array(
-                    'name' => trim($param['value']),
-                    'include' => ((trim($param['include'])=='yes')?true:false),
-                    'type' => trim($param['type']),
-                    'value' => str_replace('&quot;','"',$param['value']),
-                    'subject' => trim($param['subject'])
-                );
-            }
-            
-            $this->profiles[$profile] = $data;
-        } else {
-            throw new Exception('Profile: "'.$profile.'" does not exist');
-        }
     }
     
     /**
@@ -95,7 +66,7 @@ class LogParser extends Base {
             if ($dh = opendir($dir)) {
                 while (($filename = readdir($dh)) !== false) {
                     if ($this->_check_is_logfile($filename)) {
-                        $this->_load_file($dir.$filename,$profile);
+                        $this->_parse_file($dir.$filename,$profile);
                     }
                 }
             } else {
@@ -125,12 +96,19 @@ class LogParser extends Base {
      *  @param string $filename The name of the file to tom process.
      *  @param string $profile The name of filter-profile to use.
      */
-    private function _load_file($filename,$profile) {
+    private function _parse_file($filename,$profile) {
         $handle = @fopen($filename,'r');
         if ($handle) {
             while (!feof($handle)) {
                 $line = $this->_get_line($handle);
-                $this->_parse_line($line,$profile);
+                $data = $this->interpreter->parse($line);
+                
+                if ($this->profiles[$profile]->include_line($data)) {
+                    #echo "INC: ".$data['request']."\n";
+                } else {
+                    #echo "EXC: ".$data['request']."\n";
+                }
+                
             }
             fclose($handle);
         } else {
@@ -154,38 +132,5 @@ class LogParser extends Base {
         
         return null;
     }
-    
-    /**
-     *  Parse a single line
-     *
-     *  Use the specified profile against each the supplied log line.
-     *
-     *  @private
-     *  @param string $line The log-line to parse.
-     *  @param string $profile The name of filter-profile to use.
-     */
-    private function _parse_line($line,$profile) {
-        $parsed = $this->interpreter->parse($line);
-        
-        $include = true;
-        foreach ($this->profiles[$profile] as $test) {
-            if (!$test['include']) {
-                if ($test['type'] == 'regx') {
-                    $found = preg_match(
-                        $test['value'],
-                        $parsed[$test['subject']]
-                    );
-                    if ($found > 0) {
-                       $include = false; 
-                    }
-                }
-            }
-        }
-        
-        return $include;
-    }
-    
-    
-    
 }
 ?>
