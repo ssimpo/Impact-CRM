@@ -6,7 +6,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 /**
  *  Log Profile Clsss
  *
- *  Load a filter-profile and excute filtering according to it's settings.
+ *  Load a filter-profile and execute filtering according to it's settings.
  *  
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.1
@@ -29,7 +29,7 @@ class LogProfile extends Base {
     }
     
     /**
-     *  Include the specfied data (YES|NO).
+     *  Include the specified data (YES|NO).
      *
      *  Process the data according to the current profile and return boolean
      *  value, whether the line (which $data represents), should be included
@@ -73,11 +73,11 @@ class LogProfile extends Base {
     }
     
     /**
-     *  Process a set of paramters into the internal format.
+     *  Process a set of parameters into the internal format.
      *
      *  @private
      *  @param array() $params The parameters to parse.
-     *  @return array() The processed paramters.
+     *  @return array() The processed parameters.
      */
     private function _process_paramter($params) {    
         return array(
@@ -90,11 +90,11 @@ class LogProfile extends Base {
     }
     
     /**
-     *  Load the paramters from a specfied XML file.
+     *  Load the parameters from a specified XML file.
      *
      *  @private
      *  @param string $filename The name of the XML file to load.
-     *  @return array() The paramters or blank array.
+     *  @return array() The parameters or blank array.
      */
     private function _load_xml_parameters($filename) {
         if (is_file($filename)) {
