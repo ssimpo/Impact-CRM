@@ -1,4 +1,8 @@
 <?php
+if (!defined('DIRECT_ACCESS_CHECK')) {
+	die('Direct access is not allowed');
+}
+
 class Plugin_Series_Sample implements Impact_Plugin {
 
 	public function run($attributes) {

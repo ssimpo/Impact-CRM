@@ -1,4 +1,8 @@
 <?php
+if (!defined('DIRECT_ACCESS_CHECK')) {
+	die('Direct access is not allowed');
+}
+
 /*
  *	Class for testing against a geographic location using MaxMind's GeoIP
  *	database.

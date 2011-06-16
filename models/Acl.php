@@ -1,4 +1,8 @@
 <?php
+if (!defined('DIRECT_ACCESS_CHECK')) {
+	die('Direct access is not allowed');
+}
+
 /*
  *	Class for managing an Acl.  It will validate a given user against supplied roles.
  *	It will also allow for special user-groups that are assigned to various Facebook conditions or other

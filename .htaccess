@@ -1,21 +1,63 @@
+##
+#   Main .htaccess for Impact.
+#   
+#   @author Stephen Simpson <me@simpo.org>
+#   @version 0.3
+#   @license http://www.gnu.org/licenses/lgpl.html LGPL
+#
+
+Options -Indexes
 RewriteEngine on
 
-#Requests to views or media are redirected to the site sub-directory
-#These directories have to be included manually
-RewriteRule ^(views|media)/(.*)$ sites/%{HTTP_HOST}/$1/$2
 
-#Remove the www portion so that www.example.com == example.com
-RewriteRule ^(.+)/sites/www\.(.*)$ $1/sites/$1
-
-#If the request is not an accessible file or directory then
-# assume content from the CMS
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([a-zA-Z0-9_?&+%]+)$ index.php?page=$1 [QSA]
-
-#Standard error pages
+##
+#   Handle Errors using the CMS
+#
 ErrorDocument 404 /index.php?page=error404
 ErrorDocument 403 /index.php?page=error403
 ErrorDocument 402 /index.php?page=error402
 ErrorDocument 402 /index.php?page=error401
 ErrorDocument 500 /index.php?page=error500
+##
+
+
+##
+#   Handle requests content files (eg. GIFs, CSS, WMV, ...etc).
+#
+#   First test if requested is not accessible, then that it's actually a file.
+#   Requests that appear like directory requests are passed to the content
+#   management system for handling.  File-requests are routed to the site folder
+#   for the current domain.
+#
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} .*\.[A-Za-z0-9&%~-]+$
+RewriteCond %{HTTP_HOST} (www\.|)(.*)
+RewriteCond sites/%2/index.htm -F
+RewriteCond sites/%2/$1/$2 -F
+RewriteRule ^(.+)/(.*)$ sites/%2/$1/$2 [L]
+##
+
+
+##
+#   Handle requests for content files, which failed the previous handler.
+#
+#   Assume, that it failed due to no site folder for the current domain
+#   being available.  Requests are routed to the default folder.
+#
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} .*\.[A-Za-z0-9&%~-]+$
+RewriteCond sites/default/$1/$2 -F
+RewriteRule ^(.+)/(.*)$ sites/default/$1/$2 [L]
+##
+
+
+##
+#   CMS handling section.
+#
+#   If the request is not an accessible file or directory then assume content
+#   from the CMS
+#
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_?&+%]+)$ index.php?page=$1 [QSA]
+##

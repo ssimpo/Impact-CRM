@@ -1,4 +1,8 @@
 <?php
+if (!defined('DIRECT_ACCESS_CHECK')) {
+	die('Direct access is not allowed');
+}
+
 /*
  *	Class for testing current or specified users against various Facebook
  *	conditions.  Can be used to generate special on-the-fly roles, which a
