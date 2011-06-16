@@ -4,14 +4,13 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 }
 
 /**
-*	Calendar class
-*		
-*	@author Stephen Simpson <me@simpo.org>
-*	@version 0.0.5
-*	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@package Calendar
-*/
-
+ *	Calendar class
+ *		
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.0.5
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Calendar
+ */
 class Calendar Extends Base {
 	protected $objects = array();
 	protected $objectToImpactIds = array();
