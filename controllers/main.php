@@ -52,7 +52,7 @@ if ($application->pageErrorCheck) {
 		$application->settings
 	);
     
-    echo $tparser->parse(VIEWS_DIRECTORY.DS.USE_THEME.DS.'main.xml');
+    echo $tparser->parse(VIEWS_DIRECTORY.DS.USE_THEME.DS.'xml'.DS.'main.xml');
 }
 
 ?>
