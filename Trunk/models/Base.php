@@ -1,4 +1,8 @@
 <?php
+if (!defined('DIRECT_ACCESS_CHECK')) {
+	die('Direct access is not allowed');
+}
+
 /**
  *	Main base class.
  *
@@ -26,13 +30,11 @@ class Base {
 	 *	@param String $className The name of the class to load.
 	*/
 	public function factory($className,$args=array()) {
-		
 		if (!(isset($this) && get_class($this) == __CLASS__)) {
 			$this->_dynamic_class_include($className);
 		} else {
 			self::_dynamic_class_include($className);
 		}
-		
 		
 		try {
 			if (count($args) > 0) {

@@ -1,4 +1,8 @@
 <?php
+if (!defined('DIRECT_ACCESS_CHECK')) {
+	die('Direct access is not allowed');
+}
+
 /**
  *	iCal Interpreter, requires the SAVI parser for iCal/vCalendar/vCard
  *		

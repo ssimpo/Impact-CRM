@@ -1,4 +1,8 @@
 <?php
+if (!defined('DIRECT_ACCESS_CHECK')) {
+	die('Direct access is not allowed');
+}
+
 /*
 *	Class for building HTML from a supplied template.  Template is given either as a filepath 
 *	to an XML file or an XML content string. Given access to the $application object, the parser
