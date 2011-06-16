@@ -16,6 +16,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
  */
 class LogParser extends Base {
     private $settings = array();
+    private $fh = null;
     
     public function __construct($type='',$profile='') {
         if ($type != '') {
@@ -71,17 +72,22 @@ class LogParser extends Base {
      *  @return string|boolean=false The next valid line or false if end of file has been reached.
      */
     public function next() {
-        $handle = $this->_get_file($this->file);
+        if (is_null($this->fh)) {
+            $this->fh = $this->_get_file($this->file);
+        }
         
-        while (!feof($handle)) {
-            $line = $this->_get_line($handle);
-            $data = $this->interpreter->parse($line);
+        if (!is_null($this->fh)) {
+            while (!feof($this->fh)) {
+                $line = $this->_get_line($this->fh);
+                $data = $this->interpreter->parse($line);
             
-            if ($this->profile->include_line($data)) {
-                return $line;
+                if ($this->profile->include_line($data)) {
+                    return $line;
+                }
             }
         }
         
+        $this->fh = null;
         return false;
     }
     
