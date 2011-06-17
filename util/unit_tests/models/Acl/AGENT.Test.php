@@ -25,6 +25,9 @@ class Test_Acl_AGENT extends PHPUnit_Framework_TestCase {
 		if (!defined('ROOT_BACK')) {
 			define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS.'..'.DS);
 		}
+		if (!defined('DIRECT_ACCESS_CHECK')) {
+            define('DIRECT_ACCESS_CHECK',false);
+        }
 		spl_autoload_register('self::__autoload');
 		
 		$this->Acl = new Acl_AGENT();
