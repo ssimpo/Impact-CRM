@@ -43,6 +43,7 @@ class LogProfile extends Base {
         foreach ($this->profile as $test) {
             if (!$test['include']) {
                 if ($test['type'] == 'regx') {
+					#echo $test['value']."\n";
                     $found = preg_match($test['value'],$data[$test['subject']]);
                     if ($found > 0) {
                        return false;
@@ -59,17 +60,20 @@ class LogProfile extends Base {
      *
      *  @private
      *  @param string $profile The name of filter-profile to load.
+     *  @param string $namespace Added to the profile name, used when sub-profiles are loaded to avoid name clashes.
      */
-    private function _load_profile($profile) {
+    private function _load_profile($profile,$namespace='') {
         $profileFilename = SITE_FOLDER.CONFIG_DIRECTORY.DS.'profiles'.DS.$profile.'.xml';
         $params = $this->_load_xml_parameters($profileFilename);
-        $data = array();
         
         foreach ($params as $param) {
-            $data[trim($param['name'])] = $this->_process_paramter($param);
+			$name = $this->_get_test_name($param,$namespace);
+            $this->profile[$name] = $this->_process_paramter($param);
+			if ($this->profile[$name]['type'] == 'profile') {
+				$this->_load_profile($this->profile[$name]['value'],$name);
+			}
+			unset($this->profile[$name]);
         }
-            
-        $this->profile = $data;
     }
     
     /**
@@ -79,15 +83,38 @@ class LogProfile extends Base {
      *  @param array() $params The parameters to parse.
      *  @return array() The processed parameters.
      */
-    private function _process_paramter($params) {    
+    private function _process_paramter($params) {
         return array(
-            'name' => trim($params['value']),
-            'include' => ((trim($params['include'])=='yes')?true:false),
-            'type' => trim($params['type']),
-            'value' => str_replace('&quot;','"',$params['value']),
-            'subject' => trim($params['subject'])
+            'include' => ((trim($this->_safe_get_array_value($params,'include'))=='yes')?true:false),
+            'type' => trim($this->_safe_get_array_value($params,'type')),
+            'value' => str_replace('&quot;','"',trim($this->_safe_get_array_value($params,'value'))),
+            'subject' => trim($this->_safe_get_array_value($params,'subject'))
         );
     }
+	
+	/**
+	 *	Calculate a test name from the paramters and namespace.
+	 *
+	 *	@private
+	 *	@param array() $params The paramters to grab the name from.
+	 *	@param string $namespace The namespace to add to the test name.
+	 */
+	private function _get_test_name($params,$namespace) {
+		$name = trim($params['name']);
+		return ((trim($namespace)=='')?$name:$namespace.'.'.$name);
+	}
+	
+	/**
+	 *	Get an array value without throwing an error if key does not exist.
+	 *
+	 *	@private
+	 *	@param array() $array Array to get value of.
+	 *	@param string $key The key name.
+	 *	@return string
+	 */
+	private function _safe_get_array_value($array,$key) {
+		return ((array_key_exists($key,$array))?$array[$key]:'');
+	}
     
     /**
      *  Load the parameters from a specified XML file.

@@ -3,7 +3,12 @@
 	<param
         name="media_exclude" include="no"
         subject="request"
-        type="regx" value="/(?:gif|jpg|css|png|bmp|js)/i"
+        type="regx" value="/(?:gif|jpg|png|bmp|css|ico|swf|cur|js)/i"
         label="Exclude Media"
         description="Exclude hits to media, such as GIFs, JPGs, CSS, ...etc." />
+	<param
+        name="robots_exclude1"
+        type="profile" value="robots"
+        label="Exclude Robots"
+        description="Exclude hits from robots" />
 </config>
