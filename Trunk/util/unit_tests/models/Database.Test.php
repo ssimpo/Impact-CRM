@@ -34,6 +34,9 @@ class Test_Database extends PHPUnit_Framework_TestCase {
 		if (!defined('DB_NAME')) {
 			define('DB_NAME','database/impact.db#');
 		}
+		if (!defined('DIRECT_ACCESS_CHECK')) {
+            define('DIRECT_ACCESS_CHECK',false);
+        }
 		spl_autoload_register('self::__autoload');
 	
 		$this->database = Database::instance();

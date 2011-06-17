@@ -5,6 +5,7 @@
  */
 if(!defined('DS')) { define('DS',DIRECTORY_SEPARATOR); }
 if(!defined('ROOT_BACK')) { define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS.'..'.DS); }
+if (!defined('DIRECT_ACCESS_CHECK')) { define('DIRECT_ACCESS_CHECK',false); }
 require_once ROOT_BACK.'includes'.DS.'facebook'.DS.'facebook.php';
 
 class PHPSDKTestCase extends PHPUnit_Framework_TestCase
