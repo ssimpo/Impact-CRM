@@ -4,16 +4,16 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 }
 
 /**
- *  Log Profile Clsss
+ *  Log Search & Replace Clsss
  *
- *  Load a filter-profile and execute filtering according to it's settings.
+ *  Seach and replace on a log line according to the loaded profile
  *  
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Analytics
  */
-class LogProfile extends Base {
+class LogSearchReplace extends Base {
     private $profile = array();
 	private $entitySearch = array('&quot;','&amp;');
 	private $entityReplace = array('"','&');
@@ -31,31 +31,23 @@ class LogProfile extends Base {
     }
     
     /**
-     *  Include the specified data (YES|NO).
-     *
-     *  Process the data according to the current profile and return boolean
-     *  value, whether the line (which $data represents), should be included
-     *  or not.
+     *  Do a search and replace on the parsed logline.
      *
      *  @public
-     *  @param array() $data The processed log-line
-     *  @return boolean
+     *  @param array() $data The parsed logline to process
+     *  @return array() The processed data.
      */
-    public function include_line($data) {
+    public function parse_line($data) {
         foreach ($this->profile as $name => $test) {
-            if ((!$test['include']) && (!isset($test['value2']))) {
-                if ($test['type'] == 'regx') {
-                    $found = @preg_match($test['value'],$data[$test['subject']]);
-					if ($found === false) {
-						throw new Exception('Error in profile test: "'.$name.'"');
-					} elseif ($found > 0) {
-                       return false;
-                    }
-                }
-            }
+			$newitem = @preg_replace($test['value'],$test['replace'],$data[$test['subject']]);
+			if (trim($newitem) != '') {
+				$data[$test['subject']] = $newitem;
+			} else {
+				#throw new Exception('Error in profile test: "'.$name.'"');
+			}
         }
         
-        return true;
+        return $data;
     }
     
     /**
@@ -68,7 +60,7 @@ class LogProfile extends Base {
     private function _load_profile($profile,$namespace='') {
         $profileFilename = SITE_FOLDER.CONFIG_DIRECTORY.DS.'profiles'.DS.$profile.'.xml';
         $params = $this->_load_xml_parameters($profileFilename);
-        
+
         foreach ($params as $param) {
 			$name = $this->_get_test_name($param,$namespace);
             $this->profile[$name] = $this->_process_paramter($param);
@@ -88,13 +80,18 @@ class LogProfile extends Base {
      */
     private function _process_paramter($params) {
         return array(
-            'include' => ((trim($this->_safe_get_array_value($params,'include'))=='yes')?true:false),
             'type' => trim($this->_safe_get_array_value($params,'type')),
             'value' => str_replace(
 				$this->entitySearch,$this->entityReplace,
 				trim($this->_safe_get_array_value($params,'value'))
 			),
-            'subject' => trim($this->_safe_get_array_value($params,'subject'))
+			'replace' => str_replace(
+				$this->entitySearch,
+				$this->entityReplace,
+				trim($this->_safe_get_array_value($params,'replace'))
+			),
+			'subject' => trim($this->_safe_get_array_value($params,'subject')
+			),
         );
     }
 	

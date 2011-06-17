@@ -13,5 +13,6 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
  */
 interface LogInterpreter_Object {
    public function parse($line);
+   public function rebuild_line($data);
 }
 ?>

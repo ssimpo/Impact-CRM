@@ -38,5 +38,16 @@ class LogInterpreter_Apache extends LogInterpreter_Base implements LogInterprete
         
         return $parsed;
     }
+    
+     /**
+     *  Rebuild a logline from the parsed data array
+     *
+     *  @public
+     *  @param array() $data The parsed logline as an array.
+     *  @return string The reconstructed logline
+     */
+    public function rebuild_line($data) {
+        
+    }
 }
 ?>

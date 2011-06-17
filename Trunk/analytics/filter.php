@@ -6,7 +6,7 @@ require_once CONTROLLERS_DIRECTORY.DS.'main.php';
 $directoryParser = new LogDirectoryParser();
 #$directoryParser->add_directory('\\\\172.16.50.15\\d$\\lotus\\Domino\\Data\\domino\\logs\\');
 $directoryParser->add_directory('logs/');
-$logParser = new LogParser('Domino','condense');
+$logParser = new LogParser('Domino','condense','rcbc_search_and_replace');
 
 $filename = $directoryParser->start();
 do {
@@ -16,6 +16,7 @@ do {
     $logParser->file = $filename;
     do {
         $line = $logParser->next();
+        print $counter."\n";
         #print $line."\n";
         $counter++;
     } while ($line !== false);

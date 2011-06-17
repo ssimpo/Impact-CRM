@@ -39,5 +39,23 @@ class LogInterpreter_Domino extends LogInterpreter_Base implements LogInterprete
         
         return $parsed;
     }
+    
+    /**
+     *  Rebuild a logline from the parsed data array
+     *
+     *  @public
+     *  @param array() $data The parsed logline as an array.
+     *  @return string The reconstructed logline
+     */
+    public function rebuild_line($data) {
+        return $data['ip'].' '.$data['domain'].' - ['
+        .$data['date'].':'.$data['time'].' '.$data['timezone'].'] "'
+        .$data['method'].' '.$data['request'].' '.$data['protocol']
+        .'" '.$data['status'].' '.$data['size'].' "'
+        .$data['referer'].'" "'.$data['agent']
+        .'" '.$data['processing_time'].' "'.$data['cookie'].'" "'
+        .$data['server_path'].'"';
+        
+    }
 }
 ?>
