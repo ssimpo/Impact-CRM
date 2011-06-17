@@ -43,7 +43,6 @@ class LogProfile extends Base {
         foreach ($this->profile as $test) {
             if (!$test['include']) {
                 if ($test['type'] == 'regx') {
-					#echo $test['value']."\n";
                     $found = preg_match($test['value'],$data[$test['subject']]);
                     if ($found > 0) {
                        return false;
@@ -71,8 +70,8 @@ class LogProfile extends Base {
             $this->profile[$name] = $this->_process_paramter($param);
 			if ($this->profile[$name]['type'] == 'profile') {
 				$this->_load_profile($this->profile[$name]['value'],$name);
+				unset($this->profile[$name]);
 			}
-			unset($this->profile[$name]);
         }
     }
     
@@ -113,7 +112,7 @@ class LogProfile extends Base {
 	 *	@return string
 	 */
 	private function _safe_get_array_value($array,$key) {
-		return ((array_key_exists($key,$array))?$array[$key]:'');
+		return ((isset($array[$key]))?$array[$key]:'');
 	}
     
     /**
