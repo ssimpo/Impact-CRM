@@ -11,7 +11,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
 *	@package Template
 */
-class Template_Base Extends Base {
+abstract class Template_Base Extends Base {
     protected $application;
 	protected $mainApplication;
 	protected $acl;

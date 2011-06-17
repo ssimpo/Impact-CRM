@@ -15,7 +15,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Impact
  */
-class Base {
+abstract class Base {
 	
 	/**
 	 *	Factory method
