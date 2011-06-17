@@ -54,7 +54,7 @@ class LogInterpreter_Domino extends LogInterpreter_Base implements LogInterprete
         .'" '.$data['status'].' '.$data['size'].' "'
         .$data['referer'].'" "'.$data['agent']
         .'" '.$data['processing_time'].' "'.$data['cookie'].'" "'
-        .$data['server_path'].'"';
+        .$data['server_path'].'"'."\n";
         
     }
 }
