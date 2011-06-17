@@ -11,6 +11,6 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 *	@license http://www.gnu.org/licenses/lgpl.html LGPL
 *	@package Calendar
 */
-class ICalRRuleParser_Base Extends Base {
+abstract class ICalRRuleParser_Base Extends Base {
    
 }

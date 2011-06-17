@@ -3,7 +3,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 	die('Direct access is not allowed');
 }
 
-class Acl_TestBase {
+abstract class Acl_TestBase {
 	public function test($type,$attributes) {
 		$functionName = 'test_'.strtolower($type);
 		if (method_exists($this,$functionName)) {
