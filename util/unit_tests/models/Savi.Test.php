@@ -1,4 +1,6 @@
 <?php
+require_once('globals.php');
+
 /**
  *	Unit Test for the SAVI class.
  *
@@ -8,44 +10,10 @@
  *	@package UnitTests.Impact
  *	@extends PHPUnit_Framework_TestCase
  */
-class Test_Savi extends PHPUnit_Framework_TestCase {
-    private $templater = null;
-    
+class Test_Savi extends ImpactPHPUnit {
+
     protected function setUp() {
-		if (!defined('__DIR__')) {
-			$iPos = strrpos(__FILE__, "/");
-			define('__DIR__', substr(__FILE__, 0, $iPos) . '/');
-		}
-        if (!defined('DS')) {
-            define('DS',DIRECTORY_SEPARATOR);
-        }
-        if (!defined('MODELS_DIRECTORY')) {
-            define('MODELS_DIRECTORY','models');
-        }
-        if (!defined('ROOT_BACK')) {
-            define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
-        }
-		if (!defined('DIRECT_ACCESS_CHECK')) {
-            define('DIRECT_ACCESS_CHECK',false);
-        }
-		if (!defined('USE_LOCAL_MODELS')) {
-            define('USE_LOCAL_MODELS',false);
-        }
-        spl_autoload_register('self::__autoload');
-        
-        $this->parser = new Savi;
-    }
-    
-    private function __autoload($className) {
-        $classFileName = str_replace('_',DS,$className).'.php';
-        require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
-    }
-    
-    protected static function get_method($name) {
-        $class = new ReflectionClass('Savi');
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-        return $method;
+        $this->init('Savi');
     }
     
     public function test_ical_parse() {
@@ -66,33 +34,33 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
 		
 		$this->assertEquals(
 			$result,
-			$method->invokeArgs($this->parser,array("HELLO\r\nWORLD"))
+			$method->invokeArgs($this->instance,array("HELLO\r\nWORLD"))
 		);
 		$this->assertEquals(
 			$result,
-			$method->invokeArgs($this->parser,array("HELLO\rWORLD"))
+			$method->invokeArgs($this->instance,array("HELLO\rWORLD"))
 		);
 		$this->assertEquals(
 			$result,
-			$method->invokeArgs($this->parser,array("HELLO\n\rWORLD"))
+			$method->invokeArgs($this->instance,array("HELLO\n\rWORLD"))
 		);
 		$this->assertEquals(
 			$result,
-			$method->invokeArgs($this->parser,array("HELLO\x1EWORLD"))
+			$method->invokeArgs($this->instance,array("HELLO\x1EWORLD"))
 		);
 		$this->assertEquals(
 			$result,
-			$method->invokeArgs($this->parser,array("HELLO\x15WORLD"))
+			$method->invokeArgs($this->instance,array("HELLO\x15WORLD"))
 		);
 		
 		$result = "HELLO\n\nWORLD";
 		$this->assertEquals(
 			$result,
-			$method->invokeArgs($this->parser,array("HELLO\r\rWORLD"))
+			$method->invokeArgs($this->instance,array("HELLO\r\rWORLD"))
 		);
 		$this->assertEquals(
 			$result,
-			$method->invokeArgs($this->parser,array("HELLO\r\n\r\nWORLD"))
+			$method->invokeArgs($this->instance,array("HELLO\r\n\r\nWORLD"))
 		);
 	}
 	
@@ -106,11 +74,11 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
 		
 		$this->assertEquals(
 			$result,
-			$method->invokeArgs($this->parser,array("\tHELLO WORLD"))
+			$method->invokeArgs($this->instance,array("\tHELLO WORLD"))
 		);
 		$this->assertEquals(
 			$result,
-			$method->invokeArgs($this->parser,array("\t\t\tHELLO WORLD"))
+			$method->invokeArgs($this->instance,array("\t\t\tHELLO WORLD"))
 		);
 		
 	}
@@ -125,7 +93,7 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
 				'content' => '19700329T010000',
 				'rawtextcontent' => '19700329T010000'
 			),
-			$method->invokeArgs($this->parser,array('DTSTART:19700329T010000'))
+			$method->invokeArgs($this->instance,array('DTSTART:19700329T010000'))
 		);
 		
 		$this->assertEquals(
@@ -135,7 +103,7 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
 				'content' => 'The Christian Centre, Middlesbrough',
 				'rawtextcontent' => 'The Christian Centre, Middlesbrough'
 			),
-			$method->invokeArgs($this->parser,array('X-WR-CALNAME:The Christian Centre\, Middlesbrough'))
+			$method->invokeArgs($this->instance,array('X-WR-CALNAME:The Christian Centre\, Middlesbrough'))
 		);
 		
 		$this->assertEquals(
@@ -145,7 +113,7 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
 				'content' => array('FREQ'=>'YEARLY','BYMONTH'=>'3','BYDAY'=>'-1SU'),
 				'rawtextcontent' => 'FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU'
 			),
-			$method->invokeArgs($this->parser,array('RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU'))
+			$method->invokeArgs($this->instance,array('RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU'))
 		);
 		
 		$this->assertEquals(
@@ -155,7 +123,7 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
 				'content' => '20110417T103000',
 				'rawtextcontent' => '20110417T103000'
 			),
-			$method->invokeArgs($this->parser,array('DTSTART;TZID=Europe/London:20110417T103000'))
+			$method->invokeArgs($this->instance,array('DTSTART;TZID=Europe/London:20110417T103000'))
 		);
 		
 		$this->assertEquals(
@@ -165,7 +133,7 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
 				'content' => '20110417T103000',
 				'rawtextcontent' => '20110417T103000'
 			),
-			$method->invokeArgs($this->parser,array('DTSTART;TZID="Europe/London":20110417T103000'))
+			$method->invokeArgs($this->instance,array('DTSTART;TZID="Europe/London":20110417T103000'))
 		);
 		
 		$this->assertEquals(
@@ -175,7 +143,7 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
 				'content' => array('Cat1','Cat2','Cat3'),
 				'rawtextcontent' => 'Cat1,Cat2,Cat3'
 			),
-			$method->invokeArgs($this->parser,array('CATEGORIES:Cat1,Cat2,Cat3'))
+			$method->invokeArgs($this->instance,array('CATEGORIES:Cat1,Cat2,Cat3'))
 		);
 	}
     
@@ -192,7 +160,7 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
         $test = mb_convert_encoding($test,'UTF8');
         
         $this->assertTrue(
-            mb_check_encoding($this->parser->utf8_encode($test),'ISO-8859-1')
+            mb_check_encoding($this->instance->utf8_encode($test),'ISO-8859-1')
         );
     }
     
@@ -201,25 +169,25 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
         $test = mb_convert_encoding($test,'ISO-8859-1');
         
         $this->assertTrue(
-            mb_check_encoding($this->parser->utf8_encode($test),'UTF8')
+            mb_check_encoding($this->instance->utf8_encode($test),'UTF8')
         );
     }
     
     public function test_ical_get_error_code() {
         $this->assertEquals(
-            -1,$this->parser->ical_get_error_code()
+            -1,$this->instance->ical_get_error_code()
         );
     }
     
     public function test_ical_get_error_string() {
         $this->assertEquals(
-            'No error',$this->parser->ical_get_error_string(-1)
+            'No error',$this->instance->ical_get_error_string(-1)
         );
     }
     
     public function test_ical_get_current_line_number() {
         $this->assertEquals(
-            -1,$this->parser->ical_get_current_line_number()
+            -1,$this->instance->ical_get_current_line_number()
         );
     }
     
@@ -236,18 +204,18 @@ class Test_Savi extends PHPUnit_Framework_TestCase {
 		$undelimiter = self::get_method('_delimit_unreplace');
 		
 		$text = 'HELLO\: \;WORLD\.';
-		$newtext = $delimiter->invokeArgs($this->parser, array($text));
+		$newtext = $delimiter->invokeArgs($this->instance, array($text));
 		$this->assertNotEquals($text,$newtext);
 		
 		$this->assertEquals(
 			'HELLO: ;WORLD\.',
-			$undelimiter->invokeArgs($this->parser,array($newtext))
+			$undelimiter->invokeArgs($this->instance,array($newtext))
 		);
 		
 		$text = 'HELLO: ;WORLD.';
 		$this->assertEquals(
 			$text,
-			$delimiter->invokeArgs($this->parser, array($text))
+			$delimiter->invokeArgs($this->instance, array($text))
 		);
 	}
 }

@@ -1,4 +1,6 @@
 <?php
+require_once('globals.php');
+
 /**
  *	Unit Test for the Template class.
  *
@@ -8,49 +10,16 @@
  *	@package UnitTests.Impact
  *	@extends PHPUnit_Framework_TestCase
  */
-class Test_Template extends PHPUnit_Framework_TestCase {
-    private $templater = null;
+class Test_Template extends ImpactPHPUnit {
     private $acl;
     private $application;
     
     protected function setUp() {
-        if (!defined('__DIR__')) {
-            $iPos = strrpos(__FILE__, "/");
-            define('__DIR__', substr(__FILE__, 0, $iPos) . '/');
-        }
-        if (!defined('DS')) {
-            define('DS',DIRECTORY_SEPARATOR);
-        }
-        if (!defined('MODELS_DIRECTORY')) {
-            define('MODELS_DIRECTORY','models');
-        }
-        if (!defined('ROOT_BACK')) {
-            define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
-        }
-        if (!defined('DIRECT_ACCESS_CHECK')) {
-            define('DIRECT_ACCESS_CHECK',false);
-        }
-        if (!defined('USE_LOCAL_MODELS')) {
-            define('USE_LOCAL_MODELS',false);
-        }
-        spl_autoload_register('self::__autoload');
+        $this->init('Template');
         
-        $this->templater = new Template;
         $this->acl = $this->getMock('Acl',array('allowed'));
         $this->acl->expects($this->any())->method('allowed')->will($this->returnValue(true));
-        $this->templater->init(array('acl'=>$this->acl));
-    }
-    
-    private function __autoload($className) {
-        $classFileName = str_replace('_',DS,$className).'.php';
-        require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
-    }
-    
-    protected static function get_method($name) {
-        $class = new ReflectionClass('Template');
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-        return $method;
+        $this->instance->init(array('acl'=>$this->acl));
     }
     
     public function test_parse() {
@@ -63,31 +32,31 @@ class Test_Template extends PHPUnit_Framework_TestCase {
         $text = '[[PLUGIN name="date"]]';
         $this->assertEquals(
             '<template:plugin name="date" />',
-            $method->invokeArgs($this->templater,array($text))
+            $method->invokeArgs($this->instance,array($text))
         );
         
         $text = '[[plugin name="date" format="Y-m-d\TH:i:s\Z"]]';
         $this->assertEquals(
             '<template:plugin name="date" format="Y-m-d\TH:i:s\Z" />',
-            $method->invokeArgs($this->templater,array($text))
+            $method->invokeArgs($this->instance,array($text))
         );
         
         $text = '[[FEATURE name="christmas"]]';
         $this->assertEquals(
             '<template:feature name="christmas" />',
-            $method->invokeArgs($this->templater,array($text))
+            $method->invokeArgs($this->instance,array($text))
         );
         
         $text = '[[TEMPLATE name="main"]]';
         $this->assertEquals(
             $text,
-            $method->invokeArgs($this->templater,array($text))
+            $method->invokeArgs($this->instance,array($text))
         );
         
         $text = '[[FEATURE name="christmas"]]'."\n".'[[PLUGIN name="date"]]';
         $this->assertEquals(
             '<template:feature name="christmas" />'."\n".'<template:plugin name="date" />',
-            $method->invokeArgs($this->templater,array($text))
+            $method->invokeArgs($this->instance,array($text))
         );
     }
     
@@ -95,8 +64,8 @@ class Test_Template extends PHPUnit_Framework_TestCase {
         $method = self::get_method('_get_xml');
         
         $xml = '<html><head><title>TEST</title></head><body><h1>TEST</h1></body></html>';
-        $method->invokeArgs($this->templater,array($xml));
-        $this->assertEquals($this->templater->xml,$xml);
+        $method->invokeArgs($this->instance,array($xml));
+        $this->assertEquals($this->instance->xml,$xml);
         
         $xml = '
         <html>
@@ -107,13 +76,13 @@ class Test_Template extends PHPUnit_Framework_TestCase {
                 <h1>TEST</h1>
             </body>
         </html>';
-        $method->invokeArgs($this->templater,array($xml));
-        $this->assertEquals($this->templater->xml,$xml);
+        $method->invokeArgs($this->instance,array($xml));
+        $this->assertEquals($this->instance->xml,$xml);
         
         $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'_data'.DS.'xml'.DS.'Template.1.Test.xml';
         $xml=file_get_contents($path);
-        $method->invokeArgs($this->templater,array($xml));
-        $this->assertEquals($this->templater->xml,$xml);
+        $method->invokeArgs($this->instance,array($xml));
+        $this->assertEquals($this->instance->xml,$xml);
     }
     
     public function test_create_match_array() {
@@ -127,7 +96,7 @@ class Test_Template extends PHPUnit_Framework_TestCase {
                 'content' => '<p>TEST</p>'
             ),
             $method->invokeArgs(
-                $this->templater,
+                $this->instance,
                 array(array(
                     '<template:loop name="children"><p>TEST</p></template:loop>',
                     'loop',
@@ -145,7 +114,7 @@ class Test_Template extends PHPUnit_Framework_TestCase {
                 'content' => ''
             ),
             $method->invokeArgs(
-                $this->templater,
+                $this->instance,
                 array(array(
                     '<template:data name="node" notblank="parent" />',
                     'data',
@@ -163,7 +132,7 @@ class Test_Template extends PHPUnit_Framework_TestCase {
                 'content' => 'node'
             ),
             $method->invokeArgs(
-                $this->templater,
+                $this->instance,
                 array(array(
                     'template:variable[node]',
                     'variable',
@@ -180,7 +149,7 @@ class Test_Template extends PHPUnit_Framework_TestCase {
         $this->assertEquals(
             'Template_Loop',
             get_class(
-                $method->invokeArgs($this->templater,array('Template_Loop'))
+                $method->invokeArgs($this->instance,array('Template_Loop'))
             )
 	    );
     }
@@ -191,7 +160,7 @@ class Test_Template extends PHPUnit_Framework_TestCase {
         $this->assertEquals(
             array('id'=>'test', 'class'=>'bluebox'),
             $method->invokeArgs(
-                $this->templater,
+                $this->instance,
                 array('<div id="test" class="bluebox">TEST TEXT</div>')
             )
 		);
@@ -199,7 +168,7 @@ class Test_Template extends PHPUnit_Framework_TestCase {
         $this->assertEquals(
             array('id'=>'test', 'class'=>'bluebox'),
             $method->invokeArgs(
-                $this->templater,
+                $this->instance,
                 array('<div id=\'test\' class = "bluebox">TEST TEXT</div>')
             )
 		);
@@ -207,7 +176,7 @@ class Test_Template extends PHPUnit_Framework_TestCase {
         $this->assertEquals(
             array('id'=>'test', 'class'=>'bluebox'),
             $method->invokeArgs(
-                $this->templater,
+                $this->instance,
                 array('<div id ="test" class ="bluebox">TEST TEXT</div>')
             )
 	    );
@@ -215,7 +184,7 @@ class Test_Template extends PHPUnit_Framework_TestCase {
          $this->assertEquals(
             array('id'=>'test', 'class'=>'bluebox'),
 			$method->invokeArgs(
-                $this->templater,
+                $this->instance,
                 array('<div   id="test"   class="bluebox"  >TEST TEXT</div>')
             )
 		);

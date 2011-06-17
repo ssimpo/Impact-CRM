@@ -1,4 +1,6 @@
 <?php
+require_once('globals.php');
+
 /**
  *	  Unit Test for the Acl class.
  *
@@ -8,74 +10,40 @@
  *	  @package UnitTests.Impact
  *	  @extends PHPUnit_Framework_TestCase
  */
-class Test_Acl_GEO extends PHPUnit_Framework_TestCase {
-	private $Acl;
+class Test_Acl_GEO extends ImpactPHPUnit {
 	
 	protected function setUp() {
-		if (!defined('__DIR__')) {
-			$iPos = strrpos(__FILE__, "/");
-			define('__DIR__', substr(__FILE__, 0, $iPos) . '/');
-		}
-		if (!defined('DS')) {
-			define('DS',DIRECTORY_SEPARATOR);
-		}
-		if (!defined('MODELS_DIRECTORY')) {
-			define('MODELS_DIRECTORY','models');
-		}
-		if (!defined('ROOT_BACK')) {
-			define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS.'..'.DS);
-		}
-		if (!defined('DIRECT_ACCESS_CHECK')) {
-            define('DIRECT_ACCESS_CHECK',false);
-        }
-		if (!defined('USE_LOCAL_MODELS')) {
-            define('USE_LOCAL_MODELS',false);
-        }
-		spl_autoload_register('self::__autoload');
-		
-		$this->Acl = new Acl_GEO();
-	}
-	
-	private function __autoload($className) {
-		$classFileName = str_replace('_',DS,$className).'.php';
-		require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
-	}
-	
-	protected static function get_method($name) {
-		$class = new ReflectionClass('Acl');
-		$method = $class->getMethod($name);
-		$method->setAccessible(true);
-		return $method;
-	}
+        $this->init('Acl_GEO');
+    }
 	
 	public function test_test_city() {
 		$_SERVER['REMOTE_ADDR'] = '166.56.23.1';
 		$this->assertTrue(
-			$this->Acl->test_city(array('ASHBURN'))
+			$this->instance->test_city(array('ASHBURN'))
 		);
 	}
 	
 	public function test_test_country() {
 		$_SERVER['REMOTE_ADDR'] = '166.56.23.1';
 		$this->assertTrue(
-			$this->Acl->test_country(array('US'))
+			$this->instance->test_country(array('US'))
 		);
 	}
 	
 	public function test_test_region() {
 		$_SERVER['REMOTE_ADDR'] = '166.56.23.1';
 		$this->assertTrue(
-			$this->Acl->test_region(array('VA'))
+			$this->instance->test_region(array('VA'))
 		);
 	}
 	
 	public function test_test_radius() {
 		$_SERVER['REMOTE_ADDR'] = '166.56.23.1';
 		$this->assertTrue(
-			$this->Acl->test_radius(array('39.0335','-78.4838','90','KM'))
+			$this->instance->test_radius(array('39.0335','-78.4838','90','KM'))
 		);
 		$this->assertTrue(
-			$this->Acl->test_radius(array('39.0335','-78.4838','56','M'))
+			$this->instance->test_radius(array('39.0335','-78.4838','56','M'))
 		);
 	}
 }

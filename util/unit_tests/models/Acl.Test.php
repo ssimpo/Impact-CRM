@@ -1,4 +1,6 @@
 <?php
+require_once('globals.php');
+
 /**
  *	  Unit Test for the Acl class.
  *
@@ -8,100 +10,60 @@
  *	@package UnitTests.Impact
  *	@extends PHPUnit_Framework_TestCase
  */
-class Test_Acl extends PHPUnit_Framework_TestCase {
-	private $Acl;
+class Test_Acl extends ImpactPHPUnit {
 	
 	protected function setUp() {
-		if (!defined('__DIR__')) {
-			$iPos = strrpos(__FILE__, "/");
-			define('__DIR__', substr(__FILE__, 0, $iPos) . '/');
-		}
-		if (!defined('DS')) {
-			define('DS',DIRECTORY_SEPARATOR);
-		}
-		if (!defined('DS')) {
-			define('DS',DIRECTORY_SEPARATOR);
-		}
-		if (!defined('MODELS_DIRECTORY')) {
-			define('MODELS_DIRECTORY','models');
-		}
-		if (!defined('ROOT_BACK')) {
-			define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
-		}
-		if (!defined('DIRECT_ACCESS_CHECK')) {
-            define('DIRECT_ACCESS_CHECK',false);
-        }
-		if (!defined('USE_LOCAL_MODELS')) {
-            define('USE_LOCAL_MODELS',false);
-        }
-		if (!defined('USE_LOCAL_MODELS')) {
-            define('USE_LOCAL_MODELS',false);
-        }
-		spl_autoload_register('self::__autoload');
-		
+        $this->init('Acl');
 		$application = Application::instance();
-		$this->Acl = new Acl($application);
-	}
-	
-	private function __autoload($className) {
-		$classFileName = str_replace('_',DS,$className).'.php';
-	require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
-	}
-	
-	protected static function get_method($name) {
-		$class = new ReflectionClass('Acl');
-		$method = $class->getMethod($name);
-		$method->setAccessible(true);
-		return $method;
 	}
 	
 	public function test_load_roles() {
-		$this->Acl->load_roles('[WEB][ADMIN][DEV]');
+		$this->instance->load_roles('[WEB][ADMIN][DEV]');
 		$method = self::get_method('allowed');
 		
 		$this->assertFalse(
-			$method->invokeArgs($this->Acl, array('[WEB2]'))
+			$method->invokeArgs($this->instance, array('[WEB2]'))
 		);
 		
-		$this->Acl->load_roles('[WEB2]');
+		$this->instance->load_roles('[WEB2]');
 		$this->assertTrue(
-			$method->invokeArgs($this->Acl, array('[WEB2]'))
+			$method->invokeArgs($this->instance, array('[WEB2]'))
 		);
 	}
 	
 	public function test_allowed() {
-		$this->Acl->load_roles('[WEB][ADMIN][DEV]');
+		$this->instance->load_roles('[WEB][ADMIN][DEV]');
 		$method = self::get_method('allowed');
 		
 		$this->assertTrue(
-			$method->invokeArgs($this->Acl, array('[WEB][FB:USER:93][DEVELOPER]','[WEB2]'))
+			$method->invokeArgs($this->instance, array('[WEB][FB:USER:93][DEVELOPER]','[WEB2]'))
 		);
 		$this->assertFalse(
-			$method->invokeArgs($this->Acl, array('[WEB],[FB:USER:93],[DEVELOPER]','[DEV]'))
+			$method->invokeArgs($this->instance, array('[WEB],[FB:USER:93],[DEVELOPER]','[DEV]'))
 		);
 		$this->assertTrue(
-			$method->invokeArgs($this->Acl, array('[WEB]'))
+			$method->invokeArgs($this->instance, array('[WEB]'))
 		);
 		$this->assertFalse(
-			$method->invokeArgs($this->Acl, array('','[WEB]'))
+			$method->invokeArgs($this->instance, array('','[WEB]'))
 		);
 		$this->assertFalse(
-			$method->invokeArgs($this->Acl, array('[DEV],[ADMIN]','[WEB]'))
+			$method->invokeArgs($this->instance, array('[DEV],[ADMIN]','[WEB]'))
 		);
 		$this->assertFalse(
-			$method->invokeArgs($this->Acl, array('[WEB2]','[WEB][ADMIN][WEB3]'))
+			$method->invokeArgs($this->instance, array('[WEB2]','[WEB][ADMIN][WEB3]'))
 		);
 	}
 	
 	public function test_test_role() {
-		$this->Acl->load_roles('[WEB][ADMIN][DEV]');
+		$this->instance->load_roles('[WEB][ADMIN][DEV]');
 		$method = self::get_method('test_role');
 		
 		/*$this->assertTrue(
-			$method->invokeArgs($this->Acl, array('[WEB][FB:USER:93][DEVELOPER]'))
+			$method->invokeArgs($this->instance, array('[WEB][FB:USER:93][DEVELOPER]'))
 		);
 		$this->assertFalse(
-			$method->invokeArgs($this->Acl, array('[WEB2][FB:USER:93][DEVELOPER]'))
+			$method->invokeArgs($this->instance, array('[WEB2][FB:USER:93][DEVELOPER]'))
 		);*/
 	}
 	
@@ -110,11 +72,11 @@ class Test_Acl extends PHPUnit_Framework_TestCase {
 		
 		/*$this->assertEquals(
 			array('FB','USER',array('93')),
-			$method->invokeArgs($this->Acl, array('[FB:USER:93]'))
+			$method->invokeArgs($this->instance, array('[FB:USER:93]'))
 		);
 		$this->assertEquals(
 			array('GEO','RADIUS',array('39.0335','-78.4838','90','KM')),
-			$method->invokeArgs($this->Acl, array('[GEO:RADIUS:39.0335:-78.4838:90:KM]'))
+			$method->invokeArgs($this->instance, array('[GEO:RADIUS:39.0335:-78.4838:90:KM]'))
 		);*/
 	}
 }
