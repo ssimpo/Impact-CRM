@@ -8,13 +8,13 @@ require_once('globals.php');
  *	@version 0.1.1
  *	@license http://www.gnu.org/licenses/lgpl.html
  *	@package UnitTests.Impact
- *	@extends PHPUnit_Framework_TestCase
+ *	@extends ImpactPHPUnit
  */
 class Test_ICalRRuleParser_Yearly extends ImpactPHPUnit {
 	
 	protected function setUp() {
-        $this->init('ICalRRuleParser_Yearly');
-    }
+		$this->init('ICalRRuleParser_Yearly');
+	}
 	
 	public function test_parse() {
 		//STUB

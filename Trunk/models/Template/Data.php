@@ -3,14 +3,14 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 	die('Direct access is not allowed');
 }
 
-/*
-*	Class for <template:data />
-*	
-*	@author Stephen Simpson <me@simpo.org>
-*	@version 0.0.1
-*	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@package Template
-*/
+/**
+ *	Class for <template:data />
+ *	
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.0.1
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Template
+ */
 class Template_Data Extends Template_Base implements Template_Object {
 	private $_standard_html_attributes = array(
 		'style','class','rev','rel','href','src'
@@ -35,7 +35,7 @@ class Template_Data Extends Template_Base implements Template_Object {
 				$template = $this->_get_application_item($attributes['name']);
 			} elseif (array_key_exists('opentag',$attributes)) {
 				$htmlAttributes = '';
-				foreach($this->_standard_html_attributes as $attr) {
+				foreach ($this->_standard_html_attributes as $attr) {
 					if (array_key_exists($attr,$attributes)) {
 						$htmlAttributes .= ' '.$attr.'="'.$attributes[$attr].'"';
 					}

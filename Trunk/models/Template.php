@@ -14,7 +14,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 *	@package Template
 *
 *	@todo Tags that open and close at same time <img /> have to be on one line this needs fixing.
-*	@todo When bad dadta is passed it often results in infinite loops
+*	@todo When bad data is passed it often results in infinite loops
 */
 class Template extends Base {
 	protected $application;
@@ -126,7 +126,7 @@ class Template extends Base {
 		$this->xmlstring = $this->_convert_brackets_to_xml($this->xmlstring);
 		
 		while (I::contains($this->xmlstring,'<template:')) {
-			foreach($this->parser_regX as $regX) {
+			foreach ($this->parser_regX as $regX) {
 				$this->xmlstring = preg_replace_callback(
 					$regX,
 					array($this, '_parse_handle'),
@@ -195,15 +195,15 @@ class Template extends Base {
 	}
 	
 	/**
-	 *	Convert bracketed instructions to xml equivilants
+	 *	Convert bracketed instructions to xml equivalents
 	 *
 	 *	The templating system allows commands to be given using double-square
 	 *	brackets instead of XML.  This allows commands to issued inside a
-	 *	rich-text editor without interferring with XHTML.  This method will
+	 *	rich-text editor without interfering with XHTML.  This method will
 	 *	convert that text to XML so it can be parsed by this parser.
 	 *
 	 *	@example [[PLUGIN name="date"]] will become <template:plugin name="date" />
-	 *	@note single quotes will be relaced with \' this is a by-product of the
+	 *	@note single quotes will be replaced with \' this is a by-product of the
 	 *	PHP works and cannot be avoided.
 	 *	@todo Find a work-around for single-quote escaping.
 	 *

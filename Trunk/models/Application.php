@@ -27,7 +27,7 @@ class Application extends Singleton {
 	public $pageErrorCheck;
 	
 	/**
-	 *	Initialization mmethod.
+	 *	Initialization method.
 	 *
 	 *	@public
 	 */
@@ -113,7 +113,7 @@ class Application extends Singleton {
 	 *
 	 *	@public
 	 *	@param string $property The property to test for
-	 *	@return boolen
+	 *	@return boolean
 	 */
 	public function property_exists($property) {
 		return isset($this->settings[$property]);
