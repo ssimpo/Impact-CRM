@@ -1,4 +1,6 @@
 <?php
+require_once('globals.php');
+
 /**
  *	  Unit Test for the I class.
  *
@@ -8,29 +10,10 @@
  *	@package UnitTests.Impact
  *	@extends PHPUnit_Framework_TestCase
  */
-class Test_I extends PHPUnit_Framework_TestCase {
+class Test_I extends ImpactPHPUnit {
 	
 	protected function setUp() {
-		if (!defined('__DIR__')) {
-			$iPos = strrpos(__FILE__, "/");
-			define('__DIR__', substr(__FILE__, 0, $iPos) . '/');
-		}
-		if (!defined('DS')) {
-			define('DS',DIRECTORY_SEPARATOR);
-		}
-		if (!defined('MODELS_DIRECTORY')) {
-			define('MODELS_DIRECTORY','models');
-		}
-		if (!defined('ROOT_BACK')) {
-			define('ROOT_BACK',__DIR__.DS.'..'.DS.'..'.DS.'..'.DS);
-		}
-		if (!defined('DIRECT_ACCESS_CHECK')) {
-            define('DIRECT_ACCESS_CHECK',false);
-        }
-		if (!defined('USE_LOCAL_MODELS')) {
-            define('USE_LOCAL_MODELS',false);
-        }
-		spl_autoload_register('self::__autoload');
+		$this->init('I');
 	}
 	
 	private function __autoload($className) {

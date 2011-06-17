@@ -12,7 +12,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
  *	@package Calendar
  */
 class ICalRRuleParser_Yearly Extends ICalRRuleParser_Base implements ICalRRuleParser_Object {
-    public function parse($rrule) {
+    public function parse($rrule,$start) {
 		
 	}
 }
