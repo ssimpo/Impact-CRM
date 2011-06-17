@@ -28,6 +28,9 @@ class Test_Application extends PHPUnit_Framework_TestCase {
 		if (!defined('DIRECT_ACCESS_CHECK')) {
             define('DIRECT_ACCESS_CHECK',false);
         }
+		if (!defined('USE_LOCAL_MODELS')) {
+            define('USE_LOCAL_MODELS',false);
+        }
 		spl_autoload_register('self::__autoload');
         
         $this->application = Application::instance();
