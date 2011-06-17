@@ -11,13 +11,33 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar
  */
-class ICalRepeatParser extends Base {
+class ICalRRuleParser extends Base {
+	private $rrule;
+	private $parser;
+	
 	public function __construct() {
 		
 	}
 	
-	public function parse() {
-		
+	public function parse($rrule,$start) {
+		$this->rrule = $this->_split_rrule($rrule);
+		$this->parser = $this->_get_parser($this->rrule);
+		$this->parser->parse($this->rrule,$start);
+	}
+	
+	/**
+	 *	Get the approprate parser for set frequency
+	 *
+	 *	@public
+	 *	@param array()|string $rrule The iCal RRule broken into an array or just the FREQ string.
+	 *	@return object Parser of type ICalRRuleParser_<FREQUENCY TYPE>
+	 */
+	public function factory($rrule,$args=array()) {
+		if (is_string($rrule)) {
+			return parent::factory('ICalRRuleParser_'.$rrule);
+		} else {
+			return parent::factory('ICalRRuleParser_'.$rrule['FREQ']);
+		}
 	}
 	
 	/**
@@ -30,7 +50,7 @@ class ICalRepeatParser extends Base {
 	private function _split_rrule($rrule) {
 		$result = array();
 		
-		$parts = explode(';',$rrule);
+		$parts = explode(';',strtoupper($rrule));
 		foreach ($parts as $part) {
 			$item = explode('=',$part);
 			if (count($item) == 2) {
