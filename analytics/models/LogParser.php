@@ -18,12 +18,15 @@ class LogParser extends Base {
     private $settings = array();
     private $fh = null;
     
-    public function __construct($type='',$profile='') {
+    public function __construct($type='',$profile='',$srProfile='') {
         if ($type != '') {
             $this->interpreter = $type;
         }
         if ($profile != '') {
             $this->profile = $profile;
+        }
+        if ($profile != '') {
+            $this->srProfile = $srProfile;
         }
     }
     
@@ -40,6 +43,9 @@ class LogParser extends Base {
                 break;
             case 'profile':
                 $this->settings['profile'] = new LogProfile($value);
+                break;
+            case 'srProfile':
+                $this->settings['srProfile'] = new LogSearchReplace($value);
                 break;
             default:
                 $this->settings[$convertedProperty] = $value;
@@ -82,6 +88,13 @@ class LogParser extends Base {
                 $data = $this->interpreter->parse($line);
             
                 if ($this->profile->include_line($data)) {
+                    if (isset($this->settings['srProfile'])) {
+                        $data = $this->srProfile->parse_line($data);
+                        
+                        if ($this->profile->include_line($data)) {//2nd pass
+                            return $this->interpreter->rebuild_line($data);
+                        }
+                    }
                     return $line;
                 }
             }

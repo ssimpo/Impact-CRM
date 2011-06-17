@@ -42,5 +42,17 @@ class LogInterpreter extends Base implements LogInterpreter_Object {
     public function parse($line) {
         return $this->parser->parse($line);
     }
+    
+    /**
+     *  Rebuild a logline from the parsed data array
+     *
+     *  @public
+     *  @param array() $data The parsed logline as an array.
+     *  @return string The reconstructed logline
+     */
+    public function rebuild_line($data) {
+        return $this->parser->rebuild_line($data);
+        
+    }
 }
 ?>
