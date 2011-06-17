@@ -26,7 +26,7 @@ class ICalRRuleParser extends Base {
 	}
 	
 	/**
-	 *	Get the approprate parser for set frequency
+	 *	Get the appropriate parser for set frequency
 	 *
 	 *	@public
 	 *	@param array()|string $rrule The iCal RRule broken into an array or just the FREQ string.

@@ -13,7 +13,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
  *
  *	@todo Test with xCal using SAX and make it work for this.
  */
-class iCalInterpreter extends Base {
+class ICalInterpreter extends Base {
 	private $savi = '';
 	private $data = array();
 	private $block = '';

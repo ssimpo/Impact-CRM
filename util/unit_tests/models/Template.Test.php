@@ -2,13 +2,13 @@
 require_once('globals.php');
 
 /**
- *	Unit Test for the Template class.
+ *  Unit Test for the Template class.
  *
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1.1
  *	@license http://www.gnu.org/licenses/lgpl.html
  *	@package UnitTests.Impact
- *	@extends PHPUnit_Framework_TestCase
+ *	@extends ImpactPHPUnit
  */
 class Test_Template extends ImpactPHPUnit {
     private $acl;

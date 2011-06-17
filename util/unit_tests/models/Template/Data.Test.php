@@ -2,21 +2,21 @@
 require_once('globals.php');
 
 /**
- *	  Unit Test for the Acl class.
+ *	Unit Test for the Template class.
  *
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1.1
  *	@license http://www.gnu.org/licenses/lgpl.html
  *	@package UnitTests.Impact
- *	@extends PHPUnit_Framework_TestCase
+ *	@extends ImpactPHPUnit
  */
 class Test_Template_Data extends ImpactPHPUnit {
     private $acl;
 	
-    protected function setUp() {
+	protected function setUp() {
 		$this->init('Template_Data');
 		$this->acl = $this->getMock('Acl',array('allowed'));
-        $this->acl->expects($this->any())->method('allowed')->will($this->returnValue(true));
+		$this->acl->expects($this->any())->method('allowed')->will($this->returnValue(true));
 	}
 	
 	public function test_parse() {

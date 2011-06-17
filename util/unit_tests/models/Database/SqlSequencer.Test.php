@@ -8,7 +8,7 @@ require_once('globals.php');
  *	@version 0.1.1
  *	@license http://www.gnu.org/licenses/lgpl.html
  *	@package UnitTests.Impact
- *	@extends PHPUnit_Framework_TestCase
+ *	@extends ImpactPHPUnit
  */
 class Test_Database_SqlSequencer extends ImpactPHPUnit {
 	

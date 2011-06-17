@@ -4,31 +4,31 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 }
 
 /**
-*	Template.Base class
-*		
-*	@author Stephen Simpson <me@simpo.org>
-*	@version 0.0.1
-*	@license http://www.gnu.org/licenses/lgpl.html LGPL
-*	@package Template
-*/
+ *	Template.Base class
+ *		
+ *	@author Stephen Simpson <me@simpo.org>
+ *	@version 0.0.1
+ *	@license http://www.gnu.org/licenses/lgpl.html LGPL
+ *	@package Template
+ */
 abstract class Template_Base Extends Base {
-    protected $application;
+	protected $application;
 	protected $mainApplication;
 	protected $acl;
-    
-    public function __construct() {	
+	
+	public function __construct() {	
 	}
-    
-    public function init($application,$mainApplication='') {
-        $this->application = $application;
+	
+	public function init($application,$mainApplication='') {
+		$this->application = $application;
 		if (empty($mainApplication)) {
 			$this->mainApplication = $application;
 		}
-        $this->mainApplication = $mainApplication;
-        $this->acl = $this->_get_application_item('acl');
-    }
-    
-    protected function _show($attributes) {
+		$this->mainApplication = $mainApplication;
+		$this->acl = $this->_get_application_item('acl');
+	}
+	
+	protected function _show($attributes) {
 	//Handle the Acl - Loose meaning of Acl as it includes access-rights according to language,
 	// media-type and date/time as well as user-roles
 	
@@ -79,8 +79,8 @@ abstract class Template_Base Extends Base {
 		
 		return $this->acl->allowed($attributes['include'],$attributes['exclude']);
 	}
-    
-    private function _notblank($testers) {
+	
+	private function _notblank($testers) {
 	//Are any of the variables blank?
 		$testers = explode(',',$testers);
 		foreach ($testers as $test) {
@@ -99,8 +99,8 @@ abstract class Template_Base Extends Base {
 		}
 		return true;
 	}
-    
-    private function _ical(&$attributes) {
+	
+	private function _ical(&$attributes) {
 		
 		$ical = 'BEGIN:VEVENT'."\n";
 		if (array_key_exists('start',$attributes)) {
@@ -131,8 +131,8 @@ abstract class Template_Base Extends Base {
 		return $iParser->isLive();
 		
 	}
-    
-    /**
+	
+	/**
 	 *	Get an application array item.
 	 *
 	 *	Searches in $this->application and $this->mainApplication for the

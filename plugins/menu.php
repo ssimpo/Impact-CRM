@@ -88,7 +88,7 @@ class Plugin_Menu implements Impact_Plugin {
 	    for ($i = $this->_startLevel; $i <= $this->_endLevel; $i++) {
 			if (array_key_exists('menuBlock',$this->_attributes)) {
 				$tagAttributes = '';
-				foreach($this->_standard_html_attributes as $attr) {
+				foreach ($this->_standard_html_attributes as $attr) {
 					if (array_key_exists('menu'.$attr,$this->_attributes)) {
 						$tagAttributes .= ' '.$attr.'="'.$this->_attributes['menu'.$attr].'"';
 					}
@@ -99,7 +99,7 @@ class Plugin_Menu implements Impact_Plugin {
 			$template .= '<template:loop name="children">';
 			if (array_key_exists('itemBlock',$this->_attributes)) {
 				$tagAttributes = '';
-				foreach($this->_standard_html_attributes as $attr) {
+				foreach ($this->_standard_html_attributes as $attr) {
 					if (array_key_exists('item'.$attr,$this->_attributes)) {
 						$tagAttributes .= ' '.$attr.'="'.$this->_attributes['item'.$attr].'"';
 					}

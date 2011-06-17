@@ -3,7 +3,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 	die('Direct access is not allowed');
 }
 
-/*
+/**
  *	Class for FREQ=YEARLY
  *	
  *	@author Stephen Simpson <me@simpo.org>
@@ -12,7 +12,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
  *	@package Calendar
  */
 class ICalRRuleParser_Yearly Extends ICalRRuleParser_Base implements ICalRRuleParser_Object {
-    public function parse($rrule,$start) {
+	public function parse($rrule,$start) {
 		
 	}
 }

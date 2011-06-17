@@ -134,7 +134,7 @@ class I {
 		$trimmed = array();
 		$is_numeric_indexed = I::_is_numeric_indexed_array($array);
 		
-		foreach($array as $key => $value) {
+		foreach ($array as $key => $value) {
 			$value = trim($value);
 			if ($value != '') {
 				if ($is_numeric_indexed) {
@@ -160,7 +160,7 @@ class I {
 	static private function _is_numeric_indexed_array($array) {
 		$is_numeric_indexed = true;
 		
-		foreach($array as $key => $value) {
+		foreach ($array as $key => $value) {
 			if (!is_numeric($key)) {
 				$is_numeric_indexed = false;
 			}

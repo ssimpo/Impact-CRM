@@ -6,7 +6,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 /*
  *	Class for managing an Acl.  It will validate a given user against supplied roles.
  *	It will also allow for special user-groups that are assigned to various Facebook conditions or other
- *	concepts, such as people in a specfic locality.
+ *	concepts, such as people in a specific locality.
  *		
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.6
@@ -48,7 +48,7 @@ class Acl extends Base {
 	 *	Get the Facebook object and assign to property in application object.
 	 *
 	 *	Uses either the supplied application object or creates a new
-	 *	reference to the main application object to try and aquire it,
+	 *	reference to the main application object to try and acquire it,
 	 *	otherwise set it to null.
 	 *
 	 *	@private
@@ -83,7 +83,7 @@ class Acl extends Base {
 	/**
 	 *	Test if the user is allowed.
 	 *
-	 *	Test the user against the supplied roles that are allolwed/
+	 *	Test the user against the supplied roles that are allowed/
 	 *	disallowed and return true/false.
 	 *
 	 *	@public
@@ -142,9 +142,9 @@ class Acl extends Base {
 	}
 	
 	/**
-	 *	Split a special role into its seperate parts.
+	 *	Split a special role into its separate parts.
 	 *
-	 *	Will split a special role into it's componant parts so they can
+	 *	Will split a special role into it's component parts so they can
 	 *	sent to the required class for parsing.  Eg. [FB:USER:93] will
 	 *	return array('FB','USER',array('93')). Return false on failure.
 	 *
