@@ -39,12 +39,17 @@ class LogSearchReplace extends Base {
      */
     public function parse_line($data) {
         foreach ($this->profile as $name => $test) {
-			$newitem = @preg_replace($test['value'],$test['replace'],$data[$test['subject']]);
-			if (trim($newitem) != '') {
-				$data[$test['subject']] = $newitem;
-			} else {
-				#throw new Exception('Error in profile test: "'.$name.'"');
+			$subjects = explode(',',$test['subject']);
+			
+			foreach ($subjects as $subject) {
+				$newitem = @preg_replace(
+					$test['value'],$test['replace'],$data[$subject]
+				);
+				if (trim($newitem) !== null) {
+					$data[$subject] = $newitem;
+				}
 			}
+			
         }
         
         return $data;
