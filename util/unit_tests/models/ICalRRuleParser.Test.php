@@ -67,20 +67,17 @@ class Test_ICalRRuleParser extends ImpactPHPUnit {
     }
     
     public function test_get_string_or_number() {
-        $method = self::get_method('_get_string_or_number');
         
-        $this->assertEquals(10, $method->invokeArgs($this->instance,array('10')));
-        $this->assertEquals('ten', $method->invokeArgs($this->instance,array('ten')));
-        $this->assertEquals(10.2, $method->invokeArgs($this->instance,array('10.2')));
-        $this->assertEquals('10.com', $method->invokeArgs($this->instance,array('10.com')));
+        $this->assertMethodReturn(10, '10');
+        $this->assertMethodReturn('ten', 'ten');
+        $this->assertMethodReturn(10.2, '10.2');
+        $this->assertMethodReturn('10.com', '10.com');
     }
     
     public function test_contains() {
-        $method = self::get_method('_contains');
-        
-        $this->assertTrue($method->invokeArgs($this->instance,array('Impact Project','act')));
-        $this->assertTrue($method->invokeArgs($this->instance,array('IMPACT Project','act')));
-        $this->assertFalse($method->invokeArgs($this->instance,array('IMPACT Project','actt')));
+        $this->assertMethodReturnTrue(array('Impact Project','act'));
+        $this->assertMethodReturnTrue(array('IMPACT Project','act'));
+        $this->assertMethodReturnFalse(array('IMPACT Project','actt'));
     }
     
 }

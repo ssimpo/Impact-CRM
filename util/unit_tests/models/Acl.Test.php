@@ -18,41 +18,23 @@ class Test_Acl extends ImpactPHPUnit {
 	}
 	
 	public function test_load_roles() {
-		$this->instance->load_roles('[WEB][ADMIN][DEV]');
-		$method = self::get_method('allowed');
 		
-		$this->assertFalse(
-			$method->invokeArgs($this->instance, array('[WEB2]'))
-		);
+		$this->instance->load_roles('[WEB][ADMIN][DEV]');
+		$this->assertMethodReturnFalse(array('[WEB2]'),'allowed');
 		
 		$this->instance->load_roles('[WEB2]');
-		$this->assertTrue(
-			$method->invokeArgs($this->instance, array('[WEB2]'))
-		);
+		$this->assertMethodReturnTrue(array('[WEB2]'),'allowed');
 	}
 	
 	public function test_allowed() {
-		$this->instance->load_roles('[WEB][ADMIN][DEV]');
-		$method = self::get_method('allowed');
 		
-		$this->assertTrue(
-			$method->invokeArgs($this->instance, array('[WEB][FB:USER:93][DEVELOPER]','[WEB2]'))
-		);
-		$this->assertFalse(
-			$method->invokeArgs($this->instance, array('[WEB],[FB:USER:93],[DEVELOPER]','[DEV]'))
-		);
-		$this->assertTrue(
-			$method->invokeArgs($this->instance, array('[WEB]'))
-		);
-		$this->assertFalse(
-			$method->invokeArgs($this->instance, array('','[WEB]'))
-		);
-		$this->assertFalse(
-			$method->invokeArgs($this->instance, array('[DEV],[ADMIN]','[WEB]'))
-		);
-		$this->assertFalse(
-			$method->invokeArgs($this->instance, array('[WEB2]','[WEB][ADMIN][WEB3]'))
-		);
+		$this->instance->load_roles('[WEB][ADMIN][DEV]');
+		$this->assertMethodReturnTrue(array('[WEB][FB:USER:93][DEVELOPER]','[WEB2]'));
+		$this->assertMethodReturnFalse(array('[WEB],[FB:USER:93],[DEVELOPER]','[DEV]'));
+		$this->assertMethodReturnTrue(array('[WEB]'));
+		$this->assertMethodReturnFalse(array('','[WEB]'));
+		$this->assertMethodReturnFalse(array('[DEV],[ADMIN]','[WEB]'));
+		$this->assertMethodReturnFalse(array('[WEB2]','[WEB][ADMIN][WEB3]'));
 	}
 	
 	public function test_test_role() {

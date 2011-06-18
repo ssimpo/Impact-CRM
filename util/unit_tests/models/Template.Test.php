@@ -26,37 +26,28 @@ class Test_Template extends ImpactPHPUnit {
         // STUB
     }
     
+    //$this->assertMethodReturn($expected,$args);
     public function test_convert_brackets_to_xml() {
-        $method = self::get_method('_convert_brackets_to_xml');
         
-        $text = '[[PLUGIN name="date"]]';
-        $this->assertEquals(
+        $this->assertMethodReturn(
             '<template:plugin name="date" />',
-            $method->invokeArgs($this->instance,array($text))
+            '[[PLUGIN name="date"]]'
         );
-        
-        $text = '[[plugin name="date" format="Y-m-d\TH:i:s\Z"]]';
-        $this->assertEquals(
+        $this->assertMethodReturn(
             '<template:plugin name="date" format="Y-m-d\TH:i:s\Z" />',
-            $method->invokeArgs($this->instance,array($text))
+            '[[plugin name="date" format="Y-m-d\TH:i:s\Z"]]'
         );
-        
-        $text = '[[FEATURE name="christmas"]]';
-        $this->assertEquals(
+        $this->assertMethodReturn(
             '<template:feature name="christmas" />',
-            $method->invokeArgs($this->instance,array($text))
+            '[[FEATURE name="christmas"]]'
         );
-        
-        $text = '[[TEMPLATE name="main"]]';
-        $this->assertEquals(
-            $text,
-            $method->invokeArgs($this->instance,array($text))
+        $this->assertMethodReturn(
+            '[[TEMPLATE name="main"]]',
+            '[[TEMPLATE name="main"]]'
         );
-        
-        $text = '[[FEATURE name="christmas"]]'."\n".'[[PLUGIN name="date"]]';
-        $this->assertEquals(
+        $this->assertMethodReturn(
             '<template:feature name="christmas" />'."\n".'<template:plugin name="date" />',
-            $method->invokeArgs($this->instance,array($text))
+            '[[FEATURE name="christmas"]]'."\n".'[[PLUGIN name="date"]]'
         );
     }
     
@@ -86,60 +77,47 @@ class Test_Template extends ImpactPHPUnit {
     }
     
     public function test_create_match_array() {
-        $method = self::get_method('_create_match_array');
         
-        $this->assertEquals(
+        $this->assertMethodReturn(
             array(
                 'block' => '<template:loop name="children"><p>TEST</p></template:loop>',
                 'tagname' => 'loop',
                 'attributes' => array('name'=>'children'),
                 'content' => '<p>TEST</p>'
-            ),
-            $method->invokeArgs(
-                $this->instance,
-                array(array(
-                    '<template:loop name="children"><p>TEST</p></template:loop>',
-                    'loop',
-                    ' name="children"',
-                    '<p>TEST</p>'
-                ))
-            )
+            ),array(array(
+                '<template:loop name="children"><p>TEST</p></template:loop>',
+                'loop',
+                ' name="children"',
+                '<p>TEST</p>'
+            ))
 	    );
         
-        $this->assertEquals(
+        $this->assertMethodReturn(
             array(
                 'block' => '<template:data name="node" notblank="parent" />',
                 'tagname' => 'data',
                 'attributes' => array('name'=>'node','notblank'=>'parent'),
                 'content' => ''
-            ),
-            $method->invokeArgs(
-                $this->instance,
-                array(array(
-                    '<template:data name="node" notblank="parent" />',
-                    'data',
-                    ' name="node" notblank="parent"',
-                    ''
-                ))
-            )
+            ),array(array(
+                '<template:data name="node" notblank="parent" />',
+                'data',
+                ' name="node" notblank="parent"',
+                ''
+            ))
 	    );
         
-        $this->assertEquals(
+        $this->assertMethodReturn(
             array(
                 'block' => 'template:variable[node]',
                 'tagname' => 'variable',
                 'attributes' => array(),
                 'content' => 'node'
-            ),
-            $method->invokeArgs(
-                $this->instance,
-                array(array(
-                    'template:variable[node]',
-                    'variable',
-                    'node',
-                    ''
-                ))
-            )
+            ),array(array(
+                'template:variable[node]',
+                'variable',
+                'node',
+                ''
+            ))
 	    );
     }
     
@@ -155,38 +133,24 @@ class Test_Template extends ImpactPHPUnit {
     }
     
     public function test_get_attributes() {
-        $method = self::get_method('_get_attributes');
         
-        $this->assertEquals(
+        $this->assertMethodReturn(
             array('id'=>'test', 'class'=>'bluebox'),
-            $method->invokeArgs(
-                $this->instance,
-                array('<div id="test" class="bluebox">TEST TEXT</div>')
-            )
+            '<div id="test" class="bluebox">TEST TEXT</div>'
 		);
-        
-        $this->assertEquals(
+        $this->assertMethodReturn(
             array('id'=>'test', 'class'=>'bluebox'),
-            $method->invokeArgs(
-                $this->instance,
-                array('<div id=\'test\' class = "bluebox">TEST TEXT</div>')
-            )
+            '<div id=\'test\' class = "bluebox">TEST TEXT</div>'
+          
 		);
-        
-        $this->assertEquals(
+        $this->assertMethodReturn(
             array('id'=>'test', 'class'=>'bluebox'),
-            $method->invokeArgs(
-                $this->instance,
-                array('<div id ="test" class ="bluebox">TEST TEXT</div>')
-            )
+            '<div id ="test" class ="bluebox">TEST TEXT</div>'
+           
 	    );
-        
-         $this->assertEquals(
+         $this->assertMethodReturn(
             array('id'=>'test', 'class'=>'bluebox'),
-			$method->invokeArgs(
-                $this->instance,
-                array('<div   id="test"   class="bluebox"  >TEST TEXT</div>')
-            )
+			'<div   id="test"   class="bluebox"  >TEST TEXT</div>'
 		);
     }
     

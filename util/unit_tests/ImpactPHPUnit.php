@@ -112,7 +112,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 		return ((!in_array('__construct',$methods)) && (in_array('instance',$methods)));
 	}
 	
-	public function assertMethodReturn($expected,$args,$functionName='') {
+	public function assertMethodReturn($expected,$args=array(),$functionName='') {
 		if ($functionName == '') {
 			$functionName = $this->_get_function_name();
 		}
@@ -125,12 +125,22 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 		);
 	}
 	
-	public function assertMethodReturnTrue($functionName,$args) {
+	public function assertMethodReturnTrue($args=array(),$functionName='') {
+		if ($functionName == '') {
+			$functionName = $this->_get_function_name();
+		}
+		$args = $this->_convert_to_arguments_array($args);
+		
 		$method = self::get_method($functionName);
 		return $this->assertTrue($method->invokeArgs($this->instance,$args));
 	}
 	
-	public function assertMathodReturnFalse($functionName,$args) {
+	public function assertMethodReturnFalse($args=array(),$functionName='') {
+		if ($functionName == '') {
+			$functionName = $this->_get_function_name();
+		}
+		$args = $this->_convert_to_arguments_array($args);
+		
 		$method = self::get_method($functionName);
 		return $this->assertFalse($method->invokeArgs($this->instance,$args));
 	}
@@ -151,7 +161,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 		if (!is_array($args)) {
 			return array($args);
 		} else {
-			if (array_key_exists(0, $args)) {
+			if ($this->_is_numeric_indexed_array($args)) {
 				return $args;
 			} else {
 				return array($args);
@@ -240,5 +250,29 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 		$string1 = (string) $string1;
 		$string2 = (string) $string2;
 		return (strtolower(trim($string1)) == strtolower(trim($string2)));
+	}
+	
+	/**
+	 *
+	 *	Test if an array is indexed numerically.
+	 *	
+	 *	@private
+	 *	@param Array() $array The array to test.
+	 *	@return	Boolean
+	 */
+	private function _is_numeric_indexed_array($array) {
+		$is_numeric_indexed = true;
+		
+		if (is_array($array)) {
+			foreach ($array as $key => $value) {
+				if (!is_numeric($key)) {
+					$is_numeric_indexed = false;
+				}
+			}
+		} else {
+			throw new Exception('Expected parameter to be an array.');
+		}
+		
+		return $is_numeric_indexed;
 	}
 }

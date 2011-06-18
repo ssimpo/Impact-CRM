@@ -7,8 +7,8 @@ if "%2" == "models" goto :models
 if "%2" == "plugins" goto :plugins
 if "%2" == "controllers" goto :controllers
 if "%2" == "" goto :all
-echo Running Unit Tests contained in: unit_tests\%2...
-call phpunit unit_tests\%2 > unittest.log
+echo Running Unit Tests contained in: %2...
+call phpunit %2 > unittest.log
 goto :end
 
 :all

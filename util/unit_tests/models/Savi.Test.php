@@ -29,39 +29,17 @@ class Test_Savi extends ImpactPHPUnit {
 	}
 	
 	public function test_normalize_line_endings() {
-		$method = self::get_method('_normalize_line_endings');
-		$result = "HELLO\nWORLD";
 		
-		$this->assertEquals(
-			$result,
-			$method->invokeArgs($this->instance,array("HELLO\r\nWORLD"))
-		);
-		$this->assertEquals(
-			$result,
-			$method->invokeArgs($this->instance,array("HELLO\rWORLD"))
-		);
-		$this->assertEquals(
-			$result,
-			$method->invokeArgs($this->instance,array("HELLO\n\rWORLD"))
-		);
-		$this->assertEquals(
-			$result,
-			$method->invokeArgs($this->instance,array("HELLO\x1EWORLD"))
-		);
-		$this->assertEquals(
-			$result,
-			$method->invokeArgs($this->instance,array("HELLO\x15WORLD"))
-		);
+		$result = "HELLO\nWORLD";
+		$this->assertMethodReturn($result,"HELLO\r\nWORLD");
+		$this->assertMethodReturn($result,"HELLO\rWORLD");
+		$this->assertMethodReturn($result,"HELLO\n\rWORLD");
+		$this->assertMethodReturn($result,"HELLO\x1EWORLD");
+		$this->assertMethodReturn($result,"HELLO\x15WORLD");
 		
 		$result = "HELLO\n\nWORLD";
-		$this->assertEquals(
-			$result,
-			$method->invokeArgs($this->instance,array("HELLO\r\rWORLD"))
-		);
-		$this->assertEquals(
-			$result,
-			$method->invokeArgs($this->instance,array("HELLO\r\n\r\nWORLD"))
-		);
+		$this->assertMethodReturn($result,"HELLO\r\rWORLD");
+		$this->assertMethodReturn($result,"HELLO\r\n\r\nWORLD");
 	}
 	
 	public function test_parse_ical_lines() {
@@ -69,81 +47,74 @@ class Test_Savi extends ImpactPHPUnit {
 	}
 	
 	public function test_fix_line() {
-		$method = self::get_method('_fix_line');
-		$result = "HELLO WORLD";
 		
-		$this->assertEquals(
-			$result,
-			$method->invokeArgs($this->instance,array("\tHELLO WORLD"))
-		);
-		$this->assertEquals(
-			$result,
-			$method->invokeArgs($this->instance,array("\t\t\tHELLO WORLD"))
-		);
+		$result = "HELLO WORLD";
+		$this->assertMethodReturn($result,"\tHELLO WORLD");
+		$this->assertMethodReturn($result,"\t\t\tHELLO WORLD");
 		
 	}
 	
 	public function test_line_parser() {
 		$method = self::get_method('_line_parser');
 		
-		$this->assertEquals(
+		$this->assertMethodReturn(
 			array(
 				'tag' => 'DTSTART',
 				'attributes' => array(),
 				'content' => '19700329T010000',
 				'rawtextcontent' => '19700329T010000'
 			),
-			$method->invokeArgs($this->instance,array('DTSTART:19700329T010000'))
+			'DTSTART:19700329T010000'
 		);
 		
-		$this->assertEquals(
+		$this->assertMethodReturn(
 			array(
 				'tag' => 'X-WR-CALNAME',
 				'attributes' => array(),
 				'content' => 'The Christian Centre, Middlesbrough',
 				'rawtextcontent' => 'The Christian Centre, Middlesbrough'
 			),
-			$method->invokeArgs($this->instance,array('X-WR-CALNAME:The Christian Centre\, Middlesbrough'))
+			'X-WR-CALNAME:The Christian Centre\, Middlesbrough'
 		);
 		
-		$this->assertEquals(
+		$this->assertMethodReturn(
 			array(
 				'tag' => 'RRULE',
 				'attributes' => array(),
 				'content' => array('FREQ'=>'YEARLY','BYMONTH'=>'3','BYDAY'=>'-1SU'),
 				'rawtextcontent' => 'FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU'
 			),
-			$method->invokeArgs($this->instance,array('RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU'))
+			'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU'
 		);
 		
-		$this->assertEquals(
+		$this->assertMethodReturn(
 			array(
 				'tag' => 'DTSTART',
 				'attributes' => array('TZID'=>'Europe/London'),
 				'content' => '20110417T103000',
 				'rawtextcontent' => '20110417T103000'
 			),
-			$method->invokeArgs($this->instance,array('DTSTART;TZID=Europe/London:20110417T103000'))
+			'DTSTART;TZID=Europe/London:20110417T103000'
 		);
 		
-		$this->assertEquals(
+		$this->assertMethodReturn(
 			array(
 				'tag' => 'DTSTART',
 				'attributes' => array('TZID'=>'Europe/London'),
 				'content' => '20110417T103000',
 				'rawtextcontent' => '20110417T103000'
 			),
-			$method->invokeArgs($this->instance,array('DTSTART;TZID="Europe/London":20110417T103000'))
+			'DTSTART;TZID="Europe/London":20110417T103000'
 		);
 		
-		$this->assertEquals(
+		$this->assertMethodReturn(
 			array(
 				'tag' => 'CATEGORIES',
 				'attributes' => array(),
 				'content' => array('Cat1','Cat2','Cat3'),
 				'rawtextcontent' => 'Cat1,Cat2,Cat3'
 			),
-			$method->invokeArgs($this->instance,array('CATEGORIES:Cat1,Cat2,Cat3'))
+			'CATEGORIES:Cat1,Cat2,Cat3'
 		);
 	}
     
