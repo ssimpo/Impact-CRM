@@ -125,6 +125,30 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 		);
 	}
 	
+	public function assertMethodPropertySet($proprtyName,$expected,$args=array(),$functionName='') {
+		if ($functionName == '') {
+			$functionName = $this->_get_function_name();
+		}
+		$args = $this->_convert_to_arguments_array($args);
+		$method = self::get_method($functionName);
+		$method->invokeArgs($this->instance,$args);
+		
+		$properties = array();
+		if (property_exists($this->instance,$proprtyName)) {
+			$properties = get_object_vars($this->instance);
+		} else {
+			$properties = $this->instance->settings;
+		}
+		
+		if (!empty($properties)) {
+			if (array_key_exists($proprtyName,$properties)) {
+				return $this->assertEquals($expected,$properties[$proprtyName]);
+			}
+		}
+		
+		throw new Exception('Property "'.$proprtyName.'" does not exist');
+	}
+	
 	public function assertMethodReturnTrue($args=array(),$functionName='') {
 		if ($functionName == '') {
 			$functionName = $this->_get_function_name();
