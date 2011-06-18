@@ -13,7 +13,7 @@ require_once('globals.php');
 class Test_Acl_REF extends ImpactPHPUnit {
 	
 	protected function setUp() {
-		$this->init('Acl_REF');
+		$this->init();
 	}
 	
 	public function test_test_keywords() {

@@ -13,7 +13,7 @@ require_once('globals.php');
 class Test_Acl_GEO extends ImpactPHPUnit {
 	
 	protected function setUp() {
-		$this->init('Acl_GEO');
+		$this->init();
 	}
 	
 	public function test_test_city() {

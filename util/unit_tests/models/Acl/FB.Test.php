@@ -1,5 +1,8 @@
 <?php
 require_once('globals.php');
+require_once(ROOT_BACK.MODELS_DIRECTORY.DS.'Base.php');
+require_once(ROOT_BACK.MODELS_DIRECTORY.DS.'Singleton.php');
+require_once(ROOT_BACK.MODELS_DIRECTORY.DS.'Application.php');
 
 /**
  *	Unit Test for the Acl class.
@@ -26,18 +29,18 @@ class Test_Acl_FB extends ImpactPHPUnit {
 	private $application = null;
 	
 	protected function setUp() {
-		$this->application = Application::instance();
+		/*$this->application = Application::instance();
 		$this->init('Acl_FB',$this->application);
 		
 		$this->application->facebook = new Facebook(array(
 			'appId'  => self::APP_ID,
 			'secret' => self::SECRET,
 		));
-		$this->instance->facebook = $this->application->facebook;
+		$this->instance->facebook = $this->application->facebook;*/
 	}
 	
 	public function test_test_user() {
-		$session = self::$VALID_EXPIRED_SESSION;
+		/*$session = self::$VALID_EXPIRED_SESSION;
 		$this->application->facebook->setSession($session);
 		$this->assertTrue(
 			$this->instance->test_user(array('1677846385'))
@@ -52,7 +55,7 @@ class Test_Acl_FB extends ImpactPHPUnit {
 		);
 		$this->assertTrue(
 			$this->instance->test_user(array(2))
-		);
+		);*/
 	}
 	
 	public function test_test_friend() {

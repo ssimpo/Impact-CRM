@@ -23,7 +23,7 @@ class Test_Database extends ImpactPHPUnit {
 			define('DB_NAME','database/impact.sqlite');
 		}
 	
-		$this->init('Database');
+		$this->init();
     }
     
     public function test_get_row() {

@@ -13,7 +13,7 @@ require_once('globals.php');
 class Test_Acl extends ImpactPHPUnit {
 	
 	protected function setUp() {
-        $this->init('Acl');
+        $this->init();
 		$application = Application::instance();
 	}
 	
