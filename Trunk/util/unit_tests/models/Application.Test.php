@@ -40,40 +40,32 @@ class Test_Application extends ImpactPHPUnit {
     }
     
     public function test_media_detect() {
+		
 		if (!defined('DEFAULT_MEDIA')) {
 			define('DEFAULT_MEDIA','PC');
 		}
-        $method = self::get_method('_media_detect');
+		$this->assertMethodPropertySet('media','[PC]',$this->instance);
         
-        $method->invoke($this->instance);
-        $this->assertEquals('[PC]',$this->instance->media);
         
 		if (!defined('DOMAIN')) {
 			define('DOMAIN','m.test.com');
 		}
-        $method->invoke($this->instance);
-        $this->assertEquals('[MOBILE]',$this->instance->media);
+		$this->assertMethodPropertySet('media','[MOBILE]',$this->instance);
         
         $_GET['media'] = 'FB';
-        $method->invoke($this->instance);
-        $this->assertEquals('[FB]',$this->instance->media);
+        $this->assertMethodPropertySet('media','[FB]',$this->instance);
     }
     
     public function test_language_detect() {
 		if (!defined('DEFAULT_LANG')) {
 			define('DEFAULT_LANG','en_GB');
 		}
-        $method = self::get_method('_language_detect');
-        
-        $method->invoke($this->instance);
-        $this->assertEquals('[EN_GB]',$this->instance->language);
+		$this->assertMethodPropertySet('language','[EN_GB]',$this->instance);
         
         $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'en-US';
-        $method->invoke($this->instance);
-        $this->assertEquals('[EN_US]',$this->instance->language);
+		$this->assertMethodPropertySet('language','[EN_US]',$this->instance);
         
         $_GET['lang'] = 'zh';
-        $method->invoke($this->instance);
-        $this->assertEquals('[ZH]',$this->instance->language);
+		$this->assertMethodPropertySet('language','[ZH]',$this->instance);
     }
 }
