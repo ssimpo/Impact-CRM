@@ -13,7 +13,7 @@ require_once('globals.php');
 class Test_Acl_AGENT extends ImpactPHPUnit {
 	
 	protected function setUp() {
-		$this->init('Acl_AGENT');
+		$this->init();
 	}
 	
 	public function test_test_browser() {

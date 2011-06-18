@@ -13,7 +13,7 @@ require_once('globals.php');
 class Test_ICalRRuleParser_Monthly extends ImpactPHPUnit {
     
     protected function setUp() {
-        $this->init('ICalRRuleParser_Monthly');
+        $this->init();
     }
 	
 	public function test_parse() {

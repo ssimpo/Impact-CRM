@@ -13,7 +13,7 @@ require_once('globals.php');
 class Test_Savi extends ImpactPHPUnit {
 
     protected function setUp() {
-        $this->init('Savi');
+        $this->init();
     }
     
     public function test_ical_parse() {

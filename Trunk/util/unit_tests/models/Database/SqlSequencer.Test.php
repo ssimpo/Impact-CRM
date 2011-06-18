@@ -23,7 +23,7 @@ class Test_Database_SqlSequencer extends ImpactPHPUnit {
 			define('DB_NAME','database/impact.sqlite');
 		}
 		
-		$this->init('Database_SqlSequencer');
+		$this->init();
     }
 	
 	public function test_make_array() {

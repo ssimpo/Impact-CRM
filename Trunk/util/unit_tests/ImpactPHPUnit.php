@@ -3,7 +3,7 @@
  *	Unit Test Framework for Impact.
  *
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.1
+ *	@version 0.0.2
  *	@license http://www.gnu.org/licenses/lgpl.html
  *	@package UnitTests.Impact
  *	@extends PHPUnit_Framework_TestCase
@@ -12,20 +12,44 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	static protected $class;
 	protected $instance;
 	
-    protected function init($classname,$arg='') {
+    protected function init($className='',$args=array()) {
         spl_autoload_register('self::__autoload');
 		
-		self::$class = $classname;
-		if ($this->_is_singleton(self::$class)) {
-			$this->instance = $classname::instance();
+		if ($className == '') {
+			self::$class = $this->_get_test_classname();
 		} else {
-			if ($arg == ''){
-				$this->instance = new self::$class;
+			self::$class = $className;
+		}
+		
+		$this->instance = $this->_get_class_instance(self::$class);
+    }
+	
+	/**
+	 *	Get an instance of the specified class.
+	 *
+	 *	Uses the Impact coding standards to derive whether class is singleton
+	 *	or not, allowing access via normal *new* methodology
+	 *	or using a static.
+	 *
+	 *	@param string $className The name of the class to get.
+	 *	@param array() $args The argument to invoke on class creation.
+	 *	@return object An instance of the class.
+	 */
+	private function _get_class_instance($className,$args=array()) {
+		if ($this->_is_singleton($className)) {
+			return $className::instance();
+		} else {
+			if (!empty($args)) {
+				if (!is_array($args)) {
+					$args = array($args);
+				}
+				$reflection = new ReflectionClass($className);
+				return $reflection->newInstanceArgs($args);
 			} else {
-				$this->instance = new self::$class($arg);
+				return new $className;
 			}
 		}
-    }
+	}
     
     private function __autoload($className) {
 		$classFileName = str_replace('_',DS,$className).'.php';
@@ -35,7 +59,37 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 			require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
 		}
     }
+	
+	/**
+	 *	Get the name of the class we are testing.
+	 *
+	 *	Impact coding standards say that a test class should be named,
+	 *	Test_<Name of class we are testing>, hence the subject of the tests
+	 *	can be derived by looking at the name of the calling class.
+	 *
+	 *	@return string The name of the calling class.
+	 */
+	private function _get_test_classname() {
+		$backtrace = debug_backtrace();
+		$className = $backtrace[0]['class'];
+		foreach ($backtrace as $trace) {
+			if ($className != $trace['class']) {
+				$className = preg_replace('/^Test_/','',$trace['class']);
+				return $className;
+			}
+		}
+		
+		throw new Exception('Could not derive the class, which this set of tests is operating on.');
+	}
     
+	/**
+	 *	Get a method from the current class and make it accessible.
+	 *
+	 *	@note Using the Reflection Class, access is given to private and protected arrays.
+	 *
+	 *	@param string $name The name of the method to provide.
+	 *	@return ReflectionMethod The method as an object, which can be operated on.
+	 */
     protected static function get_method($name) {
         $class = new ReflectionClass(self::$class);
         $method = $class->getMethod($name);
@@ -56,5 +110,135 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 			return false;
 		}
 		return ((!in_array('__construct',$methods)) && (in_array('instance',$methods)));
+	}
+	
+	public function assertMethodReturn($expected,$args,$functionName='') {
+		if ($functionName == '') {
+			$functionName = $this->_get_function_name();
+		}
+		$args = $this->_convert_to_arguments_array($args);
+		
+		$method = self::get_method($functionName);
+		return $this->assertEquals(
+			$expected,
+			$method->invokeArgs($this->instance,$args)
+		);
+	}
+	
+	public function assertMethodReturnTrue($functionName,$args) {
+		$method = self::get_method($functionName);
+		return $this->assertTrue($method->invokeArgs($this->instance,$args));
+	}
+	
+	public function assertMathodReturnFalse($functionName,$args) {
+		$method = self::get_method($functionName);
+		return $this->assertFalse($method->invokeArgs($this->instance,$args));
+	}
+	
+	/**
+	 *	Turning an argument into the correct format for calling invokeArgs.
+	 *
+	 *	This method makes assert calling easier.  If a single argument is
+	 *	presented it is wrapped-up in an array an invoked against the method
+	 *	we are currently testing.  If an array is presented, the function
+	 *	checks to see if it is an argument array and then invokes it.  If it
+	 *	fails that test then it is again wrapped in an array and invoked.
+	 *
+	 *	@param mixed $args The argument(s) to convert.
+	 *	@return array() An argument list.
+	 */
+	private function _convert_to_arguments_array($args) {
+		if (!is_array($args)) {
+			return array($args);
+		} else {
+			if (array_key_exists(0, $args)) {
+				return $args;
+			} else {
+				return array($args);
+			}
+		}
+	}
+	
+	/**
+	 *	Get the function, which the current test is testing.
+	 *
+	 *	The principle here is that according to the Impact coding standards
+	 *	each test will be called test_<Function it tests>(), so the subject
+	 *	of each test can be derived from the test name.  Coding standards
+	 *	dictate that private and protected methods start with an underscore, so
+	 *	if a method is not found, it is assumed to be private.
+	 *
+	 *	@return String The name of the function.
+	 */
+	private function _get_function_name() {
+		$testFunctionName = $this->_get_calling_function_name();
+		$functionName = preg_replace('/^test_/','',$testFunctionName);
+		
+		if ($this->_check_function_name($functionName)) {
+			return $functionName;
+		}
+		if ($this->_check_function_name('_'.$functionName)) {
+			return '_'.$functionName;
+		}
+		
+		throw new Exception($functionName.' Does not exist in the class "'.self::$class.'"');
+	}
+	
+	/**
+	 *	Check whether a method exists within a given class.
+	 *
+	 *	@param string $functionName The name of the function to test.
+	 *	@return boolean
+	 */
+	private function _check_function_name($functionName) {
+		
+		if (substr($functionName,0,1) != '_') {
+			$methods = get_class_methods(self::$class);
+			if (in_array($functionName,$methods)) {
+				return true;
+			}
+		}
+		
+		$class = new ReflectionClass(self::$class);
+		$methods = $class->getMethods();
+		foreach ($methods as $method) {
+			if ($this->_is_equal($method->name,$functionName)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 *	Get the name of the calling function (the caller outside this class).
+	 *
+	 *	@return string The function name.
+	 */
+	private function _get_calling_function_name() {
+		$backtrace = debug_backtrace();
+		
+		foreach ($backtrace as $trace) {
+			if (strtolower($trace['class']) == strtolower('Test_'.self::$class)) {
+				return $trace['function'];
+			}
+		}
+		
+		throw new Exception('Cannot find the method-name this test is operating on.');
+	}
+	
+	/**
+	 *	Test whether two strings are identical after trimming, lowercasing.
+	 *
+	 *	@note Method will accept non-strings as long as they can be converted to a string.
+	 *
+	 *	@param mixed $string1 The first string to test.
+	 *	@param mixed $string2 The second string to test.
+	 *	@return boolean
+	 */
+	private function _is_equal($string1,$string2) {
+		$string1 = (string) $string1;
+		$string2 = (string) $string2;
+		return (strtolower(trim($string1)) == strtolower(trim($string2)));
 	}
 }

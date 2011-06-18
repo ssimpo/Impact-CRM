@@ -13,7 +13,7 @@ require_once('globals.php');
 class Test_I extends ImpactPHPUnit {
 	
 	protected function setUp() {
-		$this->init('I');
+		$this->init();
 	}
 	
 	private function __autoload($className) {

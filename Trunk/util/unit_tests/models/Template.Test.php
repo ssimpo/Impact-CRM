@@ -15,7 +15,7 @@ class Test_Template extends ImpactPHPUnit {
     private $application;
     
     protected function setUp() {
-        $this->init('Template');
+        $this->init();
         
         $this->acl = $this->getMock('Acl',array('allowed'));
         $this->acl->expects($this->any())->method('allowed')->will($this->returnValue(true));
