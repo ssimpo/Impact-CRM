@@ -40,7 +40,7 @@ class DateParser Extends Base {
 	 *	@param
 	 *	@return
 	 */
-	public function convert_date($date,$type='',$timezone='') {
+	public function parse($date,$type='',$timezone='') {
 		switch ($type) {
 			case '':
 				return $this->_detect($date,$timezone);
@@ -66,6 +66,7 @@ class DateParser Extends Base {
 	 */
 	protected function _detect($date,$timezone='') {
 		foreach (self::$config as $tester) {
+			
 			if (preg_match($tester['REGEX'],$date)) {
 				$parser = $this->factory($tester['CLASS']);
 				return $parser->parse($date,$timezone);

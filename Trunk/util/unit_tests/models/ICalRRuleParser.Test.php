@@ -21,20 +21,20 @@ class Test_ICalRRuleParser extends ImpactPHPUnit {
         // STUB
     }
     
-    public function test_factory() {
+    public function test_get_parser() {
         $test = 'WEEKLY';
         $this->assertTrue(
-            get_class($this->instance->factory($test)) == 'ICalRRuleParser_Weekly'
+            get_class($this->instance->get_parser($test)) == 'ICalRRuleParser_Weekly'
         );
         
         $test = array('FREQ'=>'WEEKLY','INTERVAL'=>2,'WKST'=>'SU');
         $this->assertTrue(
-            get_class($this->instance->factory($test)) == 'ICalRRuleParser_Weekly'
+            get_class($this->instance->get_parser($test)) == 'ICalRRuleParser_Weekly'
         );
         
         $test = array('FREQ'=>'MONTHLY','COUNT'=>10,'BYMONTHDAY'=>array(2,15));
         $this->assertTrue(
-            get_class($this->instance->factory($test)) == 'ICalRRuleParser_Monthly'
+            get_class($this->instance->get_parser($test)) == 'ICalRRuleParser_Monthly'
         );
         
     }

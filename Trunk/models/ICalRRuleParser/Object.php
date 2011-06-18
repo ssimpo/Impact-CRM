@@ -12,6 +12,6 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
  *	@package Calendar
  */
 interface ICalRRuleParser_Object {
-	public function parse($rrule,$start);
+	public function parse($rrule);
 }
 ?>

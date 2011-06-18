@@ -76,7 +76,7 @@ abstract class Calendar_Base Extends Base {
 		$timezone = $this->_get_timezone($date);
 		$date = $date[0];
 		$DateParser = $this->factory('DateParser');
-		$utc_date = $DateParser->convert_date($date,'',$timezone);
+		$utc_date = $DateParser->parse($date,'',$timezone);
 		$this->data[$name] = $utc_date;
 	}
 

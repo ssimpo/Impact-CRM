@@ -12,17 +12,49 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
  *	@package Calendar
  */
 class ICalRRuleParser extends Base {
-	private $rrule;
 	private $parser;
+	private $dateParser = null;
 	
 	public function __construct() {
 		
 	}
 	
-	public function parse($rrule,$start) {
-		$this->rrule = $this->_split_rrule($rrule);
-		$this->parser = $this->_get_parser($this->rrule);
-		$this->parser->parse($this->rrule,$start);
+	public function parse($rrule,$start='') {
+		$parsedRrule = $rrule;
+		
+		if (!is_array($rrule)) {
+			$parsedRrule = $this->_split_rrule($rrule);
+		}
+		$parsedRrule['DTSTART'] = $this->_get_date($start);
+		
+		$this->parser = $this->get_parser($parsedRrule);
+		$this->parser->parse($parsedRrule);
+	}
+	
+	/**
+	 *	Return Unix timestamp according to the supplied string.
+	 *
+	 *	@note If no date is given or it is blank then the current date is returned.
+	 *
+	 *	@private
+	 *	@param string $date  The date-string.
+	 *	@return TimeDate
+	 */
+	private function _get_date($date='') {
+		$parsedDate = $date;
+		
+		if (is_string($parsedDate)) {
+			if ($parsedDate != '') {
+				if ($this->dateParser == null) {
+					$this->dateParser = $this->factory('DateParser');
+				}
+				$parsedDate = $this->dateParser->parse($parsedDate,'','');
+			} else {
+				$parsedDate = time();
+			}
+		}
+		
+		return $parsedDate;
 	}
 	
 	/**
@@ -32,7 +64,7 @@ class ICalRRuleParser extends Base {
 	 *	@param array()|string $rrule The iCal RRule broken into an array or just the FREQ string.
 	 *	@return object Parser of type ICalRRuleParser_<FREQUENCY TYPE>
 	 */
-	public function factory($rrule,$args=array()) {
+	public function get_parser($rrule,$args=array()) {
 		if (is_string($rrule)) {
 			return parent::factory('ICalRRuleParser_'.$rrule);
 		} else {
