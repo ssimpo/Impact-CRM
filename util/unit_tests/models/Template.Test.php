@@ -55,8 +55,7 @@ class Test_Template extends ImpactPHPUnit {
         $method = self::get_method('_get_xml');
         
         $xml = '<html><head><title>TEST</title></head><body><h1>TEST</h1></body></html>';
-        $method->invokeArgs($this->instance,array($xml));
-        $this->assertEquals($this->instance->xml,$xml);
+        $this->assertMethodPropertySet('xml',$xml,$xml);
         
         $xml = '
         <html>
@@ -67,13 +66,11 @@ class Test_Template extends ImpactPHPUnit {
                 <h1>TEST</h1>
             </body>
         </html>';
-        $method->invokeArgs($this->instance,array($xml));
-        $this->assertEquals($this->instance->xml,$xml);
+        $this->assertMethodPropertySet('xml',$xml,$xml);
         
         $path = ROOT_BACK.'util'.DS.'unit_tests'.DS.'models'.DS.'_data'.DS.'xml'.DS.'Template.1.Test.xml';
         $xml=file_get_contents($path);
-        $method->invokeArgs($this->instance,array($xml));
-        $this->assertEquals($this->instance->xml,$xml);
+        $this->assertMethodPropertySet('xml',$xml,$xml);
     }
     
     public function test_create_match_array() {

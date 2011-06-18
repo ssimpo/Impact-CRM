@@ -31,6 +31,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	 *	or not, allowing access via normal *new* methodology
 	 *	or using a static.
 	 *
+	 *	@private
 	 *	@param string $className The name of the class to get.
 	 *	@param array() $args The argument to invoke on class creation.
 	 *	@return object An instance of the class.
@@ -67,6 +68,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	 *	Test_<Name of class we are testing>, hence the subject of the tests
 	 *	can be derived by looking at the name of the calling class.
 	 *
+	 *	@private
 	 *	@return string The name of the calling class.
 	 */
 	private function _get_test_classname() {
@@ -87,6 +89,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	 *
 	 *	@note Using the Reflection Class, access is given to private and protected arrays.
 	 *
+	 *	@protected
 	 *	@param string $name The name of the method to provide.
 	 *	@return ReflectionMethod The method as an object, which can be operated on.
 	 */
@@ -112,6 +115,46 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 		return ((!in_array('__construct',$methods)) && (in_array('instance',$methods)));
 	}
 	
+	/**
+	 *	Get the value of a property, even if only accessible through the magic __get()method.
+	 *	
+	 *	@private
+	 *	@param string $propertyName The name of the property to search for.
+	 *	@return mixed The property value.
+	 */
+	private function _get_property_value($propertyName) {
+		if (property_exists($this->instance,$propertyName)) {
+			$properties = get_object_vars($this->instance);
+			if (array_key_exists($propertyName,$properties)) {
+				return $properties[$propertyName];
+			}
+		} else {
+			return $this->_get_magic_property_value($propertyName);
+		}
+	}
+	
+	/**
+	 *	Get the value of a property accessible through the magic __get() method.
+	 *	
+	 *	@private
+	 *	@param string $propertyName The name of the property to search for.
+	 *	@return mixed The property value.
+	 */
+	public function _get_magic_property_value($propertyName) {
+		$class = new ReflectionClass(self::$class);
+		$methods = $class->getMethods();
+		foreach ($methods as $method) {
+			if ($this->_is_equal($method->name,'__get')) {
+				return $method->invokeArgs(
+					$this->instance,
+					array($propertyName)
+				);
+			}
+		}
+		
+		throw new Exception('Property "'.$propertyName.'" does not exist');
+	}
+	
 	public function assertMethodReturn($expected,$args=array(),$functionName='') {
 		if ($functionName == '') {
 			$functionName = $this->_get_function_name();
@@ -125,28 +168,16 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 		);
 	}
 	
-	public function assertMethodPropertySet($proprtyName,$expected,$args=array(),$functionName='') {
+	public function assertMethodPropertySet($propertyName,$expected,$args=array(),$functionName='') {
 		if ($functionName == '') {
 			$functionName = $this->_get_function_name();
 		}
 		$args = $this->_convert_to_arguments_array($args);
 		$method = self::get_method($functionName);
 		$method->invokeArgs($this->instance,$args);
+		$propertyValue = $this->_get_property_value($propertyName);
 		
-		$properties = array();
-		if (property_exists($this->instance,$proprtyName)) {
-			$properties = get_object_vars($this->instance);
-		} else {
-			$properties = $this->instance->settings;
-		}
-		
-		if (!empty($properties)) {
-			if (array_key_exists($proprtyName,$properties)) {
-				return $this->assertEquals($expected,$properties[$proprtyName]);
-			}
-		}
-		
-		throw new Exception('Property "'.$proprtyName.'" does not exist');
+		return $this->assertEquals($expected,$propertyValue);
 	}
 	
 	public function assertMethodReturnTrue($args=array(),$functionName='') {
@@ -178,6 +209,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	 *	checks to see if it is an argument array and then invokes it.  If it
 	 *	fails that test then it is again wrapped in an array and invoked.
 	 *
+	 *	@private
 	 *	@param mixed $args The argument(s) to convert.
 	 *	@return array() An argument list.
 	 */
@@ -202,6 +234,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	 *	dictate that private and protected methods start with an underscore, so
 	 *	if a method is not found, it is assumed to be private.
 	 *
+	 *	@private
 	 *	@return String The name of the function.
 	 */
 	private function _get_function_name() {
@@ -221,6 +254,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	/**
 	 *	Check whether a method exists within a given class.
 	 *
+	 *	@private
 	 *	@param string $functionName The name of the function to test.
 	 *	@return boolean
 	 */
@@ -247,6 +281,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	/**
 	 *	Get the name of the calling function (the caller outside this class).
 	 *
+	 *	@private
 	 *	@return string The function name.
 	 */
 	private function _get_calling_function_name() {
@@ -266,6 +301,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	 *
 	 *	@note Method will accept non-strings as long as they can be converted to a string.
 	 *
+	 *	@private
 	 *	@param mixed $string1 The first string to test.
 	 *	@param mixed $string2 The second string to test.
 	 *	@return boolean
