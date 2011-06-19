@@ -7,9 +7,12 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
  *	ICalRRuleParser.Base class
  *		
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.1
+ *	@version 0.0.3
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar
+ *
+ *	@todo What happens if a day repeats monthly on 31st of the month in a 30-day month/
+ *	@todo What happens if a day repeats on February 29th?
  */
 abstract class ICalRRuleParser_Base Extends Base {
 	protected $dateParser = null;
@@ -80,10 +83,21 @@ abstract class ICalRRuleParser_Base Extends Base {
 	 *	@return DateTime The next Unix date.
 	 */
 	protected function _next_interval($cdate,$rrule) {
-		$addSeconds = $this->_get_seconds_in_period($rrule['FREQ'],$cdate);
-		$addSeconds *= $rrule['INTERVAL'];
+		$period = $rrule['FREQ'];
 		
-		return ($cdate + $addSeconds);
+		if (($period == 'MONTHLY') || ($period == 'YEARLY')) {
+			// Months have different lengths and years can be different
+			// depending on leap years
+			$addSeconds = $cdate;
+			for ($i = 0; $i < $rrule['INTERVAL']; $i++) {
+				$addSeconds += $this->_get_seconds_in_period($period,$addSeconds);
+			}
+			return $addSeconds;
+		} else {
+			$addSeconds = $this->_get_seconds_in_period($period,$cdate);
+			$addSeconds *= $rrule['INTERVAL'];
+			return ($cdate + $addSeconds);
+		}
 	}
 	
 	/**
@@ -126,6 +140,7 @@ abstract class ICalRRuleParser_Base Extends Base {
 		if ($date['mon'] != 2) {
 			return ($this->months[$month] * $seconds_in_day);
 		} else {
+			// February and leap-year work-around
 			if ($this->_is_leap_year($date['year'])) {
 				return (29 * $seconds_in_day);
 			} else {
@@ -149,18 +164,149 @@ abstract class ICalRRuleParser_Base Extends Base {
 		$seconds_in_year = ($seconds_in_day * 365);
 		
 		if ($date['mon'] > 2) {
+			// If you a going over a Feb 29th (next year) then an
+			// extra day needs adding
 			if ($this->_is_leap_year($date['year']+1)) {
 				$seconds_in_year += $seconds_in_day;
 			}
 		}
 		
 		if ($date['mon'] <= 2) {
+			// If you a going over a Feb 29th (this year) then an
+			// extra day needs adding
 			if ($this->_is_leap_year($date['year'])) {
 				$seconds_in_year += $seconds_in_day;
 			}
 		}
 		
 		return $seconds_in_year;
+	}
+	
+	protected function _next_bysecond($cdate,$rrule) {
+		$seconds = $rrule['BYSECOND'];
+		$dates = $this->_make_array($cdate);
+		$newdates = array();
+		
+		foreach ($seconds as $second) {
+			foreach ($dates as $date) {
+				$dateArray = getdate($date);
+				$newdate = mktime(
+					$seconds,$dateArray['minutes'],$dateArray['hours'],
+					$dateArray['mday'],$dateArray['mday'],$dateArray['year']
+				);
+				array_push($newdates,$newdate);
+			}
+		}
+		
+		return $newdates;
+	}
+	
+	protected function _next_byminute($cdate,$rrule) {
+		$minutes = $rrule['BYMINUTE'];
+		$dates = $this->_make_array($cdate);
+		$newdates = array();
+		
+		foreach ($minutes as $minute) {
+			foreach ($dates as $date) {
+				$dateArray = getdate($date);
+				$newdate = mktime(
+					$dateArray['seconds'],$minute,$dateArray['hours'],
+					$dateArray['mday'],$dateArray['mday'],$dateArray['year']
+				);
+				array_push($newdates,$newdate);
+			}
+		}
+		
+		return $newdates;
+	}
+	
+	protected function _next_byhour($cdate,$rrule) {
+		$hours = $rrule['BYHOUR'];
+		$dates = $this->_make_array($cdate);
+		$newdates = array();
+		
+		foreach ($hours as $hour) {
+			foreach ($dates as $date) {
+				$dateArray = getdate($date);
+				$newdate = mktime(
+					$dateArray['seconds'],$dateArray['minutes'],$hour,
+					$dateArray['mday'],$dateArray['mday'],$dateArray['year']
+				);
+				array_push($newdates,$newdate);
+			}
+		}
+		
+		return $newdates;
+	}
+	
+	protected function _next_byday($cdate,$rrule) {
+		$days = $rrule['BYDAY'];
+		$dates = $this->_make_array($cdate);
+		$newdates = array();
+	}
+	
+	protected function _next_bymonthday($cdate,$rrule) {
+		$days = $rrule['BYMONTHDAY'];
+		$dates = $this->_make_array($cdate);
+		$newdates = array();
+		
+		foreach ($days as $day) {
+			foreach ($dates as $date) {
+				$dateArray = getdate($date);
+				$newdate = mktime(
+					$dateArray['seconds'],$dateArray['minutes'],$dateArray['hours'],
+					$day,$dateArray['mday'],$dateArray['year']
+				);
+				array_push($newdates,$newdate);
+			}
+		}
+		
+		return $newdates;
+	}
+	
+	protected function _next_byyearday($cdate,$rrule) {
+		$days = $rrule['BYYEARDAY'];
+		$dates = $this->_make_array($cdate);
+		$newdates = array();
+	}
+	
+	protected function _next_byweekno($cdate,$rrule) {
+		$weeks = $rrule['BYWEEKNO'];
+		$dates = $this->_make_array($cdate);
+		$newdates = array();
+	}
+	
+	protected function _next_bymonth($cdate,$rrule) {
+		$months = $rrule['BYMONTH'];
+		$dates = $this->_make_array($cdate);
+		$newdates = array();
+		
+		foreach ($months as $month) {
+			foreach ($dates as $date) {
+				$dateArray = getdate($date);
+				$newdate = mktime(
+					$dateArray['seconds'],$dateArray['minutes'],$dateArray['hours'],
+					$month,$dateArray['mday'],$dateArray['year']
+				);
+				array_push($newdates,$newdate);
+			}
+		}
+		
+		return $newdates;
+	}
+	
+	/**
+	 *	Make the passed paramater an array if it isn't already one.
+	 *
+	 *	@protected
+	 *	@param mixed $item The variable to turn into an array.
+	 *	@return array()
+	 */
+	protected function _make_array($item) {
+		if (is_array($item)) {
+			return $item;
+		}
+		return array($item);
 	}
 	
 	/**
@@ -203,39 +349,5 @@ abstract class ICalRRuleParser_Base Extends Base {
 			return ($year + 1900);
 		}
 		return $year;
-	}
-	
-	protected function _next_bysecond($cdate,$rrule) {
-		$seconds = $rrule['BYSECOND'];
-	}
-	
-	protected function _next_byminute($cdate,$rrule) {
-		$minutes = $rrule['BYMINUTE'];
-	}
-	
-	protected function _next_byhour($cdate,$rrule) {
-		$hours = $rrule['BYHOUR'];
-	}
-	
-	protected function _next_byday($cdate,$rrule) {
-		$days = $rrule['BYDAY'];
-	}
-	
-	protected function _next_bymonthday($cdate,$rrule) {
-		$days = $rrule['BYMONTHDAY'];
-	}
-	
-	protected function _next_byyearday($cdate,$rrule) {
-		$days = $rrule['BYYEARDAY'];
-	}
-	
-	protected function _next_byweekno($cdate,$rrule) {
-		$weeks = $rrule['BYWEEKNO'];
-	}
-	
-	protected function _next_bymonth($cdate,$rrule) {
-		$months = $rrule['BYMONTH'];
-		
-		
 	}
 }

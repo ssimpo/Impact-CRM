@@ -20,11 +20,21 @@ class Test_ICalRRuleParser_Secondly extends ImpactPHPUnit {
 		//STUB
 	}
 	
-	public function test_is_leap_year() {
-		$this->assertMethodReturnTrue(2000);
-		$this->assertMethodReturnFalse(1900);
-		$this->assertMethodReturnFalse(2011);
-		$this->assertMethodReturnTrue(2012);
+	public function test_next_interval() {
+		$date1 = mktime(13,0,0,6,18,2011);
+		$date2 = mktime(13,0,0,6,21,2011);
+		$rrule = array('FREQ'=>'DAILY','INTERVAL'=>3);
+		$this->assertMethodReturn($date2,array($date1,$rrule));
+		
+		$date1 = mktime(13,0,0,6,18,2011);
+		$date2 = mktime(13,0,0,9,18,2011);
+		$rrule = array('FREQ'=>'MONTHLY','INTERVAL'=>3);
+		$this->assertMethodReturn($date2,array($date1,$rrule));
+		
+		$date1 = mktime(13,0,0,6,18,2011);
+		$date2 = mktime(13,0,0,6,18,2014);
+		$rrule = array('FREQ'=>'YEARLY','INTERVAL'=>3);
+		$this->assertMethodReturn($date2,array($date1,$rrule));
 	}
 	
 	public function test_get_seconds_in_month_period() {
@@ -90,6 +100,13 @@ class Test_ICalRRuleParser_Secondly extends ImpactPHPUnit {
 		$this->assertMethodReturn(60*60*24*366,array('YEARLY',$date));
 		$date = mktime(13,0,0,2,18,2012);
 		$this->assertMethodReturn(60*60*24*366,array('YEARLY',$date));
+	}
+	
+	public function test_is_leap_year() {
+		$this->assertMethodReturnTrue(2000);
+		$this->assertMethodReturnFalse(1900);
+		$this->assertMethodReturnFalse(2011);
+		$this->assertMethodReturnTrue(2012);
 	}
 	
 	public function test_get_four_digit_year() {
