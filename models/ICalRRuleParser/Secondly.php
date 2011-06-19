@@ -44,7 +44,6 @@ class ICalRRuleParser_Secondly Extends ICalRRuleParser_Base implements ICalRRule
 	private function _parse_until($rrule) {
 		$dates = array($rrule['DTSTART']);
 		$rrule['RREND'] = $this->_get_date($rrule['UNTIL']);
-		$rrule['MODIFIER'] = $this->_get_modifier($rrule);
 		
 		$cdate = $rrule['DTSTART'];
 		while ($cdate < $rrule['RREND']) {
@@ -53,7 +52,5 @@ class ICalRRuleParser_Secondly Extends ICalRRuleParser_Base implements ICalRRule
 		}
 	}
 
-	protected function _next_interval($cdate,$rrule) {
-		return ($cdate + $rrule['INTERVAL']);
-	}
+	
 }

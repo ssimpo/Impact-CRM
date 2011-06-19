@@ -14,10 +14,20 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 abstract class ICalRRuleParser_Base Extends Base {
 	protected $dateParser = null;
 	private $modifiers = array(
-		'INTERVAL','BYSECOND','BYMINUTE','BYHOUR',
-		'BYDAY','BYMONTHDAY','BYYEARDAY','BYWEEKNO',
-		'BYMONTH','BYSETPOS'
+		'BYMONTH', 'BYWEEKNO', 'BYYEARDAY', 'BYMONTHDAY',
+		'BYDAY', 'BYHOUR', 'BYMINUTE', 'BYSECOND',
+		'BYSETPOS'
 	);
+	private $inverval_period = array(
+		'SECONDLY' => 1, 'MINUTELY' => 60, 'HOURLY' => 3600,
+		'DAILY' => 86400, 'WEEKLY' => 604800
+	);
+	private $months = array(
+		'JAN' => 31, 'FEB' => 28, 'MAR' => 31, 'APR' => 30,
+		'MAY' => 31, 'JUN' => 30, 'JUL' => 31, 'AUG' => 31,
+		'SEP' => 30, 'OCT' => 31, 'NOV' => 30, 'DEC' => 31
+	);
+	
 	
 	/**
 	 *	Return Unix timestamp according to the supplied string.
@@ -46,49 +56,186 @@ abstract class ICalRRuleParser_Base Extends Base {
 	}
 	
 	protected function _get_next($cdate,$rrule) {
-		$functionName = '_next_'.strtolower($rrule['MODIFIER']);
-		return call_user_func(array($this,$functionName),$cdate,$rrule);
+		if (array_key_exists('INTERVAL',$rrule)) {
+			$cdate = $this->_next_interval($cdate,$rrule);
+		}
+		foreach ($this->modifiers as $modifier => $modifierValue) {
+			if (array_key_exists($modifier,$rrule)) {
+				$functionName = '_next_'.strtolower($modifier);
+				$cdate = call_user_func(array($this,$functionName),$cdate,$rrule);
+			}
+		}
+		return $cdate;
 	}
 	
-	abstract protected function _next_interval($cdate,$rrule);
+	/**
+	 *	Calculate the next date according to the recurrance rule.
+	 *
+	 *	Given the iCal RRULE and the date of the last recurrance, calculate
+	 *	the next date in the sequence.
+	 *
+	 *	@protected
+	 *	@param DateTime $cdate The Unix date.
+	 *	@param array() $rrule The iCal RRULE parsed into an array.
+	 *	@return DateTime The next Unix date.
+	 */
+	protected function _next_interval($cdate,$rrule) {
+		$addSeconds = $this->_get_seconds_in_period($rrule['FREQ'],$cdate);
+		$addSeconds *= $rrule['INTERVAL'];
+		
+		return ($cdate + $addSeconds);
+	}
+	
+	/**
+	 *	Get the number of seconds in the current FREQ.
+	 *
+	 *	The number of seconds to add to a date in our to get the next
+	 *	recurrance according to RRULE (before INTERVAL is taken into account).
+	 *
+	 *	@protected
+	 *	@param string $period The period (FREQ) type (eg. DAILY, MONTLY, YEARLY, ...etc).
+	 *	@param DateTime $cdate The Unix date
+	 *	@return int The number of seconds.
+	 */
+	protected function _get_seconds_in_period($period,$cdate) {
+		if ($period == 'MONTHLY') {
+			return $this->_get_seconds_in_month_period($cdate);
+		} elseif ($period == 'YEARLY') {
+			return $this->_get_seconds_in_year_period($cdate);
+		} elseif (array_key_exists($period,$this->inverval_period)) {
+			return $this->inverval_period[$period];
+		}
+		
+		throw new Exception('Unknown FREQ value in iCal RRULE.');
+	}
+	
+	/**
+	 *	Calculate the number of seconds for one month to be added to a date.
+	 *
+	 *	@note Method takes into concideration leap years
+	 *
+	 *	@protected
+	 *	@param DateTime $cdate A Unix date.
+	 *	@return int The number of seconds.
+	 */
+	protected function _get_seconds_in_month_period($cdate) {
+		$date = getdate($cdate);
+		$month = strtoupper(substr($date['month'],0,3));
+		$seconds_in_day = $this->inverval_period['DAILY'];
+		
+		if ($date['mon'] != 2) {
+			return ($this->months[$month] * $seconds_in_day);
+		} else {
+			if ($this->_is_leap_year($date['year'])) {
+				return (29 * $seconds_in_day);
+			} else {
+				return ($this->months[$month] * $seconds_in_day);
+			}
+		}
+	}
+	
+	/**
+	 *	Calculate the number of seconds for one year to be added to a date.
+	 *
+	 *	@note Method takes into concideration leap years
+	 *
+	 *	@protected
+	 *	@param DateTime $cdate A Unix date.
+	 *	@return int The number of seconds.
+	 */
+	protected function _get_seconds_in_year_period($cdate) {
+		$date = getdate($cdate);
+		$seconds_in_day = $this->inverval_period['DAILY'];
+		$seconds_in_year = ($seconds_in_day * 365);
+		
+		if ($date['mon'] > 2) {
+			if ($this->_is_leap_year($date['year']+1)) {
+				$seconds_in_year += $seconds_in_day;
+			}
+		}
+		
+		if ($date['mon'] <= 2) {
+			if ($this->_is_leap_year($date['year'])) {
+				$seconds_in_year += $seconds_in_day;
+			}
+		}
+		
+		return $seconds_in_year;
+	}
+	
+	/**
+	 *	Is the specified year a leap year?
+	 *
+	 *	@private
+	 *	@param int $year The 4-digit year, or 2-digit year where <50 is in the 2000s and >50 in 1900s
+	 *	@return boolean
+	 */
+	protected function _is_leap_year($year) {
+		$testYear = $this->_get_four_digit_year($year);
+		
+		if (($testYear%400) == 0) {
+			return true;
+		}
+		if (($testYear%100) == 0) {
+			return false;
+		}
+		if (($testYear%4) == 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 *	Get the four digigit year from two digit one.
+	 *
+	 *	Years 50-99 are set to 1950-1999, whilst years 00-49 are set to
+	 *	2000-2049.  Four digit years are returned unchanged.
+	 *
+	 *	@protected
+	 *	@param int $year The two or four digit year.
+	 *	@return int The year adjusted to four digits.
+	 */
+	protected function _get_four_digit_year($year) {
+		if ($year < 50) {
+			return ($year + 2000);
+		}
+		if ($year < 100) {
+			return ($year + 1900);
+		}
+		return $year;
+	}
 	
 	protected function _next_bysecond($cdate,$rrule) {
-		
+		$seconds = $rrule['BYSECOND'];
 	}
 	
 	protected function _next_byminute($cdate,$rrule) {
-		
+		$minutes = $rrule['BYMINUTE'];
 	}
 	
 	protected function _next_byhour($cdate,$rrule) {
-		
+		$hours = $rrule['BYHOUR'];
 	}
 	
 	protected function _next_byday($cdate,$rrule) {
-		
+		$days = $rrule['BYDAY'];
 	}
 	
 	protected function _next_bymonthday($cdate,$rrule) {
-		
+		$days = $rrule['BYMONTHDAY'];
 	}
 	
 	protected function _next_byyearday($cdate,$rrule) {
-		
+		$days = $rrule['BYYEARDAY'];
 	}
 	
 	protected function _next_byweekno($cdate,$rrule) {
-		
+		$weeks = $rrule['BYWEEKNO'];
 	}
 	
 	protected function _next_bymonth($cdate,$rrule) {
+		$months = $rrule['BYMONTH'];
 		
-	}
-	
-	protected function _get_modifier($rrule) {
-		foreach ($rrule as $rule => $values) {
-			if (in_array($rule,$this->modifiers)) {
-				return $rule;
-			}
-		}
+		
 	}
 }
