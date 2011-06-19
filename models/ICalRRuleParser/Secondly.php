@@ -7,7 +7,7 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
  *	Class for FREQ=SECONDLY
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.2
+ *	@version 0.0.3
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar
  */
