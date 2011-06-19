@@ -14,24 +14,6 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 class ICalRRuleParser_Secondly Extends ICalRRuleParser_Base implements ICalRRuleParser_Object {
 	
 	
-	/**
-	 *	Parse an iCal RRULE
-	 *	
-	 *	@public
-	 *	@param array() $rrule The iCal RRULE broken-down into it's componants.
-	 *	@param DateTime $start The iCal DTSTART for the RRULE.
-	 *	@return
-	 */
-	public function parse($rrule) {
-		if (array_key_exists('COUNT',$rrule)) {
-			$this->_parse_count($rrule);
-		} elseif (array_key_exists('UNTIL',$rrule)) {
-			$this->_parse_until($rrule);
-		} else {
-			throw new Exception('Array does not contain a correctly formatted iCal RRULE.');
-		}
-	}
-	
 	private function _parse_count($rrule) {
 		$dates = array($rrule['DTSTART']);
 		$cdate = $rrule['DTSTART'];
