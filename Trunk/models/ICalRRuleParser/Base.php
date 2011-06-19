@@ -31,6 +31,67 @@ abstract class ICalRRuleParser_Base Extends Base {
 		'SEP' => 30, 'OCT' => 31, 'NOV' => 30, 'DEC' => 31
 	);
 	
+	/**
+	 *	Parse an iCal RRULE
+	 *	
+	 *	@public
+	 *	@param array() $rrule The iCal RRULE broken-down into it's componants.
+	 *	@param DateTime $start The iCal DTSTART for the RRULE.
+	 *	@return
+	 */
+	public function parse($rrule) {
+		$rrule = $this->intialize_rrule($rrule);
+		$dates = array();
+		
+		$cdate = $rrule['DTSTART'];
+		while ((count($dates) < $rrule['COUNT']) && ($date <= $rrule['UNTIL'])) {
+			$cdate = $this->_next_interval($rrule['DTSTART'],$rrule);
+			$dates = array_merge($dates,$this->_get_next($cdate,$rrule));
+			$dates = sort($dates,SORT_NUMERIC);
+			$test = array();
+			
+			for ($i = 0; $i < count($dates); $i++) {
+				$date = $dates[$i];
+				
+				if ($i > $rrule['COUNT']) {
+					break;
+				} elseif (isset($test[$date])) {
+					unset($dates[$i]);
+				} elseif ($date > $rrule['UNTIL']) {
+					unset($dates[$i]);
+				} else {
+					$test[$date] = true;
+				}
+			}	
+		}
+		
+		
+		if (count($dates) > $rrule['COUNT']) {
+			$dates = array_slice($dates,0,$rrule['COUNT']);
+		}
+		
+		return $dates;
+	}
+	
+	protected function intialize_rrule($rrule) {
+		if (!array_key_exists('INTERVAL',$rrule)) {
+			$rrule['INTERVAL'] = 1;
+		}
+		if (!array_key_exists('COUNT',$rrule)) {
+			// Safety measure
+			$rrule['COUNT'] = 1000;
+		}
+		if (!array_key_exists('UNTIL',$rrule)) {
+			// Safety measure
+			$now = getdate(time());
+			$rrule['UNTIL'] = mktime(
+				$now['seconds'],$now['minutes'],$now['hours'],
+				$now['mday'],$now['mday'],($now['year']+10)
+			);
+		}
+		
+		return $rrule;
+	}
 	
 	/**
 	 *	Return Unix timestamp according to the supplied string.
@@ -59,16 +120,15 @@ abstract class ICalRRuleParser_Base Extends Base {
 	}
 	
 	protected function _get_next($cdate,$rrule) {
-		if (array_key_exists('INTERVAL',$rrule)) {
-			$cdate = $this->_next_interval($cdate,$rrule);
-		}
+		$cdates = $cdate;
 		foreach ($this->modifiers as $modifier => $modifierValue) {
 			if (array_key_exists($modifier,$rrule)) {
 				$functionName = '_next_'.strtolower($modifier);
-				$cdate = call_user_func(array($this,$functionName),$cdate,$rrule);
+				$cdates = call_user_func(array($this,$functionName),$cdates,$rrule);
 			}
 		}
-		return $cdate;
+		
+		return $cdates;
 	}
 	
 	/**
@@ -192,7 +252,7 @@ abstract class ICalRRuleParser_Base Extends Base {
 				$dateArray = getdate($date);
 				$newdate = mktime(
 					$seconds,$dateArray['minutes'],$dateArray['hours'],
-					$dateArray['mday'],$dateArray['mday'],$dateArray['year']
+					$dateArray['mon'],$dateArray['mday'],$dateArray['year']
 				);
 				array_push($newdates,$newdate);
 			}
@@ -211,7 +271,7 @@ abstract class ICalRRuleParser_Base Extends Base {
 				$dateArray = getdate($date);
 				$newdate = mktime(
 					$dateArray['seconds'],$minute,$dateArray['hours'],
-					$dateArray['mday'],$dateArray['mday'],$dateArray['year']
+					$dateArray['mon'],$dateArray['mday'],$dateArray['year']
 				);
 				array_push($newdates,$newdate);
 			}
@@ -230,7 +290,7 @@ abstract class ICalRRuleParser_Base Extends Base {
 				$dateArray = getdate($date);
 				$newdate = mktime(
 					$dateArray['seconds'],$dateArray['minutes'],$hour,
-					$dateArray['mday'],$dateArray['mday'],$dateArray['year']
+					$dateArray['mon'],$dateArray['mday'],$dateArray['year']
 				);
 				array_push($newdates,$newdate);
 			}
@@ -243,6 +303,14 @@ abstract class ICalRRuleParser_Base Extends Base {
 		$days = $rrule['BYDAY'];
 		$dates = $this->_make_array($cdate);
 		$newdates = array();
+		
+		foreach ($days as $day) {
+			foreach ($dates as $date) {
+				
+			}
+		}
+		
+		return $newdates;
 	}
 	
 	protected function _next_bymonthday($cdate,$rrule) {
@@ -255,7 +323,7 @@ abstract class ICalRRuleParser_Base Extends Base {
 				$dateArray = getdate($date);
 				$newdate = mktime(
 					$dateArray['seconds'],$dateArray['minutes'],$dateArray['hours'],
-					$day,$dateArray['mday'],$dateArray['year']
+					$dateArray['mon'],$day,$dateArray['year']
 				);
 				array_push($newdates,$newdate);
 			}
@@ -268,12 +336,44 @@ abstract class ICalRRuleParser_Base Extends Base {
 		$days = $rrule['BYYEARDAY'];
 		$dates = $this->_make_array($cdate);
 		$newdates = array();
+		$seconds_in_day = $this->inverval_period['DAILY'];
+		
+		foreach ($days as $day) {
+			foreach ($dates as $date) {
+				$dateArray = getdate($date);
+				$newdate = mktime(
+					$dateArray['seconds'],$dateArray['minutes'],$dateArray['hours'],
+					1,1,$dateArray['year']
+				);
+				$newdate += ($seconds_in_day *$day);
+				array_push($newdates,$newdate);
+			}
+		}
+		
+		return $newdates;
 	}
 	
 	protected function _next_byweekno($cdate,$rrule) {
 		$weeks = $rrule['BYWEEKNO'];
 		$dates = $this->_make_array($cdate);
 		$newdates = array();
+		$seconds_in_week = $this->inverval_period['WEEKLY'];
+		
+		foreach ($weeks as $week) {
+			foreach ($dates as $date) {
+				$dateArray = getdate($date);
+				$weekNo = (int) date("W", $date);
+				$newdate = $date - ($seconds_in_week*$weekNo);
+				$newdate += ($seconds_in_week * $week);
+				$dateArray2 = getdate($newdate);
+				
+				if ($dateArray2['year'] >= $dateArray['year']) {
+					array_push($newdates,$newdate);
+				}
+			}
+		}
+		
+		return $newdates;
 	}
 	
 	protected function _next_bymonth($cdate,$rrule) {
