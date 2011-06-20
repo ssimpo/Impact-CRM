@@ -16,12 +16,15 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
         spl_autoload_register('self::__autoload');
 		
 		if ($className == '') {
-			self::$class = $this->_get_test_classname();
+			$className = $this->_get_test_classname();
 		} else {
-			self::$class = $className;
+			if (is_array($className)) {
+				$args = $className($args);
+			}
 		}
 		
-		$this->instance = $this->_get_class_instance(self::$class);
+		self::$class = $className;
+		$this->instance = $this->_get_class_instance(self::$class,$args);
     }
 	
 	/**
@@ -53,11 +56,23 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	}
     
     private function __autoload($className) {
-		$classFileName = str_replace('_',DS,$className).'.php';
 		if ($className == 'Facebook') {
+			$classFileName = str_replace('_',DS,$className).'.php';
 			require_once ROOT_BACK.'includes'.DS.'facebook'.DS.strtolower($classFileName);
+			return true;
 		} else {
-			require_once ROOT_BACK.MODELS_DIRECTORY.DS.$classFileName;
+			$paths = array(ROOT_BACK.MODELS_DIRECTORY.DS);
+			if (USE_LOCAL_MODELS) {
+				array_unshift($paths,SITE_FOLDER.MODELS_DIRECTORY.DS);
+			}
+			
+			foreach ($paths as $path) {
+				$classFileName = str_replace('_',DS,$className).'.php';
+				if (is_file($path.$classFileName)) {
+					require_once $path.$classFileName;
+					return true;
+				}
+			}
 		}
     }
 	
