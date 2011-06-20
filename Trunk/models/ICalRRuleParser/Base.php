@@ -249,56 +249,32 @@ abstract class ICalRRuleParser_Base Extends Base {
 		);
 	}
 	
-	protected function _next_bysecond($cdate,$rrule) {
+	protected function _next_generic($cdate,$parts,$partTotal,$partName) {
 		$dates = $this->_make_array($cdate);
 		$newdates = array();
 		
-		foreach ($rrule['BYSECOND'] as $second) {
+		foreach ($parts as $part) {
 			foreach ($dates as $date) {
 				$dateArray = getdate($date);
-				$dateArray['seconds'] = (($second < 0)?(60+$second):$second);
+				$dateArray[$partName] = (($part < 0)?($partTotal+$part):$part);
 				$newdate = $this->_mktime_from_array($dateArray);
 				array_push($newdates,$newdate);
 			}
 		}
 		
 		return $newdates;
+	}
+	
+	protected function _next_bysecond($cdate,$rrule) {
+		return $this->_next_generic($cdate,$rrule['BYSECOND'],60,'seconds');
 	}
 	
 	protected function _next_byminute($cdate,$rrule) {
-		$dates = $this->_make_array($cdate);
-		$newdates = array();
-		
-		foreach ($rrule['BYMINUTE'] as $minute) {
-			foreach ($dates as $date) {
-				$dateArray = getdate($date);
-				$dateArray['minutes'] = (($minute < 0)?(60+$minute):$minute);
-				$newdate = $this->_mktime_from_array($dateArray);
-				array_push($newdates,$newdate);
-			}
-		}
-		
-		return $newdates;
+		return $this->_next_generic($cdate,$rrule['BYMINUTE'],60,'minutes');
 	}
 	
 	protected function _next_byhour($cdate,$rrule) {
-		$hours = $rrule['BYHOUR'];
-		$dates = $this->_make_array($cdate);
-		$newdates = array();
-		
-		foreach ($hours as $hour) {
-			$cHour = (($hour < 0)?(60-$hour):$hour);
-			foreach ($dates as $date) {
-				$dateArray = getdate($date);
-				$newdate = mktime(
-					$dateArray['seconds'],$dateArray['minutes'],$cHour,
-					$dateArray['mon'],$dateArray['mday'],$dateArray['year']
-				);
-				array_push($newdates,$newdate);
-			}
-		}
-		
-		return $newdates;
+		return $this->_next_generic($cdate,$rrule['BYHOUR'],24,'hours');
 	}
 	
 	protected function _next_byday($cdate,$rrule) {
@@ -316,11 +292,10 @@ abstract class ICalRRuleParser_Base Extends Base {
 	}
 	
 	protected function _next_bymonthday($cdate,$rrule) {
-		$days = $rrule['BYMONTHDAY'];
 		$dates = $this->_make_array($cdate);
 		$newdates = array();
 		
-		foreach ($days as $day) {
+		foreach ($rrule['BYMONTHDAY'] as $day) {
 			foreach ($dates as $date) {
 				$dateArray = getdate($date);
 				$cDay = $day;
@@ -333,11 +308,11 @@ abstract class ICalRRuleParser_Base Extends Base {
 							$daysInMonth = 29;
 						}
 					}
-					$cDay = ($daysInMonth - $cDay);
+					$cDay = ($daysInMonth + $cDay);
 				}
 				
 				$newdate = mktime(
-					$dateArray['seconds'],$dateArray['minutes'],$dateArray['hours'],
+					$dateArray['hours'],$dateArray['minutes'],$dateArray['seconds'],
 					$dateArray['mon'],$cDay,$dateArray['year']
 				);
 				array_push($newdates,$newdate);
@@ -348,24 +323,25 @@ abstract class ICalRRuleParser_Base Extends Base {
 	}
 	
 	protected function _next_byyearday($cdate,$rrule) {
-		$days = $rrule['BYYEARDAY'];
 		$dates = $this->_make_array($cdate);
 		$newdates = array();
 		$seconds_in_day = $this->inverval_period['DAILY'];
 		
-		foreach ($days as $day) {
+		foreach ($rrule['BYYEARDAY'] as $day) {
 			foreach ($dates as $date) {
 				$dateArray = getdate($date);
+				
 				$daysInYear = 365;
 				if ($this->_is_leap_year($dateArray['year'])) {
 					$daysInYear = 366;
 				}
-				$cDay = (($day < 0)?($daysInYear-$day):$day);
+				$cDay = (($day < 0)?($daysInYear+$day):$day);
 				
 				$newdate = mktime(
-					$dateArray['seconds'],$dateArray['minutes'],$dateArray['hours'],
-					1,1,$dateArray['year']
+					$dateArray['hours'],$dateArray['minutes'],$dateArray['seconds'],
+					12,31,($dateArray['year']-1)
 				);
+				
 				$newdate += ($seconds_in_day *$cDay);
 				array_push($newdates,$newdate);
 			}
@@ -399,23 +375,7 @@ abstract class ICalRRuleParser_Base Extends Base {
 	}
 	
 	protected function _next_bymonth($cdate,$rrule) {
-		$months = $rrule['BYMONTH'];
-		$dates = $this->_make_array($cdate);
-		$newdates = array();
-		
-		foreach ($months as $month) {
-			$cMonth = (($month < 0)?(12-$month):$month);
-			foreach ($dates as $date) {
-				$dateArray = getdate($date);
-				$newdate = mktime(
-					$dateArray['seconds'],$dateArray['minutes'],$dateArray['hours'],
-					$month,$dateArray['mday'],$dateArray['year']
-				);
-				array_push($newdates,$newdate);
-			}
-		}
-		
-		return $newdates;
+		return $this->_next_generic($cdate,$rrule['BYMONTH'],12,'mon');
 	}
 	
 	/**

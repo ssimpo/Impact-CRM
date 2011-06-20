@@ -25,5 +25,7 @@ if (!defined('USE_LOCAL_MODELS')) {
     define('USE_LOCAL_MODELS',false);
 }
 
+date_default_timezone_set('GMT');
+
 require_once(ROOT_BACK.'Util'.DS.'unit_tests'.DS.'ImpactPHPUnit.php');
 ?>

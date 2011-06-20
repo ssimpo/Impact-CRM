@@ -30,4 +30,6 @@ if (is_dir(ROOT_BACK.'sites'.DS.strtolower(str_replace('www.','',$_SERVER['HTTP_
 } else {
     define('SITE_FOLDER',ROOT_BACK.'sites'.DS.'default'.DS);
 }
+
+date_default_timezone_set('GMT');
 ?>
