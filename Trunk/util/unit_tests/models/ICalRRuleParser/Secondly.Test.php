@@ -102,6 +102,80 @@ class Test_ICalRRuleParser_Secondly extends ImpactPHPUnit {
 		$this->assertMethodReturn(60*60*24*366,array('YEARLY',$date));
 	}
 	
+	public function test_next_bysecond() {
+		$cdate = mktime(13,0,0,6,18,2010);
+		
+		$rrule = array('BYSECOND'=>array(3,5,27));
+		$result = array(
+			mktime(13,0,3,6,18,2010),
+			mktime(13,0,5,6,18,2010),
+			mktime(13,0,27,6,18,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		$rrule = array('BYSECOND'=>array(-3,5,27));
+		$result = array(
+			mktime(13,0,57,6,18,2010),
+			mktime(13,0,5,6,18,2010),
+			mktime(13,0,27,6,18,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		$cdate = array(mktime(13,0,0,6,18,2010),mktime(13,0,3,6,18,2011));
+		$result = array(
+			mktime(13,0,57,6,18,2010),mktime(13,0,57,6,18,2011),
+			mktime(13,0,5,6,18,2010),mktime(13,0,5,6,18,2011),
+			mktime(13,0,27,6,18,2010),mktime(13,0,27,6,18,2011)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+	}
+	
+	public function test_next_byminute() {
+		$cdate = mktime(13,0,0,6,18,2010);
+		
+		$rrule = array('BYMINUTE'=>array(3,5,27));
+		$result = array(
+			mktime(13,3,0,6,18,2010),
+			mktime(13,5,0,6,18,2010),
+			mktime(13,27,0,6,18,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		$rrule = array('BYMINUTE'=>array(-3,5,27));
+		$result = array(
+			mktime(13,57,0,6,18,2010),
+			mktime(13,5,0,6,18,2010),
+			mktime(13,27,0,6,18,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		$cdate = array(mktime(13,0,0,6,18,2010),mktime(13,3,0,6,18,2011));
+		$result = array(
+			mktime(13,57,0,6,18,2010),mktime(13,57,0,6,18,2011),
+			mktime(13,5,0,6,18,2010),mktime(13,5,0,6,18,2011),
+			mktime(13,27,0,6,18,2010),mktime(13,27,0,6,18,2011)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+	}
+	
+	public function test_next_byhour() {
+	}
+	
+	public function test_next_byday() {
+	}
+	
+	public function test_next_bymonthday() {
+	}
+	
+	public function test_next_byyearday() {
+	}
+	
+	public function test_next_byweekno() {
+	}
+	
+	public function test_next_bymonthy() {
+	}
+	
 	public function test_is_leap_year() {
 		$this->assertMethodReturnTrue(2000);
 		$this->assertMethodReturnFalse(1900);
@@ -113,5 +187,10 @@ class Test_ICalRRuleParser_Secondly extends ImpactPHPUnit {
 		$this->assertMethodReturn(2000,2000);
 		$this->assertMethodReturn(1978,78);
 		$this->assertMethodReturn(2011,11);
+	}
+	
+	public function test_make_array() {
+		$this->assertMethodReturn(array('TEST'),'TEST');
+		$this->assertMethodReturn(array('TEST'),array(array('TEST')));
 	}
 }
