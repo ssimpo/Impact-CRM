@@ -159,21 +159,124 @@ class Test_ICalRRuleParser_Secondly extends ImpactPHPUnit {
 	}
 	
 	public function test_next_byhour() {
+		$cdate = mktime(13,0,0,6,18,2010);
+		
+		$rrule = array('BYHOUR'=>array(3,5,21));
+		$result = array(
+			mktime(3,0,0,6,18,2010),
+			mktime(5,0,0,6,18,2010),
+			mktime(21,0,0,6,18,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		$rrule = array('BYHOUR'=>array(-3,5,18));
+		$result = array(
+			mktime(21,0,0,6,18,2010),
+			mktime(5,0,0,6,18,2010),
+			mktime(18,0,0,6,18,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		$cdate = array(mktime(13,0,0,6,18,2010),mktime(13,3,0,6,18,2011));
+		$result = array(
+			mktime(21,0,0,6,18,2010),mktime(21,3,0,6,18,2011),
+			mktime(5,0,0,6,18,2010),mktime(5,3,0,6,18,2011),
+			mktime(18,0,0,6,18,2010),mktime(18,3,0,6,18,2011)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
 	}
 	
 	public function test_next_byday() {
 	}
 	
 	public function test_next_bymonthday() {
+		$cdate = mktime(13,0,0,6,18,2010);
+		
+		$rrule = array('BYMONTHDAY'=>array(3,5,11));
+		$result = array(
+			mktime(13,0,0,6,3,2010),
+			mktime(13,0,0,6,5,2010),
+			mktime(13,0,0,6,11,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		$rrule = array('BYMONTHDAY'=>array(-3,5,12));
+		$result = array(
+			mktime(13,0,0,6,27,2010),
+			mktime(13,0,0,6,5,2010),
+			mktime(13,0,0,6,12,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		// Testing leap-years v non-leap-year.
+		$cdate = array(mktime(13,0,0,2,18,2011),mktime(13,3,0,2,18,2012));
+		$result = array(
+			mktime(13,0,0,2,25,2011),mktime(13,3,0,2,26,2012),
+			mktime(13,0,0,2,5,2011),mktime(13,3,0,2,5,2012),
+			mktime(13,0,0,2,12,2011),mktime(13,3,0,2,12,2012)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
 	}
 	
 	public function test_next_byyearday() {
+		$cdate = gmmktime(13,0,0,6,18,2010);
+		
+		$rrule = array('BYYEARDAY'=>array(183,1,93));
+		$result = array(
+			mktime(13,0,0,7,2,2010),
+			mktime(13,0,0,1,1,2010),
+			mktime(13,0,0,4,3,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		$rrule = array('BYYEARDAY'=>array(183,-111,254));
+		$result = array(
+			mktime(13,0,0,7,2,2010),
+			mktime(13,0,0,9,11,2010),
+			mktime(13,0,0,9,11,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		
+		// Testing leap-years v non-leap-year.
+		$cdate = array(mktime(13,0,0,2,18,2010),mktime(13,3,0,2,18,2012));
+		$result = array(
+			mktime(13,0,0,7,2,2010),mktime(13,3,0,7,1,2012),
+			mktime(13,0,0,9,11,2010),mktime(13,3,0,9,11,2012),
+			mktime(13,0,0,9,11,2010),mktime(13,3,0,9,10,2012)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
 	}
 	
 	public function test_next_byweekno() {
 	}
 	
-	public function test_next_bymonthy() {
+	public function test_next_bymonth() {
+		$cdate = mktime(13,0,0,6,18,2010);
+		
+		$rrule = array('BYMONTH'=>array(3,5,11));
+		$result = array(
+			mktime(13,0,0,3,18,2010),
+			mktime(13,0,0,5,18,2010),
+			mktime(13,0,0,11,18,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		$rrule = array('BYMONTH'=>array(-3,5,12));
+		$result = array(
+			mktime(13,0,0,9,18,2010),
+			mktime(13,0,0,5,18,2010),
+			mktime(13,0,0,12,18,2010)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
+		
+		$cdate = array(mktime(13,0,0,6,18,2010),mktime(13,3,0,6,18,2011));
+		$result = array(
+			mktime(13,0,0,9,18,2010),mktime(13,3,0,9,18,2011),
+			mktime(13,0,0,5,18,2010),mktime(13,3,0,5,18,2011),
+			mktime(13,0,0,12,18,2010),mktime(13,3,0,12,18,2011)
+		);
+		$this->assertMethodReturn($result,array($cdate,$rrule));
 	}
 	
 	public function test_is_leap_year() {
