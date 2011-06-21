@@ -12,9 +12,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
-class File extends Base {
-	private $settings = array();
-	private $fh;
+class Filesystem_File extends Filesystem {
 	private $methods = array(
 		'read' => 'r', 'append' => 'a', 'write' => 'wt',
 		'readwrite' => 'rwt'
@@ -22,26 +20,6 @@ class File extends Base {
 
 	public function __construct($path='',$filename='') {
 		$this->_init($path,$filename);
-	}
-	
-	/**
-	 *	Generic get property method.
-	 *
-	 *	Get the value of an application property.  Values are stored in
-	 *	the application array and accessed via the __set and __get methods.
-	 *
-	 *	@public
-	 */
-	public function __get($property) {
-		$convertedProperty = I::camelize($property);
-		if (isset($this->settings[$convertedProperty])) {
-			return $this->settings[$convertedProperty];
-		} else {
-			if ($property == 'settings') {
-				return $this->settings;
-			}
-			throw new Exception('Property: '.$convertedProperty.', does not exist');
-		}
 	}
 	
 	private function _init($path='',$filename='') {
@@ -102,20 +80,14 @@ class File extends Base {
 			$this->_load_xml_parameters();
 		} else {
 			if (is_file($this->fullpath)) {
-				$this->fh = @fopen($this->fullpath,$method);
-				if (!$this->fh) {
+				$this->handle = @fopen($this->fullpath,$method);
+				if (!$this->handle) {
 					throw new Exception('Could not open file: "'.$this->fullpath.'".');
 				}
 				$this->handleType = 'filehandle';
 			} else {
 				throw new Exception('Filename: "'.$this->fullpath.'", is not valid.');
 			}	
-		}
-	}
-	
-	public function close() {
-		if ($this->_is_resource()) {
-			fclose($this->fh);
 		}
 	}
 	
@@ -127,9 +99,9 @@ class File extends Base {
      */
     public function next() {
 		if ($this->_is_resource()) {
-			if ($this->fh) {
-				if (!feof($this->fh)) {
-					return fgets($this->fh);
+			if ($this->handle) {
+				if (!feof($this->handle)) {
+					return fgets($this->handle);
 				}
 			}
 		
@@ -141,7 +113,7 @@ class File extends Base {
 		if ($this->_is_resource()) {
 			$contents = '';
 		
-			rewind($this->fh);
+			rewind($this->handle);
 			do {
 				$cLine = $this->next();
 				$contents .= $cLine;
@@ -149,15 +121,6 @@ class File extends Base {
 		
 			return $contents;
 		}
-	}
-	
-	private function _is_resource() {
-		$handleType = gettype($this->fh);
-		return ($this->_is_equal($handleType,'resource'));
-	}
-	
-	private function _is_equal($string1,$string2) {
-		return (strtolower(trim($string1)) == strtolower(trim($string2)));
 	}
 	
 	/**
@@ -174,9 +137,5 @@ class File extends Base {
             throw new Exception('Could not open file: "'.$this->fullpath.'".');
         }
     }
-	
-	public function __destruct() {
-		$this->close();
-	}
 }
 ?>
