@@ -142,10 +142,31 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 			$properties = get_object_vars($this->instance);
 			if (array_key_exists($propertyName,$properties)) {
 				return $properties[$propertyName];
-			}
+			}		
+			return $this->_get_private_property_value($propertyName);
 		} else {
-			return $this->_get_magic_property_value($propertyName);
+			return $this->_get_private_property_value($propertyName);
 		}
+	}
+	
+	/**
+	 *	Get the value of a property, even if it is private or protectd.
+	 *	
+	 *	@private
+	 *	@param string $propertyName The name of the property to search for.
+	 *	@return mixed The property value.
+	 */
+	private function _get_private_property_value($propertyName) {
+		$class = new ReflectionClass(self::$class);
+		$proprties = $class->getProperties();
+		foreach ($proprties as $property) {
+			if ($property->getName() == $propertyName) {
+				$property->setAccessible(true);
+				return $property->getValue($this->instance);
+			}
+		}
+		
+		$this->_get_magic_property_value($propertyName);
 	}
 	
 	/**
@@ -155,7 +176,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	 *	@param string $propertyName The name of the property to search for.
 	 *	@return mixed The property value.
 	 */
-	public function _get_magic_property_value($propertyName) {
+	private function _get_magic_property_value($propertyName) {
 		$class = new ReflectionClass(self::$class);
 		$methods = $class->getMethods();
 		foreach ($methods as $method) {
@@ -193,6 +214,24 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 		$propertyValue = $this->_get_property_value($propertyName);
 		
 		return $this->assertEquals($expected,$propertyValue);
+	}
+	
+	public function assertMethodPropertyType($propertyName,$expected,$args=array(),$functionName='') {
+		if ($functionName == '') {
+			$functionName = $this->_get_function_name();
+		}
+		$args = $this->_convert_to_arguments_array($args);
+		$method = self::get_method($functionName);
+		$method->invokeArgs($this->instance,$args);
+		$propertyValue = $this->_get_property_value($propertyName);
+		
+		if ($this->_is_equal($expected,gettype($propertyValue))) {
+			return $this->assertTrue(true);
+		} else {
+			return $this->assertTrue(
+				$this->_is_equal($expected,get_class($propertyValue))
+			);
+		}
 	}
 	
 	public function assertMethodReturnTrue($args=array(),$functionName='') {
