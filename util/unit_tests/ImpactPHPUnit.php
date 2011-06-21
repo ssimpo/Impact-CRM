@@ -301,9 +301,10 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	 */
 	private function _get_calling_function_name() {
 		$backtrace = debug_backtrace();
+		$thisClassName = strtolower(get_class($this));
 		
 		foreach ($backtrace as $trace) {
-			if (strtolower($trace['class']) == strtolower('Test_'.self::$class)) {
+			if (strtolower($trace['class']) == $thisClassName) {
 				return $trace['function'];
 			}
 		}
