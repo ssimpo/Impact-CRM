@@ -1,4 +1,6 @@
 <?php
+defined('DIRECT_ACCESS_CHECK') or die;
+
 /**
  *	Setup all the globals for Impact
  *
@@ -6,9 +8,6 @@
  *	@version 0.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  */
-if (!defined('DIRECT_ACCESS_CHECK')) {
-	die('Direct access is not allowed');
-}
 
 if (!defined('__DIR__')) { 
     $iPos = strrpos(__FILE__, "/"); 
