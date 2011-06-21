@@ -1,5 +1,5 @@
 <?php
-defined('DIRECT_ACCESS_CHECK') or die('Direct access is not allowed');
+defined('DIRECT_ACCESS_CHECK') or die;
 
 /*
  *	File handling class
@@ -16,7 +16,8 @@ class File extends Base {
 	private $settings = array();
 	private $fh;
 	private $methods = array(
-		'read' => 'r', 'append' => 'a', 'write' => 'wt'
+		'read' => 'r', 'append' => 'a', 'write' => 'wt',
+		'readwrite' => 'rwt'
 	);
 
 	public function __construct($path='',$filename='') {

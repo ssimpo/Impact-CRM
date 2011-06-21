@@ -1,7 +1,5 @@
 <?php
-if (!defined('DIRECT_ACCESS_CHECK')) {
-	die('Direct access is not allowed');
-}
+defined('DIRECT_ACCESS_CHECK') or die;
 
 interface Acl_Test {
 	public function __construct($application);

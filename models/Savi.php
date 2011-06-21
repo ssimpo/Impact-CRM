@@ -1,7 +1,5 @@
 <?php
-if (!defined('DIRECT_ACCESS_CHECK')) {
-	die('Direct access is not allowed');
-}
+defined('DIRECT_ACCESS_CHECK') or die;
 
 /**
  *	Simple API for vCard/iCal/vCalendar, this is the iCal equivalent of SAX
