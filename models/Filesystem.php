@@ -15,6 +15,9 @@ abstract class Filesystem extends Base {
 	protected $settings = array();
 	protected $handle;
 	
+	const FSLASH = "/";
+	const BSLASH = "\\";
+	
 	/**
 	 *	Generic get property method.
 	 *
@@ -35,22 +38,40 @@ abstract class Filesystem extends Base {
 		}
 	}
 	
-	public function close() {
-		if ($this->_is_resource()) {
-			fclose($this->handle);
-		}
-	}
-	
+	/**
+	 *	Check whether the internal property 'handle' is pointing to resource.
+	 *
+	 *	@private
+	 *	@return boolean
+	 */
 	protected function _is_resource() {
 		$handleType = gettype($this->handle);
 		return ($this->_is_equal($handleType,'resource'));
 	}
 	
+	/**
+	 *	Test whether two variable are equal
+	 *
+	 *	Are they equal when trimmed, lower-cased and converted to strings.
+	 *
+	 *	@param mixed $string1 The first variable to test.
+	 *	@param mixed $string2 The second variable to test.
+	 *	@return boolean
+	 */
 	protected function _is_equal($string1,$string2) {
-		return (strtolower(trim($string1)) == strtolower(trim($string2)));
+		$testString1 = (string) $string1;
+		$testString2 = (string) $string2;
+		return (strtolower(trim($testString1)) == strtolower(trim($testString2)));
 	}
 	
-	protected function __destruct() {
+	/**
+	 *	Destructor.
+	 *
+	 *	Close any open handles.
+	 *
+	 *	@public
+	 */
+	public function __destruct() {
 		$this->close();
 	}
 	
