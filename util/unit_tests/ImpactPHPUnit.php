@@ -209,6 +209,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 			$functionName = $this->_get_function_name();
 		}
 		$args = $this->_convert_to_arguments_array($args);
+		
 		$method = self::get_method($functionName);
 		$method->invokeArgs($this->instance,$args);
 		$propertyValue = $this->_get_property_value($propertyName);
@@ -221,6 +222,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 			$functionName = $this->_get_function_name();
 		}
 		$args = $this->_convert_to_arguments_array($args);
+		
 		$method = self::get_method($functionName);
 		$method->invokeArgs($this->instance,$args);
 		$propertyValue = $this->_get_property_value($propertyName);
