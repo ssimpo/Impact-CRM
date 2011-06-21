@@ -22,29 +22,47 @@ class Filesystem_File extends Filesystem {
 		$this->_init($path,$filename);
 	}
 	
+	/**
+	 *	Set the internal properties for filename and paths ...etc.
+	 *
+	 *	@private
+	 *	@param string $path The file-path.
+	 *	@param string $path The filename.
+	 */
 	private function _init($path='',$filename='') {
 		if (is_string($path)) {
 			if ($path != '') {
 				if ($filename == '') {
 					$this->fullpath = realpath($path);
 					$this->path = $path;
-					$this->_set_filename();
-					$this->_set_ext();
+					$this->filename = $this->_get_filename($this->fullpath);
+					$this->ext = $this->_get_ext($this->fullpath);
 				} else {
-					$this->fullpath = realpath($path.$filename);
+					if (substr($path,-1) != DS) {
+						$this->fullpath = realpath($path.DS.$filename);
+					} else {
+						$this->fullpath = realpath($path.$filename);
+					}
 					$this->path = $path;
 					$this->filename = $filename;
-					$this->_set_ext();
+					$this->ext = $this->_get_ext($this->fullpath);
 				}
 			}
 		} else {
 			$this->fullpath = realpath($path->path.$filename);
 			$this->path = $path->path;
 			$this->filename = $filename;
-			$this->_set_ext();
+			$this->ext = $this->_get_ext($this->fullpath);
 		}
 	}
 	
+	/**
+	 *	Translate a method name into it's PHP equivalent.
+	 *
+	 *	@private
+	 *	@param string $method The method name.
+	 *	@return string
+	 */
 	private function _translate_method($method) {
 		$method = strtolower(trim($method));
 		if (array_key_exists($method,$this->methods)) {
@@ -54,48 +72,83 @@ class Filesystem_File extends Filesystem {
 		}
 	}
 	
-	private function _set_filename() {
-		$pattern = '/.*'.chr(92).DS.'([^'.chr(92).DS.']+)/';
-		preg_match($pattern,$this->fullpath,$match);
+	/**
+	 *	Get the filename from the full-path.
+	 *
+	 *	@private
+	 *	@param string $fullpath The fullpath to the file.
+	 *	@return string The filename.
+	 */
+	private function _get_filename($fullpath) {
+		$pattern = '/.*'.self::BSLASH.DS.'([^'.self::BSLASH.DS.']+)/';
+		preg_match($pattern,$fullpath,$match);
 		if (!empty($match)) {
-			$this->filename = $match[1];
+			return $match[1];
 		}
+		
+		return false;
 	}
 	
-	private function _set_ext() {
-		$pattern = '/.*'.chr(92).DS.'[^'.chr(92).DS.']*?\.([^'.chr(92).DS.']+)/';
-		preg_match($pattern,$this->fullpath,$match);
+	/**
+	 *	Get the file-extension from the full-path.
+	 *
+	 *	@private
+	 *	@param string $fullpath The fullpath to the file.
+	 *	@return string The file-extension.
+	 */
+	private function _get_ext($fullpath) {
+		$pattern = '/.*'.self::BSLASH.DS.'[^'.self::BSLASH.DS.']*?\.([^'.self::BSLASH.DS.']+)/';
+		preg_match($pattern,$fullpath,$match);
 		if (!empty($match)) {
-			$this->ext = $match[1];
+			return $match[1];
 		}
+		
+		return false;
 	}
 	
+	/**
+	 *	Set the current path and file.
+	 *
+	 *	@public
+	 *	@param string $path The path to the file.
+	 *	@param string filename The filename of the file.
+	 *	
+	 */
 	public function set_file($path='',$filename='') {
 		$this->_init($path,$filename);
 	}
 	
-	public function open($method='read',$opentype='') {
+	/**
+	 *	Open the currently set file.
+	 *
+	 *	Will open a file in the specified mode and then parse it according
+	 *	to the supplied type.
+	 *
+	 *	@todo Add parsing features.
+	 *
+	 *	@public
+	 *	@param string $method The open method to use (read|write|append|readwrite).
+	 *	@param string $parseType How to parse this file.
+	 */
+	public function open($method='read',$opentype='standard') {
 		$method = $this->_translate_method($method);
-		if ($opentype == 'settings') {
-			$this->_load_xml_parameters();
+		
+		if (is_file($this->fullpath)) {
+			$this->handle = @fopen($this->fullpath,$method);
+			if (!$this->handle) {
+				throw new Exception('Could not open file: "'.$this->fullpath.'".');
+			}
+			$this->handleType = 'filehandle';
 		} else {
-			if (is_file($this->fullpath)) {
-				$this->handle = @fopen($this->fullpath,$method);
-				if (!$this->handle) {
-					throw new Exception('Could not open file: "'.$this->fullpath.'".');
-				}
-				$this->handleType = 'filehandle';
-			} else {
-				throw new Exception('Filename: "'.$this->fullpath.'", is not valid.');
-			}	
-		}
+			throw new Exception('Filename: "'.$this->fullpath.'", is not valid.');
+		}	
 	}
 	
 	/**
-     *  Get a line from the log file.
+     *  Get a line from the open file.
      *
      *  @public
-     *  @return string The line from the filehandle.
+     *  @return string The line from the open filehandle.
      */
     public function next() {
 		if ($this->_is_resource()) {
@@ -109,6 +162,12 @@ class Filesystem_File extends Filesystem {
 		}
     }
 	
+	/**
+     *  Get a the entire file contents.
+     *
+     *  @public
+     *  @return string The contents from the open filehandle.
+     */
 	public function all() {
 		if ($this->_is_resource()) {
 			$contents = '';
@@ -124,18 +183,14 @@ class Filesystem_File extends Filesystem {
 	}
 	
 	/**
-     *  Load the parameters from a specified XML file.
-     *
-     *  @private
-     */
-    private function _load_xml_parameters() {
-        if (is_file($this->fullpath)) {
-			$config = simplexml_load_file($this->fullpath);
-			$this->fh = $config->param;
-			$this->handleType = 'simplexml';
-        } else {
-            throw new Exception('Could not open file: "'.$this->fullpath.'".');
-        }
-    }
+	 *	Close the current file handle.
+	 *
+	 *	The is method is called automatically by the class destructor.
+	 */
+	public function close() {
+		if ($this->_is_resource()) {
+			fclose($this->handle);
+		}
+	}
 }
 ?>
