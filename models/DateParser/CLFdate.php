@@ -29,6 +29,12 @@ class DateParser_CLFdate implements DateParser_Object {
 		$datetime->minutes = substr($date,15,2);
 		$datetime->seconds = substr($date,18,2);
 		
+		$tzHours = (int) substr($date,21,3);
+		$tzMinutes = (int) substr($date,21,1).substr($date,24,2);
+		
+		$datetime->adjust_hours($tzHours);
+		$datetime->adjust_minutes($tzMinutes);
+		
 		return $datetime;
 	}
 }

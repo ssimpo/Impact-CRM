@@ -63,45 +63,74 @@ class Calendar_DateTime Extends Base {
 		$date = getdate($this->epoc);
 		
 		switch (strtolower($name)) {
-			case 'year':
-				return $date['year'];
-				break;
-			case 'month':
-				return $date['mon'];
-				break;
-			case 'monthname':
-				return $date['month'];
-				break;
-			case 'day':
-				return $date['mday'];
-				break;
-			case 'hours':
-				return $date['hours'];
-				break;
-			case 'minutes':
-				return $date['minutes'];
-				break;
-			case 'seconds':
-				return $date['seconds'];
-				break;
-			case 'yearday':
-				return $date['yday'];
-				break;
-			case 'week':
-				return $this->_get_week();
-				break;
-			case 'weekday':
-				return $date['weekday'];
-				break;
-			case 'weekdayno':
-				return $this->_get_week_day_no();
-				break;
+			case 'year': return $date['year'];
+			case 'month': return $date['mon'];
+			case 'monthname': return $date['month'];
+			case 'day': return $date['mday'];
+			case 'hours': return $date['hours'];
+			case 'minutes': return $date['minutes'];
+			case 'seconds': return $date['seconds'];
+			case 'yearday': return $date['yday'];
+			case 'week': return $this->_get_week();
+			case 'weekday': return $date['weekday'];
+			case 'weekdayno': return $this->_get_week_day_no();
 		}
 	}
 	
 	public function __set($name,$value) {
 		$name = '_set_'.I::uncamelize($name);
 		call_user_func(array($this,$name),$value);
+	}
+	
+	public function adjust_year($amount) {
+		$this->_set_part('year',$this->year + $amount);
+	}
+	
+	public function adjust_month($amount) {
+		$year = $this->year;
+		$month = $this->month;
+		
+		while ($factor != 0) {
+			if ($factor > 0) {
+				if (++$month > 12) {
+					$month = 1;
+					$year++;
+				}
+				$factor--;
+			} else {
+				if (--$month < 1) {
+					$month = 12;
+					$year--;
+				}
+				$factor++;
+			}
+			if ((($amount > 0) && ($factor < 0)) || (($amount < 0) & ($factor > 0))) {
+				break;
+			}
+		}
+		
+		$this->year = $year;
+		$this->month = $month;
+	}
+	
+	public function adjust_week($amount) {
+		$this->epoc += ($amount * self::WEEK);
+	}
+	
+	public function adjust_day($amount) {
+		$this->epoc += ($amount * self::DAY);
+	}
+	
+	public function adjust_hours($amount) {
+		$this->epoc += ($amount * self::HOUR);
+	}
+	
+	public function adjust_minutes($amount) {
+		$this->epoc += ($amount * self::MINUTE);
+	}
+	
+	public function adjust_seconds($amount) {
+		$this->epoc += $amount;
 	}
 	
 	private function _set_part($part,$partName) {
