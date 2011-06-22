@@ -24,6 +24,9 @@ if (!defined('DIRECT_ACCESS_CHECK')) {
 if (!defined('USE_LOCAL_MODELS')) {
     define('USE_LOCAL_MODELS',false);
 }
+if (!defined('INCLUDES_DIRECTORY')) {
+    define('INCLUDES_DIRECTORY','includes');
+}
 
 date_default_timezone_set('GMT');
 

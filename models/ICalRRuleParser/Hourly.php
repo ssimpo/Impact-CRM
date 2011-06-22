@@ -10,7 +10,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@package Calendar
  */
 class ICalRRuleParser_Hourly Extends ICalRRuleParser_Base implements ICalRRuleParser_Object {
-	public function parse($rrule,$start) {
+	public function parse($rrule) {
 		
 	}
 }

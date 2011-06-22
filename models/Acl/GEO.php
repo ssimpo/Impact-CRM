@@ -23,9 +23,6 @@ class Acl_GEO extends Acl_TestBase implements Acl_Test {
      *	@return object Acl_GEO
      */
     public function __construct($application=null) {
-        if (!defined('DS')) {
-            define('DS',DIRECTORY_SEPARATOR);
-        }
         require_once 'Net'.DS.'GeoIP.php';
                 
         if (!is_null($application)) {

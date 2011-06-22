@@ -22,9 +22,6 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
          *	@return object Acl_AGENT
          */
 	public function __construct($application=null) {
-		if (!defined('DS')) {
-			define('DS',DIRECTORY_SEPARATOR);
-		}
 		if (!is_null($application)) {
 			$this->application = $application;
 			$this->_set_agent();
@@ -113,7 +110,6 @@ class Acl_AGENT extends Acl_TestBase implements Acl_Test {
 			try {
 				$this->lookup[$agent] = get_browser($agent,true);
 			} catch (Exception $e) {
-				require_once ROOT_BACK.'includes'.DS.'browscap'.DS.'Browscap.php';
 				$browscap = new Browscap(ROOT_BACK.'database'.DS);
 				$this->lookup[$agent] = $browscap->getBrowser($agent,true);
 				
