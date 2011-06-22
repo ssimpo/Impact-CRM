@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <param name="FacebookApiException" type="string" value="facebook/facebook.php"
+		label="Facebook Exception" description="" />
+    <param name="Facebook" type="string" value="facebook/facebook.php"
+		label="Facebook" description="" />
+    <param name="Browscap" type="string" value="browscap/Browscap.php"
+		label="Browscap" description="" />
+</config>

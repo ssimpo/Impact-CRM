@@ -12,21 +12,15 @@ if (!defined('__DIR__')) {
     $iPos = strrpos(__FILE__, "/");
     define('__DIR__', substr(__FILE__, 0, $iPos) . '/');
 }
-if (!defined('DS')) {
-    define('DS',DIRECTORY_SEPARATOR);
-}
-if (!defined('MODELS_DIRECTORY')) {
-    define('MODELS_DIRECTORY','models');
-}
-if (!defined('DIRECT_ACCESS_CHECK')) {
-    define('DIRECT_ACCESS_CHECK',false);
-}
-if (!defined('USE_LOCAL_MODELS')) {
-    define('USE_LOCAL_MODELS',true);
-}
-if (!defined('SITE_FOLDER')) {
-    define('SITE_FOLDER',ROOT_BACK.'analytics'.DS);
-}
+defined('DS') or define('DS',DIRECTORY_SEPARATOR);
+defined('MODELS_DIRECTORY') or define('MODELS_DIRECTORY','models');
+defined('DIRECT_ACCESS_CHECK') or define('DIRECT_ACCESS_CHECK',false);
+defined('USE_LOCAL_MODELS') or define('USE_LOCAL_MODELS',true);
+defined('SITE_FOLDER') or define('SITE_FOLDER',ROOT_BACK.'analytics'.DS);
+defined('INCLUDES_DIRECTORY') or define('INCLUDES_DIRECTORY','includes');
+defined('CONTROLLERS_DIRECTORY') or define('CONTROLLERS_DIRECTORY','controllers');
 
+date_default_timezone_set('GMT');
+require_once(ROOT_BACK.CONTROLLERS_DIRECTORY.DS.'autoload.php');
 require_once(ROOT_BACK.'Util'.DS.'unit_tests'.DS.'ImpactPHPUnit.php');
 ?>
