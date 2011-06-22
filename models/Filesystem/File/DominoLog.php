@@ -5,11 +5,12 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *  Lotus/IBM Domino Log Interpreter Clsss
  *  
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.1
+ *	@version 0.0.2
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Analytics
  */
 class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Filesystem_File_LogObject {
+    private $dateparser;
     
     /**
      *  Constructor
@@ -18,6 +19,7 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
      */
     public function __construct() {
         $this->_load_config('DominoLog');
+        $this->dateparser = new DateParser();
     }
     
     /**
@@ -34,6 +36,21 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
     public function parse($line) {
         $parsed = parent::parse($line);
         $parsed['domino_id'] = strtoupper($parsed['domino_id']);
+        
+        $agent = '';
+        try {
+            $agent = get_browser($parsed['agent'],true);
+        } catch (Exception $e) {
+            $browscap = new Browscap(ROOT_BACK.'database'.DS);
+			$agent = $browscap->getBrowser($parsed['agent'],true);
+        }
+        
+        foreach ($agent as $key => $value) {
+            $parsed['agent_'.strtolower($key)] = $value;
+        }
+        
+        $datetime = $parsed['date'].':'.$parsed['time'].' '.$parsed['timezone'];
+        $parsed['datetime'] = $this->dateparser->parse($datetime);
         
         return $parsed;
     }

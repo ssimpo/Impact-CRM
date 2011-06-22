@@ -2,4 +2,5 @@
 <config>
 	<param name="Iso8601date" type="regx" value="/\A(?:1[0-9]|2[0-1])\d\d[0-1]\d[0-3]\d\Z/" label="ISO8601 Date - No Time" description="" />
 	<param name="Iso8601date" type="regx" value="/\A(?:1[0-9]|2[0-1])\d\d[0-1]\d[0-3]\dT[0-2]\d[0-5]\d[0-5]\d(?:Z|)\Z/" label="ISO8601 Date/Time" description="" />
+	<param name="CLFdate" type="regx" value="/\A[0-3][0-9]\/[JFMASND][a-z][a-z]\/[0-9][0-9][0-9][0-9]\:[0-2][0-9]\:[0-5][0-9]\:[0-5][0-9] (?:\+|\-)[0-9]{4,4}\Z/" label="CLF Date/Time" description="Common Log Format Date/Time" />
 </config>

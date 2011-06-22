@@ -9,7 +9,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar	
  */
-class DateParser_Iso8601date implements DateParser_Object {
+class DateParser_CLFdate implements DateParser_Object {
 	
 	/**
 	 *	Date parser method.
@@ -19,24 +19,15 @@ class DateParser_Iso8601date implements DateParser_Object {
 	 *	@return date The date in standard PHP date format.
 	 */
 	public function parse($date,$timezone='') {
-		$dateLen = strlen($date);
 		$datetime = new Calendar_DateTime();
 		
 		$hour=$minute=$second=0;$year=$day=$month='';
-		if (($dateLen == 8) || ($dateLen == 15) || ($dateLen == 16)) {
-			$datetime->year = substr($date,0,4);
-			$datetime->month = substr($date,4,2);
-			$datetime->day = substr($date,6,2);
-			if (($dateLen == 15) || ($dateLen == 16)) {
-				$datetime->hours = substr($date,9,2);
-				$datetime->minutes = substr($date,11,2);
-				$datetime->seconds = substr($date,13,2);
-			} else {
-				$datetime->hours = 0;
-				$datetime->minutes = 0;
-				$datetime->seconds = 0;
-			}
-		}
+		$datetime->year = substr($date,7,4);
+		$datetime->month = substr($date,3,3);
+		$datetime->day = substr($date,0,2);
+		$datetime->hours = substr($date,12,2);
+		$datetime->minutes = substr($date,15,2);
+		$datetime->seconds = substr($date,18,2);
 		
 		return $datetime;
 	}

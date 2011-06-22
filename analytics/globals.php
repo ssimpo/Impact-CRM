@@ -19,6 +19,7 @@ define('ROOT_BACK', __DIR__.DS.'..'.DS);
 define('MODELS_DIRECTORY', 'models');
 define('CONFIG_DIRECTORY', 'config');
 define('CONTROLLERS_DIRECTORY', 'controllers');
+define('INCLUDES_DIRECTORY', 'includes');
 define('USE_LOCAL_MODELS',true);
 define('SITE_FOLDER',ROOT_BACK.'analytics'.DS);
 ?>
