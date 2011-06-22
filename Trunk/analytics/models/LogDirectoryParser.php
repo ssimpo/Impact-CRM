@@ -171,7 +171,7 @@ class LogDirectoryParser extends Base {
      *  @param string $dirname The directory name + path.
      *  @return directoryhandle|null
      */
-    private function _get_directory($dirname) {
+    private function open() {
         if (is_dir($dirname)) {
             if ($dh = opendir($dirname)) {
                 return $dh;

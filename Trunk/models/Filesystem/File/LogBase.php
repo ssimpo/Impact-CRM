@@ -13,10 +13,27 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Analytics
  */
-class LogInterpreter_Base extends Base {
+class Filesystem_File_LogBase extends  Filesystem_File_Text {
     protected $regx_parse = array();
     protected $regx_parse2 = array();
-    
+	
+	/**
+     *  Get a line from the open file and parse it.
+     *
+     *  @public
+     *  @return array() The line from the open filehandle, parsed according to class rules.
+     */
+	public function next() {
+		$line = parent::next();
+		if (!is_null($line)) {
+			return $this->parse($line);
+		}
+	}
+	
+	public function all() {
+		throw new Exception('Cannot load all for this type of file, use the next() method.');
+	}
+	
     /**
      *  Load the log config document for the specified class.
      *
@@ -24,7 +41,7 @@ class LogInterpreter_Base extends Base {
      *  @param string $type The log-format type (eg. Domino, Apache, IIS, ...etc).
      */
     protected function _load_config($type) {
-        $config = simplexml_load_file(SITE_FOLDER.MODELS_DIRECTORY.DS.'LogInterpreter'.DS.'settings'.DS.$type.'.xml');
+        $config = simplexml_load_file(ROOT_BACK.MODELS_DIRECTORY.DS.'Filesystem'.DS.'File'.DS.'settings'.DS.$type.'.xml');
         
 		foreach ($config->param as $param) {
             switch ($param['type']) {
