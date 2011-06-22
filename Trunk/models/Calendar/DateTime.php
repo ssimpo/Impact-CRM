@@ -71,15 +71,26 @@ class Calendar_DateTime Extends Base {
 			case 'minutes': return $date['minutes'];
 			case 'seconds': return $date['seconds'];
 			case 'yearday': return $date['yday'];
-			case 'week': return $this->_get_week();
 			case 'weekday': return $date['weekday'];
-			case 'weekdayno': return $this->_get_week_day_no();
+			default:
+				$name = '_get_'.I::uncamelize($name);
+				return call_user_func(array($this,$name),array());
+				break;
 		}
 	}
 	
 	public function __set($name,$value) {
 		$name = '_set_'.I::uncamelize($name);
 		call_user_func(array($this,$name),$value);
+	}
+	
+	public function ajust($year=0,$month=0,$day=0,$hours=0,$minutes=0,$seconds=0) {
+		$this->adjust_year($year);
+		$this->adjust_month($month);
+		$this->adjust_day($day);
+		$this->adjust_hours($hours);
+		$this->adjust_minutes($minutes);
+		$this->adjust_seconds($seconds);
 	}
 	
 	public function adjust_year($amount) {
