@@ -9,7 +9,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Analytics
  */
-interface LogInterpreter_Object {
+interface Filesystem_File_LogObject {
    public function parse($line);
    public function rebuild_line($data);
 }

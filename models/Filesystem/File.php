@@ -13,14 +13,15 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@package Filesystem
  */
 class Filesystem_File extends Filesystem {
+	private $parser;
 	private $methods = array(
 		'read' => 'r', 'append' => 'a', 'write' => 'wt',
 		'readwrite' => 'rwt'
 	);
-
 	public function __construct($path='',$filename='') {
 		$this->_init($path,$filename);
 	}
+	
 	
 	/**
 	 *	Set the internal properties for filename and paths ...etc.
@@ -124,73 +125,36 @@ class Filesystem_File extends Filesystem {
 	 *	Will open a file in the specified mode and then parse it according
 	 *	to the supplied type.
 	 *
-	 *	@todo Add parsing features.
-	 *
 	 *	@public
 	 *	@param string $method The open method to use (read|write|append|readwrite).
 	 *	@param string $parseType How to parse this file.
 	 */
-	public function open($method='read',$opentype='standard') {
+	public function open($method='read',$parserType='text') {
 		$method = $this->_translate_method($method);
-		
 		if (is_file($this->fullpath)) {
-			$this->handle = @fopen($this->fullpath,$method);
-			if (!$this->handle) {
-				throw new Exception('Could not open file: "'.$this->fullpath.'".');
-			}
-			$this->handleType = 'filehandle';
+			$this->parser = $this->_load_parser($parserType,$method);
+			return $this->parser;
 		} else {
 			throw new Exception('Filename: "'.$this->fullpath.'", is not valid.');
 		}	
 	}
 	
 	/**
-     *  Get a line from the open file.
-     *
-     *  @public
-     *  @return string The line from the open filehandle.
-     */
-    public function next() {
-		if ($this->_is_resource()) {
-			if ($this->handle) {
-				if (!feof($this->handle)) {
-					return fgets($this->handle);
-				}
-			}
-		
-			return null;
-		}
-    }
-	
-	/**
-     *  Get a the entire file contents.
-     *
-     *  @public
-     *  @return string The contents from the open filehandle.
-     */
-	public function all() {
-		if ($this->_is_resource()) {
-			$contents = '';
-		
-			rewind($this->handle);
-			do {
-				$cLine = $this->next();
-				$contents .= $cLine;
-			} while ($cLine != null);
-		
-			return $contents;
-		}
+	 *	Load the file-parser.
+	 *
+	 *	@private
+	 *	@param string $parserType The name of the parser to load.
+	 *	@param string $method The open method to use (r|wt|a|rwt).
+	 *	@return object The loaded parser.
+	 */
+	private function _load_parser($parserType,$method) {
+		$parser = $this->factory('Filesystem_File_'.$parserType);
+		$parser->load($this->fullpath,$method);
+		return $parser;
 	}
 	
-	/**
-	 *	Close the current file handle.
-	 *
-	 *	The is method is called automatically by the class destructor.
-	 */
 	public function close() {
-		if ($this->_is_resource()) {
-			fclose($this->handle);
-		}
+		
 	}
 }
 ?>

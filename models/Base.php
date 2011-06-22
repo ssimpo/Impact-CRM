@@ -80,16 +80,11 @@ abstract class Base {
 		foreach ($paths as $path) {
 			$classFileName = str_replace('_',DS,$className).'.php';
 			
-			if (!@include_once $path.$classFileName) {
-				if (I::contains($classFileName,'Base.php')) {
-					$classFileName = str_replace(DS.'Base.php','.php',$classFileName);
-					if (@include_once $path.$classFileName) {
-						return true;
-					}
-				}
-			} else {
+			if (is_file($path.$classFileName)) {
+				require_once $path.$classFileName;
 				return true;
 			}
+			
 		}
 		
 		throw new Exception($className.' Class not found');

@@ -9,7 +9,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Analytics
  */
-class LogInterpreter_Domino extends LogInterpreter_Base implements LogInterpreter_Object {
+class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Filesystem_File_LogObject {
     
     /**
      *  Constructor
@@ -17,7 +17,7 @@ class LogInterpreter_Domino extends LogInterpreter_Base implements LogInterprete
      *  Load the Domino log-format options.
      */
     public function __construct() {
-        $this->_load_config('Domino');
+        $this->_load_config('DominoLog');
     }
     
     /**

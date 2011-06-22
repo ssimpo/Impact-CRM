@@ -9,7 +9,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Analytics
  */
-class LogInterpreter_Apache extends LogInterpreter_Base implements LogInterpreter_Object {
+class Filesystem_File_ApacheLog extends Filesystem_File_LogBase implements Filesystem_File_LogObject {
     
     /**
      *  Constructor
@@ -33,7 +33,6 @@ class LogInterpreter_Apache extends LogInterpreter_Base implements LogInterprete
      */
     public function parse($line) {
         $parsed = parent::parse($line);
-        
         return $parsed;
     }
     
