@@ -44,16 +44,16 @@ class Test_Application extends ImpactPHPUnit {
 		if (!defined('DEFAULT_MEDIA')) {
 			define('DEFAULT_MEDIA','PC');
 		}
-		$this->assertMethodPropertySet('media','[PC]',$this->instance);
+		$this->assertMethodPropertySet('media','[PC]');
         
         
 		if (!defined('DOMAIN')) {
 			define('DOMAIN','m.test.com');
 		}
-		$this->assertMethodPropertySet('media','[MOBILE]',$this->instance);
+		$this->assertMethodPropertySet('media','[MOBILE]');
         
         $_GET['media'] = 'FB';
-        $this->assertMethodPropertySet('media','[FB]',$this->instance);
+        $this->assertMethodPropertySet('media','[FB]');
     }
     
     public function test_language_detect() {

@@ -56,20 +56,28 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 	}
     
     private function __autoload($className) {
-		if ($className == 'Facebook') {
-			$classFileName = str_replace('_',DS,$className).'.php';
-			require_once ROOT_BACK.'includes'.DS.'facebook'.DS.strtolower($classFileName);
-			return true;
-		} else {
+		if (!class_exists($className)) {
 			$paths = array(ROOT_BACK.MODELS_DIRECTORY.DS);
 			if (USE_LOCAL_MODELS) {
 				array_unshift($paths,SITE_FOLDER.MODELS_DIRECTORY.DS);
 			}
-			
+		
 			foreach ($paths as $path) {
 				$classFileName = str_replace('_',DS,$className).'.php';
+			
 				if (is_file($path.$classFileName)) {
 					require_once $path.$classFileName;
+					return true;
+				}
+			}
+		}
+		
+		$config = simplexml_load_file(ROOT_BACK.INCLUDES_DIRECTORY.DS.'includes.xml');
+		foreach ($config->param as $param) {
+			if (strtolower($param['name']) == strtolower($className)) {
+				$path = ROOT_BACK.INCLUDES_DIRECTORY.DS.$param['value'];
+				if (is_file($path)) {
+					require_once $path;
 					return true;
 				}
 			}
@@ -166,7 +174,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 			}
 		}
 		
-		$this->_get_magic_property_value($propertyName);
+		return $this->_get_magic_property_value($propertyName);
 	}
 	
 	/**

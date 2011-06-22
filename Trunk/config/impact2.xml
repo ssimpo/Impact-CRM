@@ -75,6 +75,8 @@
 		label="Plugins directory" description="" />
 	<param name="USE_LOCAL_PLUGINS" type="boolean" value="true"
 		label="Use Local site plugins" description="" />
+	<param name="INCLUDES_DIRECTORY" type="string" value="includes"
+		label="Includes directory" description="" />
 	<!--param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="3600" label="Cache 
 		timeout (seconds)" description="" / -->
 	<param name="DEFAULT_CACHE_TIMEOUT" type="integer" value="0"

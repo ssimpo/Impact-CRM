@@ -54,8 +54,6 @@ class Application extends Singleton {
 	 *	@todo Update to the newest Facebook API.
 	 */
 	function _make_facebook_connection() {
-		require_once(ROOT_BACK.'/includes/facebook/facebook.php');
-		
 		$this->facebook = new Facebook(array(
 			'appId'  => FB_APPKEY,
 			'secret' => FB_SECRET,

@@ -28,12 +28,6 @@ abstract class Base {
 	 *	@param String $className The name of the class to load.
 	*/
 	public function factory($className,$args=array()) {
-		if (!(isset($this) && get_class($this) == __CLASS__)) {
-			$this->_dynamic_class_include($className);
-		} else {
-			self::_dynamic_class_include($className);
-		}
-		
 		try {
 			if (count($args) > 0) {
 				$reflection = new ReflectionClass($className);
@@ -63,30 +57,5 @@ abstract class Base {
 			return false;
 		}
 		return ((!in_array('__construct',$methods)) && (in_array('instance',$methods)));
-	}
-	
-	/**
-	 *	Dynamically include the files needed for a given class.
-	 *
-	 *	@private
-	 *	@param string $className Name of the class to include files for.
-	 */
-	private function _dynamic_class_include($className) {
-		$paths = array(ROOT_BACK.MODELS_DIRECTORY.DS);
-		if (USE_LOCAL_MODELS) {
-			array_unshift($paths,SITE_FOLDER.MODELS_DIRECTORY.DS);
-		}
-		
-		foreach ($paths as $path) {
-			$classFileName = str_replace('_',DS,$className).'.php';
-			
-			if (is_file($path.$classFileName)) {
-				require_once $path.$classFileName;
-				return true;
-			}
-			
-		}
-		
-		throw new Exception($className.' Class not found');
 	}
 }

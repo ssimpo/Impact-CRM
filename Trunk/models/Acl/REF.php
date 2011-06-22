@@ -21,9 +21,6 @@ class Acl_REF extends Acl_TestBase implements Acl_Test {
      *	@return object Acl_REF
      */
     public function __construct($application=null) {
-		if (!defined('DS')) {
-			define('DS',DIRECTORY_SEPARATOR);
-		}
 		if (!is_null($application)) {
 			$this->application = $application;
             $this->_set_referer();
