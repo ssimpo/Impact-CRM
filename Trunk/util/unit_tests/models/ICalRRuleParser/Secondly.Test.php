@@ -103,17 +103,18 @@ class Test_ICalRRuleParser_Secondly extends ImpactPHPUnit {
 	}
 	
 	public function test_next_bysecond() {
-		$cdate = mktime(13,0,0,6,18,2010);
+		//$cdate = mktime(13,0,0,6,18,2010);
+		$cdate = new Calendar_DateTime(2010,6,18,13,0,0);
 		
 		$rrule = array('BYSECOND'=>array(3,5,27));
 		$result = array(
-			mktime(13,0,3,6,18,2010),
-			mktime(13,0,5,6,18,2010),
-			mktime(13,0,27,6,18,2010)
+			new Calendar_DateTime(2010,6,18,13,0,3),
+			new Calendar_DateTime(2010,6,18,13,0,5),
+			new Calendar_DateTime(2010,6,18,13,0,27)
 		);
 		$this->assertMethodReturn($result,array($cdate,$rrule));
 		
-		$rrule = array('BYSECOND'=>array(-3,5,27));
+		/*$rrule = array('BYSECOND'=>array(-3,5,27));
 		$result = array(
 			mktime(13,0,57,6,18,2010),
 			mktime(13,0,5,6,18,2010),
@@ -127,7 +128,7 @@ class Test_ICalRRuleParser_Secondly extends ImpactPHPUnit {
 			mktime(13,0,5,6,18,2010),mktime(13,0,5,6,18,2011),
 			mktime(13,0,27,6,18,2010),mktime(13,0,27,6,18,2011)
 		);
-		$this->assertMethodReturn($result,array($cdate,$rrule));
+		$this->assertMethodReturn($result,array($cdate,$rrule));*/
 	}
 	
 	public function test_next_byminute() {

@@ -99,6 +99,12 @@ class Calendar_DateTime Extends Base {
 		call_user_func(array($this,$name),$value);
 	}
 	
+	public function __clone() {
+		$dateTime = new Calendar_DateTime();
+		$dateTime->epoc = $this->epoc;
+		return $dateTime;
+	}
+	
 	/**
 	 *	Adjust a date.
 	 *
@@ -115,15 +121,25 @@ class Calendar_DateTime Extends Base {
 	 *	@return int The no. of seconds since the Unix epoc for the adjusted date.
 	 */
 	public function adjust($year=0,$month=0,$day=0,$hours=0,$minutes=0,$seconds=0) {
-		$this->adjust_year($year);
-		$this->adjust_month($month);
-		$this->adjust_day($day);
-		$this->adjust_hours($hours);
-		$this->adjust_minutes($minutes);
-		$this->adjust_seconds($seconds);
-		if ($day == -25) {
-			print_r(getdate($this->epoc));
+		if ((is_string($year)) && ($month != 0)) {
+			switch (strtolower($year)) {
+				case 'year': return $this->adjust_year($month);
+				case 'month': return $this->adjust_month($month);
+				case 'day': return $this->adjust_day($month);
+				case 'hours': return $this->adjust_hours($month);
+				case 'minutes': return $this->adjust_minutes($month);
+				case 'seconds': return $this->adjust_seconds($month);
+			}
+		} else {
+			$this->adjust_year($year);
+			$this->adjust_month($month);
+			$this->adjust_day($day);
+			$this->adjust_hours($hours);
+			$this->adjust_minutes($minutes);
+			$this->adjust_seconds($seconds);
 		}
+		
+	
 		return $this->epoc;
 	}
 	
@@ -233,6 +249,20 @@ class Calendar_DateTime Extends Base {
 	public function adjust_seconds($amount) {
 		$this->epoc += $amount;
 		return $this->epoc;
+	}
+	
+	public function set($partName,$part) {
+		switch (strtolower($partName)) {
+			case 'year': return $this->_set_year($part);
+			case 'month': return $this->_set_month($part);
+			case 'day': return $this->_set_day($part);
+			case 'hours': return $this->_set_hours($part);
+			case 'minutes': return $this->_set_minutes($part);
+			case 'seconds': return $this->_set_seconds($part);
+			case 'yearday': return $this->_set_year_day($part);
+			case 'week': return $this->_set_week($part);
+			case 'weekday': return $this->_set_week_day($part);
+		}
 	}
 	
 	/**
