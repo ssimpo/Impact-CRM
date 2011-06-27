@@ -16,6 +16,8 @@ defined('DIRECT_ACCESS_CHECK') or die;
 class Filesystem_File_LogBase extends  Filesystem_File_Text {
 	protected $config;
     protected $regx_parse = array();
+	protected $position;
+	protected $lastLine;
 	
 	/**
      *  Get a line from the open file and parse it.
@@ -26,8 +28,31 @@ class Filesystem_File_LogBase extends  Filesystem_File_Text {
 	public function next() {
 		$line = parent::next();
 		if (!is_null($line)) {
-			return $this->parse($line);
+			$this->position++;
+			$this->lastLine = $this->parse($line);
+			return $this->lastLine;
 		}
+	}
+	
+	public function rewind() {
+		$this->position = 0;
+		rewind($this->handle);
+	}
+	
+	public function current() {
+		return $this->lastLine;
+    }
+	
+	public function valid() {
+		if (feof($this->handle)) {
+			return false;
+		} else {
+			return true;
+		}
+    }
+	
+	public function key() {
+		return $this->position;
 	}
 	
 	public function all() {
