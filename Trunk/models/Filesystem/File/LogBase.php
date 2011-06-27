@@ -41,12 +41,11 @@ class Filesystem_File_LogBase extends  Filesystem_File_Text {
      *  @param string $type The log-format type (eg. Domino, Apache, IIS, ...etc).
      */
     protected function _load_config($type) {
-		$this->config = new FileSystem_File(
+		$this->regx_parse = new FileSystem_File(
 			ROOT_BACK.MODELS_DIRECTORY.DS.'Filesystem'.DS.'File'.DS.'settings',
 			$type.'.xml'
 		);
-		$this->config->open('read','settings');
-		$this->regx_parse = $this->config->all();
+		$this->regx_parse->open('read','settings');
     }
     
     /**
