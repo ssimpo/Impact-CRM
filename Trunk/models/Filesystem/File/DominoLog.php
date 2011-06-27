@@ -20,6 +20,7 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
     public function __construct() {
         $this->_load_config('DominoLog');
         $this->dateparser = new DateParser();
+        $this->position = 0;
     }
     
     /**
