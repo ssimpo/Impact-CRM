@@ -22,6 +22,10 @@ class Filesystem_File extends Filesystem {
 		$this->_init($path,$filename);
 	}
 	
+	public function __call($name,$arguments) {
+		return call_user_func_array(array($this->parser,$name),$arguments);
+	}
+	
 	
 	/**
 	 *	Set the internal properties for filename and paths ...etc.
@@ -133,7 +137,6 @@ class Filesystem_File extends Filesystem {
 		$method = $this->_translate_method($method);
 		if (is_file($this->fullpath)) {
 			$this->parser = $this->_load_parser($parserType,$method);
-			return $this->parser;
 		} else {
 			throw new Exception('Filename: "'.$this->fullpath.'", is not valid.');
 		}	

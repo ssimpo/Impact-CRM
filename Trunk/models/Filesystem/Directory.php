@@ -15,11 +15,11 @@ defined('DIRECT_ACCESS_CHECK') or die;
  */
 class Filesystem_Directory extends Filesystem {
 	
-	public function __construct($path='',$filter='') {
-		$this->_init($path,$filter);
+	public function __construct($path='',$filter='',$fileMethod='read',$fileType='text') {
+		$this->_init($path,$filter,$fileMethod,$fileType);
 	}
 	
-	private function _init($path,$filter) {
+	private function _init($path,$filter,$fileMethod,$fileType) {
 		if ($path != '') {
 			$newpath = str_replace(
 				array(self::FSLASH,self::BSLASH),array(DS,DS),
@@ -31,6 +31,8 @@ class Filesystem_Directory extends Filesystem {
 			$this->path = realpath(getcwd());
 		}
 		$this->_set_filter($filter);
+		$this->fileMethod = $fileMethod;
+		$this->fileType = $fileType;
 	}
 	
 	/**
@@ -86,8 +88,8 @@ class Filesystem_Directory extends Filesystem {
 	 *	@param string $filter The filter to use on the directory.
 	 *	
 	 */
-	public function set_directory($path='',$filter='') {
-		$this->_init($path,$filter);
+	public function set_directory($path='',$filter='',$fileMethod='read',$fileType='text') {
+		$this->_init($path,$filter,$fileMethod,$fileType);
 		$this->_open();
 	}
 	
@@ -111,11 +113,16 @@ class Filesystem_Directory extends Filesystem {
      *  @return string|Filesystem_File The current filename or Filesystem_File object of that file.
      */
     public function next($getFileObject = false) {
+		if (!$this->_is_resource($this->handle)) {
+			$this->_open();
+		}
 		
 		while (($filename = readdir($this->handle)) !== false) {
 			if ($this->_filter($filename)) {
 				if ($getFileObject === true) {
-					return new Filesystem_File($this->path,$filename);
+					$file = new Filesystem_File($this->path,$filename);
+					$file->open($this->fileMethod,$this->fileType);
+					return $file;
 				} else {
 					return $filename;	
 				}
@@ -143,6 +150,10 @@ class Filesystem_Directory extends Filesystem {
         } else {
             throw new Exception('Directory: '.$this->path.' does not exist');
         }
+		
+		if (!$this->_is_resource($this->handle)) {
+			throw new Exception('Could not open directory: "'.$this->path.'"');
+		}
     }
 	
 	/**
