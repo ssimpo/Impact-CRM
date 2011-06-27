@@ -12,7 +12,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
-class Filesystem_File extends Filesystem {
+class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterator {
 	private $parser;
 	private $methods = array(
 		'read' => 'r', 'append' => 'a', 'write' => 'wt',
@@ -23,7 +23,82 @@ class Filesystem_File extends Filesystem {
 	}
 	
 	public function __call($name,$arguments) {
-		return call_user_func_array(array($this->parser,$name),$arguments);
+		if (array_key_exists($name,$this->methods)) {
+			return call_user_func_array(array($this->parser,$name),$arguments);
+		} else {
+			throw new Exception('Undefined method "'.$name.'"');
+		}
+	}
+	
+	public function offsetExists($offset) {
+		if (array_key_exists('offsetExists',$this->methods)) {
+			return call_user_func(array($this->parser,'offsetExists'),$offset);
+		} else {
+			throw new Exception('This is not an object of type array');
+		}
+	}
+	public function offsetGet($offset) {
+		if (array_key_exists('offsetGet',$this->methods)) {
+			return call_user_func(array($this->parser,'offsetGet'),$offset);
+		} else {
+			throw new Exception('This is not an object of type array');
+		}
+	}
+	public function offsetSet($offset,$value) {
+		if (array_key_exists('offsetSet',$this->methods)) {
+			return call_user_func(array($this->parser,'offsetSet'),$offset,$value);
+		} else {
+			throw new Exception('This is not an object of type array');
+		}
+	}
+	public function offsetUnset($offset) {
+		if (array_key_exists('offsetUnset',$this->methods)) {
+			return call_user_func(array($this->parser,'offsetUnset'),$offset);
+		} else {
+			throw new Exception('This is not an object of type array');
+		}
+	}
+	public function count() {
+		if (array_key_exists('count',$this->methods)) {
+			return call_user_func(array($this->parser,'count'));
+		} else {
+			throw new Exception('This is not an object of type array');
+		}
+	}
+	public function current() {
+		if (array_key_exists('current',$this->methods)) {
+			return call_user_func(array($this->parser,'current'));
+		} else {
+			throw new Exception('This is not an object of type array');
+		}
+	}
+	public function key() {
+		if (array_key_exists('key',$this->methods)) {
+			return call_user_func(array($this->parser,'key'));
+		} else {
+			throw new Exception('This is not an object of type array');
+		}
+	}
+	public function next() {
+		if (array_key_exists('next',$this->methods)) {
+			return call_user_func(array($this->parser,'next'));
+		} else {
+			throw new Exception('This is not an object of type array');
+		}
+	}
+	public function rewind() {
+		if (array_key_exists('rewind',$this->methods)) {
+			return call_user_func(array($this->parser,'rewind'));
+		} else {
+			throw new Exception('This is not an object of type array');
+		}
+	}
+	public function valid() {
+		if (array_key_exists('valid',$this->methods)) {
+			return call_user_func(array($this->parser,'valid'));
+		} else {
+			throw new Exception('This is not an object of type array');
+		}
 	}
 	
 	
@@ -39,7 +114,7 @@ class Filesystem_File extends Filesystem {
 			if ($path != '') {
 				if ($filename == '') {
 					$this->fullpath = realpath($path);
-					$this->path = $path;
+					$this->path = realpath($path);
 					$this->filename = $this->_get_filename($this->fullpath);
 					$this->ext = $this->_get_ext($this->fullpath);
 				} else {
@@ -48,7 +123,7 @@ class Filesystem_File extends Filesystem {
 					} else {
 						$this->fullpath = realpath($path.$filename);
 					}
-					$this->path = $path;
+					$this->path = realpath($path);
 					$this->filename = $filename;
 					$this->ext = $this->_get_ext($this->fullpath);
 				}
@@ -137,6 +212,7 @@ class Filesystem_File extends Filesystem {
 		$method = $this->_translate_method($method);
 		if (is_file($this->fullpath)) {
 			$this->parser = $this->_load_parser($parserType,$method);
+			$this->methods = array_flip(get_class_methods($this->parser));
 		} else {
 			throw new Exception('Filename: "'.$this->fullpath.'", is not valid.');
 		}	

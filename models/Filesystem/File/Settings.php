@@ -9,7 +9,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Analytics
  */
-class Filesystem_File_Settings implements Filesystem_File_Object {
+class Filesystem_File_Settings implements Filesystem_File_Object,ArrayAccess,Countable,Iterator {
     private $params = array();
     private $types = array(
         'include' => 'boolean'
@@ -17,6 +17,8 @@ class Filesystem_File_Settings implements Filesystem_File_Object {
     private $ignore = array(
         'type' => true, 'value' => true
     );
+    private $keys;
+    private $position;
     
     public function load($fullpath,$method) {
         $file = new FileSystem_File($fullpath);
@@ -32,7 +34,63 @@ class Filesystem_File_Settings implements Filesystem_File_Object {
                 $this->params[$name]['value'] = $value;
             }
         }
+        
+        $this->keys = array_keys($this->params);
+        $this->position = 0;
     }
+    
+    public function offsetExists($offset) {
+        $offset = strtolower(trim($offset));
+        return (array_key_exists($offset,$this->params));
+    }
+    
+    public function offsetGet($offset) {
+        if ($this->offsetExists($offset)) {
+             $offset = strtolower(trim($offset));
+             return $this->params[$offset];
+        } else {
+            throw new Exception('Array item "'.$offset.'" does not exist.');
+        }
+    }
+    
+    public function offsetSet($offset,$value) {
+        $offset = strtolower(trim($offset));
+        $this->params[$offset] = $vlaue;
+    }
+    
+    public function offsetUnset($offset) {
+        if ($this->offsetExists($offset)) {
+            unset($this->params[$offset]);
+        } else {
+            throw new Exception('Array item "'.$offset.'" does not exist.');
+        }
+        
+    }
+    
+    public function count() {
+        return count($this->params);
+    }
+    
+    public function current() {
+		$key = $this->keys[$this->position];
+        return $this->params[$key];
+    }
+    
+	public function key() {
+		return $this->keys[$this->position];
+	}
+    
+	public function next() {
+		++$this->position;
+	}
+    
+	public function rewind() {
+		$this->position = 0;
+	}
+    
+	public function valid() {
+		return isset($this->keys[$this->position]);
+	}
     
     public function all() {
         return $this->params;
