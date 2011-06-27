@@ -14,8 +14,8 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@package Analytics
  */
 class Filesystem_File_LogBase extends  Filesystem_File_Text {
+	protected $config;
     protected $regx_parse = array();
-    protected $regx_parse2 = array();
 	
 	/**
      *  Get a line from the open file and parse it.
@@ -41,25 +41,12 @@ class Filesystem_File_LogBase extends  Filesystem_File_Text {
      *  @param string $type The log-format type (eg. Domino, Apache, IIS, ...etc).
      */
     protected function _load_config($type) {
-        $config = simplexml_load_file(ROOT_BACK.MODELS_DIRECTORY.DS.'Filesystem'.DS.'File'.DS.'settings'.DS.$type.'.xml');
-        
-		foreach ($config->param as $param) {
-            switch ($param['type']) {
-                case 'string': case 'integer': case 'boolean':
-                    break;
-                case 'regx':
-                    $value = str_replace('&quot;','"',$param['value']);
-                    if (!isset($param['subject'])) {
-                        $this->regx_parse[trim($param['name'])] = $value;
-                    } else {
-                        $this->regx_parse2[trim($param['name'])] = array(
-                            'subject' => $param['subject'],
-                            'regx' => $value
-                        );
-                    }
-                    break;
-            }
-        }
+		$this->config = new FileSystem_File(
+			ROOT_BACK.MODELS_DIRECTORY.DS.'Filesystem'.DS.'File'.DS.'settings',
+			$type.'.xml'
+		);
+		$this->config->open('read','settings');
+		$this->regx_parse = $this->config->all();
     }
     
     /**
@@ -75,15 +62,23 @@ class Filesystem_File_LogBase extends  Filesystem_File_Text {
     public function parse($line) {
         $data = array();
         
-        $parsers = array($this->regx_parse,$this->regx_parse2);
-        
-        foreach ($parsers as $parser) {
-            foreach ($parser as $types => $test) {
-                $subject = (is_array($test)? $data[trim($test['subject'])]:$line);
-                $test = (is_array($test)? $test['regx']:$test);
-                preg_match($test,$subject,$matches);
-                
-                $count = 1;
+        foreach ($this->regx_parse as $types => $parser) {
+			$subject = $line;
+			
+			if (isset($parser['subject'])) {
+				$subject = trim($parser['subject']);
+				if (isset($data[$subject])) {
+					$subject = $data[$subject];
+				} else {
+					$subject = null;
+				}
+			}
+			
+			if ((!is_null($subject)) && (isset($parser['value']))) {
+				$test = $parser['value'];
+				preg_match($test,$subject,$matches);
+				
+				$count = 1;
                 $types = explode(',',$types);
                 foreach ($types as $type) {
                     if (!empty($matches)) {
@@ -93,7 +88,8 @@ class Filesystem_File_LogBase extends  Filesystem_File_Text {
                     }
                     $count++;
                 }
-            }
+				
+			}
         }
         
         return $data;
