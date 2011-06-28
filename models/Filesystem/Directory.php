@@ -7,15 +7,19 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	Directory Open/Close, browsing and parsing operations.
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.6
+ *	@version 0.0.7
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  *
  *	@todo Permission for user on files/directories?
  */
-class Filesystem_Directory extends Filesystem {
+class Filesystem_Directory extends Filesystem implements Iterator {
+	private $dirList = false;
+	private $position = 0;
+	private $lastFile = false;
 	
 	public function __construct($path='',$filter='',$fileMethod='read',$fileType='text') {
+		$this->getFileObject = false;
 		$this->_init($path,$filter,$fileMethod,$fileType);
 	}
 	
@@ -33,6 +37,8 @@ class Filesystem_Directory extends Filesystem {
 		$this->_set_filter($filter);
 		$this->fileMethod = $fileMethod;
 		$this->fileType = $fileType;
+		$this->dirList = false;
+		$this->position = 0;
 	}
 	
 	/**
@@ -89,6 +95,7 @@ class Filesystem_Directory extends Filesystem {
 	 *	
 	 */
 	public function set_directory($path='',$filter='',$fileMethod='read',$fileType='text') {
+		unset($this->dirList);
 		$this->_init($path,$filter,$fileMethod,$fileType);
 		$this->_open();
 	}
@@ -100,60 +107,115 @@ class Filesystem_Directory extends Filesystem {
      *  @return string The current filename.
      */
     public function reset() {
-        rewinddir($this->handle);
+        $this->rewind();
     }
 	
 	/**
-     *  Move the directory pointer forward and return the next entry.
+     *  Move the position of the current array pointer, return the current array item and store it.
      *
-     *  Uses the set filter in filtering-out unwanted entries.
+     *  @note Can be run directly or via Array Iterator functionaility.
      *
      *  @public
-     *  @param boolean $getFileObject If set return a Filesystem_File object instead of just the filename.
      *  @return string|Filesystem_File The current filename or Filesystem_File object of that file.
      */
-    public function next($getFileObject = false) {
-		if (!$this->_is_resource($this->handle)) {
+    public function next() {
+		if (empty($this->dirList)) {
 			$this->_open();
 		}
 		
-		while (($filename = readdir($this->handle)) !== false) {
-			if ($this->_filter($filename)) {
-				if ($getFileObject === true) {
-					$file = new Filesystem_File($this->path,$filename);
-					$file->open($this->fileMethod,$this->fileType);
-					return $file;
-				} else {
-					return $filename;	
-				}
-			}
+		if (!$this->valid()) {
+			return false;
 		}
 		
-		return false;
+		$filename = $this->dirList[$this->position];
+		if ($this->getFileObject === true) {
+			$file = new Filesystem_File($this->path,$filename);
+			$file->open($this->fileMethod,$this->fileType);
+			$this->lastFile = $file;
+		} else {
+			$this->lastFile = $filename;
+		}
+				
+		$this->position++;
+		return $this->lastFile;
     }
 	
 	/**
-     *  Open a directory according to object settings.
+	 *	Array Iterator method, to reset the array to the start.
+	 *
+	 *	@public
+	 */
+	public function rewind() {
+		$this->position = 0;
+		$this->lastFile = false;
+	}
+	
+	/**
+	 *	Array Iterator method, to get the current file.
+	 *
+	 *	@note Relies on next() to have been run and file stored in $this->lastFile.
+	 *
+	 *	@public
+	 */
+	public function current() {
+		if ($this->lastFile === false) {
+			$this->next();
+		}
+		return $this->lastFile;
+    }
+	
+	/**
+	 *	Array Iterator method, to test that the next file is available.
+	 *
+	 *	@public
+	 */
+	public function valid() {
+		$count = 0;
+		if ($this->dirList) {
+			$count = count($this->dirList);	
+		}
+		
+		if ($count == 0) {
+			return false;
+		}
+		
+		if ($this->position < $count) {
+			return true;
+		} else {
+			return false;
+		}
+    }
+	
+	/**
+	 *	Array Iterator method, to get the current key name/number.
+	 *	
+	 *	@public
+	 */
+	public function key() {
+		return $this->position;
+	}
+	
+	/**
+     *  Grab the contents of the directory, filter it and store in an array.
      *
      *  @private
      */
     private function _open() {
         if (is_dir($this->path)) {
-			if ($this->_is_resource()) {
-				// If there is already a resource open, close it.
-				$this->close();
+			$dirList = scandir($this->path);
+			if ($dirList === false) {
+				throw new Exception('Could not read the directory : "'.$this->path.'."');
 			}
 			
-            if (!($this->handle = opendir($this->path))) {
-                throw new Exception('Could not access : '.$this->path);
-            }
+			$this->dirList = array();
+			for ($i=0; $i < count($dirList); $i++) {
+				if ($this->_filter($dirList[$i])) {
+					array_push($this->dirList,$dirList[$i]);
+				}
+			}
         } else {
             throw new Exception('Directory: '.$this->path.' does not exist');
         }
-		
-		if (!$this->_is_resource($this->handle)) {
-			throw new Exception('Could not open directory: "'.$this->path.'"');
-		}
     }
 	
 	/**

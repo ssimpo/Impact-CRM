@@ -8,7 +8,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	them and parse them according to installed sub-classes.
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.6
+ *	@version 0.0.7
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
@@ -24,7 +24,14 @@ class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterat
 	
 	public function __call($name,$arguments) {
 		if (array_key_exists($name,$this->methods)) {
-			return call_user_func_array(array($this->parser,$name),$arguments);
+			switch (count($arguments)) {
+				case 0: return $this->parser->{$name}();
+				case 1: return $this->parser->{$name}($arguments[0]);
+				case 2: return $this->parser->{$name}($arguments[0],$arguments[1]);
+				case 3: return $this->parser->{$name}($arguments[0],$arguments[1],$arguments[2]);
+				case 4: return $this->parser->{$name}($arguments[0],$arguments[1],$arguments[2],$arguments[3]);
+				default: call_user_func_array(array($this->parser,$name),$arguments);
+			}
 		} else {
 			throw new Exception('Undefined method "'.$name.'"');
 		}
@@ -32,72 +39,72 @@ class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterat
 	
 	public function offsetExists($offset) {
 		if (array_key_exists('offsetExists',$this->methods)) {
-			return call_user_func(array($this->parser,'offsetExists'),$offset);
+			return $this->parser->offsetExists($offset);
 		} else {
-			throw new Exception('This is not an object of type array');
+			throw new Exception('The array function "offsetExists" is not available.');
 		}
 	}
 	public function offsetGet($offset) {
 		if (array_key_exists('offsetGet',$this->methods)) {
-			return call_user_func(array($this->parser,'offsetGet'),$offset);
+			return $this->parser->offsetGet($offset);
 		} else {
-			throw new Exception('This is not an object of type array');
+			throw new Exception('The array function "offsetGet" is not available.');
 		}
 	}
 	public function offsetSet($offset,$value) {
 		if (array_key_exists('offsetSet',$this->methods)) {
-			return call_user_func(array($this->parser,'offsetSet'),$offset,$value);
+			return $this->parser->offsetSet($offset,$value);
 		} else {
-			throw new Exception('This is not an object of type array');
+			throw new Exception('The array function "offsetSet" is not available.');
 		}
 	}
 	public function offsetUnset($offset) {
 		if (array_key_exists('offsetUnset',$this->methods)) {
-			return call_user_func(array($this->parser,'offsetUnset'),$offset);
+			return $this->parser->offsetUnset($offset);
 		} else {
-			throw new Exception('This is not an object of type array');
+			throw new Exception('The array function "offsetUnset" is not available.');
 		}
 	}
 	public function count() {
 		if (array_key_exists('count',$this->methods)) {
-			return call_user_func(array($this->parser,'count'));
+			return $this->parser->count();
 		} else {
-			throw new Exception('This is not an object of type array');
+			throw new Exception('The array function "count" is not available.');
 		}
 	}
 	public function current() {
 		if (array_key_exists('current',$this->methods)) {
-			return call_user_func(array($this->parser,'current'));
+			return $this->parser->current();
 		} else {
-			throw new Exception('This is not an object of type array');
+			throw new Exception('The array function "current" is not available.');
 		}
 	}
 	public function key() {
 		if (array_key_exists('key',$this->methods)) {
-			return call_user_func(array($this->parser,'key'));
+			return $this->parser->key();
 		} else {
-			throw new Exception('This is not an object of type array');
+			throw new Exception('The array function "key" is not available.');
 		}
 	}
 	public function next() {
 		if (array_key_exists('next',$this->methods)) {
-			return call_user_func(array($this->parser,'next'));
+			return $this->parser->next();
 		} else {
-			throw new Exception('This is not an object of type array');
+			throw new Exception('The array function "next" is not available.');
 		}
 	}
 	public function rewind() {
 		if (array_key_exists('rewind',$this->methods)) {
-			return call_user_func(array($this->parser,'rewind'));
+			return $this->parser->rewind();
 		} else {
-			throw new Exception('This is not an object of type array');
+			throw new Exception('The array function "rewind" is not available.');
 		}
 	}
 	public function valid() {
 		if (array_key_exists('valid',$this->methods)) {
-			return call_user_func(array($this->parser,'valid'));
+			return $this->parser->valid();
 		} else {
-			throw new Exception('This is not an object of type array');
+			throw new Exception('The array function "valid" is not available.');
 		}
 	}
 	
