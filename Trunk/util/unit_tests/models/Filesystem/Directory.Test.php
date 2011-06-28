@@ -19,7 +19,7 @@ class Test_Filesystem_Directory extends ImpactPHPUnit {
 	}
 	
 	public function test_open() {
-		$this->assertMethodPropertyType('handle','resource');
+		$this->assertMethodPropertyType('dirList','array');
     }
 	
 	public function test_set_directory() {
@@ -39,11 +39,41 @@ class Test_Filesystem_Directory extends ImpactPHPUnit {
 		$this->assertMethodReturn('01022011.log');
     }
 	
+	public function test_current() {
+		$this->instance->set_directory($this->testPath,'*.log');
+		$this->assertMethodReturn('01012011.log');
+		$this->instance->next();
+		$this->assertMethodReturn('01022011.log');
+    }
+	
+	public function test_valid() {
+		$this->instance->set_directory($this->testPath,'*.log');
+		$this->assertMethodReturnTrue();
+		$this->instance->next();
+		$this->assertMethodReturnTrue();
+		$this->instance->next();
+		$this->assertMethodReturnFalse();
+	}
+	
+	public function test_key() {
+		$this->instance->set_directory($this->testPath,'*.log');
+		$this->assertMethodReturn(0);
+		$this->instance->next();
+		$this->assertMethodReturn(1);
+	}
+	
 	public function test_reset() {
 		$this->instance->set_directory($this->testPath,'*.log');
 		$this->instance->next();
 		$this->instance->reset();
-		$this->assertEquals($this->instance->next(),'01012011.log');
+		$this->assertEquals('01012011.log',$this->instance->next());
+    }
+	
+	public function test_rewind() {
+		$this->instance->set_directory($this->testPath,'*.log');
+		$this->instance->next();
+		$this->instance->reset();
+		$this->assertEquals('01012011.log',$this->instance->next());
     }
 	
 	public function test_parse_filter() {
