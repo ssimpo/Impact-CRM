@@ -19,20 +19,27 @@ class Filesystem_File_Settings implements Filesystem_File_Object,ArrayAccess,Cou
     );
     private $keys;
     private $position;
+    private $fullpath;
     
     public function load($fullpath,$method) {
-        $file = new FileSystem_File($fullpath);
-        $file->open();
+        $this->fullpath = $fullpath;
+        $xml = simplexml_load_file($fullpath);
         
-        $xml = simplexml_load_string($file->all());
         foreach ($xml->param as $param) {
+            $type = $param['type'];
             $name = $this->_format_attribute_value($param,'name');
-            $value = $this->_get_attribute_value($param,'name');
-            
-            if ((!is_null($value)) && (!is_null($name))) {
-                $this->params[$name] = $this->_get_data($param);
-                $this->params[$name]['value'] = $value;
-            }
+            $value = $this->_get_attribute_value($param['value'],$type);
+            if (is_object($value)) {
+                foreach ($value as $childName => $childValue) {
+                    $this->params[$name.'.'.$childName] = $childValue;
+                }
+            } else {
+                $this->params[$name] = $value;
+                if ((!is_null($value)) && (!is_null($name))) {
+                    $this->params[$name] = $this->_get_data($param);
+                    $this->params[$name]['value'] = $value;
+                }
+            }   
         }
         
         $this->keys = array_keys($this->params);
@@ -98,30 +105,29 @@ class Filesystem_File_Settings implements Filesystem_File_Object,ArrayAccess,Cou
     
     private function _get_data($attributes) {
         $data = array();
-         
-        foreach ($attributes as $attName => $attValue) {
-            $attName = strtolower(trim($attName));
+        $attributes = $this->_get_data_attributes($attributes);
+        
+        foreach ($attributes as $name => $value) {
+            $name = strtolower(trim($name));
             
-            if ((isset($this->types[$attName])) && (!isset($this->ignore[$attName]))) {
-                switch ($this->types[$attName]) {
-                    case 'int':
-                        $data[$attName] = $this->_get_int_value($attValue);
-                        break;
-                    case 'boolean':
-                        $data[$attName] = $this->_get_boolean_value($attValue);
-                        break;
-                    case 'regx':
-                        $data[$attName] = str_replace('&quot;','"',$attValue);
-                        $data[$attName] = str_replace('&amp;','&',$attValue);
-                        break;
-                    default:
-                        $data[$attName] = $attValue;
-                        break;
-                }
+            $type = 'string';
+            if (isset($this->types[$name])) {
+                $type = $this->types[$name];
             }
+            
+            $data[$name] = $this->_get_attribute_value($value,$type,$name);
         }
         
         return $data;
+    }
+    
+    private function _get_data_attributes($attributes) {
+        $attributes = get_object_vars($attributes);
+        $attributes = $attributes['@attributes'];
+        unset($attributes['type']);
+        unset($attributes['name']);
+        unset($attributes['value']);
+        return $attributes;
     }
     
     private function _format_attribute_value($attributes,$attributeName) {
@@ -132,13 +138,7 @@ class Filesystem_File_Settings implements Filesystem_File_Object,ArrayAccess,Cou
         }
     }
     
-    private function _get_attribute_value($attributes) {
-        if ((!isset($attributes['type'])) || (!isset($attributes['value']))) {
-            return null;
-        }
-        
-        $type = $this->_format_attribute_value($attributes,'type');
-        $value = $attributes['value'];
+    private function _get_attribute_value($value,$type,$name='') {
         switch($type) {
             case 'string':
                 return $value;
@@ -150,6 +150,12 @@ class Filesystem_File_Settings implements Filesystem_File_Object,ArrayAccess,Cou
                 return $this->_get_boolean_value($value);
             case 'int':
                 return $this->_get_int_value($value);
+            case 'src':
+                return $this->_get_src_value($value);
+                break;
+            default:
+                return $value;
+                break;
         }
     }
     
@@ -174,7 +180,12 @@ class Filesystem_File_Settings implements Filesystem_File_Object,ArrayAccess,Cou
         return false;
     }
     
-    
+    private function _get_src_value($value) {
+        $file = new Filesystem_File($this->fullpath);
+        $file->set_file($file->path.$value);
+        $file->open('read','settings');
+        return $file;
+    }
     
 }
 ?>

@@ -148,6 +148,9 @@ class Filesystem_Directory extends Filesystem implements Iterator {
 	public function rewind() {
 		$this->position = 0;
 		$this->lastFile = false;
+		if (empty($this->dirList)) {
+			$this->_open();
+		}
 	}
 	
 	/**
