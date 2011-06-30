@@ -18,8 +18,27 @@ class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterat
 		'read' => 'r', 'append' => 'a', 'write' => 'wt',
 		'readwrite' => 'rwt'
 	);
+	
 	public function __construct($path='',$filename='') {
 		$this->_init($path,$filename);
+	}
+	
+	public function __get($property) {
+		$convertedProperty = I::camelize($property);
+		switch($convertedProperty) {
+			case 'fileSize':
+				return filesize($this->fullpath);
+			case 'accessed':
+				$date = new Calendar_DateTime();
+				$date->epoc = fileatime($this->fullpath);
+				return $date;
+			case 'modified':
+				$date = new Calendar_DateTime();
+				$date->epoc = filemtime($this->fullpath);
+				return $date;
+			default:
+				return parent::__get($property);
+		}
 	}
 	
 	public function __call($name,$arguments) {
@@ -121,7 +140,7 @@ class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterat
 			if ($path != '') {
 				if ($filename == '') {
 					$this->fullpath = realpath($path);
-					$this->path = realpath($path);
+					$this->path = $this->_get_path($this->fullpath);
 					$this->filename = $this->_get_filename($this->fullpath);
 					$this->ext = $this->_get_ext($this->fullpath);
 				} else {
@@ -130,14 +149,14 @@ class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterat
 					} else {
 						$this->fullpath = realpath($path.$filename);
 					}
-					$this->path = realpath($path);
+					$this->path = $this->_get_path($this->fullpath);
 					$this->filename = $filename;
 					$this->ext = $this->_get_ext($this->fullpath);
 				}
 			}
 		} else {
 			$this->fullpath = realpath($path->path.$filename);
-			$this->path = $path->path;
+			$this->path = $this->_get_path($this->fullpath);
 			$this->filename = $filename;
 			$this->ext = $this->_get_ext($this->fullpath);
 		}
@@ -185,6 +204,16 @@ class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterat
 	 */
 	private function _get_ext($fullpath) {
 		$pattern = '/.*'.self::BSLASH.DS.'[^'.self::BSLASH.DS.']*?\.([^'.self::BSLASH.DS.']+)/';
+		preg_match($pattern,$fullpath,$match);
+		if (!empty($match)) {
+			return $match[1];
+		}
+		
+		return false;
+	}
+	
+	private function _get_path($fullpath) {
+		$pattern = '/(.*'.self::BSLASH.DS.')[^'.self::BSLASH.DS.']+/';
 		preg_match($pattern,$fullpath,$match);
 		if (!empty($match)) {
 			return $match[1];

@@ -39,15 +39,17 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
         $parsed['domino_id'] = strtoupper($parsed['domino_id']);
         
         $agent = '';
-        try {
-            $agent = get_browser($parsed['agent'],true);
-        } catch (Exception $e) {
-            $browscap = new Browscap(ROOT_BACK.'database'.DS);
-			$agent = $browscap->getBrowser($parsed['agent'],true);
-        }
+        if ($parsed['agent']) {
+            try {
+                $agent = get_browser($parsed['agent'],true);
+            } catch (Exception $e) {
+                $browscap = new Browscap(ROOT_BACK.'database'.DS);
+                $agent = $browscap->getBrowser($parsed['agent'],true);
+            }
         
-        foreach ($agent as $key => $value) {
-            $parsed['agent_'.strtolower($key)] = $value;
+            foreach ($agent as $key => $value) {
+                $parsed['agent_'.strtolower($key)] = $value;
+            }
         }
         
         $datetime = $parsed['date'].':'.$parsed['time'].' '.$parsed['timezone'];

@@ -7,6 +7,8 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *  Most of the coding goes-on here.  Generally, the individual interpreter
  *  classes are only stubs, unless, some specific coding is needed for that
  *  log format.  Most of the functionality is loaded from the config files.
+ *
+ *	@todo Add caching so config is not reloaded when looping through files in a directory.
  *  
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.1
