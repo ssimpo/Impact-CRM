@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 	<param
+        name="line"
+        type="regx" value="/\A(.*)/"
+        label="The full log line" description="" />
+	<param
         name="ip"
         type="regx" value="/\A(\d+\.\d+\.\d+\.\d+)/"
         label="IP Address" description="" />
     <param
-        name="date,time,timezone"
+        name="date time timezone"
         type="regx" value="/.*?\[(.*?)\:(.*?) (.*?)\]/"
         label="Date/Time/Timezone" description="" />
     <param
-        name="method,request,protocol"
+        name="method request protocol"
         type="regx" value="/.*?] &quot;(.*?) (.*?) (.*?)&quot;/"
         label="Request Method/Request/Protocol" description="" />
     <param

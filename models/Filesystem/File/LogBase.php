@@ -90,23 +90,14 @@ class Filesystem_File_LogBase extends  Filesystem_File_Text {
         $data = array();
         
         foreach ($this->regx_parse as $types => $parser) {
-			$subject = $line;
-			
-			if (isset($parser['subject'])) {
-				$subject = trim($parser['subject']);
-				if (isset($data[$subject])) {
-					$subject = $data[$subject];
-				} else {
-					$subject = null;
-				}
-			}
+			$subject = $this->_get_subject($parser,$data,$line);
 			
 			if ((!is_null($subject)) && (isset($parser['value']))) {
 				$test = $parser['value'];
 				preg_match($test,$subject,$matches);
 				
 				$count = 1;
-                $types = explode(',',$types);
+                $types = explode(' ',$types);
                 foreach ($types as $type) {
                     if (!empty($matches)) {
                         $data[$type] = $matches[$count];
@@ -121,5 +112,20 @@ class Filesystem_File_LogBase extends  Filesystem_File_Text {
         
         return $data;
     }
+	
+	private function _get_subject(&$parser,&$data,$line) {
+		$subject = $line;
+		
+		if (isset($parser['subject'])) {
+			$subject = trim($parser['subject']);
+			if (isset($data[$subject])) {
+				$subject = $data[$subject];
+			} else {
+				$subject = null;
+			}
+		}
+		
+		return $subject;
+	}
 }
 ?>

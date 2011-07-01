@@ -52,8 +52,7 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
             }
         }
         
-        $datetime = $parsed['date'].':'.$parsed['time'].' '.$parsed['timezone'];
-        $parsed['datetime'] = $this->dateparser->parse($datetime);
+        $parsed['datetime'] = $this->dateparser->parse($parsed['datetime']);
         
         return $parsed;
     }
