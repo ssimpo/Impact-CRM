@@ -59,9 +59,9 @@ class Filesystem_Directory extends Filesystem implements Iterator {
 	 *	Parse a supplied filter into a regx.
 	 *
 	 *	Parse the filter into a format that can be used via preg_match.
-	 *	Method assumes inteligence on the beahlf of the user as only minor
+	 *	Method assumes intelligence on the behalf of the user as only minor
 	 *	checking is applied.  Anything, which contains a forward-slash at the
-	 *	stary is assumed to be already formatted as a regx and is simply
+	 *	start is assumed to be already formatted as a regx and is simply
 	 *	returned.  Strings formatted such as '*.log' would be converted to
 	 *	'/(?:.*\.log)/i' and '*.gif,*.png,*.jpg' would be reformatted and
 	 *	returned as '/(?:.*\.gif|.*\.gif|.*\.jpg)/i'.
@@ -113,7 +113,7 @@ class Filesystem_Directory extends Filesystem implements Iterator {
 	/**
      *  Move the position of the current array pointer, return the current array item and store it.
      *
-     *  @note Can be run directly or via Array Iterator functionaility.
+     *  @note Can be run directly or via Array Iterator functionality.
      *
      *  @public
      *  @return string|Filesystem_File The current filename or Filesystem_File object of that file.

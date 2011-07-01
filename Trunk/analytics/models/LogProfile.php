@@ -41,21 +41,67 @@ class LogProfile extends Base {
      */
     public function include_line($data) {
         foreach ($this->profile as $name => $test) {
-			print_r($test);
-            if ((!$test['include']) && (!isset($test['value2']))) {
-                if ($test['type'] == 'regx') {
-                    $found = @preg_match($test['value'],$data[$test['subject']]);
-					if ($found === false) {
-						throw new Exception('Error in profile test: "'.$name.'"');
-					} elseif ($found > 0) {
-                       return false;
-                    }
-                }
-            }
+			$type = $this->_get_type($test['value']);
+			$compare = '==';
+			if (isset($test['compare'])) {
+				$compare = $test['compare'];
+			}
+			$compare = $this->_get_type($test['value']);
+			return ($this->_run_test($data[$test['subject']],$test['value'],$type,$compare) == $test['include']);
         }
-        
-        return true;
+		
+		return true;
     }
+	
+	private function _run_test($subject,$test,$type,$compare='==') {
+		switch ($type) {
+			case 'regx':
+				$found = @preg_match($test,$subject);
+				if ($found === false) {
+					throw new Exception('Error in profile test: "'.$name.'"');
+				} elseif ($found > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			case 'string': case 'boolean':
+				return ($test === $subject);
+			case 'date':
+				if ($value instanceof Calendar_DateTime) {
+					$value = $value->epoc;
+				}
+				if (!is_int($subject)) {
+					$dateparser = new DateParser();
+					$subject = $dateparser->parse($subject);
+					$subject = $subject->epoc;
+				}
+			case 'int':
+				switch ($compare) {
+					case '==': case '=': return ($test == $subject);
+					case '>': return ($test > $subject);
+					case '>=': case '=>': return ($test >= $subject);
+					case '<': return ($test < $subject);
+					case '>=': case '=>':return ($test <= $subject);
+				}
+		}
+		
+		return false;
+	}
+	
+	private function _get_type($value) {
+		if (is_int($value)) {
+			return 'int';
+		} elseif (is_bool($value)) {
+			return 'boolean';
+		} elseif (is_string($value)) {
+			$found = @preg_match('/\A\/.*\/(?:[imsxeADSUXJu]*|)/',$value);
+			if ($found === false) {
+				return 'string';
+			} else {
+				return 'regx';
+			}
+		}
+	}
     
     /**
      *  Load a profile into memory
