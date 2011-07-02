@@ -207,6 +207,9 @@ class Test_Calendar_DateTime extends ImpactPHPUnit {
 		
 		$this->instance->set_date(2011,6,24,11,0,0);
 		$this->assertMethodReturn(mktime(11,0,0,6,1,2011),-213);
+		
+		$this->instance->set_date(2012,6,24,11,0,0);
+		$this->assertMethodReturn(mktime(11,0,0,6,1,2012),-213);
 	}
 	
 	public function test_get_week() {
@@ -216,6 +219,9 @@ class Test_Calendar_DateTime extends ImpactPHPUnit {
 		$this->assertMethodReturn(52);
 		$this->instance->weekStart = 'Saturday';
 		$this->assertMethodReturn(1);
+		$this->instance->weekStart = 'Sunday';
+		$this->instance->set_date(2012,12,31,11,0,0);
+		$this->assertMethodReturn(53);
 	}
 	
 	public function test_set_week_start() {
@@ -229,7 +235,14 @@ class Test_Calendar_DateTime extends ImpactPHPUnit {
 	}
 	
 	public function test_set_week() {
-		// STUB
+		$this->instance->set_date(2011,1,3,11,0,0);
+		$test = new Calendar_DateTime(2011,1,17,11,0,0);
+		$this->assertMethodReturn($test->epoc,3);
+		
+		$this->instance->set_date(2011,1,1,11,0,0);
+		$test = new Calendar_DateTime(2010,1,23,11,0,0);
+		$this->assertMethodReturn($test->epoc,3);
+		$this->assertMethodReturn($test->epoc,-50);
 	}
 	
 	public function test_get_week_day() {
@@ -268,6 +281,29 @@ class Test_Calendar_DateTime extends ImpactPHPUnit {
 		$this->assertMethodReturn(1954,54);
 		$this->assertMethodReturn(1978,78);
 		$this->assertMethodReturn(2003,2003);
+	}
+	
+	public function test_get_year_start() {
+		$this->instance->set_date(2011,6,24,11,0,0);
+		$this->assertMethodReturn(new Calendar_DateTime(2011,1,1,11,0,0));
+		$this->instance->set_date(2012,6,24,11,0,0);
+		$this->assertMethodReturn(new Calendar_DateTime(2012,1,1,11,0,0));
+	}
+	
+	public function test_get_start_first_week() {
+		$this->instance->set_date(2011,6,24,11,0,0);
+		$this->assertMethodReturn(new Calendar_DateTime(2011,1,3,11,0,0));
+		
+		$this->instance->set_date(2011,1,1,11,0,0);
+		$this->assertMethodReturn(new Calendar_DateTime(2010,1,4,11,0,0));
+		
+		$this->instance->set_date(2012,6,24,11,0,0);
+		$this->assertMethodReturn(new Calendar_DateTime(2012,1,2,11,0,0));
+		
+		$this->instance->weekStart = 'Saturday';
+		$test = new Calendar_DateTime(2012,1,7,11,0,0);
+		$test->weekStart = 'Saturday';
+		$this->assertMethodReturn($test);	
 	}
 }
 ?>

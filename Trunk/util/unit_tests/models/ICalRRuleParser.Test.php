@@ -126,7 +126,16 @@ class Test_ICalRRuleParser extends ImpactPHPUnit {
             array($cdate2,$rrule)
         );
         
-        //$rrule = array('BYWEEKNO'=>array(28,29,30));
+       $rrule = array('BYWEEKNO'=>array(1,3,-1));
+       $this->assertMethodReturn(
+            array(
+                new Calendar_DateTime(2011,1,3,18,55,0),
+                new Calendar_DateTime(2011,1,17,18,55,0),
+                new Calendar_DateTime(2011,12,26,18,55,0)
+            ),
+            array($cdate,$rrule)
+        );
+        
         //$rrule = array('BYDAY'=>array(28,29,30));
         //$rrule = array('BYSETPOS'=>array(28,29,30));
         

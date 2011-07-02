@@ -435,9 +435,12 @@ class Calendar_DateTime Extends Base {
 	 *	@return The no. of seconds since the Unix epoc for the changed date.
 	 */
 	private function _set_year_day($yearDay) {
-		$daysInYear = 365;
-		if ($this->_is_leap_year($this->year)) {
-			$daysInYear = 366;
+		if ($yearDay < 0) {
+			$daysInYear = 365;
+			if ($this->_is_leap_year($this->year)) {
+				$daysInYear = 366;
+			}
+			$yearDay += $daysInYear;
 		}
 		
 		$this->month = 12;
@@ -450,18 +453,10 @@ class Calendar_DateTime Extends Base {
 		
 		return $this->epoc;
 	}
-
+	
 	private function _get_week() {
-		$yearStart = $this->_get_year_start();
-		$yearStart->adjust_day((7-$yearStart->dayNo)+1);
-		if ($yearStart->epoc > $this->epoc) {
-			$yearStart->year--;
-			$yearStart->day = 1;
-			$yearStart->adjust_day((7-$yearStart->dayNo)+1);
-		}
-		
+		$yearStart = $this->_get_start_first_week();
 		$week = (int) (($this->epoc - $yearStart->epoc) / (self::WEEK)) + 1;
-		
 		return $week;
 	}
 	
@@ -489,6 +484,13 @@ class Calendar_DateTime Extends Base {
 	 *	@return The no. of seconds since the Unix epoc for the changed date.
 	 */
 	private function _set_week($week) {
+		$this->epoc -= ($this->week * self::WEEK);
+		if ($week < 0) {
+			$yearEnd = $this->_get_year_end();
+			$weeksInYear = $yearEnd->week;
+			$week = $weeksInYear+$week+1;
+		}
+		$this->epoc += ($week * self::WEEK);
 		return $this->epoc;
 	}
 	
@@ -594,11 +596,67 @@ class Calendar_DateTime Extends Base {
 		return $year;
 	}
 	
+	/**
+	 *	Get the 1st of January of the current year.
+	 *
+	 *	@note Time settings and weekstart settings are copied from the current date.
+	 *
+	 *	@private
+	 *	@return Calendar_DateTime
+	 */
 	private function _get_year_start() {
-		$yearStart = new Calendar_DateTime();
-		$yearStart->epoc = $this->epoc;
+		$yearStart = clone $this;
 		$yearStart->month = 1;
 		$yearStart->day = 1;
+		return $yearStart;
+	}
+	
+	/**
+	 *	Get the 31st of December of the current year.
+	 *
+	 *	@note Time settings and weekstart settings are copied from the current date.
+	 *
+	 *	@private
+	 *	@return Calendar_DateTime
+	 */
+	private function _get_year_end() {
+		$yearEnd = clone $this;
+		$yearEnd ->month = 12;
+		$yearEnd ->day = 31;
+		return $yearEnd ;
+	}
+	
+	/**
+	 *	Get 1st day of the 1st week in the current 'year (for the current date).
+	 *
+	 *	The first day might not be 1st January, if that is not the first day
+	 *	of the week.  Different week staring days can change the results
+	 *	of this method.  Also,  it may be in the previous year, if the current
+	 *	date is part of a week, which started before 1st January.  In this case
+	 *	a day from January the previous year is returned.
+	 *
+	 *	@note Time settings and weekstart settings are copied from the current date.
+	 *
+	 *	@private
+	 *	@return Calendar_DateTime
+	 */
+	private function _get_start_first_week() {
+		$yearStart = $this->_get_year_start();
+		if ($yearStart->dayNo == 1) {
+			return $yearStart;
+		} 
+		$yearStart->adjust_day((7-$yearStart->dayNo)+1);
+		if ($yearStart->epoc <= $this->epoc) {
+			return $yearStart;
+		}
+		
+		$yearStart->year--;
+		$yearStart->day = 1;
+		if ($yearStart->dayNo == 1) {
+			return $yearStart;
+		}
+		
+		$yearStart->adjust_day((7-$yearStart->dayNo)+1);
 		return $yearStart;
 	}
 }
