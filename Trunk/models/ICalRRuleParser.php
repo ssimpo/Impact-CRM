@@ -14,7 +14,7 @@ class ICalRRuleParser extends Base {
 	static private $modifiers = array(
 		'BYMONTH'=>'month', 'BYWEEKNO'=>'week', 'BYYEARDAY'=>'yearday',
 		'BYMONTHDAY'=>'day','BYDAY'=>'', 'BYHOUR'=>'hours',
-		'BYMINUTE'=>'minutes', 'BYSECOND'=>'seconds','BYSETPOS'=>''
+		'BYMINUTE'=>'minutes', 'BYSECOND'=>'seconds'
 	);
 	static private $intervals = array(
 		'SECONDLY'=>'seconds', 'MINUTELY'=>'minutes', 'HOURLY'=>'hours',
@@ -149,7 +149,20 @@ class ICalRRuleParser extends Base {
 			}
 		}
 		
-		return $cdates;
+		if (isset($rrule['SETPOS'])) {
+			$newCdates = array();
+			foreach ($rrule['SETPOS'] as $position) {
+				if ($position < 0) {
+					$position = (366 + $position + 1);
+				}
+				if (isset($cdates[$position])) {
+					array_push($newCdates,$cdates[$position]);
+				}
+			}
+			return $newCdates;
+		} else {
+			return $cdates;
+		}
 	}
 	
 	private function _next_generic($cdate,$parts,$partName) {
