@@ -150,6 +150,33 @@ class Test_Calendar_DateTime extends ImpactPHPUnit {
 		$this->assertEquals(23,$this->instance->day);
 	}
 	
+	public function test_get_day() {
+		$this->instance->set_date(2011,7,2,11,0,0);
+		$this->assertMethodReturn('Saturday');
+		
+		$this->instance->set_date(2011,7,28,11,0,0);
+		$this->assertMethodReturn('Thursday');
+		
+		$this->instance->set_date(2012,2,29,11,0,0);
+		$this->assertMethodReturn('Wednesday');
+	}
+	
+	public function test_get_day_no() {
+		$this->instance->set_date(2011,7,2,11,0,0);
+		$this->assertMethodReturn(6);
+		$this->instance->set('weekstart','Tuesday');
+		$this->assertMethodReturn(5);
+		$this->instance->set('weekstart','Saturday');
+		$this->assertMethodReturn(1);
+		
+		$this->instance->set('weekstart','Mon');
+		$this->instance->set_date(2011,7,28,11,0,0);
+		$this->assertMethodReturn(4);
+		
+		$this->instance->set_date(2012,2,29,11,0,0);
+		$this->assertMethodReturn(3);
+	}
+	
 	public function test_set_hours() {
 		$this->instance->hours = 21;
 		$this->assertEquals(21,$this->instance->hours);
@@ -183,7 +210,22 @@ class Test_Calendar_DateTime extends ImpactPHPUnit {
 	}
 	
 	public function test_get_week() {
-		// STUB
+		$this->instance->set_date(2011,1,9,11,0,0);
+		$this->assertMethodReturn(1);
+		$this->instance->set_date(2011,1,1,11,0,0);
+		$this->assertMethodReturn(52);
+		$this->instance->weekStart = 'Saturday';
+		$this->assertMethodReturn(1);
+	}
+	
+	public function test_set_week_start() {
+		$this->assertMethodReturn(2,2);
+		$this->assertMethodReturn(2,'MO');
+		$this->assertMethodReturn(2,'Monday');
+		$this->assertMethodReturn(2,'Mon');
+		$this->assertMethodReturn(6,'FR');
+		$this->assertMethodReturn(1,'sunday');
+		$this->assertMethodReturn(5,'thursday');
 	}
 	
 	public function test_set_week() {

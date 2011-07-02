@@ -5,7 +5,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	iCal Repeat Parser Class
  *		
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.3
+ *	@version 0.0.4
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Calendar
  */
@@ -28,28 +28,33 @@ class ICalRRuleParser extends Base {
 	
 	public function parse($rrule,$start='') {
 		$parsedRrule = $rrule;
-		
 		if (!is_array($rrule)) {
 			$parsedRrule = $this->_split_rrule($rrule);
+		}
+		if ($start != '') {
+			$parsedRrule['DTSTART'] = $start;
+		}
+		if (!($parsedRrule['DTSTART'] instanceof Calendar_DateTime)) {
+			$parsedRrule['DTSTART'] = $this->dateParser->parse($parsedRrule['DTSTART']);
 		}
 		$this->_intialize_rrule($parsedRrule);
 		
 		$dates = array();
-		$date = $rrule['DTSTART'];
-		while ((count($dates) < $rrule['COUNT']) && ($date->epoc <= $rrule['UNTIL']->epoc)) {
-			$cdate = $this->_next_interval($rrule['DTSTART'],$rrule);
-			$dates = array_merge($dates,$this->_get_next($cdate,$rrule));
+		$date = $parsedRrule['DTSTART'];
+		while ((count($dates) < $parsedRrule['COUNT']) && ($date->epoc <= $parsedRrule['UNTIL']->epoc)) {
+			$cdate = $this->_next_interval($parsedRrule['DTSTART'],$parsedRrule);
+			$dates = array_merge($dates,$this->_get_next($cdate,$parsedRrule));
 			$dates = usort($dates,arry($this,'_sort_dates'));
 			$test = array();
 			
 			for ($i = 0; $i < count($dates); $i++) {
 				$date = $dates[$i];
 				
-				if ($i > $rrule['COUNT']) {
+				if ($i > $parsedRrule['COUNT']) {
 					break;
 				} elseif (isset($test[$date->epoc])) {
 					unset($dates[$i]);
-				} elseif ($date->epoc > $rrule['UNTIL']->epoc) {
+				} elseif ($date->epoc > $parsedRrule['UNTIL']->epoc) {
 					unset($dates[$i]);
 				} else {
 					$test[$date->epoc] = true;
@@ -58,77 +63,11 @@ class ICalRRuleParser extends Base {
 		}
 		
 		
-		if (count($dates) > $rrule['COUNT']) {
-			$dates = array_slice($dates,0,$rrule['COUNT']);
+		if (count($dates) > $parsedRrule['COUNT']) {
+			$dates = array_slice($dates,0,$parsedRrule['COUNT']);
 		}
 		
 		return $dates;
-	}
-	
-	/**
-	 *	Calculate the next date according to the recurrance rule.
-	 *
-	 *	Given the iCal RRULE and the date of the last recurrance, calculate
-	 *	the next date in the sequence.
-	 *
-	 *	@protected
-	 *	@param DateTime $cdate The Unix date.
-	 *	@param array() $rrule The iCal RRULE parsed into an array.
-	 *	@return DateTime The next Unix date.
-	 */
-	private function _next_interval($cdate,$rrule) {
-		$newDate = clone $cdate;
-		return $newDate->adjust(
-			self::$intervals[$rrule['FREQ']],
-			$rrule['INTERVAL']
-		);
-	}
-	
-	private function _get_next($cdate,$rrule) {
-		$cdates = $cdate;
-		foreach (self::$modifiers as $modifier => $modifierValue) {
-			if (array_key_exists($modifier,$rrule)) {
-				$parts = $rrule[$modifier];
-				$cdates = $this->_next_generic($cdates,$modifier,$modifierValue);
-			}
-		}
-		
-		return $cdates;
-	}
-	
-	private function _next_generic($cdate,$parts,$partName) {
-		$dates = $this->_make_array($cdate);
-		$newDates = array();
-		
-		foreach ($parts as $part) {
-			foreach ($dates as $date) {
-				$newDate = clone $date;
-				$newDate->set($partName,$part);
-				array_push($newDates,$newDate);
-			}
-		}
-		return $newDates;
-	}
-	
-	private function _intialize_rrule($rrule) {
-		$cdate = $this->dateParser->parser($rrule['DTSTART']);
-		if (!array_key_exists('INTERVAL',$rrule)) {
-			$rrule['INTERVAL'] = 1;
-		}
-		if (!array_key_exists('COUNT',$rrule)) {
-			// Safety measure
-			$rrule['COUNT'] = 1000;
-		}
-		if (!array_key_exists('UNTIL',$rrule)) {
-			// Safety measure
-			$now = new Calendar_DateTime();
-			$now->adjust_year(10);
-			$rrule['UNTIL'] = $now;
-		} else {
-			$rrule['UNTIL'] = $this->parser($rrule['UNTIL']);
-		}
-		
-		return $rrule;
 	}
 	
 	/**
@@ -179,6 +118,73 @@ class ICalRRuleParser extends Base {
 		} else {
 			throw new Exception($rrule.' is not valid as part of an iCal RRULE.');
 		}
+	}
+	
+	/**
+	 *	Calculate the next date according to the recurrance rule.
+	 *
+	 *	Given the iCal RRULE and the date of the last recurrance, calculate
+	 *	the next date in the sequence.
+	 *
+	 *	@protected
+	 *	@param DateTime $cdate The Unix date.
+	 *	@param array() $rrule The iCal RRULE parsed into an array.
+	 *	@return DateTime The next Unix date.
+	 */
+	private function _next_interval($cdate,$rrule) {
+		$newDate = clone $cdate;
+		$newDate->adjust(
+			self::$intervals[$rrule['FREQ']],
+			$rrule['INTERVAL']
+		);
+		return $newDate;
+	}
+	
+	private function _get_next($cdate,$rrule) {
+		$cdates = $cdate;
+		foreach (self::$modifiers as $modifier => $modifierValue) {
+			if (array_key_exists($modifier,$rrule)) {
+				$parts = $rrule[$modifier];
+				$cdates = $this->_next_generic($cdates,$parts,$modifierValue);
+			}
+		}
+		
+		return $cdates;
+	}
+	
+	private function _next_generic($cdate,$parts,$partName) {
+		$dates = $this->_make_array($cdate);
+		$newDates = array();
+		
+		foreach ($parts as $part) {
+			foreach ($dates as $date) {
+				$newDate = clone $date;
+				$newDate->set($partName,$part);
+				array_push($newDates,$newDate);
+			}
+		}
+		return $newDates;
+	}
+	
+	private function _intialize_rrule($rrule) {
+		$cdate = $this->dateParser->parser($rrule['DTSTART']);
+		if (!array_key_exists('INTERVAL',$rrule)) {
+			$rrule['INTERVAL'] = 1;
+		}
+		if (!array_key_exists('COUNT',$rrule)) {
+			// Safety measure
+			$rrule['COUNT'] = 1000;
+		}
+		if (!array_key_exists('UNTIL',$rrule)) {
+			// Safety measure
+			$now = new Calendar_DateTime();
+			$now->adjust_year(10);
+			$rrule['UNTIL'] = $now;
+		} else {
+			$rrule['UNTIL'] = $this->parser($rrule['UNTIL']);
+		}
+		
+		return $rrule;
 	}
 	
 	/**
