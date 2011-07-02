@@ -37,7 +37,13 @@ class Calendar_DateTime Extends Base {
 		'','January','February','March','April','May','June',
 		'July','August','September','October','November','December'
 	);
+	static private $weekdays = array(
+		'SU','MO','TU','WE','TH','FR','SA',
+		'SU'=>0,'MO'=>1,'TU'=>2,'WE'=>3,'TH'=>4,'FR'=>5,'SA'=>6
+	);
 	public $epoc = 0;
+	public $printFormat = 'l jS F Y';
+	private $wkstart = 'MO';
 	
 	public function __construct($year=false,$month=false,$day=false,$hours=false,$minutes=false,$seconds=false) {
 		$this->set_date($year,$month,$day,$hours,$minutes,$seconds);
@@ -87,6 +93,7 @@ class Calendar_DateTime Extends Base {
 			case 'seconds': return $date['seconds'];
 			case 'yearday': return ($date['yday']+1);
 			case 'weekday': return $date['weekday'];
+			case 'weekstart': return (self::$weekdays[$this->wkstart]+1);
 			default:
 				$name = '_get_'.I::uncamelize($name);
 				return call_user_func(array($this,$name),array());
@@ -103,6 +110,36 @@ class Calendar_DateTime Extends Base {
 		$dateTime = new Calendar_DateTime();
 		$dateTime->epoc = $this->epoc;
 		return $dateTime;
+	}
+	
+	/**
+	 *	Get a date formated to a specified string-format.
+	 *
+	 *	@note The format used is set via the printFormat object property.
+	 *
+	 *	@public
+	 *	@return string
+	 */
+	public function __toString() {
+		return $this->format();
+	}
+	
+	/**
+	 *	Get a date formated to a specified string-format.
+	 *
+	 *	Return the object date according to a specifed format.  The format
+	 *	is defined using a PHP date-format string.
+	 *
+	 *	@public
+	 *	@param string $format The format the date to output.  (Use object property 'printFormat' if no format specfied).
+	 *	@return string
+	 */
+	public function format($format='') {
+		if ($format == '') {
+			$format = $this->printFormat;
+		}
+		
+		return date($format,$this->epoc);
 	}
 	
 	/**
@@ -125,10 +162,12 @@ class Calendar_DateTime Extends Base {
 			switch (strtolower($year)) {
 				case 'year': return $this->adjust_year($month);
 				case 'month': return $this->adjust_month($month);
+				case 'week': return $this->adjust_week($month);
 				case 'day': return $this->adjust_day($month);
 				case 'hours': return $this->adjust_hours($month);
 				case 'minutes': return $this->adjust_minutes($month);
 				case 'seconds': return $this->adjust_seconds($month);
+				case 'weekstart': return $this->_set_week_start($month);
 			}
 		} else {
 			$this->adjust_year($year);
@@ -262,6 +301,7 @@ class Calendar_DateTime Extends Base {
 			case 'yearday': return $this->_set_year_day($part);
 			case 'week': return $this->_set_week($part);
 			case 'weekday': return $this->_set_week_day($part);
+			case 'weekstart': return $this->_set_week_start($part);
 		}
 	}
 	
@@ -328,6 +368,21 @@ class Calendar_DateTime Extends Base {
 		return $this->_set_part($day,'mday');
 	}
 	
+	private function _get_day_no() {
+		$date = getdate($this->epoc);
+		$weekdayNo = ($date['wday'] + 1);
+		$weekdayNo -= self::$weekdays[$this->wkstart];
+		if ($weekdayNo < 1) {
+			$weekdayNo += 7;
+		}
+		return $weekdayNo;
+	}
+	
+	private function _get_day() {
+		$date = getdate($this->epoc);
+		return $date['weekday'];
+	}
+	
 	/**
 	 *	Set the hour part of a date to another value.
 	 *
@@ -389,7 +444,7 @@ class Calendar_DateTime Extends Base {
 		$this->day = 31;
 		if ($yearDay > 0) {
 			$this->year--;
-		} 
+		}
 	
 		$this->epoc += (self::DAY * $yearDay);
 		
@@ -397,7 +452,31 @@ class Calendar_DateTime Extends Base {
 	}
 
 	private function _get_week() {
-		//STUB
+		$yearStart = $this->_get_year_start();
+		$yearStart->adjust_day((7-$yearStart->dayNo)+1);
+		if ($yearStart->epoc > $this->epoc) {
+			$yearStart->year--;
+			$yearStart->day = 1;
+			$yearStart->adjust_day((7-$yearStart->dayNo)+1);
+		}
+		
+		$week = (int) (($this->epoc - $yearStart->epoc) / (self::WEEK)) + 1;
+		
+		return $week;
+	}
+	
+	private function _set_week_start($day) {
+		if (is_int($day)) {
+			if (($day > 0) && ($day < 8)) {
+				$this->wkstart = self::$weekdays[($day-1)];
+			}
+		} else {
+			$day = strtoupper(substr($day,0,2));
+			if (isset(self::$weekdays[$day])) {
+				$this->wkstart = $day;
+			}
+		}
+		return (self::$weekdays[$this->wkstart]+1);
 	}
 	
 	/**
@@ -513,5 +592,13 @@ class Calendar_DateTime Extends Base {
 			return ($year + 1900);
 		}
 		return $year;
+	}
+	
+	private function _get_year_start() {
+		$yearStart = new Calendar_DateTime();
+		$yearStart->epoc = $this->epoc;
+		$yearStart->month = 1;
+		$yearStart->day = 1;
+		return $yearStart;
 	}
 }
