@@ -57,6 +57,16 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
         return $parsed;
     }
     
+    public function write($data) {
+        $ldata = $data;
+        if (is_array($data)) {
+            parent::write($this->rebuild_line($ldata));
+        } else {
+            parent::write($ldata);
+        }
+        
+    }
+    
     /**
      *  Rebuild a logline from the parsed data array
      *

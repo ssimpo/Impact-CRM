@@ -44,6 +44,14 @@ class Filesystem_File_Text extends Filesystem implements Filesystem_File_Object 
 		return null;
     }
 	
+	public function write($data) {
+		if ($this->_is_resource()) {
+			if ($this->handle) {
+				fwrite($this->handle,$data);
+			}
+		}
+	}
+	
 	/**
      *  Get a the entire file contents.
      *
