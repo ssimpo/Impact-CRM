@@ -20,6 +20,7 @@ class Filesystem_File_LogBase extends  Filesystem_File_Text {
     protected $regx_parse = array();
 	private $lastLine = null;
 	private $position = -1;
+	protected $filters = array();
 	
 	/**
      *  Get a line from the open file and parse it.

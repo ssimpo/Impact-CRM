@@ -36,8 +36,10 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
      */
     public function parse($line) {
         $parsed = parent::parse($line);
-        $parsed['domino_id'] = strtoupper($parsed['domino_id']);
-        
+        if (isset($parsed['domino_id'])) {
+            $parsed['domino_id'] = strtoupper($parsed['domino_id']);
+        }
+       
         $agent = '';
         if ($parsed['agent']) {
             try {
@@ -57,14 +59,22 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
         return $parsed;
     }
     
-    public function write($data) {
-        $ldata = $data;
-        if (is_array($data)) {
-            parent::write($this->rebuild_line($ldata));
-        } else {
-            parent::write($ldata);
+    public function write($data,$filter='') {
+        if ($filter != '') {
+            if (!isset($this->filters[$filter])) {
+                $this->filters[$filter] = new Filesystem_Filter($filter);
+            }
+            $filter = $this->filters[$filter];
+            if (!$filter->include_line($data)) {
+                return false;
+            }
         }
-        
+        if (is_array($data)) {
+            parent::write($this->rebuild_line($data));
+        } else {
+            parent::write($data);
+        }
+        return true;
     }
     
     /**
