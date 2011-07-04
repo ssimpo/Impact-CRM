@@ -136,8 +136,6 @@ class Test_ICalRRuleParser extends ImpactPHPUnit {
             array($cdate,$rrule)
         );
         
-        //$rrule = array('BYDAY'=>array(28,29,30));
-        
         $rrule = array('BYMONTHDAY'=>array(28,29,30));
         $this->assertMethodReturn(
             array(

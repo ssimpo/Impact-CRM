@@ -145,7 +145,11 @@ class ICalRRuleParser extends Base {
 		foreach (self::$modifiers as $modifier => $modifierValue) {
 			if (array_key_exists($modifier,$rrule)) {
 				$parts = $rrule[$modifier];
-				$cdates = $this->_next_generic($cdates,$parts,$modifierValue);
+				if ($modifierValue != 'BYDAY'){
+					$cdates = $this->_next_generic($cdates,$parts,$modifierValue);
+				} else {
+					$cdates = $this->_byday($cdate,$rrule);
+				}
 			}
 		}
 		
@@ -177,6 +181,88 @@ class ICalRRuleParser extends Base {
 			}
 		}
 		return $newDates;
+	}
+	
+	private function _byday($cdate,$rrule) {
+		$parts = $rrule['BYDAY'];
+		$dates = $this->_make_array($cdate);
+		
+		foreach ($parts as $part) {
+			foreach ($dates as $date) {
+				$cdates = '';
+				$weekday = $this->_parse_numbered_day($part);
+				
+				if ($rrule['FREQ'] = 'YEARLY') {
+					$cdates = $this->_get_all_week_day_in_year($weekday['DAY'],$date);
+				} elseif ($rrule['FREQ'] = 'MONTHLY') {
+					$cdates = $this->_get_all_week_day_in_month($weekday['DAY'],$date);
+				} else {
+					$cdates = clone $date;
+					$newDate->set('weekday',$part);
+				}
+				
+				if ($weekday['REF'] != 0) {
+					$cdates = $this->_get_occurrence($cdates,$weekday['REF']);
+				}
+				
+				$newDates = array_merge($newDates,$cdates);
+			}
+		}
+		
+		return $newDates;
+	}
+	
+	private function _parse_numbered_day($day) {
+		preg_match('/\d+[A-Za-z]/i',$day,$matches);
+		if ($matches > 0) {
+			return array('REF'=>(int) $matches[1],'DAY'=>$matches[2]);	
+		} else {
+			return array('REF'=>0,'DAY'=>$day);	
+		}
+	}
+	
+	private function _get_all_week_day_in_month($weekDay,$date) {
+		$newdates = array();
+		$newDate = clone $date;
+		$newDate->day = 1;
+		$newDate->weekday = $weekDay;
+		$month = $newDate->month;
+			
+		while ($newDate->month == $month) {
+			$newDate = clone $newDate;
+			array_push($newdates,$newDate);
+			$newDate->week++;
+		}
+
+		return $newdates;
+	}
+	
+	private function _get_all_week_day_in_year($weekDay,$date) {
+		$newdates = array();
+		$newDate = clone $date;
+		$newDate->month = 1;
+		$newDate->day = 1;
+		$newDate->weekday = $weekDay;
+		$year = $newDate->year;
+			
+		while ($newDate->year == $year) {
+			$newDate = clone $newDate;
+			array_push($newdates,$newDate);
+			$newDate->week++;
+		}
+
+		return $newdates;
+	}
+	
+	private function _get_occurrence(&$array,$itemNo) {
+		if ($itemNo < 0) {
+			$itemNo = (count($array) - $itemNo + 1);
+		}
+		if (isset($array[$itemNo])) {
+			return $array[$itemNo];
+		}
+		
+		return false;
 	}
 	
 	private function _intialize_rrule($rrule) {
