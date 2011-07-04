@@ -494,8 +494,13 @@ class Calendar_DateTime Extends Base {
 		return $this->epoc;
 	}
 	
-	private function _get_week_day_no() {
-		// STUB
+	private function _get_week_day_no($weekDay) {
+		if (is_string($weekDay)){
+			$weekDay = strtoupper(substr($weekDay,0,2));
+		} else {
+			$weekDay = self::$weekdays[$weekDay];
+		}
+		return $weekDay;
 	}
 	
 	/**
@@ -508,8 +513,19 @@ class Calendar_DateTime Extends Base {
 	 *	@return The no. of seconds since the Unix epoc for the changed date.
 	 */
 	private function _set_week_day($weekDay) {
+		$weekDay = $this->_get_week_day_no($weekDay);
+		
+		$this->epoc -= (($this->dayNo * self::DAY) + self::DAY);
+		for ($i = 0; $i < 7; $i++) {
+			if ($this->weekDay == $weekDay) {
+				break;
+			}
+			$this->epoc += self::DAY;
+		}
+			
 		return $this->epoc;
 	}
+	
 	
 	/**
 	 *	Get the day length of a month in a given year.
