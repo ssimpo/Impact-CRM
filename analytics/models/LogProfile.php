@@ -7,7 +7,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *  Load a filter-profile and execute filtering according to it's settings.
  *  
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.1
+ *	@version 0.0.3
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Analytics
  */
@@ -41,53 +41,109 @@ class LogProfile extends Base {
      */
     public function include_line($data) {
         foreach ($this->profile as $name => $test) {
-			$type = $this->_get_type($test['value']);
-			$compare = '==';
-			if (isset($test['compare'])) {
-				$compare = $test['compare'];
+			$subject = $data[$test['subject']];
+			$value = $test['value'];
+			$include = $this->_get_include($test);
+			$type = $this->_get_type($value);
+			$compare = $this->_get_compare($test);
+			
+			if (isset($test['replace'])) {
+				$replace = $test['replace'];
+				
+				if (isset($test['replace_subject'])) {
+					if ($this->_run_test($subject,$value,$type,$compare) == $include) {
+						$data[$test['replace_subject']] = $replace;
+					}
+				} else {
+					$data[$test['subject']] = preg_replace($value,$replace,$subject);
+				}
+			} else {
+				return ($this->_run_test($subject,$value,$type,$compare) == $include);	
 			}
-			$compare = $this->_get_type($test['value']);
-			return ($this->_run_test($data[$test['subject']],$test['value'],$type,$compare) == $test['include']);
         }
 		
 		return true;
     }
 	
+	/**
+	 *	Process the supplied data according the current profile.
+	 *
+	 *	This will process the supplied data, doing search and replace
+	 *	operations, return the new data.
+	 *
+	 *	@public
+	 *	@param array() $data The data to process.
+	 *	@return array()
+	 */
+	public function process($data) {
+		foreach ($this->profile as $name => $test) {
+			if ((isset($test['subject'])) && (isset($test['replace']))) {
+				$subject = $test['subject'];
+				$value = $test['value'];
+				$replace = $test['replace'];
+				
+				if (isset($data[$subject])) {
+					if (isset($test['replace_subject'])) {
+						$type = $this->_get_type($value);
+						$compare = $this->_get_compare($test);
+						$include = $this->_get_include($test);
+						
+						if ($this->_run_test($data[$subject],$value,$type,$compare) == $include) {
+							$data[$test['replace_subject']] = $replace;
+						}
+					} else {
+						$data[$subject] = preg_replace(
+							$value,$replace,$data[$subject]
+						);
+					}
+				}
+
+			}
+			
+		}
+		
+		return $data;
+	}
+	
 	private function _run_test($subject,$test,$type,$compare='==') {
 		switch ($type) {
-			case 'regx':
-				$found = @preg_match($test,$subject);
-				if ($found === false) {
-					throw new Exception('Error in profile test: "'.$name.'"');
-				} elseif ($found > 0) {
-					return true;
-				} else {
-					return false;
-				}
-			case 'string': case 'boolean':
-				return ($test === $subject);
-			case 'date':
-				if ($value instanceof Calendar_DateTime) {
-					$value = $value->epoc;
-				}
-				if (!is_int($subject)) {
-					$dateparser = new DateParser();
-					$subject = $dateparser->parse($subject);
-					$subject = $subject->epoc;
-				}
-			case 'int':
-				switch ($compare) {
-					case '==': case '=': return ($test == $subject);
-					case '>': return ($test > $subject);
-					case '>=': case '=>': return ($test >= $subject);
-					case '<': return ($test < $subject);
-					case '>=': case '=>':return ($test <= $subject);
-				}
+			case 'regx': return $this->_run_test_regx($test,$subject);
+			case 'string': case 'boolean': return ($test === $subject);
+			case 'date': $value = $this->_get_epoc_value($value);
+			case 'int': return $this->_run_test_compare($test,$subject,$compare);
 		}
 		
 		return false;
 	}
 	
+	private function _run_test_regx($test,$subject) {
+		$found = @preg_match($test,$subject);
+		if ($found === false) {
+			throw new Exception('Error in profile test: "'.$name.'"');
+		} elseif ($found > 0) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private function _run_test_compare($test,$subject,$compare='==') {
+		switch ($compare) {
+			case '==': case '=': return ($test == $subject);
+			case '>': return ($test > $subject);
+			case '>=': case '=>': return ($test >= $subject);
+			case '<': return ($test < $subject);
+			case '>=': case '=>':return ($test <= $subject);
+		}
+	}
+	
+	/**
+	 *	Try to figure-out a value type.
+	 *
+	 *	@private
+	 *	@param string|int|boolean $value The value to test.
+	 *	@return string The value type (string|boolean|int|regx).
+	 */
 	private function _get_type($value) {
 		if (is_int($value)) {
 			return 'int';
@@ -101,6 +157,35 @@ class LogProfile extends Base {
 				return 'regx';
 			}
 		}
+	}
+	
+	private function _get_include(&$test) {
+		$include = false;
+		if (isset($test['include'])) {
+			$include = $test['include'];
+		}
+		return $include;
+	}
+	
+	private function _get_compare(&$test) {
+		$compare = '==';
+		if (isset($test['compare'])) {
+			$compare = $test['compare'];
+		}
+		return $compare;
+	}
+	
+	private function _get_epoc_value($value) {
+		if ($value instanceof Calendar_DateTime) {
+			$value = $value->epoc;
+		}
+		if (!is_int($subject)) {
+			$dateparser = new DateParser();
+			$subject = $dateparser->parse($subject);
+			$subject = $subject->epoc;
+		}
+		
+		return $value;
 	}
     
     /**
