@@ -39,6 +39,30 @@ abstract class Filesystem extends Base {
 	}
 	
 	/**
+	 *	Replacement for the PHP function call_user_func_array().
+	 *
+	 *	The internal function call_user_func_array, can be quite slow, this is
+	 *	a much faster method if the number of arguments is low.  Assumes that
+	 *	function being called is executed within the scope of an object.
+	 *
+	 *	@protected
+	 *	@param object{} $object The object to call a method within.
+	 *	@param string $name The name of the method to call.
+	 *	@param array() $arguments The parameters to send to the method.
+	 *	@return mixed The result of the method.
+	 */
+	protected function _call_user_func_array($object,$name,$arguments) {
+		switch (count($arguments)) {
+			case 0: return $object->{$name}();
+			case 1: return $object->{$name}($arguments[0]);
+			case 2: return $object->{$name}($arguments[0],$arguments[1]);
+			case 3: return $object->{$name}($arguments[0],$arguments[1],$arguments[2]);
+			case 4: return $object->{$name}($arguments[0],$arguments[1],$arguments[2],$arguments[3]);
+			default: return call_user_func_array(array($object,$name),$arguments);
+		}
+	}
+	
+	/**
 	 *	Check whether the internal property 'handle' is pointing to resource.
 	 *
 	 *	@private

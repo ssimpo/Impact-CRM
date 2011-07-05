@@ -5,7 +5,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	Plain-text file handling.
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.6
+ *	@version 0.0.7
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */

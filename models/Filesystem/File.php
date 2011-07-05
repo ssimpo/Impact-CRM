@@ -8,12 +8,12 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	them and parse them according to installed sub-classes.
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.7
+ *	@version 0.0.8
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
-class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterator {
-	private $parser;
+class Filesystem_File extends Filesystem_ArrayAccess {
+	protected $parser;
 	private $methods = array(
 		'read' => 'r', 'append' => 'a', 'write' => 'wt',
 		'readwrite' => 'rwt'
@@ -41,92 +41,26 @@ class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterat
 		}
 	}
 	
+	/**
+	 *	Call a method within the file parser.
+	 *
+	 *	This allows public methods within the parser to be reflected into this
+	 *	object instance.  Using this methodology, the parser is never accessed
+	 *	directly but through the file object, which reflects a range of methods
+	 *	depending on what is being parsed.
+	 *
+	 *	@public
+	 *	@param string $name The name of the parser method to call.
+	 *	@param array() $arguments The parameters to send to the parser method.
+	 *	@return mixed The results of executing the method.
+	 */
 	public function __call($name,$arguments) {
 		if (array_key_exists($name,$this->methods)) {
-			switch (count($arguments)) {
-				case 0: return $this->parser->{$name}();
-				case 1: return $this->parser->{$name}($arguments[0]);
-				case 2: return $this->parser->{$name}($arguments[0],$arguments[1]);
-				case 3: return $this->parser->{$name}($arguments[0],$arguments[1],$arguments[2]);
-				case 4: return $this->parser->{$name}($arguments[0],$arguments[1],$arguments[2],$arguments[3]);
-				default: call_user_func_array(array($this->parser,$name),$arguments);
-			}
+			return $this->_call_user_func_array($this->parser,$name,$arguments);
 		} else {
 			throw new Exception('Undefined method "'.$name.'"');
 		}
 	}
-	
-	public function offsetExists($offset) {
-		if (array_key_exists('offsetExists',$this->methods)) {
-			return $this->parser->offsetExists($offset);
-		} else {
-			throw new Exception('The array function "offsetExists" is not available.');
-		}
-	}
-	public function offsetGet($offset) {
-		if (array_key_exists('offsetGet',$this->methods)) {
-			return $this->parser->offsetGet($offset);
-		} else {
-			throw new Exception('The array function "offsetGet" is not available.');
-		}
-	}
-	public function offsetSet($offset,$value) {
-		if (array_key_exists('offsetSet',$this->methods)) {
-			return $this->parser->offsetSet($offset,$value);
-		} else {
-			throw new Exception('The array function "offsetSet" is not available.');
-		}
-	}
-	public function offsetUnset($offset) {
-		if (array_key_exists('offsetUnset',$this->methods)) {
-			return $this->parser->offsetUnset($offset);
-		} else {
-			throw new Exception('The array function "offsetUnset" is not available.');
-		}
-	}
-	public function count() {
-		if (array_key_exists('count',$this->methods)) {
-			return $this->parser->count();
-		} else {
-			throw new Exception('The array function "count" is not available.');
-		}
-	}
-	public function current() {
-		if (array_key_exists('current',$this->methods)) {
-			return $this->parser->current();
-		} else {
-			throw new Exception('The array function "current" is not available.');
-		}
-	}
-	public function key() {
-		if (array_key_exists('key',$this->methods)) {
-			return $this->parser->key();
-		} else {
-			throw new Exception('The array function "key" is not available.');
-		}
-	}
-	public function next() {
-		if (array_key_exists('next',$this->methods)) {
-			return $this->parser->next();
-		} else {
-			throw new Exception('The array function "next" is not available.');
-		}
-	}
-	public function rewind() {
-		if (array_key_exists('rewind',$this->methods)) {
-			return $this->parser->rewind();
-		} else {
-			throw new Exception('The array function "rewind" is not available.');
-		}
-	}
-	public function valid() {
-		if (array_key_exists('valid',$this->methods)) {
-			return $this->parser->valid();
-		} else {
-			throw new Exception('The array function "valid" is not available.');
-		}
-	}
-	
 	
 	/**
 	 *	Set the internal properties for filename and paths ...etc.
@@ -144,8 +78,9 @@ class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterat
 					$this->filename = $this->_get_filename($this->fullpath);
 					$this->ext = $this->_get_ext($this->fullpath);
 				} else {
-					if (substr($path,-1) != DS) {
-						$this->fullpath = realpath($path.DS.$filename);
+					$slash = substr($path,-1);
+					if (($slash != self::BSLASH) && ($slash != self::FSLASH)) {
+						$this->fullpath = realpath($path).DS.$filename;
 					} else {
 						$this->fullpath = realpath($path.$filename);
 					}
@@ -212,6 +147,12 @@ class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterat
 		return false;
 	}
 	
+	/**
+	 *	Get the path from a URL/filepath.
+	 *
+	 *	@param string $fullpath The fullpath of the resource.
+	 *	@return string The path without the filename.
+	 */
 	private function _get_path($fullpath) {
 		$pattern = '/(.*'.self::BSLASH.DS.')[^'.self::BSLASH.DS.']+/';
 		preg_match($pattern,$fullpath,$match);
@@ -246,7 +187,7 @@ class Filesystem_File extends Filesystem implements ArrayAccess,Countable,Iterat
 	 */
 	public function open($method='read',$parserType='text') {
 		$method = $this->_translate_method($method);
-		if (is_file($this->fullpath)) {
+		if ((is_file($this->fullpath)) || ($method != 'r')) {
 			$this->parser = $this->_load_parser($parserType,$method);
 			$this->methods = array_flip(get_class_methods($this->parser));
 		} else {
