@@ -5,7 +5,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *  Lotus/IBM Domino Log Interpreter Clsss
  *  
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.2
+ *	@version 0.0.3
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Analytics
  */
