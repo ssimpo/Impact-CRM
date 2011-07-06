@@ -8,12 +8,13 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	them and parse them according to installed sub-classes.
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.8
+ *	@version 0.1.0
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
 class Filesystem_File extends Filesystem_ArrayAccess {
 	protected $parser;
+	protected $pathParser;
 	private $methods = array(
 		'read' => 'r', 'append' => 'a', 'write' => 'wt',
 		'readwrite' => 'rwt'
@@ -26,6 +27,10 @@ class Filesystem_File extends Filesystem_ArrayAccess {
 	public function __get($property) {
 		$convertedProperty = I::camelize($property);
 		switch($convertedProperty) {
+			case 'path': return $this->pathParser->path;
+			case 'filename': return $this->pathParser->filename;
+			case 'ext': return $this->pathParser->extension;
+			case 'fullpath': return $this->pathParser->path.$this->pathParser->filename;
 			case 'fileSize':
 				return filesize($this->fullpath);
 			case 'accessed':
@@ -70,31 +75,19 @@ class Filesystem_File extends Filesystem_ArrayAccess {
 	 *	@param string $path The filename.
 	 */
 	private function _init($path='',$filename='') {
-		if (is_string($path)) {
-			if ($path != '') {
-				if ($filename == '') {
-					$this->fullpath = realpath($path);
-					$this->path = $this->_get_path($this->fullpath);
-					$this->filename = $this->_get_filename($this->fullpath);
-					$this->ext = $this->_get_ext($this->fullpath);
-				} else {
-					$slash = substr($path,-1);
-					if (($slash != self::BSLASH) && ($slash != self::FSLASH)) {
-						$this->fullpath = realpath($path).DS.$filename;
-					} else {
-						$this->fullpath = realpath($path.$filename);
-					}
-					$this->path = $this->_get_path($this->fullpath);
-					$this->filename = $filename;
-					$this->ext = $this->_get_ext($this->fullpath);
-				}
-			}
-		} else {
-			$this->fullpath = realpath($path->path.$filename);
-			$this->path = $this->_get_path($this->fullpath);
-			$this->filename = $filename;
-			$this->ext = $this->_get_ext($this->fullpath);
-		}
+		$this->pathParser = new Filesystem_Path($path,$filename);
+	}
+	
+	/**
+	 *	Set the current path and file.
+	 *
+	 *	@public
+	 *	@param string $path The path to the file.
+	 *	@param string filename The filename of the file.
+	 *	
+	 */
+	public function set_file($path='',$filename='') {
+		$this->_init($path,$filename);
 	}
 	
 	/**
@@ -111,68 +104,6 @@ class Filesystem_File extends Filesystem_ArrayAccess {
 		} else {
 			throw new Exception('Unknown open method: "'.$method.'"');
 		}
-	}
-	
-	/**
-	 *	Get the filename from the full-path.
-	 *
-	 *	@private
-	 *	@param string $fullpath The fullpath to the file.
-	 *	@return string The filename.
-	 */
-	private function _get_filename($fullpath) {
-		$pattern = '/.*'.self::BSLASH.DS.'([^'.self::BSLASH.DS.']+)/';
-		preg_match($pattern,$fullpath,$match);
-		if (!empty($match)) {
-			return $match[1];
-		}
-		
-		return false;
-	}
-	
-	/**
-	 *	Get the file-extension from the full-path.
-	 *
-	 *	@private
-	 *	@param string $fullpath The fullpath to the file.
-	 *	@return string The file-extension.
-	 */
-	private function _get_ext($fullpath) {
-		$pattern = '/.*'.self::BSLASH.DS.'[^'.self::BSLASH.DS.']*?\.([^'.self::BSLASH.DS.']+)/';
-		preg_match($pattern,$fullpath,$match);
-		if (!empty($match)) {
-			return $match[1];
-		}
-		
-		return false;
-	}
-	
-	/**
-	 *	Get the path from a URL/filepath.
-	 *
-	 *	@param string $fullpath The fullpath of the resource.
-	 *	@return string The path without the filename.
-	 */
-	private function _get_path($fullpath) {
-		$pattern = '/(.*'.self::BSLASH.DS.')[^'.self::BSLASH.DS.']+/';
-		preg_match($pattern,$fullpath,$match);
-		if (!empty($match)) {
-			return $match[1];
-		}
-		
-		return false;
-	}
-	
-	/**
-	 *	Set the current path and file.
-	 *
-	 *	@public
-	 *	@param string $path The path to the file.
-	 *	@param string filename The filename of the file.
-	 *	
-	 */
-	public function set_file($path='',$filename='') {
-		$this->_init($path,$filename);
 	}
 	
 	/**

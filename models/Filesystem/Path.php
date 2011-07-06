@@ -8,10 +8,11 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	them and parse them according to installed sub-classes.
  *
  *	@todo Handle file:///
- *	@todo handle mailto: ????
+ *	@todo Handle mailto: ?  It is questionable whether this should be parsed but it would be useful as it is something, which may fit well in overa-all URL parsing.
+ *	@todo Return paths using native directory separator.
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.9
+ *	@version 0.1.0
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
@@ -19,17 +20,22 @@ class Filesystem_Path extends Base {
 	const FSLASH = "/";
 	const BSLASH = "\\";
 	
-	private $parts;
+	private $parts = array();
 	
 	public function __construct($path='',$filename='') {
+		$this->_reset_parts();
 		if ($path != '') {
 			$this->_init($path,$filename);
 		}
 	}
 	
-	private function __init($path,$filename='') {
+	private function _init($path,$filename='') {
 		$this->_reset_parts();
-		$testPath = self::_fix_bad_path($path.self::FSLASH.$filename);
+		$testPath = $path;
+		if ($filename != '') {
+			$testPath = $path.self::FSLASH.$filename;
+		}
+		$testPath = self::_fix_bad_path($testPath);
 		
 		$this->parts['scheme'] = self::get_scheme($testPath);
 		$this->parts['username'] = self::get_username($testPath);
@@ -41,8 +47,58 @@ class Filesystem_Path extends Base {
 		$this->parts['drive'] = self::get_drive($testPath);
 		$this->parts['path'] = self::get_path($testPath);
 		$this->parts['filename'] = self::get_filename($testPath);
+		$this->parts['extension'] = self::get_extension($testPath);
 		$this->parts['query'] = self::get_query($testPath);
 		$this->parts['fragment'] = self::get_fragment($testPath);
+	}
+	
+	/**
+	 *	Reset the the internal array, which holds the parts of the current URI/URL/UNC/Local-path.
+	 *
+	 *	@private
+	 */
+	private function _reset_parts() {
+		$this->parts = array(
+			'scheme' => false, 'username' => false, 'passsword' => false,
+			'domain' => false, 'port' => false, 'computer' => '',
+			'share' => '', 'drive' => '', 'path' => false,
+			'filename' => '', 'Extension' => '', 'query' => false,
+			'fragment' => false
+		);
+	}
+	
+	/**
+	 *	Set the path and filename we wish to parse.
+	 *
+	 *	Will set the path and filename for parsing.  Each can be given as
+	 *	fragments of the over-all path; this increases the flexibility of
+	 *	the parser.  Hence, $path can be a path to a directory or resource
+	 *	and $filename can be the path to the file relative to $path.
+	 *
+	 *	@public
+	 *	@param string $path The URL/URI/UNC/Local-path.
+	 *	@param string $filename The filename or a URL/URI/UNC/Local-path fragment.
+	 *	@return string
+	 */
+	public function set_path($path,$filename='') {
+		$this->_init($path,$filename);
+	}
+	
+	/**
+	 *	Generic get property method.
+	 *
+	 *	Get the value of an application property.  Values are stored in
+	 *	the application array and accessed via the __set and __get methods.
+	 *
+	 *	@public
+	 */
+	public function __get($property) {
+		$convertedProperty = I::camelize($property);
+		if (isset($this->parts[$convertedProperty])) {
+			return $this->parts[$convertedProperty];
+		} else {
+			throw new Exception('Property: '.$convertedProperty.', does not exist');
+		}
 	}
 	
 	/**
@@ -359,6 +415,27 @@ class Filesystem_Path extends Base {
 	}
 	
 	/**
+	 *	Get the filename-extension if available from a supplied URL/URI/UNC/Local-path.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI/UNC/Local-path.
+	 *	@return string
+	 */
+	public static function get_extension($url) {
+		$filename = self::get_filename($url);
+		if (!$filename) {
+			return false;
+		} else {
+			$position = strpos($filename,'.');
+			if ($position === false) {
+				return false;
+			}
+			return substr($filename,$position+1);
+		}
+	}
+	
+	/**
 	 *	Remove a specified number of elements from the start of an array.
 	 *
 	 *	@private
@@ -377,7 +454,7 @@ class Filesystem_Path extends Base {
 	}
 	
 	/**
-	 *	Remove and query-string and fragment informaton from a string.
+	 *	Remove and query-string and fragment information from a string.
 	 *
 	 *	@private
 	 *	@static
@@ -457,36 +534,6 @@ class Filesystem_Path extends Base {
 		}
 	}
 	
-	/**
-	 *	Reset the the internal array, which holds the parts of the current URI/URL/UNC/Local-path.
-	 *
-	 *	@private
-	 */
-	private function _reset_parts() {
-		$parts = array(
-			'scheme' => false, 'username' => false, 'passsword' => false,
-			'domain' => false, 'port' => false, 'path' => false,
-			'query' => false, 'fragment' => false
-		);
-	}
-	
-	/**
-	 *	Set the path and filename we wish to parse.
-	 *
-	 *	Will set the path and filename for parsing.  Each can be given as
-	 *	fragments of the over-all path; this increases the flexibility of
-	 *	the parser.  Hence, $path can be a path to a directory or resource
-	 *	and $filename can be the path to the file relative to $path.
-	 *
-	 *	@public
-	 *	@param string $path The URL/URI/UNC/Local-path.
-	 *	@param string $filename The filename or a URL/URI/UNC/Local-path fragment.
-	 *	@return string
-	 */
-	public function set_path($path,$filename='') {
-		$this->_init($path,$filename);
-	}
-	
 	private static function _explode_path($path,$filename='') {
 		$parts = array();
 		$path = self::_fix_bad_path($path.self::FSLASH.$filename);
@@ -515,7 +562,23 @@ class Filesystem_Path extends Base {
 		$url = self::_fix_bad_query($url);
 		$url = self::_fix_bad_fragment($url);
 		$url = self::_fix_bad_at($url);
+		$url = self::_fix_bad_slashes($url);
+		
 		return $url;
+	}
+	
+	/**
+	 *	Attempt to fix a badly configured slashes within a URI/URL.
+	 *
+	 *	Will convert all slashes to forward-slash so there is consistancy.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return string
+	 */
+	private static function _fix_bad_slashes($url) {
+		return str_replace(self::BSLASH,self::FSLASH,$url);
 	}
 	
 	/**
@@ -631,23 +694,6 @@ class Filesystem_Path extends Base {
 		}
 		
 		return false;
-	}
-	
-	/**
-	 *	Generic get property method.
-	 *
-	 *	Get the value of an application property.  Values are stored in
-	 *	the application array and accessed via the __set and __get methods.
-	 *
-	 *	@public
-	 */
-	public function __get($property) {
-		$convertedProperty = I::camelize($property);
-		if (isset($this->parts[$convertedProperty])) {
-			return $this->parts[$convertedProperty];
-		} else {
-			throw new Exception('Property: '.$convertedProperty.', does not exist');
-		}
 	}
 }
 ?>
