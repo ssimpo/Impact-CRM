@@ -6,9 +6,12 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *
  *	File Open/Close and parsing operations.  Will open files, navigate through
  *	them and parse them according to installed sub-classes.
+ *
+ *	@todo Handle file:///
+ *	@todo handle mailto: ????
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.8
+ *	@version 0.0.9
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
@@ -33,7 +36,11 @@ class Filesystem_Path extends Base {
 		$this->parts['password'] = self::get_password($testPath);
 		$this->parts['domain'] = self::get_domain($testPath);
 		$this->parts['port'] = self::get_port($testPath);
+		$this->parts['computer'] = self::get_computer($testPath);
+		$this->parts['share'] = self::get_share($testPath);
+		$this->parts['drive'] = self::get_drive($testPath);
 		$this->parts['path'] = self::get_path($testPath);
+		$this->parts['filename'] = self::get_filename($testPath);
 		$this->parts['query'] = self::get_query($testPath);
 		$this->parts['fragment'] = self::get_fragment($testPath);
 	}
@@ -124,6 +131,71 @@ class Filesystem_Path extends Base {
 	}
 	
 	/**
+	 *	Get the computer if available from a supplied UNC.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $unc The UNC.
+	 *	@return string
+	 */
+	public static function get_computer($unc) {
+		$count = self::_count_leading_slashes($unc);
+		if ($count != 2) {
+			return false;
+		} else {
+			$parts = self::_explode_path($unc);
+			if (!empty($parts)) {
+				return array_shift($parts);
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 *	Get the share if available from a supplied UNC.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $unc The UNC.
+	 *	@return string
+	 */
+	public static function get_share($unc) {
+		$count = self::_count_leading_slashes($unc);
+		if ($count != 2) {
+			return false;
+		} else {
+			$parts = self::_explode_path($unc);
+			if (count($parts) > 1) {
+				return $parts[1];
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 *	Get the windows drive-letter if available from a supplied URL/URI/UNC/Local-path.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI/UNC/Local-path.
+	 *	@return string
+	 */
+	public static function get_drive($url) {
+		$match = preg_match('/\A([A-Z])\:/i',$url,$matches);
+		if ($match == 0) {
+			return false;
+		} else {
+			if (!self::_has_scheme($url)) {
+				return $matches[1];
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
 	 *	Get the path if available from a supplied URL/URI/UNC/Local-path.
 	 *
 	 *	Will return the local path if it is a local-path/UNC and the remote
@@ -200,6 +272,13 @@ class Filesystem_Path extends Base {
 	 */
 	private static function _get_path_array($path) {
 		$parts = self::_explode_path($path);
+		if (self::_has_scheme($path)) {
+			$parts = self::_lchop_array($parts,2);
+			if (empty($parts)) {
+				return array();
+			}
+		}
+		
 		$count = self::_count_trailing_slashes($path);
 		if ((!empty($parts)) && ($count == 0)) {
 			array_pop($parts);
