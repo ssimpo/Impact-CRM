@@ -143,6 +143,18 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturnFalse('http://www.impact-crm.com/test/help/');
 	}
 	
+	public function test_get_extension() {
+		$this->assertMethodReturn('doc','/usr/simpo/docs/personal.doc');
+		$this->assertMethodReturn('htm','index.htm');
+		$this->assertMethodReturn('htm','/index.htm');
+		$this->assertMethodReturn('php','http://www.impact-crm.com/test/help/index.php?id=1#test');
+		$this->assertMethodReturn('htm','http://www.impact-crm.com/test/help/index.htm#test');
+		$this->assertMethodReturn('doc','\\\\share\\d$\\help.doc');
+		$this->assertMethodReturnFalse('/usr/simpo/docs/');
+		$this->assertMethodReturnFalse('/usr/simpo/docs');
+		$this->assertMethodReturn('tar.gz','/usr/simpo/docs/archive.tar.gz');
+	}
+	
 	public function test_lchop_array() {
 		$this->assertMethodReturn(
 			array(3,4),
@@ -230,6 +242,17 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 			'http://test:test@www.impact-crm.com/help/main?id=test#test'
 		);
     }
+	
+	public function test_fix_bad_slashes() {
+		$this->assertMethodReturn(
+			'c:/Program Files/PHP/php.exe',
+			'c:\\Program Files\\PHP\\php.exe'
+		);
+		$this->assertMethodReturn(
+			'//computer/c$/Program Files/PHP/php.exe',
+			'\\\\computer\\c$\\Program Files\\PHP\\php.exe'
+		);
+	}
 	
 	public function test_fix_bad_path() {
 		$this->assertMethodReturn(

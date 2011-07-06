@@ -14,7 +14,8 @@ class Test_Filesystem_File extends ImpactPHPUnit {
 	private $testPath;
 	
 	protected function setUp() {
-		$this->testPath = realpath(ROOT_BACK.'util'.DS.'unit_tests'.DS.MODELS_DIRECTORY.DS.'Filesystem'.DS.'_data');
+		$this->testPath = realpath(ROOT_BACK.'util'.DS.'unit_tests'.DS.MODELS_DIRECTORY.DS.'Filesystem'.DS.'_data').DS;
+		$this->testPath = str_replace(DS,'/',$this->testPath);
         $this->init();
 	}
 	
@@ -52,18 +53,6 @@ class Test_Filesystem_File extends ImpactPHPUnit {
 		$this->assertMethodReturn('r','read');
 		$this->assertMethodReturn('a','append');
 		$this->assertMethodReturn('rwt','readwrite');
-    }
-	
-	public function test_get_filename() {
-		$this->assertMethodReturn(
-			'01012011.log',$this->testPath.DS.'01012011.log'
-		);
-    }
-	
-	public function test_get_ext() {
-        $this->assertMethodReturn(
-			'log',$this->testPath.DS.'01012011.log'
-		);
     }
 }
 ?>
