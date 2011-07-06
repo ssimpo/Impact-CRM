@@ -38,15 +38,14 @@ class Filesystem_Path extends Base {
 		$this->parts['fragment'] = self::get_fragment($testPath);
 	}
 	
-	public static function get_domain($url) {
-		$match = preg_match('/\A[a-z][a-z0-9+\-.]+:\/\/(?:.*?@|)(.*?)(?:\/|\Z|\:)/',$url,$matches);
-		if ($match == 0) {
-			return false;
-		} else {
-			return $matches[1];
-		}
-	}
-	
+	/**
+	 *	Get the scheme if available from a supplied URL/URI/UNC/Local-path.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI/UNC/Local-path.
+	 *	@return string
+	 */
 	public static function get_scheme($url) {
 		$match = preg_match('/\A([a-z][a-z0-9+\-.]+):\/\//',$url,$matches);
 		if ($match == 0) {
@@ -56,6 +55,31 @@ class Filesystem_Path extends Base {
 		}
 	}
 	
+	/**
+	 *	Get the domain if available from a supplied URL/URI/UNC/Local-path.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI/UNC/Local-path.
+	 *	@return string
+	 */
+	public static function get_domain($url) {
+		$match = preg_match('/\A[a-z][a-z0-9+\-.]+:\/\/(?:.*?@|)(.*?)(?:\/|\Z|\:)/',$url,$matches);
+		if ($match == 0) {
+			return false;
+		} else {
+			return $matches[1];
+		}
+	}
+	
+	/**
+	 *	Get the username if available from a supplied URL/URI.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return string
+	 */
 	public static function get_username($url) {
 		$match = preg_match('/\A[a-z0-9+\-.]+:\/\/([a-z0-9\-._~%!$&\'()*+,;=]+)(?:@|\:)/',$url,$matches);
 		if ($match == 0) {
@@ -65,6 +89,14 @@ class Filesystem_Path extends Base {
 		}
 	}
 	
+	/**
+	 *	Get the password if available from a supplied URL/URI.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return string
+	 */
 	public static function get_password($url) {
 		$match = preg_match('/\A[a-z0-9+\-.]+:\/\/[a-z0-9\-._~%!$&\'()*+,;=]+\:(.*?)@/',$url,$matches);
 		if ($match == 0) {
@@ -74,6 +106,14 @@ class Filesystem_Path extends Base {
 		}
 	}
 	
+	/**
+	 *	Get the port if available from a supplied URL/URI.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return int
+	 */
 	public static function get_port($url) {
 		$match = preg_match('/\A[a-z0-9+\-.]+:\/\/(?:.*?@|).*?\:(\d+)(?:\/|\Z)/',$url,$matches);
 		if ($match == 0) {
@@ -83,27 +123,209 @@ class Filesystem_Path extends Base {
 		}
 	}
 	
+	/**
+	 *	Get the path if available from a supplied URL/URI/UNC/Local-path.
+	 *
+	 *	Will return the local path if it is a local-path/UNC and the remote
+	 *	path if it is a URI/URL.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI/UNC/Local-path.
+	 *	@return string
+	 */
 	public static function get_path($url) {
 		if (self::_has_scheme($url)) {
-			$match = preg_match('/\A[a-z0-9+\-.]+:\/\/.*?\/(.*?)(?:#|\?|\Z)/',$url,$matches);
-			if ($match == 0) {
-				return false;
-			} else {
-				return self::FSLASH.$matches[1];
-			}
+			return self::_get_path_url($url);
 		} else {
-			$match = preg_match('/\A([\/]*?).*/',$url,$matches);
-			if ($match == 0) {
-				return false;
-			} else {
-				print_r($matches);
-				$url = $matches[1].implode(self::FSLASH,self::_explode_path($url));
-			}
-			
-			return $url;
+			return self::_get_path_local($url);
 		}
 	}
 	
+	/**
+	 *	Get the path if available from a supplied URL/URI.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return string
+	 */
+	private static function _get_path_url($url) {
+		$match = preg_match('/\A[a-z0-9+\-.]+:\/\/.*?\/(.*?)(?:#|\?|\Z)/',$url,$matches);
+		if ($match == 0) {
+			return false;
+		} else {
+			$parts = self::_get_path_array($matches[1]);
+			$path = implode(self::FSLASH,$parts).self::FSLASH;
+			$count = self::_count_leading_slashes($path);
+			if ($count == 0) {
+				$path = self::FSLASH.$path;
+			}
+			if ($path == self::FSLASH.self::FSLASH) {
+				return self::FSLASH;
+			}
+			return $path;
+		}
+	}
+	
+	/**
+	 *	Get the domain if available from a supplied UNC/Local-path.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $path The UNC/Local-path.
+	 *	@return string
+	 */
+	private static function _get_path_local($path) {
+		$count = self::_count_leading_slashes($path);
+		$parts = self::_get_path_array($path);
+		$path = implode(self::FSLASH,$parts).self::FSLASH;
+		$path = str_repeat(self::FSLASH,$count).$path;
+		if (($count == 0) && ($path == self::FSLASH)) {
+			return '';
+		}
+		if ($path == self::FSLASH.self::FSLASH) {
+				return self::FSLASH;
+			}
+		return $path;
+	}
+	
+	/**
+	 *	Get a path as an array (removing the file part) from a URI/URL/UNC/Local-path.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $path The URI/URL/UNC/Local-path.
+	 *	@return array()
+	 */
+	private static function _get_path_array($path) {
+		$parts = self::_explode_path($path);
+		$count = self::_count_trailing_slashes($path);
+		if ((!empty($parts)) && ($count == 0)) {
+			array_pop($parts);
+		}
+		return $parts;
+	}
+	
+	/**
+	 *	Count the leading slashes in supplied UNC/Local-path.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $path The UNC/Local-path.
+	 *	@return int
+	 */
+	private static function _count_leading_slashes($path) {
+		$count = 0;
+		for ($i=0; $i < strlen($path); $i++) {
+			$character = substr($path,$i,1);
+			if (($character == self::BSLASH) || ($character == self::FSLASH)) {
+				$count++;
+			} else {
+				break;
+			}
+		}
+		return $count;
+	}
+	
+	/**
+	 *	Count the trailing slashes in supplied UNC/Local-path.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $path The UNC/Local-path.
+	 *	@return int
+	 */
+	private static function _count_trailing_slashes($path) {
+		$path = self::_chop_query_and_fragment($path);
+		
+		$count = 0;
+		for ($i=(strlen($path)-1); $i > 0; $i--) {
+			$character = substr($path,$i,1);
+			if (($character == self::BSLASH) || ($character == self::FSLASH)) {
+				$count++;
+			} else {
+				break;
+			}
+		}
+		return $count;
+	}
+	
+	/**
+	 *	Get the filename if available from a supplied URL/URI/UNC/Local-path.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI/UNC/Local-path.
+	 *	@return string
+	 */
+	public static function get_filename($url) {
+		if (self::_count_trailing_slashes($url) != 0) {
+			return false;
+		}
+		
+		$parts = self::_explode_path($url);
+		if (empty($parts)) {
+			return false;
+		} else {
+			if (self::_has_scheme($url)) {
+				$parts = self::_lchop_array($parts,2);
+				if (empty($parts)) {
+					return false;
+				}
+			}
+			$filepart = array_pop($parts);
+			return self::_chop_query_and_fragment($filepart);
+		}
+	}
+	
+	/**
+	 *	Remove a specified number of elements from the start of an array.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param array $array The array to chop.
+	 *	@param int $amount The amount to chop it by.
+	 *	@return array();
+	 */
+	private static function _lchop_array($array,$amount) {
+		for ($i=1; $i <= 2; $i++) {
+			if (!empty($array)) {
+				array_shift($array);
+			}
+		}
+		return $array;
+	}
+	
+	/**
+	 *	Remove and query-string and fragment informaton from a string.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The string containing possible query/fragment.
+	 *	@return string
+	 */
+	private static function _chop_query_and_fragment($url) {
+		$removes = array('?','#');
+		foreach ($removes as $remove) {
+			$postion = strpos($url,$remove);
+			if ($postion !== false) {
+				$url = substr($url,0,$postion);
+			}
+		}
+		return $url;
+	}
+	
+	/**
+	 *	Get the query if available from a supplied URL/URI.
+	 *
+	 *	Will parse the query into an array of the form key1=value1, key2=value2.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return array()
+	 */
 	public static function get_query($url) {
 		$url = self::_fix_bad_path($url);
 		$match = preg_match('/\A[^?#]+\?([^#]+)/',$url,$matches);
@@ -114,6 +336,14 @@ class Filesystem_Path extends Base {
 		}
 	}
 	
+	/**
+	 *	Parse a query-string into an array.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $query The query-string.
+	 *	@return array()
+	 */
 	private static function _parse_query($query) {
 		$parsed = array();
 		$parts = str_replace('&amp;','&',$query);
@@ -130,6 +360,14 @@ class Filesystem_Path extends Base {
 		return $parsed;
 	}
 	
+	/**
+	 *	Get the fragment if available from a supplied URL/URI.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return string
+	 */
 	public static function get_fragment($url) {
 		$url = self::_fix_bad_path($url);
 		$match = preg_match('/#(.+)/',$url,$matches);
@@ -140,6 +378,11 @@ class Filesystem_Path extends Base {
 		}
 	}
 	
+	/**
+	 *	Reset the the internal array, which holds the parts of the current URI/URL/UNC/Local-path.
+	 *
+	 *	@private
+	 */
 	private function _reset_parts() {
 		$parts = array(
 			'scheme' => false, 'username' => false, 'passsword' => false,
@@ -148,7 +391,20 @@ class Filesystem_Path extends Base {
 		);
 	}
 	
-	private function set_path($path,$filename='') {
+	/**
+	 *	Set the path and filename we wish to parse.
+	 *
+	 *	Will set the path and filename for parsing.  Each can be given as
+	 *	fragments of the over-all path; this increases the flexibility of
+	 *	the parser.  Hence, $path can be a path to a directory or resource
+	 *	and $filename can be the path to the file relative to $path.
+	 *
+	 *	@public
+	 *	@param string $path The URL/URI/UNC/Local-path.
+	 *	@param string $filename The filename or a URL/URI/UNC/Local-path fragment.
+	 *	@return string
+	 */
+	public function set_path($path,$filename='') {
 		$this->_init($path,$filename);
 	}
 	
@@ -168,6 +424,14 @@ class Filesystem_Path extends Base {
 		return $parts;
 	}
 	
+	/**
+	 *	Attempt to fix a badly configured URI/URL/UNC/Local-path.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return string
+	 */
 	private static function _fix_bad_path($url) {
 		$url = self::_fix_bad_query($url);
 		$url = self::_fix_bad_fragment($url);
@@ -175,6 +439,14 @@ class Filesystem_Path extends Base {
 		return $url;
 	}
 	
+	/**
+	 *	Attempt to fix a badly configured query within a URI/URL.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return string
+	 */
 	private static function _fix_bad_query($url) {
 		$parts = explode('?',$url);
 		if (count($parts) > 2) {
@@ -184,6 +456,14 @@ class Filesystem_Path extends Base {
 		return $url;
 	}
 	
+	/**
+	 *	Attempt to fix a badly configured fragment within a URI/URL.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return string
+	 */
 	private static function _fix_bad_fragment($url) {
 		$parts = explode('#',$url);
 		if (count($parts) > 2) {
@@ -193,6 +473,14 @@ class Filesystem_Path extends Base {
 		return $url;
 	}
 	
+	/**
+	 *	Attempt to fix a badly placed '@' symbol within a URI/URL.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return string
+	 */
 	private static function _fix_bad_at($url) {
 		$parts = explode('@',$url);
 		if (count($parts) > 2) {
@@ -202,21 +490,53 @@ class Filesystem_Path extends Base {
 		return $url;
 	}
 	
+	/**
+	 *	Does the given URI/URL contain a scheme?
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return boolean
+	 */
 	private static function _has_scheme($url) {
 		$match = preg_match('/\A[A-Za-z0-9]+\:\/\//',$url);
 		return (($match==1)?true:false);
 	}
 	
+	/**
+	 *	Does the given URI/URL contain a password?
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return boolean
+	 */
 	private static function _has_password($url) {
 		$match = preg_match('/\A[A-Za-z0-9]+\:\/\/[^\/]+\:[^\/]+\@/',$url);
 		return (($match==1)?true:false);
 	}
 	
+	/**
+	 *	Does the given URI/URL contain a username?
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return boolean
+	 */
 	private static function _has_username($url) {
 		$match = preg_match('/\A[A-Za-z0-9]+\:\/\/[^\/]+\@/',$url);
 		return (($match==1)?true:false);
 	}
 	
+	/**
+	 *	Does the given URI/URL contain a port?
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return boolean
+	 */
 	private static function _has_port($url) {
 		$match = preg_match('/\A[A-Za-z0-9]+\:\/\/([^\/]+)/',$url,$matches);
 		if ($match == 1) {
