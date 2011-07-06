@@ -65,6 +65,28 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturn(23,'ftp://test@www.impact-crm.com:23');
 	}
 	
+	public function test_get_computer() {
+		$this->assertMethodReturn('computer','\\\\computer\\d$\\personal.doc');
+		$this->assertMethodReturnFalse('\\\\');
+		$this->assertMethodReturnFalse('http://www.impact-crm.com:8080/');
+		$this->assertMethodReturnFalse('/usr/simpo/docs/personal.doc');
+	}
+	
+	public function test_get_share() {
+		$this->assertMethodReturn('d$','\\\\computer\\d$\\personal.doc');
+		$this->assertMethodReturnFalse('\\\\computer\\');
+		$this->assertMethodReturnFalse('http://www.impact-crm.com:8080/');
+		$this->assertMethodReturnFalse('/usr/simpo/docs/personal.doc');
+	}
+	
+	public function test_get_drive() {
+		$this->assertMethodReturn('c','c:\\Program Files\\PHP\\php.exe');
+		$this->assertMethodReturn('C','C:\\Program Files\\PHP\\php.exe');
+		$this->assertMethodReturn('c','c:/Program Files/PHP/php.exe');
+		$this->assertMethodReturnFalse('http://www.impact-crm.com/test');
+		$this->assertMethodReturnFalse('/usr/simpo/docs/personal.doc');
+	}
+	
 	public function test_get_path() {
 		$this->assertMethodReturn('/','http://www.impact-crm.com/test');
 		$this->assertMethodReturn('/','http://www.impact-crm.com/');
@@ -90,13 +112,16 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 	}
 	
 	public function test_get_path_array() {
-		// STUB
+		$this->assertMethodReturn(array(),'http://www.impact-crm.com/test');
+		$this->assertMethodReturn(array('test'),'http://www.impact-crm.com/test/');
+		$this->assertMethodReturn(array('test'),'http://www.impact-crm.com/test/index.htm?id=5#test');
+		$this->assertMethodReturn(array('usr','simpo','docs'),'/usr/simpo/docs/personal.doc');
 	}
 	
 	public function test_count_leading_slashes() {
 		$this->assertMethodReturn(1,'/usr/simpo/docs/personal.doc');
 		$this->assertMethodReturn(0,'docs/personal.doc');
-		$this->assertMethodReturn(2,'\\\\share\\d$\\personal.doc');
+		$this->assertMethodReturn(2,'\\\\computer\\d$\\personal.doc');
 	}
 	
 	public function test_count_trailing_slashes() {
