@@ -65,6 +65,77 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturn(23,'ftp://test@www.impact-crm.com:23');
 	}
 	
+	public function test_get_path() {
+		$this->assertMethodReturn('/','http://www.impact-crm.com/test');
+		$this->assertMethodReturn('/','http://www.impact-crm.com/');
+		$this->assertMethodReturn('/test/','http://www.impact-crm.com/test/help');
+		$this->assertMethodReturn('/test/help/','http://www.impact-crm.com/test/help/');
+		$this->assertMethodReturn('/test/help/','http://www.impact-crm.com/test/help/#TEST');
+		$this->assertMethodReturn('/test/','http://www.impact-crm.com/test/help?id=7');
+		$this->assertMethodReturn('/test/','http://www.impact-crm.com/test/help#test');
+		$this->assertMethodReturn('/','http://www.impact-crm.com/#test');
+		$this->assertMethodReturn('','index.htm');
+		$this->assertMethodReturn('/','/index.htm');
+		$this->assertMethodReturn('c:/Program Files/PHP/','c:\\Program Files\\PHP\\php.exe');
+		$this->assertMethodReturn('/usr/simpo/docs/','/usr/simpo/docs/personal.doc');
+		$this->assertMethodReturn('/usr/simpo/docs/personal/','/usr/simpo/docs/personal/');
+	}
+	
+	public function test_get_path_url() {
+		// STUB
+	}
+	
+	public function test_get_path_local() {
+		// STUB
+	}
+	
+	public function test_get_path_array() {
+		// STUB
+	}
+	
+	public function test_count_leading_slashes() {
+		$this->assertMethodReturn(1,'/usr/simpo/docs/personal.doc');
+		$this->assertMethodReturn(0,'docs/personal.doc');
+		$this->assertMethodReturn(2,'\\\\share\\d$\\personal.doc');
+	}
+	
+	public function test_count_trailing_slashes() {
+		$this->assertMethodReturn(1,'/usr/simpo/docs/personal/');
+		$this->assertMethodReturn(0,'/usr/simpo/docs/personal.doc');
+		$this->assertMethodReturn(1,'\\\\share\\d$\\');
+		$this->assertMethodReturn(0,'http://www.impact-crm.com/test/help#test');
+		$this->assertMethodReturn(1,'http://www.impact-crm.com/test/help/#test');
+		$this->assertMethodReturn(1,'http://www.impact-crm.com/test/help/?id=test');
+	}
+	
+	public function test_get_filename() {
+		$this->assertMethodReturn('test','http://www.impact-crm.com/test');
+		$this->assertMethodReturnFalse('http://www.impact-crm.com/');
+		$this->assertMethodReturn('help','http://www.impact-crm.com/test/help?id=7');
+		$this->assertMethodReturn('help','http://www.impact-crm.com/test/help#test');
+		$this->assertMethodReturn('index.htm','index.htm');
+		$this->assertMethodReturn('index.htm','/index.htm');
+		$this->assertMethodReturnFalse('http://www.impact-crm.com/test/help/');
+	}
+	
+	public function test_lchop_array() {
+		$this->assertMethodReturn(
+			array(3,4),
+			array(array(1,2,3,4),2)
+		);
+	}
+	
+	public function test_chop_query_and_fragment() {
+		$this->assertMethodReturn(
+			'http://www.impact-crm.com/test/help',
+			'http://www.impact-crm.com/test/help#test'
+		);
+		$this->assertMethodReturn(
+			'http://www.impact-crm.com/test/help',
+			'http://www.impact-crm.com/test/help?id=7'
+		);
+	}
+	
 	public function test_get_query() {
 		$this->assertMethodReturn(
 			array('id'=>'4'),'http://www.impact-crm.com/test?id=4'
@@ -96,20 +167,6 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 			'test','http://www.impact-crm.com/test?id=4&test=7#test'
 		);
 		$this->assertMethodReturnFalse('http://www.impact-crm.com/test');
-	}
-	
-	public function test_get_path() {
-		$this->assertMethodReturn('/test','http://www.impact-crm.com/test');
-		$this->assertMethodReturn('/','http://www.impact-crm.com/');
-		$this->assertMethodReturn('/test/help','http://www.impact-crm.com/test/help');
-		$this->assertMethodReturn(
-			'c:/Program Files/PHP/php.exe',
-			'c:\\Program Files\\PHP\\php.exe'
-		);
-		$this->assertMethodReturn(
-			'/usr/simpo/docs/personal.doc',
-			'/usr/simpo/docs/personal.doc'
-		);
 	}
 	
 	public function test_explode_path() {
