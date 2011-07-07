@@ -7,7 +7,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	Directory Open/Close, browsing and parsing operations.
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.7
+ *	@version 0.0.8
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  *
@@ -15,6 +15,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  */
 class Filesystem_Directory extends Filesystem implements Iterator {
 	private $dirList = false;
+	private $pathParser = '';
 	private $position = 0;
 	private $lastFile = false;
 	
@@ -23,22 +24,47 @@ class Filesystem_Directory extends Filesystem implements Iterator {
 		$this->_init($path,$filter,$fileMethod,$fileType);
 	}
 	
-	private function _init($path,$filter,$fileMethod,$fileType) {
-		if ($path != '') {
-			$newpath = str_replace(
-				array(self::FSLASH,self::BSLASH),array(DS,DS),
-				$path
-			);
-			
-			$this->path = realpath($newpath);
-		} else {
-			$this->path = realpath(getcwd());
+	public function __get($property) {
+		$convertedProperty = I::camelize($property);
+		switch($convertedProperty) {
+			case 'path': return $this->pathParser->path;
+			default:
+				return parent::__get($property);
 		}
+	}
+	
+	private function _init($path,$filter,$fileMethod,$fileType) {
+		if ($path == '') {
+			$path = realpath(getcwd());
+		} else {
+			$path = $this->_add_slash($path);
+		}
+		
+		$this->pathParser = new Filesystem_Path($path);
 		$this->_set_filter($filter);
 		$this->fileMethod = $fileMethod;
 		$this->fileType = $fileType;
 		$this->dirList = false;
 		$this->position = 0;
+	}
+	
+	
+	/**
+	 *	Add a slash to the end of the path if one is not present.
+	 *
+	 *	A directory path, should end in a slash but often it is ommitted, this
+	 *	method will add a slash if one is not present.
+	 *
+	 *	@private
+	 *	@param string $path The path to add a slash to.
+	 *	@return string
+	 */
+	private function _add_slash($path) {
+		$lastChar = substr($path,-1);
+		if (($lastChar != self::BSLASH) && ($lastChar != self::FSLASH)) {
+			$path = $path.self::FSLASH;
+		}
+		return $path;
 	}
 	
 	/**

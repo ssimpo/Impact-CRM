@@ -15,7 +15,6 @@ class Test_Filesystem_File extends ImpactPHPUnit {
 	
 	protected function setUp() {
 		$this->testPath = realpath(ROOT_BACK.'util'.DS.'unit_tests'.DS.MODELS_DIRECTORY.DS.'Filesystem'.DS.'_data').DS;
-		$this->testPath = str_replace(DS,'/',$this->testPath);
         $this->init();
 	}
 	

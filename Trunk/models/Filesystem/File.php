@@ -8,7 +8,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	them and parse them according to installed sub-classes.
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.1.0
+ *	@version 0.1.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
@@ -30,7 +30,7 @@ class Filesystem_File extends Filesystem_ArrayAccess {
 			case 'path': return $this->pathParser->path;
 			case 'filename': return $this->pathParser->filename;
 			case 'ext': return $this->pathParser->extension;
-			case 'fullpath': return $this->pathParser->path.$this->pathParser->filename;
+			case 'fullpath': case 'fullPath': return $this->pathParser->fullpath;
 			case 'fileSize':
 				return filesize($this->fullpath);
 			case 'accessed':
