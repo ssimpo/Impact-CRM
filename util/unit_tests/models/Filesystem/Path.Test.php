@@ -20,6 +20,7 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturn('http','http://www.impact-crm.com/');
 		$this->assertMethodReturn('ftp','ftp://www.impact-crm.com/help/');
 		$this->assertMethodReturnFalse('mailto:me@simpo.org');
+		$this->assertMethodReturn('file','file:///c:/Program Files/PHP/php.exe');
 	}
 	
 	public function test_get_domain() {
@@ -70,6 +71,7 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturnFalse('\\\\');
 		$this->assertMethodReturnFalse('http://www.impact-crm.com:8080/');
 		$this->assertMethodReturnFalse('/usr/simpo/docs/personal.doc');
+		$this->assertMethodReturn('computer','file:////computer/d$/personal.doc');
 	}
 	
 	public function test_get_share() {
@@ -77,14 +79,16 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturnFalse('\\\\computer\\');
 		$this->assertMethodReturnFalse('http://www.impact-crm.com:8080/');
 		$this->assertMethodReturnFalse('/usr/simpo/docs/personal.doc');
+		$this->assertMethodReturn('d$','file:////computer/d$/personal.doc');
 	}
 	
 	public function test_get_drive() {
 		$this->assertMethodReturn('c','c:\\Program Files\\PHP\\php.exe');
-		$this->assertMethodReturn('C','C:\\Program Files\\PHP\\php.exe');
+		$this->assertMethodReturn('c','C:\\Program Files\\PHP\\php.exe');
 		$this->assertMethodReturn('c','c:/Program Files/PHP/php.exe');
 		$this->assertMethodReturnFalse('http://www.impact-crm.com/test');
 		$this->assertMethodReturnFalse('/usr/simpo/docs/personal.doc');
+		$this->assertMethodReturn('c','file:///c:/Program Files/PHP/php.exe');
 	}
 	
 	public function test_get_path() {
@@ -101,6 +105,7 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturn('c:/Program Files/PHP/','c:\\Program Files\\PHP\\php.exe');
 		$this->assertMethodReturn('/usr/simpo/docs/','/usr/simpo/docs/personal.doc');
 		$this->assertMethodReturn('/usr/simpo/docs/personal/','/usr/simpo/docs/personal/');
+		$this->assertMethodReturn('c:/Program Files/PHP/','file:///c:/Program Files/PHP/php.exe');
 	}
 	
 	public function test_get_path_url() {
@@ -141,6 +146,7 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturn('index.htm','index.htm');
 		$this->assertMethodReturn('index.htm','/index.htm');
 		$this->assertMethodReturnFalse('http://www.impact-crm.com/test/help/');
+		$this->assertMethodReturn('php.exe','file:///c:/Program Files/PHP/php.exe');
 	}
 	
 	public function test_get_extension() {
@@ -241,6 +247,11 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 			array('http:','test:test@www.impact-crm.com','help','main?id=test#test'),
 			'http://test:test@www.impact-crm.com/help/main?id=test#test'
 		);
+		
+		$this->assertMethodReturn(
+			array('file:','c:','Program Files','PHP','php.exe'),
+			'file:///c:/Program Files/PHP/php.exe'
+		);
     }
 	
 	public function test_fix_bad_slashes() {
@@ -335,6 +346,7 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturnTrue('http://www.impact-crm.com/help?id=test');
 		$this->assertMethodReturnFalse('c:\\Program Files\\PHP\\php.exe');
 		$this->assertMethodReturnFalse('/usr/simpo/docs/personal.doc');
+		$this->assertMethodReturnTrue('file:///c:/Program Files/PHP/php.exe');
 	}
 	
 	public function test_has_username() {
@@ -345,6 +357,8 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturnFalse('http://www.impact-crm.com:80/help?id=test');
 		$this->assertMethodReturnTrue('http://test@www.impact-crm.com:80/help?id=test');
 		$this->assertMethodReturnTrue('http://test:test@www.impact-crm.com:80/help?id=test');
+		$this->assertMethodReturnFalse('http://www.impact-crm.com');
+		$this->assertMethodReturnFalse('file:///c:/Program Files/PHP/php.exe');
 	}
 	
 	public function test_has_password() {
@@ -355,6 +369,7 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturnFalse('http://www.impact-crm.com:80/help?id=test');
 		$this->assertMethodReturnFalse('http://test@www.impact-crm.com:80/help?id=test');
 		$this->assertMethodReturnTrue('http://test:test@www.impact-crm.com:80/help?id=test');
+		$this->assertMethodReturnFalse('file:///c:/Program Files/PHP/php.exe');
 	}
 	
 	public function test_has_port() {
@@ -362,7 +377,7 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturnTrue('http://test:test@www.impact-crm.com:80/help?id=test');
 		$this->assertMethodReturnFalse('http://test:test@www.impact-crm.com/help?id=test:80');
 		$this->assertMethodReturnFalse('http://test@www.impact-crm.com');
-		$this->assertMethodReturnFalse('http://test:test@www.impact-crm.com');
+		$this->assertMethodReturnFalse('file:///c:/Program Files/PHP/php.exe');
 	}
 	
 }
