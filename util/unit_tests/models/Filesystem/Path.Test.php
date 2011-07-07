@@ -16,6 +16,33 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
         $this->init();
 	}
 	
+	public function test_remove_set_fullpath() {
+		// STUB
+	}
+	
+	public function test_set_fullpath_local() {
+		$this->instance->set_path('/usr/simpo/docs/personal.doc');
+		$this->assertMethodReturn(DS.'usr'.DS.'simpo'.DS.'docs'.DS.'personal.doc');
+		$this->instance->set_path('c:\\Program Files\\PHP\\php.exe');
+		$this->assertMethodReturn('c:'.DS.'Program Files'.DS.'PHP'.DS.'php.exe');
+	}
+	
+	public function test_set_fullpath_url() {
+		$this->instance->set_path('http://www.impact-crm.com/test/index.htm');
+		$this->assertMethodReturn('http://www.impact-crm.com/test/index.htm');
+		$this->instance->set_path('http://www.impact-crm.com/test/index.htm#test');
+		$this->assertMethodReturn('http://www.impact-crm.com/test/index.htm#test');
+		$this->instance->set_path('ftp://test:test@www.impact-crm.com/help');
+		$this->assertMethodReturn('ftp://test:test@www.impact-crm.com/help');
+		$this->instance->set_path('http://www.impact-crm.com/test/?test1=value1&open');
+		$this->assertMethodReturn('http://www.impact-crm.com/test/?test1=value1&amp;open');
+	}
+	
+	public function test_create_query_string() {
+		$array = array('key1'=>'value1','key2'=>'value2','key3'=>'');
+		$this->assertMethodReturn('key1=value1&amp;key2=value2&amp;key3',$array);
+	}
+	
 	public function test_get_scheme() {
 		$this->assertMethodReturn('http','http://www.impact-crm.com/');
 		$this->assertMethodReturn('ftp','ftp://www.impact-crm.com/help/');
@@ -56,6 +83,10 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturn(
 			'pass','http://test:pass@www.impact-crm.com/'
 		);
+	}
+	
+	public function test_remove_file_scheme() {
+		// STUB
 	}
 	
 	public function test_get_port() {

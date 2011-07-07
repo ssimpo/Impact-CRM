@@ -11,7 +11,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@todo Return paths using native directory separator.
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.1.0
+ *	@version 0.1.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
@@ -49,6 +49,8 @@ class Filesystem_Path extends Base {
 		$this->parts['extension'] = self::get_extension($testPath);
 		$this->parts['query'] = self::get_query($testPath);
 		$this->parts['fragment'] = self::get_fragment($testPath);
+		
+		$this->_set_fullpath();
 	}
 	
 	/**
@@ -61,9 +63,104 @@ class Filesystem_Path extends Base {
 			'scheme' => false, 'username' => false, 'passsword' => false,
 			'domain' => false, 'port' => false, 'computer' => '',
 			'share' => '', 'drive' => '', 'path' => false,
-			'filename' => '', 'Extension' => '', 'query' => false,
-			'fragment' => false
+			'filename' => '', 'Extension' => '', 'fullpath' => false,
+			'query' => false, 'fragment' => false
 		);
+	}
+	
+	
+	/**
+	 *	Create a full path represenation.
+	 *
+	 *	@private
+	 */
+	private function _set_fullpath() {
+		if ($this->parts['scheme'] == false) {
+			$this->parts['fullpath'] = $this->_set_fullpath_local();
+		} else {
+			$this->parts['fullpath'] = $this->_set_fullpath_url();
+		}
+	}
+	
+	/**
+	 *	Create a full path represenation in a local environment (ie. no scheme).
+	 *
+	 *	@private
+	 *	@return string The fullpath.
+	 */
+	private function _set_fullpath_local() {
+		$path = '';
+		if (($this->parts['filename'] != false) && ($this->parts['path'] != false)) {
+			$path = $this->parts['path'].$this->parts['filename'];
+		} elseif (($this->parts['filename'] == false) && ($this->parts['path'] != false)) {
+			$path = $this->parts['path'];
+		} else {
+			$path = $this->parts['filename'];
+		}
+		return self::_convert_to_local_style($path);
+	}
+	
+	/**
+	 *	Create a full path represenation in a non-local environment (ie. with scheme).
+	 *
+	 *	@private
+	 *	@return string The fullpath.
+	 */
+	private function _set_fullpath_url() {
+		$path = $this->parts['scheme'].':'.self::FSLASH.self::FSLASH;
+		if ($this->parts['username'] != false) {
+			$path .= $this->parts['username'];
+		}
+		if ($this->parts['password'] != false) {
+			$path .= ':'.$this->parts['password'];
+		}
+		if (($this->parts['username'] != false) || ($this->parts['password'] != false)) {
+			$path .= '@';
+		}
+		$path .= $this->parts['domain'];
+		if ($this->parts['port'] != false) {
+			$path .= ':'.$this->parts['port'];
+		}
+		
+		$count = self::_count_leading_slashes($this->parts['path']);
+		if ($count == 0) {
+			$path .= self::FSLASH;
+		}
+		$path .= $this->parts['path'];
+		if ($this->parts['filename'] != false) {
+			$path .= $this->parts['filename'];
+		}
+		if ($this->parts['query'] != false) {
+			$path .= '?'.$this->_create_query_string($this->parts['query']);
+		}
+		if ($this->parts['fragment'] != false) {
+			$path .= '#'.$this->parts['fragment'];
+		}
+		
+		return $path;
+	}
+	
+	/**
+	 *	Convert a name/value array into a URL query-string.
+	 *
+	 *	@private
+	 *	@param array() $array The name/value array.
+	 *	@return string
+	 */
+	private function _create_query_string($array) {
+		$query = '';
+		foreach ($array as $key => $value) {
+			if ($query != '') {
+				$query .= '&amp;';
+			}
+			if ($value == '') {
+				$query .= urlencode($key);
+			} else {
+				$query .= urlencode($key).'='.urlencode($value);
+			}
+		}
+		
+		return $query;
 	}
 	
 	/**
@@ -94,10 +191,36 @@ class Filesystem_Path extends Base {
 	public function __get($property) {
 		$convertedProperty = I::camelize($property);
 		if (isset($this->parts[$convertedProperty])) {
-			return $this->parts[$convertedProperty];
+			$value = $this->parts[$convertedProperty];
+			switch ($convertedProperty) {
+				case 'path':
+					if ($this->parts['scheme'] == false) {
+						return $this->_convert_to_local_style($value);
+					}
+				default: return $value;
+			}
 		} else {
 			throw new Exception('Property: '.$convertedProperty.', does not exist');
 		}
+	}
+	
+	/**
+	 *	Convert the internal path representation into a local one.
+	 *
+	 *	Will convert slashes to their local equvilant. Usually backslash on
+	 *	Windows machines and forwardslash on UNIX.
+	 *
+	 *	@private
+	 *	@param string $path The path to convert.
+	 *	@return string.
+	 */
+	private function _convert_to_local_style($path) {
+		$replaces = array(self::BSLASH,self::FSLASH);
+		foreach ($replaces as $replace) {
+			$path = str_replace($replace,DS,$path);
+		}
+		
+		return $path;
 	}
 	
 	/**
@@ -594,7 +717,9 @@ class Filesystem_Path extends Base {
 	 *	@return string
 	 */
 	private static function _fix_bad_slashes($url) {
-		return str_replace(self::BSLASH,self::FSLASH,$url);
+		$url = str_replace(self::BSLASH,self::FSLASH,$url);
+		$url = str_replace(DS,self::FSLASH,$url);
+		return $url;
 	}
 	
 	/**
