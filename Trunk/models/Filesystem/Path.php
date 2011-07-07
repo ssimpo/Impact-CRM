@@ -7,7 +7,6 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	File Open/Close and parsing operations.  Will open files, navigate through
  *	them and parse them according to installed sub-classes.
  *
- *	@todo Handle file:///
  *	@todo Handle mailto: ?  It is questionable whether this should be parsed but it would be useful as it is something, which may fit well in overa-all URL parsing.
  *	@todo Return paths using native directory separator.
  *	
@@ -187,6 +186,18 @@ class Filesystem_Path extends Base {
 	}
 	
 	/**
+	 *	Remove the 'file://' portion from a file-scheme URL.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL to parse.
+	 *	@param string URL with any 'file://' portion removed.
+	 */
+	private static function _remove_file_scheme($url) {
+		return preg_replace('/file\:\/\//i','',$url);
+	}
+	
+	/**
 	 *	Get the computer if available from a supplied UNC.
 	 *
 	 *	@public
@@ -195,6 +206,7 @@ class Filesystem_Path extends Base {
 	 *	@return string
 	 */
 	public static function get_computer($unc) {
+		$unc = self::_remove_file_scheme($unc);
 		$count = self::_count_leading_slashes($unc);
 		if ($count != 2) {
 			return false;
@@ -217,6 +229,7 @@ class Filesystem_Path extends Base {
 	 *	@return string
 	 */
 	public static function get_share($unc) {
+		$unc = self::_remove_file_scheme($unc);
 		$count = self::_count_leading_slashes($unc);
 		if ($count != 2) {
 			return false;
@@ -239,12 +252,13 @@ class Filesystem_Path extends Base {
 	 *	@return string
 	 */
 	public static function get_drive($url) {
-		$match = preg_match('/\A([A-Z])\:/i',$url,$matches);
+		$url = self::_remove_file_scheme($url);
+		$match = preg_match('/(?:\A|\A\/)([A-Z])\:/i',$url,$matches);
 		if ($match == 0) {
 			return false;
 		} else {
 			if (!self::_has_scheme($url)) {
-				return $matches[1];
+				return strtolower($matches[1]);
 			}
 		}
 		
@@ -292,6 +306,8 @@ class Filesystem_Path extends Base {
 			if ($path == self::FSLASH.self::FSLASH) {
 				return self::FSLASH;
 			}
+			
+			$path = preg_replace('/\/([A-Z]:\/)/i','$1',$path);
 			return $path;
 		}
 	}
