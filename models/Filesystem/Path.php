@@ -11,7 +11,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@todo Return paths using native directory separator.
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.1.1
+ *	@version 0.1.2
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
@@ -26,6 +26,64 @@ class Filesystem_Path extends Base {
 		if ($path != '') {
 			$this->_init($path,$filename);
 		}
+	}
+	
+	/**
+	 *	Generic get property method.
+	 *
+	 *	Get the value of an application property.  Values are stored in
+	 *	the application array and accessed via the __set and __get methods.
+	 *
+	 *	@public
+	 */
+	public function __get($property) {
+		$convertedProperty = I::camelize($property);
+		if (isset($this->parts[$convertedProperty])) {
+			$value = $this->parts[$convertedProperty];
+			switch ($convertedProperty) {
+				case 'path':
+					if ($this->parts['scheme'] == false) {
+						return $this->_convert_to_local_style($value);
+					}
+				default: return $value;
+			}
+		} else {
+			throw new Exception('Property: '.$convertedProperty.', does not exist');
+		}
+	}
+	
+	/**
+	 *	Generic set property method.
+	 *
+	 *	Set the value of an application property.  Values are stored in
+	 *	the application array and accessed via the __set and __get methods.
+	 *
+	 *	@public
+	 */
+	public function __set($property,$value) {
+		$convertedProperty = I::camelize($property);
+		if (isset($this->parts[$convertedProperty])) {
+			$this->parts[$convertedProperty] = $value;
+		} else {
+			throw new Exception('Property: '.$convertedProperty.', does not exist');
+		}
+	}
+	
+	/**
+	 *	Set the path and filename we wish to parse.
+	 *
+	 *	Will set the path and filename for parsing.  Each can be given as
+	 *	fragments of the over-all path; this increases the flexibility of
+	 *	the parser.  Hence, $path can be a path to a directory or resource
+	 *	and $filename can be the path to the file relative to $path.
+	 *
+	 *	@public
+	 *	@param string $path The URL/URI/UNC/Local-path.
+	 *	@param string $filename The filename or a URL/URI/UNC/Local-path fragment.
+	 *	@return string
+	 */
+	public function set_path($path,$filename='') {
+		$this->_init($path,$filename);
 	}
 	
 	private function _init($path,$filename='') {
@@ -164,47 +222,6 @@ class Filesystem_Path extends Base {
 	}
 	
 	/**
-	 *	Set the path and filename we wish to parse.
-	 *
-	 *	Will set the path and filename for parsing.  Each can be given as
-	 *	fragments of the over-all path; this increases the flexibility of
-	 *	the parser.  Hence, $path can be a path to a directory or resource
-	 *	and $filename can be the path to the file relative to $path.
-	 *
-	 *	@public
-	 *	@param string $path The URL/URI/UNC/Local-path.
-	 *	@param string $filename The filename or a URL/URI/UNC/Local-path fragment.
-	 *	@return string
-	 */
-	public function set_path($path,$filename='') {
-		$this->_init($path,$filename);
-	}
-	
-	/**
-	 *	Generic get property method.
-	 *
-	 *	Get the value of an application property.  Values are stored in
-	 *	the application array and accessed via the __set and __get methods.
-	 *
-	 *	@public
-	 */
-	public function __get($property) {
-		$convertedProperty = I::camelize($property);
-		if (isset($this->parts[$convertedProperty])) {
-			$value = $this->parts[$convertedProperty];
-			switch ($convertedProperty) {
-				case 'path':
-					if ($this->parts['scheme'] == false) {
-						return $this->_convert_to_local_style($value);
-					}
-				default: return $value;
-			}
-		} else {
-			throw new Exception('Property: '.$convertedProperty.', does not exist');
-		}
-	}
-	
-	/**
 	 *	Convert the internal path representation into a local one.
 	 *
 	 *	Will convert slashes to their local equvilant. Usually backslash on
@@ -221,6 +238,18 @@ class Filesystem_Path extends Base {
 		}
 		
 		return $path;
+	}
+	
+	/**
+	 *	Remove the 'file://' portion from a file-scheme URL.
+	 *
+	 *	@private
+	 *	@static
+	 *	@param string $url The URL to parse.
+	 *	@param string URL with any 'file://' portion removed.
+	 */
+	private static function _remove_file_scheme($url) {
+		return preg_replace('/file\:\/\//i','',$url);
 	}
 	
 	/**
@@ -309,18 +338,6 @@ class Filesystem_Path extends Base {
 	}
 	
 	/**
-	 *	Remove the 'file://' portion from a file-scheme URL.
-	 *
-	 *	@private
-	 *	@static
-	 *	@param string $url The URL to parse.
-	 *	@param string URL with any 'file://' portion removed.
-	 */
-	private static function _remove_file_scheme($url) {
-		return preg_replace('/file\:\/\//i','',$url);
-	}
-	
-	/**
 	 *	Get the computer if available from a supplied UNC.
 	 *
 	 *	@public
@@ -404,6 +421,93 @@ class Filesystem_Path extends Base {
 			return self::_get_path_url($url);
 		} else {
 			return self::_get_path_local($url);
+		}
+	}
+	
+	/**
+	 *	Get the filename if available from a supplied URL/URI/UNC/Local-path.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI/UNC/Local-path.
+	 *	@return string
+	 */
+	public static function get_filename($url) {
+		if (self::_count_trailing_slashes($url) != 0) {
+			return false;
+		}
+		
+		$parts = self::_explode_path($url);
+		if (empty($parts)) {
+			return false;
+		} else {
+			if (self::_has_scheme($url)) {
+				$parts = self::_lchop_array($parts,2);
+				if (empty($parts)) {
+					return false;
+				}
+			}
+			$filepart = array_pop($parts);
+			return self::_chop_query_and_fragment($filepart);
+		}
+	}
+	
+	/**
+	 *	Get the filename-extension if available from a supplied URL/URI/UNC/Local-path.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI/UNC/Local-path.
+	 *	@return string
+	 */
+	public static function get_extension($url) {
+		$filename = self::get_filename($url);
+		if (!$filename) {
+			return false;
+		} else {
+			$position = strpos($filename,'.');
+			if ($position === false) {
+				return false;
+			}
+			return substr($filename,$position+1);
+		}
+	}
+	
+	/**
+	 *	Get the query if available from a supplied URL/URI.
+	 *
+	 *	Will parse the query into an array of the form key1=value1, key2=value2.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return array()
+	 */
+	public static function get_query($url) {
+		$url = self::_fix_bad_path($url);
+		$match = preg_match('/\A[^?#]+\?([^#]+)/',$url,$matches);
+		if ($match == 0) {
+			return false;
+		} else {
+			return self::_parse_query($matches[1]);
+		}
+	}
+	
+	/**
+	 *	Get the fragment if available from a supplied URL/URI.
+	 *
+	 *	@public
+	 *	@static
+	 *	@param string $url The URL/URI.
+	 *	@return string
+	 */
+	public static function get_fragment($url) {
+		$url = self::_fix_bad_path($url);
+		$match = preg_match('/#(.+)/',$url,$matches);
+		if ($match == 0) {
+			return false;
+		} else {
+			return $matches[1];
 		}
 	}
 	
@@ -526,55 +630,6 @@ class Filesystem_Path extends Base {
 	}
 	
 	/**
-	 *	Get the filename if available from a supplied URL/URI/UNC/Local-path.
-	 *
-	 *	@public
-	 *	@static
-	 *	@param string $url The URL/URI/UNC/Local-path.
-	 *	@return string
-	 */
-	public static function get_filename($url) {
-		if (self::_count_trailing_slashes($url) != 0) {
-			return false;
-		}
-		
-		$parts = self::_explode_path($url);
-		if (empty($parts)) {
-			return false;
-		} else {
-			if (self::_has_scheme($url)) {
-				$parts = self::_lchop_array($parts,2);
-				if (empty($parts)) {
-					return false;
-				}
-			}
-			$filepart = array_pop($parts);
-			return self::_chop_query_and_fragment($filepart);
-		}
-	}
-	
-	/**
-	 *	Get the filename-extension if available from a supplied URL/URI/UNC/Local-path.
-	 *
-	 *	@public
-	 *	@static
-	 *	@param string $url The URL/URI/UNC/Local-path.
-	 *	@return string
-	 */
-	public static function get_extension($url) {
-		$filename = self::get_filename($url);
-		if (!$filename) {
-			return false;
-		} else {
-			$position = strpos($filename,'.');
-			if ($position === false) {
-				return false;
-			}
-			return substr($filename,$position+1);
-		}
-	}
-	
-	/**
 	 *	Remove a specified number of elements from the start of an array.
 	 *
 	 *	@private
@@ -612,26 +667,6 @@ class Filesystem_Path extends Base {
 	}
 	
 	/**
-	 *	Get the query if available from a supplied URL/URI.
-	 *
-	 *	Will parse the query into an array of the form key1=value1, key2=value2.
-	 *
-	 *	@public
-	 *	@static
-	 *	@param string $url The URL/URI.
-	 *	@return array()
-	 */
-	public static function get_query($url) {
-		$url = self::_fix_bad_path($url);
-		$match = preg_match('/\A[^?#]+\?([^#]+)/',$url,$matches);
-		if ($match == 0) {
-			return false;
-		} else {
-			return self::_parse_query($matches[1]);
-		}
-	}
-	
-	/**
 	 *	Parse a query-string into an array.
 	 *
 	 *	@private
@@ -653,24 +688,6 @@ class Filesystem_Path extends Base {
 		}
 			
 		return $parsed;
-	}
-	
-	/**
-	 *	Get the fragment if available from a supplied URL/URI.
-	 *
-	 *	@public
-	 *	@static
-	 *	@param string $url The URL/URI.
-	 *	@return string
-	 */
-	public static function get_fragment($url) {
-		$url = self::_fix_bad_path($url);
-		$match = preg_match('/#(.+)/',$url,$matches);
-		if ($match == 0) {
-			return false;
-		} else {
-			return $matches[1];
-		}
 	}
 	
 	private static function _explode_path($path,$filename='') {
