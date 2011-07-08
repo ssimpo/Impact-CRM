@@ -11,6 +11,10 @@ $directoryParser->getFileObject = true;
 
 foreach ($directoryParser as $file) {
     print $file->fullpath."\n";
+}
+
+foreach ($directoryParser as $file) {
+    print $file->fullpath."\n";
     $oFile = new Filesystem_File(SITE_FOLDER.'logs2',$file->filename);
     $oFile->open('write','DominoLog');
     
