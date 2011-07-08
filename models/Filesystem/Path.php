@@ -8,7 +8,6 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	them and parse them according to installed sub-classes.
  *
  *	@todo Handle mailto: ?  It is questionable whether this should be parsed but it would be useful as it is something, which may fit well in overa-all URL parsing.
- *	@todo Return paths using native directory separator.
  *	
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1.2

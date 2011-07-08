@@ -36,6 +36,8 @@ class Test_Filesystem_Path extends ImpactPHPUnit {
 		$this->assertMethodReturn('ftp://test:test@www.impact-crm.com/help');
 		$this->instance->set_path('http://www.impact-crm.com/test/?test1=value1&open');
 		$this->assertMethodReturn('http://www.impact-crm.com/test/?test1=value1&amp;open');
+		$this->instance->set_path('file:///c:/Program Files/PHP/php.exe');
+		$this->assertMethodReturn('file:///c:/Program Files/PHP/php.exe');
 	}
 	
 	public function test_create_query_string() {

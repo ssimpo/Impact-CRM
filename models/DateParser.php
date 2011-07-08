@@ -22,8 +22,12 @@ class DateParser Extends Base {
 	 *	@return self
 	 */
 	function __construct() {
-		if (!is_array(self::$config)) {
-			$this->_load_config('DateParser/settings.xml');
+		if (self::$config === false) {
+			self::$config = new FileSystem_File(
+				ROOT_BACK.MODELS_DIRECTORY.DS.'DateParser'.DS,
+				'settings.xml'
+			);
+			self::$config->open('read','settings');
 		}
 	}
 	
@@ -63,34 +67,15 @@ class DateParser Extends Base {
 	 *	@return date Date in PHP date format.
 	 */
 	protected function _detect($date,$timezone='') {
-		foreach (self::$config as $tester) {
-			
-			if (preg_match($tester['REGEX'],$date)) {
-				$parser = $this->factory($tester['CLASS']);
+		foreach (self::$config as $name => $test) {
+			if (preg_match($test['value'],$date)) {
+				$parser = $this->factory($name);
 				return $parser->parse($date,$timezone);
 			}
 		}
 	}
 	
-	/**
-	 *	Load the date detection, settings file.
-	 *	
-	 *	@private
-	 *
-	 *	@param string $path Path to the settings file.
-	 */
-	protected function _load_config($path) {
-		$xml = simplexml_load_file(I::get_include_directory().'/'.$path);
-		self::$config = array();
-		
-		foreach ($xml->param as $param) {
-			switch ($param['type']) {
-				case 'regx':
-					$value = (string) $param['value'];
-					$class = (string) 'DateParser_'.$param['name'];
-					array_push(self::$config,array('REGEX'=>$value,'CLASS'=>$class));
-					break;
-			}
-		}
+	public function factory($class,$args=array()) {
+		return parent::factory('DateParser_'.$class,$args);
 	}
 }
