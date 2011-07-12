@@ -13,7 +13,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
- *	@package Analytics
+ *	@package Filesystem
  */
 class Filesystem_File_LogBase extends  Filesystem_File_Text {
 	protected $config;
