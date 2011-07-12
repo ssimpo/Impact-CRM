@@ -7,7 +7,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.3
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
- *	@package Analytics
+ *	@package Filesystem
  */
 class Filesystem_File_Settings implements Filesystem_File_Object,ArrayAccess,Countable,Iterator {
     private $params = array();

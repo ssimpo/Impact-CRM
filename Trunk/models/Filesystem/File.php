@@ -42,7 +42,23 @@ class Filesystem_File extends Filesystem_ArrayAccess {
 				$date->epoc = filemtime($this->fullpath);
 				return $date;
 			default:
+				if (property_exists($this->parser,$property)) {
+					return $this->parser->$property;
+				}
 				return parent::__get($property);
+		}
+	}
+	
+	public function __set($property,$value) {
+		$convertedProperty = I::camelize($property);
+		switch($convertedProperty) {
+			default:
+				if (property_exists($this->parser,$property)) {
+					$this->parser->$property = $value;
+				} else {
+					throw new Exception('Property "'.$property.'", does not exist.');
+				}
+				
 		}
 	}
 	
