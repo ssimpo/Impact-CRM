@@ -334,13 +334,10 @@ class Filesystem_File_Settings implements Filesystem_File_Object,ArrayAccess,Cou
      *  @return Calendar_DateTime
      */
     private function _get_date_value($value) {
-        print "GETTING DATE\n";
         if (!is_int($value)) {
-            print "NOT INT\n";
             $dateparser = new DateParser();
 			return $dateparser->parse($value);
         }
-        print "IS INT\n";
         $date = new Calendar_DateTime();
         $date->epoc = $value;
         return $date;
