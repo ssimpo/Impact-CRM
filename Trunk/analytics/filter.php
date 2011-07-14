@@ -35,8 +35,9 @@ foreach ($directoryParser as $file) {
     }
     
     $rate = round(100-(($found/$counter)*100),2);
+    $speed = round($counter/(microtime(true)-$start),2);
     $period = get_elapsed($start);
-    print "Found: $found in Total out of $counter ($period - Filter-rate: $rate%)\n";
+    print "Found: $found in Total out of $counter ($period - Filter-rate: $rate%)\t(Speed: $speed lines/sec)\n";
 }
 
 function get_elapsed($start) {

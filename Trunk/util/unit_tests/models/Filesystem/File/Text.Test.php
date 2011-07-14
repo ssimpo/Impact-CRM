@@ -2,7 +2,7 @@
 require_once('globals.php');
 
 /**
- *	Unit Test for the Filesystem_File class.
+ *	Unit Test for the Filesystem_File_text class.
  *
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.1.1

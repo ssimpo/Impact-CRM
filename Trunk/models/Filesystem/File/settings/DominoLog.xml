@@ -22,7 +22,7 @@
         label="Date Time" description="" />
     <param
         name="method request protocol"
-        type="regx" value="/.*?] &quot;(.*?) (.*?) (.*?)&quot;/"
+        type="regx" value="/.*?] &quot;(.*?) ([^&quot;]+) (.*?)&quot;/"
         label="Request Method/Request/Protocol" description="" />
     <param
         name="status size"
