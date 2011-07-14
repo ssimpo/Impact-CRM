@@ -53,10 +53,81 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
                 $parsed['agent_'.strtolower($key)] = $value;
             }
         }
+        if ($parsed['cookie']) {
+            $parsed['cookie'] = $this->_parse_cookie($parsed['cookie']);
+        }
         
         $parsed['datetime'] = $this->dateparser->parse($parsed['datetime']);
         
         return $parsed;
+    }
+    
+    private function _parse_cookie($cookiesText) {
+        if (trim($cookiesText) == '') {
+            return array();
+        }
+        $parts = $this->_get_cookie_parts($cookiesText);
+        $cookies = $this->_get_named_cookies($parts);
+        foreach ($cookies as $name => $value) {
+            $cookies[$name] = $this->_parse_cookie_values($value);
+        }
+        
+        return $cookies;
+    }
+    
+    private function _parse_cookie_values($cookie) {
+        $parts = preg_split('/\&amp;|\&/',urldecode($cookie));
+        if (count($parts) == 1) {
+            return $cookie;
+        }
+    
+        $values = array();
+        foreach ($parts as $part) {
+            $found = preg_match('/\A(.*?)=(.*)\Z/',$part,$matches);
+            if ($found == 1) {
+                $values[trim($matches[1])] = $matches[2];
+            } else {
+                $found = preg_match('/\A[A-Za-z0-9]+\Z/',$part,$matches);
+                if ($found == 1) {
+                    $values[$part] = null;
+                } else {
+                    array_push($values,$part);
+                }
+            }
+        }
+        
+        return I::array_trim($values);
+    }
+    
+    private function _get_named_cookies($parts) {
+        $cookies = array();
+        
+        foreach ($parts as $part) {
+            $found = preg_match('/\A(.*?)=(.*)\Z/',$part,$matches);
+            if ($found == 1) {
+                $cookies[trim($matches[1])] = $matches[2];
+            } else {
+                $found = preg_match('/\A[A-Za-z0-9]+\Z/',$part,$matches);
+                if ($found == 1) {
+                    $cookies[$part] = null;
+                } else {
+                    array_push($cookies,$part);
+                }
+            }
+        }
+        
+        return I::array_trim($cookies);
+    }
+    
+    private function _get_cookie_parts($cookieText) {
+        $parts = explode(';',$cookieText);
+        $parts2 = array();
+        
+        foreach ($parts as $part) {
+            $parts2 = array_merge(explode('|',$part),$parts2);
+        }
+        
+        return I::array_trim($parts2);
     }
     
     public function write($data,$filter='') {

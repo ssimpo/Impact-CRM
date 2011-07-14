@@ -27,6 +27,10 @@ class Filesystem_Path extends Base {
 		}
 	}
 	
+	public function __toString() {
+		return $this->fullpath;
+	}
+	
 	/**
 	 *	Generic get property method.
 	 *

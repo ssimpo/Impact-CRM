@@ -2,10 +2,10 @@
 defined('DIRECT_ACCESS_CHECK') or die;
 
 /**
- *  Lotus/IBM Domino CSV class
+ *  CSV handling class
  *  
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.3
+ *	@version 0.0.5
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
@@ -78,23 +78,94 @@ class Filesystem_File_Csv extends  Filesystem_File_Text {
         if ($this->firstLineHeaders) {
             rewind($this->handle);
             $this->position = -1;
-            $this->headers = array();
+            $this->parseAs = array();
             
             $line = parent::next();
             if (!is_null($line)) {
                 $this->headers = $this->parse($line);
+                $this->_init_headers(count($this->headers));
             }
         }
         
         $this->position = 0;
     }
     
+    /**
+     *  Set the datatype of a particular column.
+     *
+     *  @public
+     *  @param string|int $field Column name or number to set.
+     *  @param string $type The datatype or the column (eg. int|string|datetime).
+     */
     public function set_data_type($field,$type) {
-        $this->parseAs[$field] = $type;
+        if (is_int($field)) {
+            $this->_init_headers($field);
+            $this->parseAs[$field-1] = strtolower($type);
+        } else {
+            $found = $this->_get_header_index($field);
+            if ($found !== false) {
+                $this->parseAs[$found] = strtolower($type);
+            } else {
+                throw new Exception('Unknown column "'.$field.'".');
+            }
+        }
     }
     
+    /**
+     *  Set the header-name for a specfic column.
+     *
+     *  @public
+     *  @param int $index The column number (1-n).
+     *  @param string $name The name to give to this column.
+     */
     public function set_header($index,$name) {
-        $this->headers[$index] = $name;
+        if (is_int($index)) {
+            $this->_init_headers($index);
+            $this->headers[$index-1] = $name;
+        } else {
+            $found = $this->_get_header_index($index);
+            if ($found !== false) {
+                $this->headers[$found] = $name;
+            } else {
+                throw new Exception('Unknown column "'.$index.'".');
+            }
+        }
+    }
+    
+    /**
+     *  Find the header index for the given value/string.
+     *
+     *  Will return the index (-1 as array starts from zero) if the supplied
+     *  value is numeric.  If a string is given then a search will be done
+     *  for the given header and its column-number returned.  If no index is
+     *  found, false will be returned.
+     *
+     *  @private
+     *  @param int|string $index The index/field-name to get the index of.
+     *  @return int|boolean
+     */
+    private function _get_header_index($index) {
+        if (is_numeric($index)) {
+            return $index-1;
+        } else {
+            return array_search(field,$this->headers);
+        }
+    }
+    
+    /**
+     *  Initialize the headers.
+     *
+     *  @private
+     */
+    private function _init_headers($end) {
+        for ($i = 0; $i < $end; $i++) {
+            if (!isset($this->headers[$i])) {
+                $this->headers[$i] = 'Col'.$index;
+            }
+            if (!isset($this->parseAs[$i])) {
+                $this->parseAs[$i] = 'text';
+            }
+        }
     }
     
     /**
@@ -117,6 +188,13 @@ class Filesystem_File_Csv extends  Filesystem_File_Text {
         return $newArray;
     }
     
+    /**
+     *  Convert an indexed array into one using the column headers.
+     *
+     *  @private
+     *  @param array() $array The array to convert.
+     *  @param array()
+     */
     private function _use_column_headers($array) {
         $newArray = array();
         for ($i = 0; $i < count($array); $i++) {
@@ -126,26 +204,47 @@ class Filesystem_File_Csv extends  Filesystem_File_Text {
                 $newArray[$i] = $array[$i];
             }
         }
-    
+        
         return $newArray;
     }
     
+    /**
+     *  Convert the given value according to the type for the set column.
+     *
+     *  @private
+     *  @param string $value The value to convert
+     *  @param int $index The column, which the value belongs to.
+     *  @return mixed The converted value.
+     */
     private function _get_correct_type($value,$index) {
-        if (isset($this->headers[$index])) {
-            $index = $this->headers[$index];
-        }
-       
-        $type = 'text';
-        if (isset($this->parseAs[$index])) {
-            $type = $this->parseAs[$index];
-        }
+        $type = $this->_get_column_type($index);
         
-        switch (strtolower($type)) {
+        switch ($type) {
             case 'int': case 'integer': return $this->_get_int_value($value);
             case 'float': case 'double': case 'real': return (float) $value;
             case 'date': return $this->_get_date_value($value);
             case 'boolean': return $this->_get_boolean_value($value);
             default: return $value;
+        }
+    }
+    
+    /**
+     *  Get the type for a given column.
+     *
+     *  @private
+     *  @param int|string $index The column index.
+     *  @return string The column type.
+     */
+    private function _get_column_type($index) {
+        $index = $this->_get_header_index($index);
+        if ($index === false) {
+            throw new Exception('Unknown column "'.$index.'".');
+        }
+    
+        if (isset($this->parseAs[$index])) {
+            return $this->parseAs[$index];
+        } else {
+            return 'text';
         }
     }
     
@@ -204,6 +303,13 @@ class Filesystem_File_Csv extends  Filesystem_File_Text {
         return $date;
     }
     
+    /**
+     *  Parse the colunms so that line-breaks and quotes are handled.
+     *
+     *  @private
+     *  @param array() The array to parse.
+     *  @return array()
+     */
     private function _parse_columns($columns) {
         for ($i = 0; $i < count($columns); $i++) {
             $columns[$i] = preg_replace('/\A"|"[\n\r\f]+\Z|"\Z/','',$columns[$i]);
@@ -233,6 +339,9 @@ class Filesystem_File_Csv extends  Filesystem_File_Text {
         $line = '';
         foreach ($row as $colValue) {
             $colValue = str_replace('"','""',$colValue);
+            if ($line != '') {
+                $line .= ',';
+            }
             $line .= '"'.$colValue.'"';
         }
         return $line."\n";
