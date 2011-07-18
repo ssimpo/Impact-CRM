@@ -10,6 +10,9 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@package Filesystem
  */
 class Filesystem_File_Text extends Filesystem implements Filesystem_File_Object {
+	private $cache = array();
+	private $cacheSize = 2500;
+	private $cachePosition = -1;
 	
 	/**
 	 *	Open the specified file, using the given method and store filehandle.
@@ -32,6 +35,19 @@ class Filesystem_File_Text extends Filesystem implements Filesystem_File_Object 
      *  @return string The line from the open filehandle.
      */
     public function next() {
+		if (($this->cachePosition == -1) || ($this->cachePosition >= count($this->cache))) {
+			$this->_load_cache();
+			if ($this->cachePosition == -1) {
+				return null;
+			}
+		}
+		
+		$line = $this->cache[$this->cachePosition];
+		$this->cachePosition++;
+		return $line;
+    }
+	
+	private function _get_next_line() {
 		if ($this->_is_resource()) {
 			if ($this->handle) {
 				if (!feof($this->handle)) {
@@ -40,9 +56,23 @@ class Filesystem_File_Text extends Filesystem implements Filesystem_File_Object 
 				}
 			}
 		}
+	}
+	
+	private function _load_cache() {
+		$this->cache = array();
+		$this->cachePosition = -1;
 		
-		return null;
-    }
+		for ($i = 0; $i < $this->cacheSize; $i++) {
+			$line = $this->_get_next_line();
+			if (!is_null($line)) {
+				$this->cache[$i] = $line;
+			} else {
+				break;
+			}
+		}
+		
+		$this->cachePosition = 0;
+	}
 	
 	public function write($data) {
 		if ($this->_is_resource()) {
