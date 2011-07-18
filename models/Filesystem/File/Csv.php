@@ -5,7 +5,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *  CSV handling class
  *  
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.5
+ *	@version 0.0.6
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
@@ -16,6 +16,8 @@ class Filesystem_File_Csv extends  Filesystem_File_Text {
     private $filters = array();
     private $parseAs = array();
     public $firstLineHeaders = false;
+    public $comma = ',';
+    public $quotes = '"';
     
     /**
      *  Constructor
@@ -112,7 +114,7 @@ class Filesystem_File_Csv extends  Filesystem_File_Text {
     }
     
     /**
-     *  Set the header-name for a specfic column.
+     *  Set the header-name for a specific column.
      *
      *  @public
      *  @param int $index The column number (1-n).
@@ -174,7 +176,8 @@ class Filesystem_File_Csv extends  Filesystem_File_Text {
      *  @return array() The results of the parsing.
      */
     public function parse($line) {
-        $array = preg_split('/,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/',$line);
+        $matcher = $this->_get_line_splitting_regx();
+        $array = preg_split($matcher,$line);
         $array = $this->_parse_columns($array);
         if ($this->position != -1) {
             $array = $this->_use_column_headers($array);
@@ -186,6 +189,13 @@ class Filesystem_File_Csv extends  Filesystem_File_Text {
         }
     
         return $newArray;
+    }
+    
+    private function _get_line_splitting_regx() {
+        $matcher = '/\,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/';
+        $matcher = str_replace(',',$this->comma,$matcher);
+        $matcher = str_replace('"',$this->quotes,$matcher);
+        return $matcher;
     }
     
     /**
@@ -304,18 +314,19 @@ class Filesystem_File_Csv extends  Filesystem_File_Text {
     }
     
     /**
-     *  Parse the colunms so that line-breaks and quotes are handled.
+     *  Parse the columns so that line-breaks and quotes are handled.
      *
      *  @private
      *  @param array() The array to parse.
      *  @return array()
      */
     private function _parse_columns($columns) {
-        for ($i = 0; $i < count($columns); $i++) {
-            $columns[$i] = preg_replace('/\A"|"[\n\r\f]+\Z|"\Z/','',$columns[$i]);
-            $columns[$i] = str_replace('""','"',$columns[$i]);
+        foreach ($columns as $key => $value) {
+            $columns[$key] = preg_replace('/[\n\r\f]+\Z/','',$columns[$key]);
+            $columns[$key] = str_replace(
+                $this->quotes.$this->quotes,$this->quotes,$columns[$key]
+            );
         }
-        
         return $columns;
     }
     
@@ -338,11 +349,13 @@ class Filesystem_File_Csv extends  Filesystem_File_Text {
     public function rebuild_line($row) {
         $line = '';
         foreach ($row as $colValue) {
-            $colValue = str_replace('"','""',$colValue);
+            $colValue = str_replace(
+                $this->quotes,$this->quotes.$this->quotes,$colValue
+            );
             if ($line != '') {
-                $line .= ',';
+                $line .= $this->comma;
             }
-            $line .= '"'.$colValue.'"';
+            $line .= $this->quotes.$colValue.$this->quotes;
         }
         return $line."\n";
     }
