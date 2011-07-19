@@ -366,16 +366,16 @@ class Report_Request extends Base implements Iterator {
 	 *	@return string*32
 	 */
 	private function _get_user_unid(&$data) {
-		$unid = false;
+		$userId = false;
 		
 		if ($this->useGoogleAnalytics) {
-			$unid = $this->_get_google_analytics_user($data);
+			$userId = $this->_get_google_analytics_user($data);
 		}
-		if ($unid === false) {
+		if ($userId === false) {
 			return $this->_get_hash($data['ip'].$data['agent']);
 		}
     
-		return $unid;
+		return $userId;
 	}
 	
 	/**
