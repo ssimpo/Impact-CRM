@@ -53,7 +53,7 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
                 $parsed['agent_'.strtolower($key)] = $value;
             }
         }
-        if ($parsed['cookie']) {
+        if (isset($parsed['cookie'])) {
             $parsed['cookie_text'] = $parsed['cookie'];
             $parsed['cookie'] = $this->_parse_cookie($parsed['cookie']);
         }
