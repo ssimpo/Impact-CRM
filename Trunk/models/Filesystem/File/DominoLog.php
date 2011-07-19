@@ -54,6 +54,7 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
             }
         }
         if ($parsed['cookie']) {
+            $parsed['cookie_text'] = $parsed['cookie'];
             $parsed['cookie'] = $this->_parse_cookie($parsed['cookie']);
         }
         
@@ -161,7 +162,7 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
         .$data['method'].' '.$data['request'].' '.$data['protocol']
         .'" '.$data['status'].' '.$data['size'].' "'
         .$data['referer'].'" "'.$data['agent']
-        .'" '.$data['processing_time'].' "'.$data['cookie'].'" "'
+        .'" '.$data['processing_time'].' "'.$data['cookie_text'].'" "'
         .$data['server_path'].'"'."\n";
         
     }
