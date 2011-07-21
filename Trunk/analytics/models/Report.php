@@ -42,39 +42,150 @@ class LogReport extends Base {
 	}
 	
 	public function parse($data) {
+		$user = '';
+		if ($this->has_user($data)) {
+			$user = $this->get_user($data);
+		} else {
+			$user = $this->_create_user($data);
+		}
 		
+		$session = '';
+		if ($this->has_session($data)) {
+			$session = $this->get_session($data);
+		} else {
+			$session = $this->_create_session($data);
+		}
+		
+		$now = $data['datetime']->epoc;
+		if (($session['time']+(30*60)) < $now) {
+			$this->_on_end_session($session['id']);
+			$session = $this->_create_session($data);
+		} else {
+			$session['time'] = $now;
+		}
 	}
 	
 	public function has_session($sessionId) {
 		return isset($this->sessions[$sessionId]);
+		
+		if (is_string($sessionId)) {
+			return isset($this->users[$sessionId]);
+		} elseif (is_array($sessionId)) {
+			$userId = $this->_get_user_id($sessionId);
+			$user = $this->get_user($userId);
+			$sessionId = $user['session'];
+			if ($sessionId != '' ) {
+				return isset($this->sessions[$sessionId]);	
+			} else {
+				return false;
+			}
+		}
 	}
 	
-	public function get_session($sessionId) {
-		$data = array();
-		if (!is_string($sessionId)) {
-			$data = $sessionId;
-			$sessionId = $this->_get_session_id($data);
+	public function &get_session($sessionId) {
+		if (is_string($sessionId)) {
+			if ($this->has_session($sessionId)) {
+				return $this->sessions[$sessionId];
+			}
+		} elseif (is_array($userId)) {
+			$userId = $this->_get_session_id($sessionId);
+			if ($this->has_session($sessionId)) {
+				return $this->sessions[$sessionId];
+			}
 		}
-		if (!$this->has_session($sessionId)) {
-			$this->_create_session($data,$sessionId);
-		}
-		return $this->sessions[$sessionId];
+		
+		throw new Exception('Cannot not find the specified session.');
 	}
 	
+	private function &_create_session(&$data) {
+		$sessionId = $this->_get_session_id($data);
+		if ($this->has_session($sessionId)) {
+			return $this->get_session($sessionId);
+		}
+		
+		$this->sessions[$sessionId] = $this->_create_session_array($sessionId);
+		$this->sessions[$sessionId]['time'] = $data['datetime']->epoc;
+		$user = $this->_create_user($data);
+		$this->sessions[$sessionId]['user'] = $user['id'];
+		$this->_on_new_session($sessionId);
+		
+		return $this->sessions[$userId];
+	}
+	
+	private function _create_session_array($sessionId) {
+		$user = array(
+			'user' => '', 'session' => $sessionId
+		);
+		
+		return $user;
+	}
+	
+	/**
+	 *	Is there a user in the system relating to the data supplied.
+	 *
+	 *	Assumes that a userId is given and will check that user is defined. If
+	 *	an array is given then calculate the userId from that array and then
+	 *	check if calculated user is defined.
+	 *
+	 *	@public
+	 *	@param string|array() $userId The ID of the user to check or data to calculate a user from.
+	 *	@return boolean
+	 */
 	public function has_user($userId) {
-		return isset($this->users[$userId]);
+		if (is_string($userId)) {
+			return isset($this->users[$userId]);
+		} elseif (is_array($userId)) {
+			$userId = $this->_get_user_id($userId);
+			return isset($this->users[$userId]);
+		}
 	}
 	
-	public function get_user($userId) {
-		$data = array();
-		if (!is_string($userId)) {
-			$data = $userId;
-			$userId = $this->_get_user_id($data);
+	/**
+	 *	Get the specified user-data
+	 *
+	 *	Assumes that a userId is given and will check that user is defined and
+	 *	return an array reference if it is. If an array is given then calculate
+	 *	the userId from that array and then return it's data.
+	 *
+	 *	@public
+	 *	@param string|array() $userId The ID of the user to get or data to calculate a user from.
+	 *	@return array()
+	 */
+	public function &get_user($userId) {
+		if (is_string($userId)) {
+			if ($this->has_user($userId)) {
+				return $this->users[$userId];
+			}
+		} elseif (is_array($userId)) {
+			$userId = $this->_get_user_id($userId);
+			if ($this->has_user($userId)) {
+				return $this->users[$userId];
+			}
 		}
-		if (!$this->has_user($userId)) {
-			$this->_create_user($data,$userId);
+		
+		throw new Exception('Cannot not find the specified user.');
+	}
+	
+	private function &_create_user(&$data) {
+		$userId = $this->_get_user_id($userId);
+		if ($this->has_user($userId)) {
+			return $this->get_user($userId);
 		}
+		
+		$this->users[$userId] = $this->_create_user_array($userId);
+		$session = $this->create_session($data);
+		$this->users[$userId]['session'] = $session['id'];
+		$this->_on_new_user($userId);
+		
 		return $this->users[$userId];
+	}
+	
+	private function _create_user_array($userId) {
+		$user = array(
+			'user' => $userId, 'session' => ''
+		);
+		
+		return $user;
 	}
 	
 	/**
@@ -289,38 +400,14 @@ class LogReport extends Base {
 		return $is_numeric_indexed;
 	}
 	
-	private function _create_session(&$data,$sessionId='') {
-		if ($sessionId == '') {
-			$sessionId = $this->_get_session_id($data);
+	private function _get_session_id(&$data) {
+		$sessionId = '';
+		if ($this->has_session($data)) {
+			$session = $this->get_session($data);
+			return $session['id'];
 		} else {
-			if (!$this->has_session($sessionId)) {
-				$sessionId = $this->_get_session_id($data);
-			}
+			return $this->_get_hash(microtime());
 		}
-		
-		if (!$this->has_session($userId)) {
-			$this->sessions[$sessionId] = array();
-			$this->_on_new_session($sessionId);
-		}
-		
-		return $this->get_session($sessionId);
-	}
-	
-	private function _create_user(&$data,$userId='') {
-		if ($userId == '') {
-			$userId = $this->_get_user_id($data);
-		} else {
-			if (!$this->has_user($userId)) {
-				$userId = $this->_get_user_id($data);
-			}
-		}
-		
-		if (!$this->has_user($userId)) {
-			$this->users[$userId] = array();
-			$this->_on_new_user($userId);
-		}
-		
-		return $this->get_user($userId);
 	}
 	
 	/**
