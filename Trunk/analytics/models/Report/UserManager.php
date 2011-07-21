@@ -7,16 +7,14 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	User/Session Manager class, for log reporting.
  *	
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.1
+ *	@version 0.0.2
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Report
  */
 class Report_UserManager extends Base implements Iterator {
-	private $sessions;
-	private $position;
-	private $order;
-	private $log;
-	private $lastLine = null;
+	private $callers;
+	private $eventTypes = array('onNewSession','onEndSession','onNewUser');
+	private $users;
 	
 	public $useGoogleAnalytics = false;
 	
@@ -25,314 +23,219 @@ class Report_UserManager extends Base implements Iterator {
 	}
 	
 	private function _init() {
-		$this->sessions = array();
-		$this->users = array();
-		$this->log = array();
 		$this->useGoogleAnalytics = false;
-		$this->position = -1;
-		$this->order = null;
+		$this->_init_callers();
+		$this->users = array();
 	}
 	
-	/**
-	 *	Call all the initialization code again.
-	 *
-	 *	Method will effectively call all the initialization code again,
-	 *	resetting all the internal arrays and logs.
-	 *	
-	 *	@public
-	 */
+	private function _init_callers() {
+		$this->clear_all_events();
+		foreach ($this->eventTypes as $type) {
+			$this->callers[$type] = array();
+		}
+	}
+	
 	public function reset() {
 		$this->_init();
 	}
 	
-	public function next() {
-		if ($this->position == -1) {
-			$this->rewind();
+	public function handle_request(&$data) {
+		$userId = $this->_get_user_id($data);
+		if (!isset($this->users[$userId])) {
+			$this->users[$userId] = new Report_UserManager_User(
+				array($this,'on_new_session'),
+				array($this,'on_end_session')
+			);
+			$this->on_new_user($this->users[$userId]);
 		}
 		
-		$unid = $this->order[$this->position];
-		$this->lastLine = $this->log[$unid];
-		$this->position++;
-		return $this->lastLine;
+		$this->handle_request($data);
 	}
 	
-	public function rewind() {
-		foreach ($this->sessions as $userID => $session) {
-			$this->_add_exit($userID);
-			if ($session['count'] == 1) {
-				$this->_add_bounce($userID);
+	/**
+	 *	Attach an class-method to a particular event.
+	 *
+	 *	Attach an event, if the event is available for attaching and the
+	 *	event is not already attached to by the specified caller.  Hence, it
+	 *	will not allow the same object+method pair to be attached twice.  It
+	 *	will allow different instance of the same class.
+	 *
+	 *	@public
+	 *	@param string $type The event type to attach to.
+	 *	@param object|array The object to use or an array containing object + method-name.
+	 *	@param string The name of the method to call.
+	 *	@return boolean Did it attach?
+	 */
+	public function attach_event($type,$caller,$method='') {
+		$caller = $this->_create_caller($caller,$method);
+		if (isset($this->callers[$type])) {
+			$found = $this->_search_callers($type,$caller);
+			if (empty($found)) {
+				array_push($this->callers[$type],$caller);
+				return true;
 			}
+		} else {
+			throw new Exception('Unknown event type "'.$type.'"');
 		}
 		
-		uasort($this->log, array($this,'_hits_sort'));
-		
-		$this->position = 0;
-		$this->order = array_keys($this->log);
-	}
-	
-	public function current() {
-		return $this->lastLine;
-	}
-	
-	public function valid() {
-		if (($this->position > -1) && ($this->position < count($this->log))) {
-			return true;
-		}
 		return false;
 	}
 	
-	public function key() {
-		return $this->position;
-	}
-	
-	public function all() {
-	}
-	
-	
 	/**
-	 *	Parse a set of data.
+	 *	Remove an attached event.
 	 *
 	 *	@public
-	 *	@param array() $data The data to parse (usually equating to a parsed log-line).
+	 *	@param string $type The event type to unattached from.
+	 *	@param object|array The object to use or an array containing object + method-name.
+	 *	@param string The name of the method to call.
+	 *	@return boolean Did it unattached?
 	 */
-	public function parse(&$data) {
-		$uri = $this->_store_uri($data);
-		
-		if ($uri != '') {
-			$uriRef = $this->_get_hash($data,'URI');
-			$this->_add_hit($data,$uriRef);
-			$this->_add_processing_time($data,$uriRef);
-		
-			$userRef = $this->_get_user_unid($data);
-			$this->_add_user_hit($data,$userRef,$uriRef);
-		
-			$sessionID = $this->_handle_sessions($data,$userRef);
-			$this->_add_session_hit($data);
-		}
-	}
-	
-	private function _hits_sort($a, $b) {
-		if ($a['hits'] == $b['hits']) {
-			if (count($a['sessions']) == count($b['sessions'])) {
-				if (count($a['users']) == count($b['users'])) {
-					return 0;
-				}
-				return (count($a['users']) > count($b['users'])) ? -1 : 1;
+	public function remove_event($type,$caller,$method='') {
+		if (isset($this->callers[$type])) {
+			$found = $this->_search_callers($type,$caller,$method);
+			for ($i = 0; $i < count($found); $i++) {
+				unset($this->callers['onNewSession'][$found[$i]]);
 			}
-			return (count($a['sessions']) > count($b['sessions'])) ? -1 : 1;
-		}
-		return ($a['hits'] > $b['hits']) ? -1 : 1;
-	}
-	
-	/**
-	 *	Add a user-hit for the given data.
-	 *
-	 *	@param array() $data The data to use for creating a hit.
-	 *	@param string*32 $userID The internal UNID to use for the user
-	 *	@param string*32 $unid The internal UNID to use for the URI
-	 */
-	private function _add_user_hit(&$data,$userID,$unid) {
-		if (!isset($this->log[$unid]['users'][$userID])) {
-			$this->log[$unid]['users'][$userID] = 1;
 		} else {
-			$this->log[$unid]['users'][$userID]++;
+			throw new Exception('Unknown event type "'.$type.'"');
 		}
 	}
 	
 	/**
-	 *	Add a user-hit for the given data.
+	 *	Clear all attached events of a specified type.
 	 *
-	 *	@param array() $data The data to use for creating a hit.
-	 *	@param string*32 $unid The internal UNID to use for the URI (a UNID is generated if no ID is supplied).
-	 *	@param string*32 $unid The internal UNID to use for the user (a UNID is generated if no ID is supplied).
+	 *	@public
+	 *	@param string $type The type of event to clear.
+	 *	@return boolean Did it clear?
 	 */
-	private function _add_session_hit(&$data,$uriRef='',$unid='') {
-		if ($uriRef == '') {
-			$uriRef = $this->_get_hash($data,'URI');
-		}
-		if ($unid == '') {
-			$unid = $this->_get_user_unid($data);
-		}
-		
-		$sessionID = $this->sessions[$unid]['id'];
-		if (!isset($this->log[$uriRef]['sessions'][$sessionID])) {
-			$this->log[$uriRef]['sessions'][$sessionID] = 1;
+	public function clear_event($type) {
+		if (isset($this->callers[$type])) {
+			$this->callers[$type] = array();
 		} else {
-			$this->log[$uriRef]['sessions'][$sessionID]++;
+			throw new Exception('Unknown event type "'.$type.'"');
 		}
 	}
 	
 	/**
-	 *	Add a hit for the given data.
+	 *	Clear all attached events.
 	 *
-	 *	@param array() $data The data to use for creating a hit.
-	 *	@param string*32 $unid The internal UNID to use (a UNID is generated if no ID is supplied).
+	 *	@public
+	 *	@return boolean Did it clear?
 	 */
-	private function _add_hit(&$data,$unid='') {
-		if ($unid == '') {
-			$unid = $this->_get_hash($data,'URI');
-		}
-		
-		if (!isset($this->log[$unid])) {
-			$this->_new_log_entry($data,$unid);
-		} else {
-			$this->log[$unid]['hits']++;
-		}
+	public function clear_all_events() {
+		$this->callers = array();
+		return true;
 	}
 	
 	/**
-	 *	Add a exit-hit for the given URI.
-	 *	
-	 *	@param string*32 $unid The userID to get the URI from.
-	 */
-	private function _add_exit($unid) {
-		$uriRef = $this->_get_hash($this->sessions[$unid],'lastpage');
-		
-		if (isset($this->log[$uriRef])) {
-            $this->log[$uriRef]['exit']++;
-        }
-	}
-	
-	/**
-	 *	Add a bounce-hit for the given URI.
-	 *	
-	 *	@param string*32 $unid The userID to get the URI from.
-	 */
-	private function _add_bounce($unid) {
-		$uriRef = $this->_get_hash($this->sessions[$unid],'lastpage');
-		
-		if (isset($this->log[$uriRef])) {
-            $this->log[$uriRef]['bounce']++;
-        }
-	}
-	
-	/**
-	 *	Add a entrance-hit for the given URI.
-	 *	
-	 *	@param array() $data The data to use for creating a hit.
-	 *	@param string*32 $unid The internal UNID to use (a UNID is generated if no ID is supplied).
-	 */
-	private function _add_entrance($data,$unid='') {
-		if ($unid == '') {
-			$unid = $this->_get_hash($data,'URI');
-		}
-		
-		$this->log[$unid]['entrance']++;
-	}
-	
-	/**
-	 *	Add processing-time for the given data.
+	 *	Search for a specified caller, attached to the specified event.
 	 *
-	 *	@param array() $data The data to used for creating processing-time log.
-	 *	@param string*32 $unid The internal UNID to use (a UNID is generated if no ID is supplied).
+	 *	@public
+	 *	@param string $type The event type to search.
+	 *	@param object|array The object to use or an array containing object + method-name.
+	 *	@param string The name of the method to call.
+	 *	@return array() The found attached callers.
 	 */
-	private function _add_processing_time(&$data,$unid='') {
-		if ($unid == '') {
-			$unid = $this->_get_hash($data,'URI');
-		}
+	private function _search_callers($type,$caller,$method='') {
+		$caller = $this->_create_caller($caller,$method);
+		$found = array();
 		
-		if (isset($data['processing_time'])) {
-			if ($this->log[$unid]['server_time'] == 0) {
-				$this->log[$unid]['server_time'] = $data['processing_time'];
-			} else {
-				$average = (($this->log[$unid]['server_time']+$data['processing_time'])/2);
-				$this->log[$unid]['server_time'] = $average;
+		if (isset($this->callers[$type])) {
+			foreach ($this->callers[$type] as $id => $callerArray) {
+				array_push($found,$id);
 			}
-		}
-	}
-	
-	/**
-	 *	Add a the page time for a URI.
-	 *	
-	 *	@param string*32 $unid The userID to get the URI from.
-	 *	@param int $now The current time we are processing.
-	 */
-	private function _add_page_time($unid,$now) {
-		$uriRef = $this->_get_hash($this->sessions[$unid],'lastpage');
-		
-		if (isset($this->log[$uriRef])) {
-            $period = abs($now - $this->sessions[$unid]['time']);
-            if ($this->log[$uriRef]['time'] == 0) {
-                $this->log[$uriRef]['time'] = $period;
-            } else {
-                $this->log[$uriRef]['time'] = (($period+$this->log[$uriRef]['time'])/2);
-            }
-        }
-	}
-	
-	private function _handle_sessions(&$data,$unid='') {
-		if ($unid == '') {
-			$unid = $this->_get_user_unid($data);
-		}
-		
-		$sessionID = '';
-		$now = $data['datetime']->epoc;
-		if (!isset($this->sessions[$unid])) {
-			$sessionID = $this->_add_new_session($data,$unid);
-			$this->_add_entrance($data);
 		} else {
-			$sessionID = $this->sessions[$unid]['id'];
-			
-			if (($this->sessions[$unid]['time']+(30*60)) < $now) {
-				$this->_add_exit($unid);
-				$this->_add_entrance($data);
-				$sessionID = $this->_get_hash(microtime());
-				$this->sessions[$unid]['id'] = $sessionID;
-				if ($this->sessions[$unid]['count'] == 1) {
-					$this->_add_bounce($unid);
-				}
-				$this->sessions[$unid]['count'] = 1;
-			} else {
-				$this->sessions[$unid]['count']++;
-				$this->_add_page_time($unid,$now);
-			}
+			throw new Exception('Unknown event type "'.$type.'"');
 		}
 		
-		$this->_set_session_start($unid,$now);
-		$this->sessions[$unid]['lastpage'] = $data['URI'];
-		
-		return $sessionID;
+		return $found;
 	}
 	
 	/**
-	 *	Generate a new session
+	 *	Create a method calling array.
 	 *
-	 *	@return string*32 The generated sessionID.
-	 */
-	private function _add_new_session(&$data,$unid='') {
-		if ($unid == '') {
-			$unid = $this->_get_user_unid($data);
-		}
-		
-		$sessionRef = $this->_get_hash(microtime());
-		$this->sessions[$unid] = array(
-			'id'=>$sessionRef, 'count' => 1
-		);
-		
-		return $sessionRef;
-	}
-	
-	private function _set_session_start($unid,$time) {
-		$this->sessions[$unid]['time'] = $time;
-	}
-	
-	/**
-	 *	Add a blank entry for the given data.
+	 *	The standard PHP 'caller array' consists of array(<Object>,<Method>),
+	 *	and can be used in call_user_func() and related functions.
 	 *
 	 *	@private
-	 *	@param array() $data The data to use for creating a entry.
-	 *	@param string*32 $unid The internal reference for a given URI.
+	 *	@param object|array $caller An object instance or a caller-array.
+	 *	@param string $method The method-name to call.
+	 *	@return array() The caller-array.
 	 */
-	private function _new_log_entry(&$data,$unid) {
-		$uriRef = $this->_get_hash($data['URI']);
-		if (!isset($this->log[$unid])) {
-			$this->log[$unid] = array(
-				'value' => $data['URI'], 'hits' => 1,
-				'users' => array(), 'sessions' => array(),
-				'entrance' => 0, 'exit' => 0,
-				'bounce' => 0, 'time' => 0,
-				'server_time' => 0
-			);
+	private function _create_caller($caller,$method='') {
+		if (($method == '') && (is_array($caller))) {
+			return $caller;
+		} elseif (($method != '') && (!is_array($caller))) {
+			return array($caller,$method);
+		}
+		
+		throw new Exception('Unable to create method calling array.');
+	}
+	
+	public function on_new_session($user) {
+		foreach ($this->callers['onNewSession'] as $caller) {
+			$this->_call_user_func_array($caller[0],$caller[1],$user);
+		}
+	}
+	
+	public function on_end_session($user) {
+		foreach ($this->callers['onEndSession'] as $caller) {
+			$this->_call_user_func_array($caller[0],$caller[1],$user);
+		}
+	}
+	
+	public function on_new_user($user) {
+		foreach ($this->callers['onNewUser'] as $caller) {
+			$this->_call_user_func_array($caller[0],$caller[1],$user);
+		}
+	}
+	
+	/**
+	 *	Replacement for the PHP function call_user_func_array().
+	 *
+	 *	The internal function call_user_func_array, can be quite slow, this is
+	 *	a much faster method if the number of arguments is low.  Assumes that
+	 *	function being called is executed within the scope of an object.
+	 *
+	 *	@private
+	 *	@param object{} $object The object to call a method within.
+	 *	@param string $name The name of the method to call.
+	 *	@param array() $arguments The parameters to send to the method.
+	 *	@return mixed The result of the method.
+	 */
+	private function _call_user_func_array($object,$name,$arguments) {
+		switch (count($arguments)) {
+			case 0: return $object->{$name}();
+			case 1: return $object->{$name}($arguments[0]);
+			case 2: return $object->{$name}($arguments[0],$arguments[1]);
+			case 3: return $object->{$name}($arguments[0],$arguments[1],$arguments[2]);
+			case 4: return $object->{$name}($arguments[0],$arguments[1],$arguments[2],$arguments[3]);
+			default: return call_user_func_array(array($object,$name),$arguments);
+		}
+	}
+	
+	/**
+	 *	Turning an argument into the correct format for calling invokeArgs.
+	 *
+	 *	This method makes assert calling easier.  If a single argument is
+	 *	presented it is wrapped-up in an array an invoked against the method
+	 *	we are currently testing.  If an array is presented, the function
+	 *	checks to see if it is an argument array and then invokes it.  If it
+	 *	fails that test then it is again wrapped in an array and invoked.
+	 *
+	 *	@private
+	 *	@param mixed $args The argument(s) to convert.
+	 *	@return array() An argument list.
+	 */
+	private function _convert_to_arguments_array($args) {
+		if (!is_array($args)) {
+			return array($args);
+		} else {
+			if ($this->_is_numeric_indexed_array($args)) {
+				return $args;
+			} else {
+				return array($args);
+			}
 		}
 	}
 	
@@ -365,13 +268,13 @@ class Report_UserManager extends Base implements Iterator {
 	 *	@param array() $data The data to grab a UNID from.
 	 *	@return string*32
 	 */
-	private function _get_user_unid(&$data) {
+	private function _get_user_id(&$data) {
 		$userId = false;
 		
 		if ($this->useGoogleAnalytics) {
-			$userId = $this->_get_google_analytics_user($data);
+			$userId = $this->_get_google_analytics_user_id($data);
 		}
-		if ($userId === false) {
+		if ($unid === false) {
 			return $this->_get_hash($data['ip'].$data['agent']);
 		}
     
@@ -387,7 +290,7 @@ class Report_UserManager extends Base implements Iterator {
 	 *	@param array() $data The data to grab the google analytics ID from.
 	 *	@return string*32|boolean The UNID or false if cookie not found.
 	 */
-	private function _get_google_analytics_user(&$data) {
+	private function _get_google_analytics_user_id(&$data) {
 		if (isset($data['cookie'])) {
 			if (isset($data['cookie']['__utma'])) {
 				return $this->_get_hash($data['cookie']['__utma']);
@@ -395,26 +298,6 @@ class Report_UserManager extends Base implements Iterator {
 		}
 		
 		return false;
-	}
-	
-	/**
-	 *	Generate the original URI from the supplied data and store in given array.
-	 *
-	 *	@private
-	 *	@param array() $data The data to use.
-	 *	@param string $itemName The item-name to store the URL under.
-	 *	@return Filesystem_Path The URI.
-	 */
-	private function _store_uri(&$data,$itemName='URI') {
-		$url = $data['domain'].$data['request'];
-		$count = preg_match('/\A(.*?)(?:\/|\Z)/',$data['protocol'],$matches);
-		if ($count > 0) {
-		$url = $matches[1].'://'.$url;
-		}
-		$url = new Filesystem_Path(strtolower($url));
-		
-		$data[$itemName] = $url;
-		return trim($url);
 	}
 }
 ?>
