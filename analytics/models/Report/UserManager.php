@@ -2,16 +2,16 @@
 defined('DIRECT_ACCESS_CHECK') or die;
 
 /*
- *	Report_Request Class
+ *	Report_UserManager Class
  *
- *	Report on log requests - Sessions, Users, hits ...etc.
+ *	User/Session Manager class, for log reporting.
  *	
  *	@author Stephen Simpson <me@simpo.org>
  *	@version 0.0.1
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Report
  */
-class Report_Request extends Base implements Iterator {
+class Report_UserManager extends Base implements Iterator {
 	private $sessions;
 	private $position;
 	private $order;
