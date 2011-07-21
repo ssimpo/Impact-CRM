@@ -22,13 +22,17 @@ class Report_UserManager_User extends Base {
 	private $count;
 	
 	
-	public function __construct() {
+	public function __construct($onNewSession,$onEndSession) {
 		$this->_init($onNewSession,$onEndSession);
 	}
 	
+	public function __destruct() {
+		$this->onEndSession();
+	}
+	
 	private function _init($onNewSession,$onEndSession) {
-		$this->$onNewSession = $onNewSession;
-		$this->$onEndSession = $onEndSession;
+		$this->onNewSession = $onNewSession;
+		$this->onEndSession = $onEndSession;
 		$this->start = false;
 		$this->sessionId = null;
 		$this->count = 0;
@@ -41,7 +45,7 @@ class Report_UserManager_User extends Base {
 		$this->_init();
 	}
 	
-	public function handle_request(&$data) {
+	public function parse(&$data) {
 		if ($this->start === false) {
 			$this->_handle_first_request($data);
 			return;
@@ -95,9 +99,11 @@ class Report_UserManager_User extends Base {
 	}
 	
 	private function _on_end_session() {
-		$this->_call_user_func_array(
-			$this->onEndSession[0],$this->onEndSession[1],$this
-		);
+		if ($this->start !== false) {
+			$this->_call_user_func_array(
+				$this->onEndSession[0],$this->onEndSession[1],$this
+			);
+		}
 	}
 	
 	/**
@@ -132,6 +138,7 @@ class Report_UserManager_User extends Base {
 	 *	@return mixed The result of the method.
 	 */
 	private function _call_user_func_array($object,$name,$arguments) {
+		$arguments = $this->_convert_to_arguments_array($arguments);
 		switch (count($arguments)) {
 			case 0: return $object->{$name}();
 			case 1: return $object->{$name}($arguments[0]);
@@ -156,6 +163,55 @@ class Report_UserManager_User extends Base {
 		} else {
 			return md5($data);
 		}
+	}
+	
+	/**
+	 *	Turning an argument into the correct format for calling invokeArgs.
+	 *
+	 *	This method makes assert calling easier.  If a single argument is
+	 *	presented it is wrapped-up in an array an invoked against the method
+	 *	we are currently testing.  If an array is presented, the function
+	 *	checks to see if it is an argument array and then invokes it.  If it
+	 *	fails that test then it is again wrapped in an array and invoked.
+	 *
+	 *	@private
+	 *	@param mixed $args The argument(s) to convert.
+	 *	@return array() An argument list.
+	 */
+	private function _convert_to_arguments_array($args) {
+		if (!is_array($args)) {
+			return array($args);
+		} else {
+			if ($this->_is_numeric_indexed_array($args)) {
+				return $args;
+			} else {
+				return array($args);
+			}
+		}
+	}
+	
+	/**
+	 *
+	 *	Test if an array is indexed numerically.
+	 *	
+	 *	@private
+	 *	@param Array() $array The array to test.
+	 *	@return	Boolean
+	 */
+	private function _is_numeric_indexed_array($array) {
+		$is_numeric_indexed = true;
+		
+		if (is_array($array)) {
+			foreach ($array as $key => $value) {
+				if (!is_numeric($key)) {
+					$is_numeric_indexed = false;
+				}
+			}
+		} else {
+			throw new Exception('Expected parameter to be an array.');
+		}
+		
+		return $is_numeric_indexed;
 	}
 }
 ?>

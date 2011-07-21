@@ -11,7 +11,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Report
  */
-class Report_UserManager extends Base implements Iterator {
+class Report_UserManager extends Base {
 	private $callers;
 	private $eventTypes = array('onNewSession','onEndSession','onNewUser');
 	private $users;
@@ -38,8 +38,8 @@ class Report_UserManager extends Base implements Iterator {
 	public function reset() {
 		$this->_init();
 	}
-	
-	public function handle_request(&$data) {
+
+	public function parse(&$data) {
 		$userId = $this->_get_user_id($data);
 		if (!isset($this->users[$userId])) {
 			$this->users[$userId] = new Report_UserManager_User(
@@ -49,7 +49,7 @@ class Report_UserManager extends Base implements Iterator {
 			$this->on_new_user($this->users[$userId]);
 		}
 		
-		$this->handle_request($data);
+		$this->users[$userId]->parse($data);
 	}
 	
 	/**
@@ -204,6 +204,7 @@ class Report_UserManager extends Base implements Iterator {
 	 *	@return mixed The result of the method.
 	 */
 	private function _call_user_func_array($object,$name,$arguments) {
+		$arguments = $this->_convert_to_arguments_array($arguments);
 		switch (count($arguments)) {
 			case 0: return $object->{$name}();
 			case 1: return $object->{$name}($arguments[0]);
@@ -274,7 +275,7 @@ class Report_UserManager extends Base implements Iterator {
 		if ($this->useGoogleAnalytics) {
 			$userId = $this->_get_google_analytics_user_id($data);
 		}
-		if ($unid === false) {
+		if ($userId === false) {
 			return $this->_get_hash($data['ip'].$data['agent']);
 		}
     
@@ -298,6 +299,30 @@ class Report_UserManager extends Base implements Iterator {
 		}
 		
 		return false;
+	}
+	
+	/**
+	 *
+	 *	Test if an array is indexed numerically.
+	 *	
+	 *	@private
+	 *	@param Array() $array The array to test.
+	 *	@return	Boolean
+	 */
+	private function _is_numeric_indexed_array($array) {
+		$is_numeric_indexed = true;
+		
+		if (is_array($array)) {
+			foreach ($array as $key => $value) {
+				if (!is_numeric($key)) {
+					$is_numeric_indexed = false;
+				}
+			}
+		} else {
+			throw new Exception('Expected parameter to be an array.');
+		}
+		
+		return $is_numeric_indexed;
 	}
 }
 ?>
