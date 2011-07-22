@@ -24,8 +24,8 @@ class Report_UserManager extends Base {
 	
 	private function _init() {
 		$this->useGoogleAnalytics = false;
+		$this->close_all_sessions();
 		$this->_init_callers();
-		$this->users = array();
 	}
 	
 	private function _init_callers() {
@@ -38,6 +38,10 @@ class Report_UserManager extends Base {
 	public function reset() {
 		$this->_init();
 	}
+	
+	public function close_all_sessions() {
+		$this->users = array();
+	}
 
 	public function parse(&$data) {
 		$userId = $this->_get_user_id($data);
@@ -46,10 +50,31 @@ class Report_UserManager extends Base {
 				array($this,'on_new_session'),
 				array($this,'on_end_session')
 			);
+			$this->users[$userId]->parse($data);
 			$this->on_new_user($this->users[$userId]);
+			return $userId;
+		} else {
+			$this->users[$userId]->parse($data);
+			return $userId;
+		}
+	}
+	
+	public function &get_user($data) {
+		$userId = '';
+		
+		if (is_string($data)) {
+			$userId = $data;
+		} elseif (is_object($data)) {
+			$userId = $this->_get_user_id($data);	
+		} else {
+			return false;
 		}
 		
-		$this->users[$userId]->parse($data);
+		if (isset($this->users[$userId])) {
+			return $this->users[$userId];
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -250,9 +275,9 @@ class Report_UserManager extends Base {
 	 */
 	private function _get_hash($data,$itemName='') {
 		if ($itemName != '') {
-			return md5($data[$itemName]);
+			return md5((string) $data[$itemName]);
 		} else {
-			return md5($data);
+			return md5((string) $data);
 		}
 	}
 	

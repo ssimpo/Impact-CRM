@@ -17,6 +17,7 @@ class Report_UserManager_User extends Base {
 	private $start;
 	private $sessionId ;
 	private $sessionCount;
+	private $sessionStart;
 	private $sessionTime;
 	private $sessionUri;
 	private $count;
@@ -27,7 +28,7 @@ class Report_UserManager_User extends Base {
 	}
 	
 	public function __destruct() {
-		$this->onEndSession();
+		$this->_on_end_session();
 	}
 	
 	private function _init($onNewSession,$onEndSession) {
@@ -37,12 +38,24 @@ class Report_UserManager_User extends Base {
 		$this->sessionId = null;
 		$this->count = 0;
 		$this->sessionCount = 0;
+		$this->sessionStart = false;
 		$this->sessionTime = false;
 		$this->sessionUri = null;
 	}
 	
 	public function reset() {
 		$this->_init();
+	}
+	
+	public function __get($property) {
+		$convertedProperty = I::camelize($property);
+		switch($convertedProperty) {
+			case 'uri': return $this->sessionUri;
+			case 'count': return $this->sessionCount;
+			case 'sessionCount': return $this->count;
+			case 'sessionId': return $this->sessionId;
+			case 'period': return abs($this->sessionTime-$this->sessionStart);
+		}
 	}
 	
 	public function parse(&$data) {
@@ -71,7 +84,8 @@ class Report_UserManager_User extends Base {
 	private function _create_new_session(&$data) {
 		$this->count++;
 		$this->sessionId = $this->_get_hash(microtime());
-		$this->sessionTime = $this->_get_now($data);
+		$this->sessionStart = $this->_get_now($data);
+		$this->sessionTime = $this->sessionStart;
 		$this->sessionUri = $this->_get_uri($data);
 		$this->sessionCount = 1;
 		$this->_on_new_session();
@@ -159,9 +173,9 @@ class Report_UserManager_User extends Base {
 	 */
 	private function _get_hash($data,$itemName='') {
 		if ($itemName != '') {
-			return md5($data[$itemName]);
+			return md5((string) $data[$itemName]);
 		} else {
-			return md5($data);
+			return md5((string) $data);
 		}
 	}
 	
