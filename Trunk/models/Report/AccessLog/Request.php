@@ -39,6 +39,15 @@ class Report_AccessLog_Request extends Report_ReportBase {
 		
 	}
 	
+	public function next() {
+		$key = $this->order[$this->position];
+		$this->current = $this->report[$key];
+		$this->current['users'] = count($this->current['users']);
+		$this->current['sessions'] = count($this->current['sessions']);
+		$this->position++;
+		return $this->current;
+	}
+	
 	/**
 	 *	Create an array for storing on item of data.
 	 *

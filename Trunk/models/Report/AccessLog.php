@@ -32,9 +32,23 @@ class Report_AccessLog extends Report_ReportBase {
 	}
 	
 	public function parse(&$data) {
-		foreach ($this->report as $report) {
-			$report->parse($data);
+		if ($data instanceof Filesystem_File_Object) {
+			return $this->_parse_file($data);
+		} else {
+			foreach ($this->report as $report) {
+				$report->parse($data);
+			}
+			return 1;
 		}
+	}
+	
+	private function _parse_file($file) {
+		$counter = 0;
+		foreach ($file as $line) {
+			$this->parse($line);
+			$counter++;
+		}
+		return $counter;
 	}
 	
 	public function get_report($type) {
