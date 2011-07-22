@@ -38,7 +38,7 @@ class Report_AccessLog extends Report_ReportBase {
 	}
 	
 	public function get_report($type) {
-		$type = strtolower('report_'.$type);
+		$type = strtolower('report_accesslog_'.$type);
 		$ref = $this->_get_hash($type);
 		if (isset($this->report[$ref])) {
 			return $this->report[$ref];
@@ -48,7 +48,7 @@ class Report_AccessLog extends Report_ReportBase {
 	}
 	
 	public function add_report($type) {
-		$type = strtolower('report_'.$type);
+		$type = strtolower('report_accesslog_'.$type);
 		$ref = $this->_get_hash($type);
 		$this->report[$ref] = $this->factory($type);
 		if ((!is_object($this->report[$ref])) || ($type != strtolower(get_class($this->report[$ref])))) {
@@ -61,7 +61,7 @@ class Report_AccessLog extends Report_ReportBase {
 	}
 	
 	public function remove_report($type) {
-		$type = strtolower('report_'.$type);
+		$type = strtolower('report_accesslog_'.$type);
 		$ref = $this->_get_hash($type);
 		if (isset($this->report[$ref])) {
 			unset($this->report[$ref]);
