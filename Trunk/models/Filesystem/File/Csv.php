@@ -9,7 +9,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
-class Filesystem_File_Csv extends  Filesystem_File_Text {
+class Filesystem_File_Csv extends Filesystem_File_Text {
     private $lastLine = null;
 	private $position = -1;
     private $headers = array();
