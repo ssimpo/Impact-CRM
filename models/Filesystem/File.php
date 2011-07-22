@@ -12,7 +12,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Filesystem
  */
-class Filesystem_File extends Filesystem_ArrayAccess {
+class Filesystem_File extends Filesystem_ArrayAccess implements Filesystem_File_Object {
 	protected $parser;
 	protected $pathParser;
 	private $methods = array(
@@ -157,7 +157,10 @@ class Filesystem_File extends Filesystem_ArrayAccess {
 	}
 	
 	public function close() {
-		
+	}
+	
+	public function load($fullpath,$method) {
+		return $this->parser->load($fullpath,$method);
 	}
 }
 ?>
