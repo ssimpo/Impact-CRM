@@ -29,11 +29,19 @@ abstract class Report_ReportBase extends Base implements Iterator {
 	}
 	
 	public function current() {
+		if ($this->position == -1) {
+			$this->rewind();
+			$this->next();
+		}
 		return $this->current;
 	}
 	
 	public function key() {
-		return $this->position;
+		if ($this->position == -1) {
+			$this->rewind();
+		}
+		$key = $this->order[$this->position];
+		return $key;
 	}
 	
 	public function next() {
@@ -72,6 +80,6 @@ abstract class Report_ReportBase extends Base implements Iterator {
 		}
 	}
 	
-	abstract public function parse(&$data);
+	abstract public function parse($data);
 }
 ?>

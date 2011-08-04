@@ -11,7 +11,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Report
  */
-class Report extends Base {
+class Report extends Base implements Iterator {
 	private $suit;
 	private $methods;
 	
@@ -52,6 +52,12 @@ class Report extends Base {
 			throw new Exception('Undefined method "'.$name.'"');
 		}
 	}
+	
+	public function current() { return $this->suit->current(); }
+	public function key() { return $this->suit->key(); }
+	public function next() { return $this->suit->next(); }
+	public function rewind() { return $this->suit->rewind(); }
+	public function valid() { return $this->suit->valid(); }
 	
 	/**
 	 *	Set the type of this report.

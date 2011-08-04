@@ -9,7 +9,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Report
  */
-class Report_AccessLog_Referer extends Report_ReportBase {
+class Report_AccessLog_Referer extends Report_ReportBase implements Iterator {
 	public $userManager;
 	
 	public function init($userManager) {
@@ -20,9 +20,9 @@ class Report_AccessLog_Referer extends Report_ReportBase {
 		$this->userManager->close_all_sessions();
 	}
 	
-	public function parse(&$data) {
+	public function parse($data) {
 		if ($this->_is_entrance($data)) {
-			$uri = $this->_get_referer_uri($uri)->get_domain();
+			$uri = $this->_get_referer_uri($data)->domain;
 			$uriRef = $this->_get_hash($uri);
 			if (!isset($this->report[$uriRef])) {
 				$this->report[$uriRef] = $this->_create_report_entry();
@@ -36,15 +36,15 @@ class Report_AccessLog_Referer extends Report_ReportBase {
 		}
 	}
 	
-	public function _is_entrance(&$data) {
+	public function _is_entrance($data) {
 		$request = str_replace(
-			'www.','',$this->_get_request_uri($data)->get_domain()
+			'www.','',$this->_get_request_uri($data)->domain
 		);
 		$referer = str_replace(
-			'www.','',$this->_get_referer_uri($data)->get_domain()
+			'www.','',$this->_get_referer_uri($data)->domain
 		);
 		
-		return (strtolower($request) == strtolower($referer));
+		return (strtolower($request) != strtolower($referer));
 	}
 	
 	public function next() {
@@ -54,6 +54,10 @@ class Report_AccessLog_Referer extends Report_ReportBase {
 		$this->current['sessions'] = count($this->current['sessions']);
 		$this->position++;
 		return $this->current;
+	}
+	
+	public function headers() {
+		return array_keys($this->_create_report_entry());
 	}
 	
 	/**
@@ -76,7 +80,7 @@ class Report_AccessLog_Referer extends Report_ReportBase {
 	 *	@param array() $data The data to use.
 	 *	@return Filesystem_Path The URI.
 	 */
-	private function _get_request_uri(&$data) {
+	private function _get_request_uri($data) {
 		$url = $data['domain'].$data['request'];
 		$count = preg_match('/\A(.*?)(?:\/|\Z)/',$data['protocol'],$matches);
 		if ($count > 0) {
@@ -87,7 +91,7 @@ class Report_AccessLog_Referer extends Report_ReportBase {
 		return $url;
 	}
 	
-	private function _get_referer_uri(&$data) {
+	private function _get_referer_uri($data) {
 		$url = $data['referer'];
 		$url = new Filesystem_Path(strtolower($url));
 		

@@ -35,6 +35,7 @@ class Filesystem_File_LogBase extends  Filesystem_File_Text {
 			$this->lastLine = $this->parse($line);
 			return $this->lastLine;
 		}
+		return null;
 	}
 
 	public function rewind() {
