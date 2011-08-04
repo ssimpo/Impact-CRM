@@ -9,9 +9,9 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Report
  */
-class Report_AccessLog extends Report_ReportBase {
+class Report_AccessLog extends Report_ReportBase implements Iterator {
 	public $userManager;
-	public $report;
+	public $reportName;
 	
 	public function __construct() {
         $this->_init();
@@ -20,7 +20,8 @@ class Report_AccessLog extends Report_ReportBase {
 	private function _init() {
 		$this->userManager = new Report_UserManager();
 		$this->userManager->useGoogleAnalytics = true;
-		$this->reports = array();
+		$this->report = array();
+		$this->reportName = array();
 	}
 	
 	public function close_all_sessions() {
@@ -31,7 +32,11 @@ class Report_AccessLog extends Report_ReportBase {
 		$this->_init();
 	}
 	
-	public function parse(&$data) {
+	public function key() {
+		return $this->reportName[parent::key()];
+	}
+	
+	public function parse($data) {
 		if ($data instanceof Filesystem_File_Object) {
 			return $this->_parse_file($data);
 		} else {
@@ -62,10 +67,11 @@ class Report_AccessLog extends Report_ReportBase {
 	}
 	
 	public function add_report($type) {
-		$type = strtolower('report_accesslog_'.$type);
-		$ref = $this->_get_hash($type);
-		$this->report[$ref] = $this->factory($type);
-		if ((!is_object($this->report[$ref])) || ($type != strtolower(get_class($this->report[$ref])))) {
+		$ntype = strtolower('report_accesslog_'.$type);
+		$ref = $this->_get_hash($ntype);
+		$this->reportName[$ref] = $type;
+		$this->report[$ref] = $this->factory($ntype);
+		if ((!is_object($this->report[$ref])) || ($ntype != strtolower(get_class($this->report[$ref])))) {
 			return false;
 		}
 		
@@ -79,6 +85,7 @@ class Report_AccessLog extends Report_ReportBase {
 		$ref = $this->_get_hash($type);
 		if (isset($this->report[$ref])) {
 			unset($this->report[$ref]);
+			unset($this->reportName[$ref]);
 		}
 	}
 	

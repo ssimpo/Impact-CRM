@@ -107,13 +107,15 @@ class Report_UserManager_User extends Base {
 	}
 	
 	private function _on_new_session() {
+		if (is_array($this->onNewSession)) {
 		$this->_call_user_func_array(
 			$this->onNewSession[0],$this->onNewSession[1],$this
 		);
+		}
 	}
 	
 	private function _on_end_session() {
-		if ($this->start !== false) {
+		if (($this->start !== false) && (is_array($this->onEndSession))) {
 			$this->_call_user_func_array(
 				$this->onEndSession[0],$this->onEndSession[1],$this
 			);

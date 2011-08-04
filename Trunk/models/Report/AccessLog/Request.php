@@ -9,7 +9,7 @@ defined('DIRECT_ACCESS_CHECK') or die;
  *	@license http://www.gnu.org/licenses/lgpl.html LGPL
  *	@package Report
  */
-class Report_AccessLog_Request extends Report_ReportBase {
+class Report_AccessLog_Request extends Report_ReportBase implements Iterator {
 	public $userManager;
 	
 	public function init($userManager) {
@@ -23,7 +23,7 @@ class Report_AccessLog_Request extends Report_ReportBase {
 		$this->userManager->close_all_sessions();
 	}
 	
-	public function parse(&$data) {
+	public function parse($data) {
 		$uri = $this->_get_uri($data);
 		$uriRef = $this->_get_hash($uri);
 		
@@ -42,10 +42,19 @@ class Report_AccessLog_Request extends Report_ReportBase {
 	public function next() {
 		$key = $this->order[$this->position];
 		$this->current = $this->report[$key];
-		$this->current['users'] = count($this->current['users']);
-		$this->current['sessions'] = count($this->current['sessions']);
+		
+		$count = count($this->current['users']);
+		$this->current['users'] = $count;
+		
+		$count = count($this->current['sessions']);
+		$this->current['sessions'] = $count;
+		
 		$this->position++;
 		return $this->current;
+	}
+	
+	public function headers() {
+		return array_keys($this->_create_report_entry());
 	}
 	
 	/**
@@ -92,7 +101,7 @@ class Report_AccessLog_Request extends Report_ReportBase {
 	 *	@param array() $data The data to use.
 	 *	@return Filesystem_Path The URI.
 	 */
-	private function _get_uri(&$data) {
+	private function _get_uri($data) {
 		$url = $data['domain'].$data['request'];
 		$count = preg_match('/\A(.*?)(?:\/|\Z)/',$data['protocol'],$matches);
 		if ($count > 0) {
@@ -102,5 +111,9 @@ class Report_AccessLog_Request extends Report_ReportBase {
 		
 		return $url;
 	}
+	
+	public function __destruct() {
+		$this->userManager->close_all_sessions();
+    }
 }
 ?>

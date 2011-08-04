@@ -40,10 +40,14 @@ class Report_UserManager extends Base {
 	}
 	
 	public function close_all_sessions() {
-		$this->users = array();
+		if (is_array($this->users)) {
+			foreach($this->users as $key => $user) {
+				unset($this->users[$key]);
+			}
+		}
 	}
 
-	public function parse(&$data) {
+	public function parse($data) {
 		$userId = $this->_get_user_id($data);
 		if (!isset($this->users[$userId])) {
 			$this->users[$userId] = new Report_UserManager_User(
@@ -294,7 +298,7 @@ class Report_UserManager extends Base {
 	 *	@param array() $data The data to grab a UNID from.
 	 *	@return string*32
 	 */
-	private function _get_user_id(&$data) {
+	private function _get_user_id($data) {
 		$userId = false;
 		
 		if ($this->useGoogleAnalytics) {
@@ -316,7 +320,7 @@ class Report_UserManager extends Base {
 	 *	@param array() $data The data to grab the google analytics ID from.
 	 *	@return string*32|boolean The UNID or false if cookie not found.
 	 */
-	private function _get_google_analytics_user_id(&$data) {
+	private function _get_google_analytics_user_id($data) {
 		if (isset($data['cookie'])) {
 			if (isset($data['cookie']['__utma'])) {
 				return $this->_get_hash($data['cookie']['__utma']);
@@ -349,5 +353,9 @@ class Report_UserManager extends Base {
 		
 		return $is_numeric_indexed;
 	}
+	
+	public function __destruct() {
+		$this->close_all_sessions();
+    }
 }
 ?>

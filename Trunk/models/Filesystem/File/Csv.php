@@ -343,19 +343,24 @@ class Filesystem_File_Csv extends Filesystem_File_Text {
                 return false;
             }
         }
-        parent::write($this->rebuild_line($data));
+        $line = $this->rebuild_line($data);
+        if ($line != '') {
+            parent::write($line);
+        }
     }
     
     public function rebuild_line($row) {
         $line = '';
-        foreach ($row as $colValue) {
-            $colValue = str_replace(
-                $this->quotes,$this->quotes.$this->quotes,$colValue
-            );
-            if ($line != '') {
-                $line .= $this->comma;
+        if (is_array($row)) {
+            foreach ($row as $colValue) {
+                $colValue = str_replace(
+                    $this->quotes,$this->quotes.$this->quotes,$colValue
+                );
+                if ($line != '') {
+                    $line .= $this->comma;
+                }
+                $line .= $this->quotes.$colValue.$this->quotes;
             }
-            $line .= $this->quotes.$colValue.$this->quotes;
         }
         return $line."\n";
     }
