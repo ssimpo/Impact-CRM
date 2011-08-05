@@ -26,9 +26,9 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
     /**
      *  Parse a single log-line.
      *
-     *  Will break the line down into it's various componants and return an
-     *  array with results. Calls the base-class equvilant method and then,
-     *  does it's own specfic processing.
+     *  Will break the line down into it's various components and return an
+     *  array with results. Calls the base-class equivalent method and then,
+     *  does it's own specific processing.
      *
      *  @public
      *  @param string $line One line from the log.
@@ -63,6 +63,13 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
         return $parsed;
     }
     
+    /**
+     *  Parse a cookie into its individual parts.
+     *
+     *  @private
+     *  @param string $cookiesText The cookie string.
+     *  @return array() The cookies and their values.
+     */
     private function _parse_cookie($cookiesText) {
         if (trim($cookiesText) == '') {
             return array();
@@ -76,6 +83,13 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
         return $cookies;
     }
     
+    /**
+     *  Parse a the values of a cookie into an array.
+     *
+     *  @private
+     *  @param string $cookie The cookie string.
+     *  @return array() Cookie values as key/value pairs.
+     */
     private function _parse_cookie_values($cookie) {
         $parts = preg_split('/\&amp;|\&/',urldecode($cookie));
         if (count($parts) == 1) {
@@ -100,6 +114,13 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
         return I::array_trim($values);
     }
     
+    /**
+     *  Parse cookie parts into name/value cookies.
+     *
+     *  @private
+     *  @param array() $parts The cookies as separate array items.
+     *  @return array() Name/Value cookies.
+     */
     private function _get_named_cookies($parts) {
         $cookies = array();
         
@@ -120,6 +141,13 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
         return I::array_trim($cookies);
     }
     
+    /**
+     *  Split cookie into parts (one for each cookie)
+     *
+     *  @private
+     *  @param string $cookiesText The cookie string.
+     *  @return array()
+     */
     private function _get_cookie_parts($cookieText) {
         $parts = explode(';',$cookieText);
         $parts2 = array();
@@ -131,6 +159,18 @@ class Filesystem_File_DominoLog extends Filesystem_File_LogBase implements Files
         return I::array_trim($parts2);
     }
     
+    /**
+     *  Write data to a log file.
+     *
+     *  Will write the supplied data to the logfile using the internal line
+     *  rebuilder.  Will apply any given filter so that only lines, which
+     *  pass the filter are written.
+     *
+     *  @public
+     *  @param array()|string $data The string to write or data to convert to a logline.
+     *  @param string $filter The filter name to apply.
+     *  @return boolean Did it write?
+     */
     public function write($data,$filter='') {
         if ($filter != '') {
             if (!isset($this->filters[$filter])) {
