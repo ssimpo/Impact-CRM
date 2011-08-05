@@ -22,12 +22,22 @@ class Report_UserManager extends Base {
 		$this->_init();
 	}
 	
+	/**
+	 *	Intialize the object.
+	 *
+	 *	@private
+	 */
 	private function _init() {
 		$this->useGoogleAnalytics = false;
 		$this->close_all_sessions();
 		$this->_init_callers();
 	}
 	
+	/**
+	 *	Intialize all event callers.
+	 *
+	 *	@private
+	 */
 	private function _init_callers() {
 		$this->clear_all_events();
 		foreach ($this->eventTypes as $type) {
@@ -35,10 +45,22 @@ class Report_UserManager extends Base {
 		}
 	}
 	
+	/**
+	 *	Reset the current object.
+	 *
+	 *	Close all sessions and detach all events, and re-intialize object.
+	 *
+	 *	@public
+	 */
 	public function reset() {
 		$this->_init();
 	}
 	
+	/**
+	 *	Close all open session.
+	 *
+	 *	@public
+	 */
 	public function close_all_sessions() {
 		if (is_array($this->users)) {
 			foreach($this->users as $key => $user) {
@@ -46,7 +68,18 @@ class Report_UserManager extends Base {
 			}
 		}
 	}
-
+	
+	/**
+	 *	Parse the supllied data.
+	 *
+	 *	Parse the data and handle any session/user creation or updating.
+	 *	Events may be fired as a result of parsing.  Will return the userID,
+	 *	which the data reprsents.
+	 *
+	 *	@public
+	 *	@param array() $data The data array (usually from a parsed logline).
+	 *	@return string The userID
+	 */
 	public function parse($data) {
 		$userId = $this->_get_user_id($data);
 		if (!isset($this->users[$userId])) {
@@ -63,6 +96,16 @@ class Report_UserManager extends Base {
 		}
 	}
 	
+	/**
+	 *	Get a specified user.
+	 *
+	 *	Get the user represented by the supplied data-array (usually a parsed
+	 *	log line).
+	 *
+	 *	@public
+	 *	@param array() $data The data to aquire a user from.
+	 *	@return &object
+	 */
 	public function &get_user($data) {
 		$userId = '';
 		
@@ -201,18 +244,42 @@ class Report_UserManager extends Base {
 		throw new Exception('Unable to create method calling array.');
 	}
 	
+	/**
+	 *	onNewSession Event
+	 *
+	 *	Calls all the attached events for onNewSession.
+	 *
+	 *	@public
+	 *	@param Report_UserManager_User $user The new user object.
+	 */
 	public function on_new_session($user) {
 		foreach ($this->callers['onNewSession'] as $caller) {
 			$this->_call_user_func_array($caller[0],$caller[1],$user);
 		}
 	}
 	
+	/**
+	 *	onEndSession Event
+	 *
+	 *	Calls all the attached events for onEndSession.
+	 *
+	 *	@public
+	 *	@param Report_UserManager_User $user The new user object.
+	 */
 	public function on_end_session($user) {
 		foreach ($this->callers['onEndSession'] as $caller) {
 			$this->_call_user_func_array($caller[0],$caller[1],$user);
 		}
 	}
 	
+	/**
+	 *	onNewUser Event
+	 *
+	 *	Calls all the attached events for onNewUser.
+	 *
+	 *	@public
+	 *	@param Report_UserManager_User $user The new user object.
+	 */
 	public function on_new_user($user) {
 		foreach ($this->callers['onNewUser'] as $caller) {
 			$this->_call_user_func_array($caller[0],$caller[1],$user);
@@ -354,6 +421,12 @@ class Report_UserManager extends Base {
 		return $is_numeric_indexed;
 	}
 	
+	/**
+	 *	Destructor
+	 *
+	 *	Ensures that all sessions are closed when the object is destroyed.
+	 *	Closing sessions will call their onEndSession event.
+	 */
 	public function __destruct() {
 		$this->close_all_sessions();
     }
