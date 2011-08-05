@@ -319,7 +319,7 @@ class ICalRRuleParser extends Base {
 	}
 	
 	/**
-	 *	Make the passed paramater an array if it isn't already one.
+	 *	Make the passed parameter an array if it isn't already one.
 	 *
 	 *	@private
 	 *	@param mixed $item The variable to turn into an array.
