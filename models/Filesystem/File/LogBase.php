@@ -37,17 +37,40 @@ class Filesystem_File_LogBase extends  Filesystem_File_Text {
 		}
 		return null;
 	}
-
+	
+	/**
+	 *	Move to the start of the log-file.
+	 *
+	 *	Move to the start of the log-file, part of Iterator object.
+	 *
+	 *	@public
+	 */
 	public function rewind() {
 		$this->position = 0;
 		rewind($this->handle);
 		$this->next();
 	}
 	
+	/**
+	 *	Return the current parsed logline.
+	 *
+	 *	Return the current parsed logline, part of Iterator object.
+	 *
+	 *	@public
+	 *	@return array() The line from the open filehandle, parsed according to class rules.
+	 */
 	public function current() {
 		return $this->lastLine;
     }
 	
+	/**
+	 *	Is the current file-postion valid?
+	 *
+	 *	Is the current file-postion valid, part of Iterator object.
+	 *
+	 *	@public
+	 *	@return boolean
+	 */
 	public function valid() {
 		if (feof($this->handle)) {
 			return false;
@@ -56,10 +79,26 @@ class Filesystem_File_LogBase extends  Filesystem_File_Text {
 		}
     }
 	
+	/**
+	 *	Get the current key (file-position).
+	 *
+	 *	Get the current key (file-position), part of Iterator object.
+	 *
+	 *	@public
+	 *	@return string
+	 */
 	public function key() {
 		return $this->position;
 	}
 	
+	/**
+	 *	Cannot get the entire file.
+	 *
+	 *	Revoke the all() method of the parent class by overriding it and firing
+	 *	an error if it called.
+	 *
+	 *	@public
+	 */
 	public function all() {
 		throw new Exception('Cannot load all for this type of file, use the next() method.');
 	}
