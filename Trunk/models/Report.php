@@ -19,6 +19,11 @@ class Report extends Base implements Iterator {
         $this->_init($type);
     }
 	
+	/**
+	 *	Intialize the object.
+	 *
+	 *	@private
+	 */
 	private function _init($type) {
 		if ($type == '') {
 			$this->suit = false;
@@ -28,6 +33,11 @@ class Report extends Base implements Iterator {
 		}
 	}
 	
+	/**
+	 *	Re-intialize object
+	 *
+	 *	@public
+	 */
 	public function reset($type='') {
 		$this->_init($type);
 	}
