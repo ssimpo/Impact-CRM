@@ -41,7 +41,7 @@ class Plugin_Menu implements Impact_Plugin {
 	 *	Initialization of data.
 	 *
 	 *	@private
-	 *	@param array $attributes The XML attriutes supplied (in format key1=value1,...etc).
+	 *	@param array $attributes The XML attributes supplied (in format key1=value1,...etc).
 	 */
 	private function _init($attributes) {
 	    $this->_attributes = $attributes;
