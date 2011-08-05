@@ -20,14 +20,30 @@ abstract class Report_ReportBase extends Base implements Iterator {
 		$this->_init();
     }
 	
+	/**
+	 *	Intialize the object.
+	 *
+	 *	@private
+	 */
 	private function _init() {
 		$this->report = array();
 	}
 	
+	/**
+	 *	Re-intialize object
+	 *
+	 *	@public
+	 */
 	public function reset() {
 		$this->_init();
 	}
 	
+	/**
+	 *	Current item via Iterator.
+	 *
+	 *	@public
+	 *	@return Report The current report.
+	 */
 	public function current() {
 		if ($this->position == -1) {
 			$this->rewind();
@@ -36,6 +52,12 @@ abstract class Report_ReportBase extends Base implements Iterator {
 		return $this->current;
 	}
 	
+	/**
+	 *	Current key name, part of Iterator object.
+	 *
+	 *	@public
+	 *	@return string The key name.
+	 */
 	public function key() {
 		if ($this->position == -1) {
 			$this->rewind();
@@ -44,6 +66,14 @@ abstract class Report_ReportBase extends Base implements Iterator {
 		return $key;
 	}
 	
+	/**
+	 *	Move to the next report.
+	 *
+	 *	Move and return it, part of Iterator object.
+	 *
+	 *	@public
+	 *	@return Report
+	 */
 	public function next() {
 		$key = $this->order[$this->position];
 		$this->current = $this->report[$key];
@@ -51,11 +81,22 @@ abstract class Report_ReportBase extends Base implements Iterator {
 		return $this->current;
 	}
 	
+	/**
+	 *	Reset the Iterator object to the first report.
+	 *
+	 *	@public
+	 */
 	public function rewind() {
 		$this->order = array_keys($this->report);
 		$this->position = 0;
 	}
 	
+	/**
+	 *	Is the current postion in the Iterator valid?
+	 *
+	 *	@public
+	 *	@return Boolean
+	 */
 	public function valid() {
 		if (($this->position > -1) && ($this->position < count($this->report))) {
 			return true;
