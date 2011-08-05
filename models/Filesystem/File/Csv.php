@@ -45,17 +45,40 @@ class Filesystem_File_Csv extends Filesystem_File_Text {
 			return $this->lastLine;
 		}
 	}
-
+    
+    /**
+	 *	Move to the start of the CSV-file.
+	 *
+	 *	Move to the start of the CSV-file, part of Iterator object.
+	 *
+	 *	@public
+	 */
 	public function rewind() {
         $this->position = -1;
 		rewind($this->handle);
 		$this->next();
 	}
 	
+    /**
+	 *	Return the current parsed CSV-line.
+	 *
+	 *	Return the current parsed CSV-line, part of Iterator object.
+	 *
+	 *	@public
+	 *	@return array() The line from the open filehandle, parsed according to class rules.
+	 */
 	public function current() {
         return $this->lastLine;
     }
 	
+    /**
+	 *	Is the current file-postion valid?
+	 *
+	 *	Is the current file-postion valid, part of Iterator object.
+	 *
+	 *	@public
+	 *	@return boolean
+	 */
 	public function valid() {
         if (feof($this->handle)) {
 			return false;
@@ -64,11 +87,30 @@ class Filesystem_File_Csv extends Filesystem_File_Text {
 		}
     }
 	
+    /**
+	 *	Get the current key (file-position).
+	 *
+	 *	Get the current key (file-position), part of Iterator object.
+	 *
+	 *	@public
+	 *	@return string
+	 */
 	public function key() {
         return $this->position;
 	}
 	
+    /**
+	 *	Cannot get the entire file.
+	 *
+	 *	Revoke the all() method of the parent class by overriding it and firing
+	 *	an error if it called.
+	 *
+	 *	@todo Add coding so all() can be applied and entire file parsed and returned as a 2D array.
+	 *
+	 *	@public
+	 */
 	public function all() {
+        throw new Exception('Cannot load all for this type of file, use the next() method.');
 	}
     
     /**
@@ -191,6 +233,15 @@ class Filesystem_File_Csv extends Filesystem_File_Text {
         return $newArray;
     }
     
+    /**
+     *  Get the regx for splitting a CSV-line.
+     *
+     *  Get the regx for splitting a CSV-line. Will use the object
+     *  quoting-characters and value splitter.
+     *
+     *  @private
+     *  @return string
+     */
     private function _get_line_splitting_regx() {
         $matcher = '/\,(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))/';
         $matcher = str_replace(',',$this->comma,$matcher);
@@ -330,6 +381,18 @@ class Filesystem_File_Csv extends Filesystem_File_Text {
         return $columns;
     }
     
+    /**
+     *  Write data to a CSV file.
+     *
+     *  Will write the supplied data to the CSV-file using the internal line
+     *  rebuilder.  Will apply any given filter so that only lines, which
+     *  pass the filter are written.
+     *
+     *  @public
+     *  @param array()|string $data The string to write or data to convert to CSV.
+     *  @param string $filter The filter name to apply.
+     *  @return boolean Did it write?
+     */
     public function write($data,$filter='') {
         if ($filter != '') {
             if ($this->_is_numeric_indexed_array($data)) {
@@ -349,6 +412,15 @@ class Filesystem_File_Csv extends Filesystem_File_Text {
         }
     }
     
+    /**
+     *  Rebuild and return a CSV-line from the given array().
+     *
+     *  @todo Better handling of name/value pairs as opposed to numbered arrays.
+     *
+     *  @public
+     *  @param array() $row The data to use to producing a CSV line.
+     *  @return string
+     */
     public function rebuild_line($row) {
         $line = '';
         if (is_array($row)) {
