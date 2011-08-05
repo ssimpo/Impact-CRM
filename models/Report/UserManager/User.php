@@ -27,10 +27,11 @@ class Report_UserManager_User extends Base {
 		$this->_init($onNewSession,$onEndSession);
 	}
 	
-	public function __destruct() {
-		$this->_on_end_session();
-	}
-	
+	/**
+	 *	Initialize the object.
+	 *
+	 *	@private
+	 */
 	private function _init($onNewSession,$onEndSession) {
 		$this->onNewSession = $onNewSession;
 		$this->onEndSession = $onEndSession;
@@ -43,6 +44,13 @@ class Report_UserManager_User extends Base {
 		$this->sessionUri = null;
 	}
 	
+	/**
+	 *	Reset the current object.
+	 *
+	 *	Close session and detach all events, and re-intialize object.
+	 *
+	 *	@public
+	 */
 	public function reset() {
 		$this->_init();
 	}
@@ -58,7 +66,13 @@ class Report_UserManager_User extends Base {
 		}
 	}
 	
-	public function parse(&$data) {
+	/**
+	 *	Parse given data to update/create session
+	 *
+	 *	@private
+	 *	@param array() $data The data array (usually from a parsed logline).
+	 */
+	public function parse($data) {
 		if ($this->start === false) {
 			$this->_handle_first_request($data);
 			return;
@@ -75,13 +89,25 @@ class Report_UserManager_User extends Base {
 		}
 	}
 	
-	private function _handle_first_request(&$data) {
+	/**
+	 *	Intialize user information given by first request.
+	 *
+	 *	@private
+	 *	@param array() $data The data array (usually from a parsed logline).
+	 */
+	private function _handle_first_request($data) {
 		$now = $this->_get_now($data);
 		$this->start = $now;
 		$this->_create_new_session($data);
 	}
 	
-	private function _create_new_session(&$data) {
+	/**
+	 *	Create a new session.
+	 *
+	 *	@private
+	 *	@param array() $data The data array (usually from a parsed logline).
+	 */
+	private function _create_new_session($data) {
 		$this->count++;
 		$this->sessionId = $this->_get_hash(microtime());
 		$this->sessionStart = $this->_get_now($data);
@@ -91,7 +117,14 @@ class Report_UserManager_User extends Base {
 		$this->_on_new_session();
 	}
 	
-	private function _get_now(&$data) {
+	/**
+	 *	Get the Calendar_DateTime for the supplied data.
+	 *
+	 *	@private
+	 *	@param array() $data The data array (usually from a parsed logline).
+	 *	@return Calendar_DateTime
+	 */
+	private function _get_now($data) {
 		if (isset($data['datetime'])) {
 			if ($data['datetime'] instanceof Calendar_DateTime) {
 				return $data['datetime']->epoc;
@@ -106,14 +139,28 @@ class Report_UserManager_User extends Base {
 		}
 	}
 	
+	/**
+	 *	onNewSession Event
+	 *
+	 *	Call all the attached event for onNewSession.
+	 *
+	 *	@private
+	 */
 	private function _on_new_session() {
 		if (is_array($this->onNewSession)) {
-		$this->_call_user_func_array(
-			$this->onNewSession[0],$this->onNewSession[1],$this
-		);
+			$this->_call_user_func_array(
+				$this->onNewSession[0],$this->onNewSession[1],$this
+			);
 		}
 	}
 	
+	/**
+	 *	onEndSession Event
+	 *
+	 *	Call all the attached event for onEndSession.
+	 *
+	 *	@private
+	 */
 	private function _on_end_session() {
 		if (($this->start !== false) && (is_array($this->onEndSession))) {
 			$this->_call_user_func_array(
@@ -129,7 +176,7 @@ class Report_UserManager_User extends Base {
 	 *	@param array() $data The data to use.
 	 *	@return Filesystem_Path The URI.
 	 */
-	private function _get_uri(&$data) {
+	private function _get_uri($data) {
 		$url = $data['domain'].$data['request'];
 		$count = preg_match('/\A(.*?)(?:\/|\Z)/',$data['protocol'],$matches);
 		if ($count > 0) {
@@ -228,6 +275,16 @@ class Report_UserManager_User extends Base {
 		}
 		
 		return $is_numeric_indexed;
+	}
+	
+	/**
+	 *	Destructor
+	 *
+	 *	Ensures that session is closed when the object is destroyed. Closing
+	 *	session will call the onEndSession event.
+	 */
+	public function __destruct() {
+		$this->_on_end_session();
 	}
 }
 ?>

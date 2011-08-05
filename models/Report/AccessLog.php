@@ -17,6 +17,11 @@ class Report_AccessLog extends Report_ReportBase implements Iterator {
         $this->_init();
     }
 	
+	/**
+	 *	Initialize the object.
+	 *
+	 *	@private
+	 */
 	private function _init() {
 		$this->userManager = new Report_UserManager();
 		$this->userManager->useGoogleAnalytics = true;
@@ -24,18 +29,54 @@ class Report_AccessLog extends Report_ReportBase implements Iterator {
 		$this->reportName = array();
 	}
 	
+	/**
+	 *	Close all sessions.
+	 *
+	 *	Close all the sessions in the connected Report_UserManager
+	 *
+	 *	@public
+	 */
 	public function close_all_sessions() {
 		$this->userManager->close_all_sessions();
 	}
 	
+	/**
+	 *	Re-intialize object
+	 *
+	 *	@public
+	 */
 	public function reset() {
 		$this->_init();
 	}
 	
+	/**
+	 *	Return the current key.
+	 *
+	 *	Part of the Iterator object type.  Returns the current key in a
+	 *	foreach loop. Overrides the method already defined in the parent
+	 *	Report_ReportBase.
+	 *
+	 *	@public
+	 *	@return string
+	 */
 	public function key() {
 		return $this->reportName[parent::key()];
 	}
 	
+	
+	/**
+	 *	Parse the supplied data.
+	 *
+	 *	Parse the supplied data via the connected reports.  Will accept
+	 *	Filesystem_File_Object (in which case, the file will be parsed first),
+	 *	as well as a data-array representing data to be reported on.
+	 *
+	 *	@todo Parsing of Filesystem_File_Object is not properly implemented.
+	 *
+	 *	@public
+	 *	@param array()|Filesystem_File_Object Data top parse
+	 *	@return int Number of lines or data arrays parsed.
+	 */
 	public function parse($data) {
 		if ($data instanceof Filesystem_File_Object) {
 			return $this->_parse_file($data);
@@ -47,6 +88,13 @@ class Report_AccessLog extends Report_ReportBase implements Iterator {
 		}
 	}
 	
+	/**
+	 *	Parse a file.
+	 *	
+	 *	@private
+	 *	@param Filesystem_File_Object $file The file object tom parse.
+	 *	@return int Number of lines or data arrays parsed.
+	 */
 	private function _parse_file($file) {
 		$counter = 0;
 		foreach ($file as $line) {
@@ -56,6 +104,13 @@ class Report_AccessLog extends Report_ReportBase implements Iterator {
 		return $counter;
 	}
 	
+	/**
+	 * Get a report object of type report_accesslog_<type>
+	 *
+	 * @public
+	 * @param string $type The report type to get.
+	 * @return Report|Boolean The report object or false if it is not defined.
+	 */
 	public function get_report($type) {
 		$type = strtolower('report_accesslog_'.$type);
 		$ref = $this->_get_hash($type);
@@ -66,6 +121,13 @@ class Report_AccessLog extends Report_ReportBase implements Iterator {
 		}
 	}
 	
+	/**
+	 *	Add a report to the current suit.
+	 *
+	 *	@public
+	 *	@param string $type The report type to get.
+	 *	@return boolean Was the reported added or not.
+	 */
 	public function add_report($type) {
 		$ntype = strtolower('report_accesslog_'.$type);
 		$ref = $this->_get_hash($ntype);
@@ -80,6 +142,12 @@ class Report_AccessLog extends Report_ReportBase implements Iterator {
 		return true;
 	}
 	
+	/**
+	 *	Remove a report to the current suit.
+	 *
+	 *	@public
+	 *	@param string $type The report type to remove.
+	 */
 	public function remove_report($type) {
 		$type = strtolower('report_accesslog_'.$type);
 		$ref = $this->_get_hash($type);
