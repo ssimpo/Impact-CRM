@@ -20,7 +20,7 @@ class Report extends Base implements Iterator {
     }
 	
 	/**
-	 *	Intialize the object.
+	 *	Initialize the object.
 	 *
 	 *	@private
 	 */
