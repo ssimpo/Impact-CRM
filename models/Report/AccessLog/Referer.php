@@ -75,6 +75,15 @@ class Report_AccessLog_Referer extends Report_ReportBase implements Iterator {
 		return (strtolower($request) != strtolower($referer));
 	}
 	
+	/**
+	 *	Move to the next report.
+	 *
+	 *	Move and return it, part of Iterator object. Overides the default
+	 *	next() method defined in Report_ReportBase.
+	 *
+	 *	@public
+	 *	@return Report
+	 */
 	public function next() {
 		$key = $this->order[$this->position];
 		$this->current = $this->report[$key];

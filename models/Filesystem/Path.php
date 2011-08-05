@@ -27,6 +27,12 @@ class Filesystem_Path extends Base {
 		}
 	}
 	
+	/**
+	 *	Return the fullpath as a string
+	 *
+	 *	@public
+	 *	@return string
+	 */
 	public function __toString() {
 		return $this->fullpath;
 	}
@@ -131,7 +137,7 @@ class Filesystem_Path extends Base {
 	
 	
 	/**
-	 *	Create a full path represenation.
+	 *	Create a full path representation.
 	 *
 	 *	@private
 	 */
@@ -144,7 +150,7 @@ class Filesystem_Path extends Base {
 	}
 	
 	/**
-	 *	Create a full path represenation in a local environment (ie. no scheme).
+	 *	Create a full path representation in a local environment (ie. no scheme).
 	 *
 	 *	@private
 	 *	@return string The fullpath.
@@ -162,7 +168,7 @@ class Filesystem_Path extends Base {
 	}
 	
 	/**
-	 *	Create a full path represenation in a non-local environment (ie. with scheme).
+	 *	Create a full path representation in a non-local environment (ie. with scheme).
 	 *
 	 *	@private
 	 *	@return string The fullpath.
@@ -227,8 +233,8 @@ class Filesystem_Path extends Base {
 	/**
 	 *	Convert the internal path representation into a local one.
 	 *
-	 *	Will convert slashes to their local equvilant. Usually backslash on
-	 *	Windows machines and forwardslash on UNIX.
+	 *	Will convert slashes to their local equivalent. Usually backslash on
+	 *	Windows machines and forward-slash on UNIX.
 	 *
 	 *	@private
 	 *	@param string $path The path to convert.
@@ -729,7 +735,7 @@ class Filesystem_Path extends Base {
 	/**
 	 *	Attempt to fix a badly configured slashes within a URI/URL.
 	 *
-	 *	Will convert all slashes to forward-slash so there is consistancy.
+	 *	Will convert all slashes to forward-slash so there is consistency.
 	 *
 	 *	@private
 	 *	@static

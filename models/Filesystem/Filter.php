@@ -113,6 +113,16 @@ class Filesystem_Filter extends Base {
 		return $data;
 	}
 	
+	/**
+     *  Run a test against a given subject.
+     *
+     *  @private
+     *  @param string $subject The subject name to run the test against.
+     *  @param array() $test The test to run.
+     *  @param string $type The test type
+     *  @param string $compare The compare to use.
+     *  @return boolean Passed tested or failed?
+     */
 	private function _run_test($subject,$test,$type,$compare='==') {
 		switch ($type) {
 			case 'regx': return $this->_run_test_regx($test,$subject);
@@ -124,6 +134,14 @@ class Filesystem_Filter extends Base {
 		return false;
 	}
 	
+	/**
+     *  Run a regx-test against a given subject.
+     *
+     *  @private
+     *  @param array() $test The test to run.
+     *  @param string $compare The compare to use.
+     *  @return boolean Passed tested or failed?
+     */
 	private function _run_test_regx($test,$subject) {
 		$found = @preg_match($test,$subject);
 		if ($found === false) {
@@ -135,6 +153,15 @@ class Filesystem_Filter extends Base {
 		return false;
 	}
 	
+	/**
+     *  Run a compare-test against a given subject.
+     *
+     *  @private
+     *  @param string $subject The subject name to run the test against.
+     *  @param array() $test The test to run.
+     *  @param string $compare The compare to use.
+     *  @return boolean Passed tested or failed?
+     */
 	private function _run_test_compare($test,$subject,$compare='==') {
 		switch ($compare) {
 			case '==': case '=': return ($test == $subject);
@@ -167,6 +194,13 @@ class Filesystem_Filter extends Base {
 		}
 	}
 	
+	/**
+     *  Get the include attribute-value for a given test.
+     *
+     *  @private
+     *  @param array() $test The test to parse
+     *  @return string
+     */
 	private function _get_include(&$test) {
 		$include = false;
 		if (isset($test['include'])) {
@@ -175,7 +209,14 @@ class Filesystem_Filter extends Base {
 		return $include;
 	}
 	
-	private function _get_compare(&$test) {
+	/**
+     *  Get the compare attribute-value for a given test.
+     *
+     *  @private
+     *  @param array() $test The test to parse
+     *  @return string
+     */
+	private function _get_compare($test) {
 		$compare = '==';
 		if (isset($test['compare'])) {
 			$compare = $test['compare'];
@@ -183,6 +224,13 @@ class Filesystem_Filter extends Base {
 		return $compare;
 	}
 	
+	/**
+     *  Get the epoc-date for given value.
+     *
+     *  @private
+     *  @param string|Calendar_DateTime $value The value to parse
+     *  @return int
+     */
 	private function _get_epoc_value($value) {
 		if ($value instanceof Calendar_DateTime) {
 			$value = $value->epoc;
@@ -212,10 +260,10 @@ class Filesystem_Filter extends Base {
     }
 	
 	/**
-	 *	Calculate a test name from the paramters and namespace.
+	 *	Calculate a test name from the parameters and namespace.
 	 *
 	 *	@private
-	 *	@param array() $params The paramters to grab the name from.
+	 *	@param array() $params The parameters to grab the name from.
 	 *	@param string $namespace The namespace to add to the test name.
 	 */
 	private function _get_test_name($params,$namespace) {
