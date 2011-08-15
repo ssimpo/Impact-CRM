@@ -14,7 +14,7 @@ class Test_Filesystem_File_Settings extends ImpactPHPUnit {
 	private $testPath;
 	
 	protected function setUp() {
-		
+		$this->init();
 	}
 	
 	public function test_load() {

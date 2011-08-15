@@ -14,6 +14,7 @@ class Test_Filesystem_Filter extends ImpactPHPUnit {
 	private $testPath;
 	
 	protected function setUp() {
+		$this->init();
 		
 	}
 	

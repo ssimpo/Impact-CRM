@@ -13,6 +13,7 @@ require_once('globals.php');
 class Test_Report_AccessLog extends ImpactPHPUnit {
 	
 	protected function setUp() {
+		$this->init();
 	}
 	
 	public function test_reset() {

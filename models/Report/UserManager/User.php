@@ -23,7 +23,7 @@ class Report_UserManager_User extends Base {
 	private $count;
 	
 	
-	public function __construct($onNewSession,$onEndSession) {
+	public function __construct($onNewSession=null,$onEndSession=null) {
 		$this->_init($onNewSession,$onEndSession);
 	}
 	

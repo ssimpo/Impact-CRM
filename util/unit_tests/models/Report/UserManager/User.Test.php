@@ -13,6 +13,7 @@ require_once('globals.php');
 class Test_Report_UserManager_User extends ImpactPHPUnit {
 	
 	protected function setUp() {
+		$this->init();
 	}
 	
 	public function test_reset() {
@@ -60,7 +61,17 @@ class Test_Report_UserManager_User extends ImpactPHPUnit {
 	}
 	
 	public function test_is_numeric_indexed_array() {
-		// STUB
+		$array = array(1,2,3,3);
+		$this->assertMethodReturnTrue(array($array));
+		
+		/*$array = array(1,'two'=>2,3,3);
+		$this->assertMethodReturnFalse(array($array));
+		
+		$array = array('one'=>1,'two'=>2,'three'=>3);
+		$this->assertMethodReturnFalse(array($array));
+		
+		$array = array(1,array(1,2,3),3);
+		$this->assertMethodReturnFalse(array($array));8?*/
 	}
 }
 ?>
