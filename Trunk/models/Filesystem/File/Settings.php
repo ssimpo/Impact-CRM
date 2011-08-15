@@ -342,6 +342,5 @@ class Filesystem_File_Settings implements Filesystem_File_Object,ArrayAccess,Cou
         $date->epoc = $value;
         return $date;
     }
-    
 }
 ?>
