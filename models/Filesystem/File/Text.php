@@ -111,6 +111,7 @@ class Filesystem_File_Text extends Filesystem implements Filesystem_File_Object 
 	 */
 	public function close() {
 		if ($this->_is_resource()) {
+			print "closing\n";
 			fclose($this->handle);
 		}
 	}
