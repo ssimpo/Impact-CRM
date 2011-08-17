@@ -3,7 +3,7 @@
  *	Unit Test Framework for Impact.
  *
  *	@author Stephen Simpson <me@simpo.org>
- *	@version 0.0.2
+ *	@version 0.0.3
  *	@license http://www.gnu.org/licenses/lgpl.html
  *	@package UnitTests.Impact
  *	@extends PHPUnit_Framework_TestCase
