@@ -170,40 +170,33 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 		throw new Exception('Property "'.$propertyName.'" does not exist');
 	}
 	
-	public function assertMethodReturn($expected,$args=array(),$functionName='') {
+	public function getMethodReturn($args=array(),$functionName='') {
 		if ($functionName == '') {
 			$functionName = $this->_get_function_name();
 		}
 		$args = $this->_convert_to_arguments_array($args);
 		
 		$method = self::get_method($functionName);
+		
+		return $method->invokeArgs($this->instance,$args);
+	}
+	
+	public function assertMethodReturn($expected,$args=array(),$functionName='') {
 		return $this->assertEquals(
 			$expected,
-			$method->invokeArgs($this->instance,$args)
+			$this->getMethodReturn($args,$functionName)
 		);
 	}
 	
 	public function assertMethodPropertySet($propertyName,$expected,$args=array(),$functionName='') {
-		if ($functionName == '') {
-			$functionName = $this->_get_function_name();
-		}
-		$args = $this->_convert_to_arguments_array($args);
-		
-		$method = self::get_method($functionName);
-		$method->invokeArgs($this->instance,$args);
+		$this->getMethodReturn($args,$functionName);
 		$propertyValue = $this->_get_property_value($propertyName);
 		
 		return $this->assertEquals($expected,$propertyValue);
 	}
 	
 	public function assertMethodPropertyType($propertyName,$expected,$args=array(),$functionName='') {
-		if ($functionName == '') {
-			$functionName = $this->_get_function_name();
-		}
-		$args = $this->_convert_to_arguments_array($args);
-		
-		$method = self::get_method($functionName);
-		$method->invokeArgs($this->instance,$args);
+		$result = $this->getMethodReturn($args,$functionName);
 		$propertyValue = $this->_get_property_value($propertyName);
 		
 		if ($this->_is_equal($expected,gettype($propertyValue))) {
@@ -215,24 +208,25 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 		}
 	}
 	
-	public function assertMethodReturnTrue($args=array(),$functionName='') {
-		if ($functionName == '') {
-			$functionName = $this->_get_function_name();
-		}
-		$args = $this->_convert_to_arguments_array($args);
+	public function assertMethodReturnType($type,$args=array(),$functionName='') {
+		$result = $this->getMethodReturn($args,$functionName);
+		$resultType = gettype($result);
 		
-		$method = self::get_method($functionName);
-		return $this->assertTrue($method->invokeArgs($this->instance,$args));
+		if ($this->_is_equal($resultType,$type)) {
+			return $this->assertTrue(true);
+		} elseif ($this->_is_equal($resultType,'object')) {
+			return $this->assertTrue(
+				$this->_is_equal($type,get_class($propertyValue))
+			);
+		}
+	}
+	
+	public function assertMethodReturnTrue($args=array(),$functionName='') {
+		return $this->assertTrue($this->getMethodReturn($args,$functionName));
 	}
 	
 	public function assertMethodReturnFalse($args=array(),$functionName='') {
-		if ($functionName == '') {
-			$functionName = $this->_get_function_name();
-		}
-		$args = $this->_convert_to_arguments_array($args);
-		
-		$method = self::get_method($functionName);
-		return $this->assertFalse($method->invokeArgs($this->instance,$args));
+		return $this->assertFalse($this->getMethodReturn($args,$functionName));
 	}
 	
 	/**
