@@ -132,7 +132,8 @@ class Report_UserManager_User extends Base {
 				return $data['datetime'];
 			} elseif (is_string($data['datetime'])) {
 				$dateparser = new DateParser();
-				return $dateparser->parse($parsed['datetime']);
+				$datetime = $dateparser->parse($data['datetime']);
+				return $datetime->epoc;
 			}
 		} else {
 			return time();
