@@ -69,11 +69,16 @@ class Test_Report_UserManager extends ImpactPHPUnit {
 	}
 	
 	public function test_convert_to_arguments_array() {
-		// STUB
+		$this->assertMethodReturn( array(1,2), array(array(1,2)) );
+		$this->assertMethodReturn( array(1), 1 );
+		$this->assertMethodReturn( array('one','two','three'), array(array('one','two','three')) );
 	}
 	
 	public function test_get_hash() {
-		// STUB
+		$this->assertMethodReturnType('string','testtest');
+		$return = $this->getMethodReturn('testtest');
+		$this->assertEquals(32,strlen($return));
+		$this->assertTrue(is_numeric('0x'.$return));
 	}
 	
 	public function test_get_user_id() {
@@ -85,7 +90,17 @@ class Test_Report_UserManager extends ImpactPHPUnit {
 	}
 	
 	public function test_is_numeric_indexed_array() {
-		// STUB
+		$array = array(1,2,3,3);
+		$this->assertMethodReturnTrue(array($array));
+		
+		$array = array(1,'two'=>2,3,3);
+		$this->assertMethodReturnFalse(array($array));
+		
+		$array = array('one'=>1,'two'=>2,'three'=>3);
+		$this->assertMethodReturnFalse(array($array));
+		
+		$array = array(1,array(1,2,3),3);
+		$this->assertMethodReturnTrue(array($array));
 	}
 }
 ?>
