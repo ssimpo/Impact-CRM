@@ -216,7 +216,7 @@ abstract class ImpactPHPUnit extends PHPUnit_Framework_TestCase {
 			return $this->assertTrue(true);
 		} elseif ($this->_is_equal($resultType,'object')) {
 			return $this->assertTrue(
-				$this->_is_equal($type,get_class($propertyValue))
+				$this->_is_equal($type,get_class($result))
 			);
 		}
 	}
