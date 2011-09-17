@@ -41,6 +41,7 @@ class Application extends Singleton {
 		} else {
 			$this->pageName = DEFAULT_HOMEPAGE;
 		}
+		
 		$this->pageErrorCheck = $this->_get_page_request_info();
 	}
 	

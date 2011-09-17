@@ -148,7 +148,68 @@ class Database extends Singleton {
 			array(array(strtolower($application->language),strtolower(DEFAULT_LANG)))
 		);
 		
+		$rs['sectionTitle'] = $this->_get_section($entityID);
+		
 		return $rs;
+	}
+	
+	private function _get_section($entityID) {
+		$application = Application::instance();
+		$parentPath = $this->_get_parent_structure_path($entityID);
+		if ($parentPath == '') {
+			return $parentPath;
+		}
+		
+		$SQL = '
+			SELECT title
+			FROM structure
+			WHERE (path="'.$parentPath.'") AND (lang LIKE "%<LANG>%")
+		';
+		$rs = $this->try_row(
+			120,$SQL,'<LANG>',
+			array(array(strtolower($application->language),strtolower(DEFAULT_LANG)))
+		);
+		
+		if ($rs) {
+			return $rs['title'];
+		} else {
+			return false;
+		}
+	}
+	
+	private function _get_parent_structure_path($entityID) {
+		$sectionPath = $this->_get_structure_path($entityID);
+		if (!$sectionPath) {
+			return '';
+		}
+		
+		$parts = explode('/',$sectionPath);
+		$currentPart = array_pop($parts);
+		if (empty($parts)) {
+			return $currentPart;
+		} else {
+			return implode('/',$parts);
+		}
+	}
+	
+	private function _get_structure_path($entityID) {
+		$application = Application::instance();
+		
+		$SQL = '
+			SELECT path
+			FROM structure
+			WHERE (entityID='.$entityID.') AND (lang LIKE "%<LANG>%")
+		';
+		$rs = $this->try_row(
+			120,$SQL,'<LANG>',
+			array(array(strtolower($application->language),strtolower(DEFAULT_LANG)))
+		);
+		
+		if ($rs) {
+			return $rs['path'];
+		} else {
+			return false;
+		}
 	}
 	
 	/**

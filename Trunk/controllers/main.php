@@ -25,11 +25,11 @@ $database = Database::instance();
  */
 if ($application->pageErrorCheck) {
     $tparser = $application->factory('Template');
-	
+    
     $tparser->init(
-		$database->get_page(),
-		$application->settings
-	);
+	$database->get_page(),
+	$application->settings
+    );
     
     echo $tparser->parse(VIEWS_DIRECTORY.DS.USE_THEME.DS.'xml'.DS.'main.xml');
 }
